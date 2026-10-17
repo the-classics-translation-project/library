@@ -44,7 +44,7 @@ jobs:
           fi
   site:
     needs: intake
-    if: needs.intake.outputs.changed == 'true' && vars.CTP_PAGES_ENABLED == 'true'
+    if: needs.intake.outputs.changed == 'true'
     permissions:
       contents: read
       pages: write

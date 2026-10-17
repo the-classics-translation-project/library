@@ -129,8 +129,13 @@ def queue_status(root: Path) -> list[dict]:
         stage='source needed'
         if (wd/'acquisition/blocks.json').exists():stage='structure needed'
         if (wd/'structure.json').exists() and (wd/'work.json').exists():stage='source structured'
+        rights=read_json(wd/'rights.json') if (wd/'rights.json').exists() else None
+        if rights and rights['status']=='held':stage='source on hold'
         for target in work['targets']:
             record={'work':wid,'source_id':work['source']['id'],'target':target,'stage':stage,'completed_fields':0,'total_fields':None}
+            if rights:
+                record['rights_status']=rights['status']
+                record['rights_reasons']=[r['country']+': '+r['detail'] for r in rights['reasons']]
             if stage=='source structured':
                 from source_import import walk
                 from ctp import missing_fields
@@ -148,9 +153,15 @@ def queue_status(root: Path) -> list[dict]:
 
 def task_brief(root: Path) -> str:
     rows=queue_status(root)
-    pending=next((r for r in rows if r['stage']!='draft present'),None)
+    pending=next((r for r in rows if r['stage'] not in {'draft present','source on hold'}),None)
     text='# Next bounded task\n\nRead AGENTS.md, docs/editorial-policy.md and docs/source-import.md first.\n\n'
-    if pending is None:return text+'No automatically identified pending source/translation work. Review existing drafts or add a work request.\n'
+    held={r['work']:r for r in rows if r['stage']=='source on hold'}
+    if held:
+        text+='## Sources on hold\n\n'
+        for wid,row in held.items():
+            text+=f"- `{wid}`: "+'; '.join(row['rights_reasons'])+'\n'
+        text+='\nHeld requests have no automatic source admission. Do not bypass the rights rules or invent missing evidence.\n\n'
+    if pending is None:return text+'No automatically actionable source/translation task. Review existing drafts or add a work request.\n'
     text+=f"Work: `{pending['work']}`\n\nGutenberg ID: {pending['source_id']}\n\nTarget language: `{pending['target']}`\n\nCurrent state: {pending['stage']}.\n\n"
     return text+('Inspect existing files and any open editing branches before writing. Do one bounded useful step. '
         'For source acquisition, retain the exact downloaded bytes and source URL, check edition and rights, and prepare blocks. '

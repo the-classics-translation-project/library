@@ -25,6 +25,28 @@ history can still expose committed material; see RIGHTS.md.
 
 `examples/catalog.json` is an additional allowlist used only with `--demo`.
 
+## Automatic source-rights record (schema 1)
+
+`books/<id>/rights.json` records `rule_version`, work/Gutenberg identity,
+`evaluated_on`, exact metadata URL/hash, extracted `evidence`, country calculations,
+`eligible`, `status` (`acquired`/`held`), coded reasons and policy references.
+`rights-metadata.rdf` preserves the received metadata when available. Parsing and
+country decisions are replayed by validation; a changed hash or fabricated pass
+fails validation. The evaluation date uses the earlier current date in Japan and
+Hawaii, avoiding early admission at territory/date boundaries.
+
+Acquired records bind `package_sha256` and the raw/blocks hashes to the exact
+retained package. A held package that failed post-download checks records its hash
+but does not retain its prose. `provenance.json` references `../rights.json` and
+sets `rights_checked:true` for automatically admitted packages;
+`source_edition_verified:false` remains separate. Neither flag is human review.
+
+A held record includes concrete reasons and does not count as an imported work.
+Queue progress exposes `rights_status` and `rights_reasons`; task discovery skips
+held requests when selecting actionable work. A provider failure can leave no
+usable RDF evidence; the saved record then explicitly has no extracted evidence.
+See [automatic rights policy](automatic-source-rights.md).
+
 ## Source work and tree (schema 2)
 
 `work.json`: `schema_version`, `id`, `language`, `author`, `source_edition`,

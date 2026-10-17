@@ -36,6 +36,9 @@ For source work, read [source import](docs/source-import.md) and
   Record unknown model details as unknown, never guess an internal snapshot name.
 - Source rights, source edition and source integrity are separate questions. Public
   repository commits distribute their contents even when not listed on Pages.
+  Gutenberg acquisition may use the owner-authorized automatic US/Japan admission
+  policy in `docs/automatic-source-rights.md`. Preserve its evidence and held reasons;
+  do not equate an automatic pass with human review or literary-release approval.
 
 ## Generation records and notes
 

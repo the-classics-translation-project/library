@@ -17,6 +17,7 @@ jobs:
       issues: read
     outputs:
       changed: ${{ steps.save.outputs.changed }}
+      acquired: ${{ steps.sources.outputs.changed }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -42,9 +43,36 @@ jobs:
             git push origin HEAD:main
             echo 'changed=true' >> "$GITHUB_OUTPUT"
           fi
+      - name: Assess US/Japan eligibility and acquire only passing sources
+        run: ./ctp acquire-queued
+      - run: ./ctp validate
+      - name: Commit admitted source files and recorded hold reasons
+        id: sources
+        run: |
+          ./ctp stage-acquisitions
+          if git diff --cached --quiet; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'Assess requested sources and acquire eligible Gutenberg packages'
+            git push origin HEAD:main
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Report download failures after preserving successes
+        run: |
+          python3 - <<'PYREPORT'
+          import json, os
+          from pathlib import Path
+          report = json.loads(Path('build/source-downloads/report.json').read_text())
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+              summary.write('## Source acquisition\n\n```json\n' + json.dumps(report, indent=2) + '\n```\n')
+          if report['failed']:
+              raise SystemExit('Acquisition errors were recorded; successful sources and hold reasons were preserved. Rerun to retry.')
+          PYREPORT
   site:
     needs: intake
-    if: needs.intake.outputs.changed == 'true'
+    if: always() && (needs.intake.outputs.changed == 'true' || needs.intake.outputs.acquired == 'true')
     permissions:
       contents: read
       pages: write

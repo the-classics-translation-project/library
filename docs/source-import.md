@@ -28,6 +28,52 @@ territories. Distinguish old prose from later editorial additions. Record proven
 in `work.json`, and substantive source observations in `notes.md`. Do not silently
 import material merely because its title appears in the catalogue.
 
+## Automatic US/Japan source admission
+
+After accepting Issues, the intake workflow runs `./ctp acquire-queued`. It also
+processes existing queue candidates on manual dispatch. This is deterministic
+standard-library code: no model, paid API, agent invocation or per-book owner
+confirmation is required. See [automatic rights policy](automatic-source-rights.md)
+for the exact supported cases and evidence assumptions.
+
+- **Both territories pass, and the package passes identity/contribution checks:**
+  preserve and commit `books/<id>/acquisition/{acquired.txt,normalized.txt,blocks.json,provenance.json}`,
+  `rights.json` and `rights-metadata.rdf`. Keep the complete Gutenberg package,
+  including its license/credits; no literary content is stripped or regenerated.
+- **Missing information, unsupported cases or unresolved contributions:** record
+  the reasons in `books/<id>/rights.json` and retain received RDF evidence. Do not
+  commit the source text or create a source tree. Admin displays the hold reasons;
+  `./ctp task` lists them and chooses actionable work ahead of held requests.
+- **Provider/download errors:** persist a hold with the error, continue other
+  works, save successes and then fail the workflow visibly. Ordinary rights holds
+  are expected outcomes, not workflow failures. Rerun intake to retry held works.
+
+The workflow commits only the validated file allowlist from that run, not whole
+work directories. Passing acquisitions are permanent Git files, not expiring
+Actions artifacts. Unchanged holds produce no new commit. Existing acquisitions
+are validated and never overwritten or silently redownloaded; an existing manual
+acquisition without an automatic record is reported for inspection, not staged.
+Original evidence and decisions remain in Git history when a held request is
+reassessed. A source changed by the provider does not replace an admitted package.
+
+For a local run:
+
+```sh
+./ctp acquire-queued
+./ctp validate
+# Review build/source-downloads/report.json and the exact files before committing.
+./ctp stage-acquisitions
+```
+
+`rights.json` admits a particular original package under the project's US/Japan
+policy. It is not human/legal review, worldwide clearance, confirmation of an
+exact historical print edition, translation generation, or reader-release approval.
+`source_edition_verified` stays false; automated rights assessment and byte/tree
+integrity are separate facts. `work.json`, source-tree interpretation and literary
+translation follow separately. `catalog.json` is never changed by acquisition.
+The manual `source-fetch` command above remains a local acquisition tool and does
+not grant automatic admission or authorize staging unassessed source text.
+
 ## AI proposes references; code copies text
 
 Give the numbered blocks to an agent with `prompts/structure-source.md`. The plan

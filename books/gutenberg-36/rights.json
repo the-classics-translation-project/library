@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "rule_version": "gutenberg-us-jp-v1",
+  "work": "gutenberg-36",
+  "ebook_id": 36,
+  "evaluated_on": "2026-10-17",
+  "references": [
+    "https://www.gutenberg.org/help/bibliographic_record.html",
+    "https://www.gutenberg.org/policy/license",
+    "https://www.bunka.go.jp/seisaku/chosakuken/hokaisei/kantaiheiyo_chosakuken/1411890.html",
+    "https://www.jasrac.or.jp/aboutus/wartime/pdf/wartime.pdf"
+  ],
+  "metadata": {
+    "requested_url": "https://www.gutenberg.org/ebooks/36.rdf",
+    "resolved_url": "https://www.gutenberg.org/cache/epub/36/pg36.rdf",
+    "sha256": "2be6c17ec949030863fa860158f4757dd7fa7a80e13ff7cf197e47fea708083f"
+  },
+  "evidence": {
+    "ebook_id": 36,
+    "titles": [
+      "The war of the worlds"
+    ],
+    "rights": [
+      "Public domain in the USA."
+    ],
+    "languages": [
+      "en"
+    ],
+    "types": [
+      "Text"
+    ],
+    "contributors": [
+      {
+        "role": "creator",
+        "names": [
+          "Wells, H. G. (Herbert George)"
+        ],
+        "death_dates": [
+          "1946"
+        ]
+      }
+    ],
+    "publication_statements": [],
+    "credits": [],
+    "notes": [
+      "Wikipedia page about this book: https://en.wikipedia.org/wiki/The_War_of_the_Worlds"
+    ]
+  },
+  "countries": {
+    "US": {
+      "status": "pass",
+      "basis": "Gutenberg explicit rights designation"
+    },
+    "JP": {
+      "status": "hold",
+      "wartime_days_upper_bound": 4180,
+      "contributor_terms": [
+        {
+          "name": "Wells, H. G. (Herbert George)",
+          "role": "creator",
+          "death_year": 1946,
+          "expiry_upper_bound": "2008-06-11",
+          "basis": "life+50+4180 days expired before 2018 extension; no revival"
+        }
+      ]
+    }
+  },
+  "eligible": false,
+  "status": "held",
+  "reasons": [
+    {
+      "country": "JP",
+      "code": "source_publication_missing",
+      "detail": "No original source-publication statement is supplied; Gutenberg release dates are not print publication dates."
+    }
+  ]
+}

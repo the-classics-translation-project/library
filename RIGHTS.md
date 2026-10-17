@@ -6,7 +6,14 @@ is not an open-source license or a declaration that an entire AI-generated editi
 is copyrightable. Add LICENSE (and any scope-specific notices) after the owner
 chooses terms. Repository visibility alone is not the project's licensing policy.
 
-Record a source's exact edition, provenance and rights basis before distributing
+For Gutenberg source acquisition, the owner-authorized automatic US/Japan policy
+in [docs/automatic-source-rights.md](docs/automatic-source-rights.md) permits the
+workflow to commit a package only after both country checks and package checks
+pass. It records the supporting evidence and decision. Uncertain cases stay on
+hold without publicly committing their source text. This is a scoped project
+admission rule, not human/legal review or a claim of worldwide public-domain status.
+
+Record a source's edition evidence, provenance and rights basis before distributing
 it. Consider the territories in which the edition will be offered, and distinguish
 the historical work from later translations, apparatus, scans, images and other
 material. A bare “public domain” flag is not a substitute for that record.

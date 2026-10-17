@@ -4,9 +4,12 @@
 
 Open Admin, search title/author/ID, choose targets and prepare an Issue. Submit the
 form on GitHub. The intake workflow parses only the configured maintainer's requests
-and updates the queue. Public visitors may see the form but cannot authorize work.
-The initial cache contains three Frankenstein metadata records, not the complete
-catalogue. Run the catalogue workflow or `./ctp catalogue-refresh` to replace it.
+and updates the queue, then checks pending sources against the automatic US/Japan
+rights policy. Passing packages are downloaded and committed to the repository;
+uncertain cases stay on hold with recorded reasons. See
+[source import](source-import.md) for evidence, supported cases and retries. Public visitors may see the form but cannot
+authorize work. The live search uses the full Gutenberg CSV cache; the catalogue
+workflow or `./ctp catalogue-refresh` refreshes it.
 
 For manual intake, use `./ctp intake --github` with GH_TOKEN in the local environment,
 or `./ctp intake --issues trusted-issues-export.json`. A fabricated export is not
@@ -25,7 +28,9 @@ Gutenberg 41445, based on the founding discussion, with an English target. It ha
 not been imported and is not a publication approval. Change the candidate through
 ordinary maintenance if another work is preferred.
 
-Acquire and structure the source using [source import](source-import.md). The AI
+Use already admitted acquisition files when present; held requests are listed with
+reasons and are not automatically actionable. Acquire and structure sources using
+[source import](source-import.md). The AI
 may prepare metadata directly; the owner need not author JSON. Use source and
 edition notes to record actual evidence and uncertainties.
 

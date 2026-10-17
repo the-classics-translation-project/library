@@ -43,8 +43,9 @@ claim that the software and literary workflows are finished.
    **Japanese (`ja`) only**, added through
    [Issue #6](https://github.com/the-classics-translation-project/library/issues/6).
 
-Neither source has been acquired and structured into a real work directory
-(`books/` currently contains only its README). **No real literary translation
+Neither source has been acquired or structured. On the PR #7 branch, `books/`
+contains automatic rights assessments and RDF evidence for both queued candidates;
+those checks held both requests without retaining literary source text. **No real literary translation
 has begun or been approved.** The `revisions/` material consists of synthetic
 test/example snapshots and preserved legacy fixtures. `catalog.json` has an
 empty distribution list, so there are **no approved reader or review editions**
@@ -112,3 +113,35 @@ the same thing as published books.
    check EPUBs with EPUBCheck/readers, and update the stale setup documentation.
 4. Decide whether and when to add isolated fresh-context agent invocations;
    do not require them for ordinary manual/interactive work.
+
+## Acquisition automation revision — PR #7, 2026-10-18 (not deployed)
+
+The intake workflow now checks a versioned, conservative US/Japan admission policy.
+Passing English UTF-8 packages are preserved permanently under `books/` and staged
+with their exact-byte/block hashes, source provenance, rights decision and RDF
+evidence. There is no expiring acquisition artifact or owner confirmation per book.
+Missing/unsupported evidence or unresolved contributions produces a durable hold
+with reasons; no source text is committed for those cases. Network errors preserve
+other successes and report failure after the records are saved. The policy is in
+`docs/automatic-source-rights.md`; it is not worldwide or human/legal clearance.
+
+A live metadata assessment on this branch held both current candidates:
+
+- `gutenberg-36`: the provider supplies no original source-publication statement.
+  Its Gutenberg release date is not evidence of the historical source edition.
+- `gutenberg-41445`: the provider credits say “Revised by Richard Tonsing.” The
+  first rule cannot resolve the separate contribution from that statement.
+
+Both have an explicit US public-domain designation; the holds concern the Japanese
+source-admission evidence/scope. Source prose was not acquired by this revised live
+queue run. The saved decisions do not assert that either book remains copyrighted.
+No literary tree or translation has been generated and `catalog.json` is unchanged.
+
+Local verification: **94 Python tests**, **9 legacy JavaScript checks** and
+**10 schema-v2 annotation checks** passed, along with project validation, the sample
+HTML/EPUB build and workflow YAML/embedded-script parsing. A real in-app browser
+opened the generated Admin page over local HTTP, expanded both hold explanations
+and confirmed their text; no browser error logs were recorded. This checks the
+new queue display, not Safari/iPad selection, annotation storage or every browser.
+No live run of the revised intake workflow or remote source-acquisition deployment
+is claimed.

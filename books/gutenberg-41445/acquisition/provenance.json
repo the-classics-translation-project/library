@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "provider": "gutenberg",
+  "ebook_id": 41445,
+  "requested_url": "https://www.gutenberg.org/cache/epub/41445/pg41445.txt",
+  "resolved_url": "https://www.gutenberg.org/cache/epub/41445/pg41445.txt",
+  "retrieved_at": "2026-10-17T15:50:57.451736+00:00",
+  "raw_sha256": "ef3dac2adb90200665f64ea2959ea52277402ee548f45d7d7049ecc5487b32e7",
+  "source_edition_verified": false,
+  "rights_checked": true,
+  "rights_assessment": "../rights.json"
+}

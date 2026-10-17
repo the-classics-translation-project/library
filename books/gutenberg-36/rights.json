@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "rule_version": "gutenberg-us-jp-v1",
+  "rule_version": "gutenberg-us-jp-v2",
   "work": "gutenberg-36",
   "ebook_id": 36,
   "evaluated_on": "2026-10-17",
@@ -52,7 +52,7 @@
       "basis": "Gutenberg explicit rights designation"
     },
     "JP": {
-      "status": "hold",
+      "status": "pass",
       "wartime_days_upper_bound": 4180,
       "contributor_terms": [
         {
@@ -65,13 +65,17 @@
       ]
     }
   },
-  "eligible": false,
-  "status": "held",
-  "reasons": [
-    {
-      "country": "JP",
-      "code": "source_publication_missing",
-      "detail": "No original source-publication statement is supplied; Gutenberg release dates are not print publication dates."
-    }
-  ]
+  "eligible": true,
+  "status": "acquired",
+  "reasons": [],
+  "admission_evidence": {
+    "file": "admission-evidence.json",
+    "sha256": "d3d4f99fb00e63923fb75c44bd344aba3893dc0dd9ced6662fbc0d2f43e638e4"
+  },
+  "package_sha256": "8417469e3ab664749f7b36ebb85799075818207b0380b54c27d07d592a44117d",
+  "acquisition": {
+    "raw_sha256": "8417469e3ab664749f7b36ebb85799075818207b0380b54c27d07d592a44117d",
+    "blocks_sha256": "52e3a9010ac31d0b4dcdedd16d3b6d3c70afbb489f7c87f5be93117df324cb2f",
+    "source_url": "https://www.gutenberg.org/cache/epub/36/pg36.txt"
+  }
 }

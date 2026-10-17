@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "rule_version": "gutenberg-us-jp-v1",
+  "rule_version": "gutenberg-us-jp-v2",
   "work": "gutenberg-41445",
   "ebook_id": 41445,
   "evaluated_on": "2026-10-17",
@@ -57,7 +57,7 @@
       "basis": "Gutenberg explicit rights designation"
     },
     "JP": {
-      "status": "hold",
+      "status": "pass",
       "wartime_days_upper_bound": 4180,
       "contributor_terms": [
         {
@@ -70,13 +70,17 @@
       ]
     }
   },
-  "eligible": false,
-  "status": "held",
-  "reasons": [
-    {
-      "country": "JP",
-      "code": "edition_contributions_uncertain",
-      "detail": "Unresolved edition contribution or rights statement in provider metadata: Revised by Richard Tonsing."
-    }
-  ]
+  "eligible": true,
+  "status": "acquired",
+  "reasons": [],
+  "admission_evidence": {
+    "file": "admission-evidence.json",
+    "sha256": "8504d367be60d8d258663879f281f8009e74fe5ec52851c9ae57e74d5a6d2ec2"
+  },
+  "package_sha256": "ef3dac2adb90200665f64ea2959ea52277402ee548f45d7d7049ecc5487b32e7",
+  "acquisition": {
+    "raw_sha256": "ef3dac2adb90200665f64ea2959ea52277402ee548f45d7d7049ecc5487b32e7",
+    "blocks_sha256": "0ad1c4f8acd096e8bb0bdf0ffe18e2c5b210c2343be53b2c8b2414a2384a246a",
+    "source_url": "https://www.gutenberg.org/cache/epub/41445/pg41445.txt"
+  }
 }

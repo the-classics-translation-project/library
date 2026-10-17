@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "provider": "gutenberg",
+  "ebook_id": 36,
+  "requested_url": "https://www.gutenberg.org/cache/epub/36/pg36.txt",
+  "resolved_url": "https://www.gutenberg.org/cache/epub/36/pg36.txt",
+  "retrieved_at": "2026-10-17T15:50:59.031792+00:00",
+  "raw_sha256": "8417469e3ab664749f7b36ebb85799075818207b0380b54c27d07d592a44117d",
+  "source_edition_verified": false,
+  "rights_checked": true,
+  "rights_assessment": "../rights.json"
+}

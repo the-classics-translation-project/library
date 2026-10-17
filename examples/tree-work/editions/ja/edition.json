@@ -1,0 +1,36 @@
+{
+  "schema_version": 2,
+  "id": "ja",
+  "language": "ja",
+  "kind": "translation",
+  "direction": "ltr",
+  "status": "draft",
+  "author_credit": "",
+  "description": "Synthetic software fixture for the reading interface. Not a published classic.",
+  "rights_note": "Development fixture only; not an approved literary edition.",
+  "production": {
+    "ai_use": "AI-generated fixture",
+    "human_reviewed": false,
+    "runs": [
+      "run-4b26eaa7b1c44437899a543c6b9bb0ce"
+    ],
+    "parent_revisions": []
+  },
+  "nodes": {
+    "n0001": {
+      "label": "最後の渡し舟"
+    },
+    "n0002": {
+      "label": "第一部",
+      "text": "text/n0002.md"
+    },
+    "n0004": {
+      "label": "船着き場",
+      "text": "text/n0004.md"
+    },
+    "n0005": {
+      "label": "川を渡る",
+      "text": "text/n0005.md"
+    }
+  }
+}

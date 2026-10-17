@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "run-4dd2f50527ec43858ad9a8dccfe8fb11",
+  "operation": "fixture-migration",
+  "created_at": "2026-10-16T04:31:57.624710+00:00",
+  "work": "tree-work",
+  "edition": "en-modern",
+  "interface": "chatgpt",
+  "model_label": "GPT-6 Astra Pro",
+  "model_snapshot": null,
+  "context_completeness": "Captured project prompts, notes and supplied session instructions; not a complete ChatGPT conversation or hidden system context.",
+  "source_fingerprint": "5ad14b88158f47755808c59cf8f032f00da73e7d84a57294a96cec80c8b54596",
+  "git_context": null,
+  "prompts": [
+    {
+      "path": "prompts/translate.md",
+      "sha256": "8ba4617889c16fc2c8de04432dfbefb2e2b4d9716515ec7fcb85296d70826676",
+      "text": "# Translate or modernize\n\nRead the short editorial policy and this work's and target edition's notes.\nImagine the original author born as a contemporary speaker of the target\nlanguage and becoming a novelist: how might they have written this work?\n\nPreserve the story and larger narrative structure. Do not abridge, add scenes,\nor reorganize the work. Sentence boundaries and paragraphing are not fixed.\nTranslate visible labels too; do not invent headings for unlabeled nodes.\nWork-specific choices and experiments belong in notes, not new global rules.\n\nSave the work as files, record the model label actually available and capture\nthis prompt, any session instructions, relevant notes and output hashes with\nrecord-run. Report unfinished or unverified work honestly. A draft is not an\napproved publication. No paid API calls unless explicitly authorized.\n"
+    },
+    {
+      "path": "session-instructions",
+      "text": "Migrate the synthetic v3 starter fixture into a source tree. The quay/crossing prose is inherited, and its original model is not recorded. This run labels the current structure, introduction and migration, not a fresh generation of the inherited chapters. It is not a literary publication.",
+      "sha256": "728b6c8837c3459b358b927838853b38ddeb79671422a487618eeae9602b9fd1"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "docs/editorial-policy.md",
+      "sha256": "577af62722684df0b70be624e47ee944409afcd552d265c1b16121697c2c55da",
+      "text": "# Editorial policy\n\n## Aim\n\nTranslate or modernize as though the original author had been born a contemporary\nspeaker of the target language and become a novelist. This is a working editorial\nquestion, not a claim that we can reconstruct a uniquely correct answer.\n\n## Scope\n\nChoose public-domain works that the maintainer expects contemporary readers to\nenjoy once the linguistic distance is reduced. Selection is a matter of taste and\nproject scope, not a universal judgment about a book's merit or accessibility.\nDo not select a work that would require turning it into a substantially different\nbook to achieve that aim.\n\nPreserve the story, characters, setting, narrative viewpoint, events and larger\nnarrative organization. Abridgement, new scenes, reordered chapters and structural\nadaptation are outside the present scope. Retain the source's meaningful\nBook/Volume/Chapter divisions and their order; translate existing book titles and\nheadings without inventing missing ones. Publishing the whole work as a single\nEPUB does not erase its internal divisions. Contemporary language does not mean\nmoving the story into the present day.\n\nSentence boundaries, paragraphing and phrasing may change freely in service of\nthat aim. Do not preserve an awkward sentence merely to retain correspondence.\nDo not mistake completeness for sentence-by-sentence literalism.\n\nNo universal house style, target sentence length, mandatory model or prescribed\ntranslation procedure is established here. Record work-specific decisions only\nwhen experience shows that they are useful. A whole new translation is a normal\npossible revision, not a failure of the workflow.\n"
+    },
+    {
+      "path": "examples/tree-work/notes.md",
+      "sha256": "03916b9d98b8f0feb37f94e3deb97f5e0a356b87a04170001acd704a4d218248",
+      "text": "# The Last Ferry — work notes\n\nThis is a synthetic software fixture carried forward from the starter, not a\nclassic. Its main purpose is to test nested and unlabeled nodes, Unicode,\nprose on branches, translation fields, snapshot anchoring and margin notes.\nThe crossing intentionally has a different paragraph structure in Japanese.\nDo not include the fixture in the finished-books catalogue.\n\n## Observations\nThe existing English demo changes the ferryman's name in chapter two. Keep\nthat test case available; it is not a proposed editorial convention.\n"
+    },
+    {
+      "path": "examples/tree-work/editions/en-modern/notes.md",
+      "sha256": "6acc0beb8accce18d0653b1b5ec09483744812aa30aa4c53b72f851d2b508d1d",
+      "text": "# Modern English fixture\n\nThe narrator's tone is deliberately spare. This is test material, not a global\nstyle requirement. Leno/Reno inconsistency is intentional test data.\n"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "examples/tree-work/editions/en-modern/text/n0002.md",
+      "sha256": "e6defccba19b18a552150b367dd3a66ccec4441fbdc0cbc7cee4e4d40d67f965"
+    },
+    {
+      "path": "examples/tree-work/editions/en-modern/text/n0004.md",
+      "sha256": "2c66798ba3f879d6bf18403b226ca478abd74fcddfe848bb0771663318809a8a"
+    },
+    {
+      "path": "examples/tree-work/editions/en-modern/text/n0005.md",
+      "sha256": "f4f37665cd7e628ed0167c9910f93c4f28d2b650c0c762dfe3b59eff514cc2ae"
+    }
+  ]
+}

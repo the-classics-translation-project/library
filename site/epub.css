@@ -1,0 +1,4 @@
+body { line-height: 1.55; }
+p { orphans: 2; widows: 2; }
+h1, h2, h3 { page-break-after: avoid; }
+blockquote { margin-inline: 1.25em; }

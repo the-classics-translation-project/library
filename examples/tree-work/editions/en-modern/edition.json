@@ -1,0 +1,36 @@
+{
+  "schema_version": 2,
+  "id": "en-modern",
+  "language": "en",
+  "kind": "modernization",
+  "direction": "ltr",
+  "status": "draft",
+  "author_credit": "",
+  "description": "Synthetic software fixture for the reading interface. Not a published classic.",
+  "rights_note": "Development fixture only; not an approved literary edition.",
+  "production": {
+    "ai_use": "AI-generated fixture",
+    "human_reviewed": false,
+    "runs": [
+      "run-4dd2f50527ec43858ad9a8dccfe8fb11"
+    ],
+    "parent_revisions": []
+  },
+  "nodes": {
+    "n0001": {
+      "label": "The Last Ferry"
+    },
+    "n0002": {
+      "label": "Part One",
+      "text": "text/n0002.md"
+    },
+    "n0004": {
+      "label": "The quay",
+      "text": "text/n0004.md"
+    },
+    "n0005": {
+      "label": "The crossing",
+      "text": "text/n0005.md"
+    }
+  }
+}

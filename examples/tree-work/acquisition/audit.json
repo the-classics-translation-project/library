@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "blocks_sha256": "c9a537908e0504264c2858f7834bf59f0e900ee5d4d291099d9bb63f27a609d9",
+  "plan_sha256": "fe1ce90b4cb25e07174fc653eaa61bf5cf63c3c46bb51ab8acfea9b62b78542e",
+  "tree_sha256": "6a79411a27cdb50e6125e5b3d594ff0502adfd50d7ce43d354557ee23cea1c7a",
+  "assigned_blocks": 13,
+  "excluded_blocks": 0,
+  "next_node_number": 6,
+  "claim": "Every normalized block is accounted for once, in order. This does not prove the hierarchy is correct."
+}

@@ -1,0 +1,86 @@
+{
+  "schema_version": 2,
+  "report_id": "note-mvahj9i2-vvmd24mmbpc",
+  "created_at": "2026-10-16T04:46:16.538Z",
+  "repository": "the-classics-translation-project/library",
+  "work": "tree-work",
+  "edition": "en-modern",
+  "revision": "2e021db39341300ffebe0868c1666c4c8fcb1fd2742fc9a730371347ce3e4f0d",
+  "annotations": [
+    {
+      "id": "note-mvahj6ei-irf01neus4b",
+      "node": "n0001",
+      "field": "label",
+      "scope": "text",
+      "anchor": {
+        "unit": "utf16-code-units",
+        "start": 4,
+        "end": 14,
+        "exact": "Last Ferry",
+        "prefix": "The ",
+        "suffix": ""
+      },
+      "comment": "Title translation needs another look."
+    },
+    {
+      "id": "note-mvahj74t-mzm2kg14f6",
+      "node": "n0004",
+      "field": "label",
+      "scope": "text",
+      "anchor": {
+        "unit": "utf16-code-units",
+        "start": 4,
+        "end": 8,
+        "exact": "quay",
+        "prefix": "The ",
+        "suffix": ""
+      },
+      "comment": "Keep this heading consistent with the other translation."
+    },
+    {
+      "id": "note-mvahj7q5-fh89cb3sipv",
+      "node": "n0004",
+      "field": "text",
+      "scope": "text",
+      "anchor": {
+        "unit": "utf16-code-units",
+        "start": 0,
+        "end": 12,
+        "exact": "By the time ",
+        "prefix": "",
+        "suffix": "Mara reached the quay, the light"
+      },
+      "comment": "Check the narrator’s voice here."
+    },
+    {
+      "id": "note-mvahj87a-52d5y5ec9c",
+      "node": "n0004",
+      "field": "text",
+      "scope": "text",
+      "anchor": {
+        "unit": "utf16-code-units",
+        "start": 4,
+        "end": 195,
+        "exact": "he time Mara reached the quay, the light was fading. In her pocket was a letter she had promised not to open.\nThe ferryman, Leno, glanced at the letter and then at the river. “There's still t",
+        "prefix": "By t",
+        "suffix": "ime to go back,” he said.\nMara s"
+      },
+      "comment": "An overlapping comment across paragraphs."
+    },
+    {
+      "id": "note-mvahj952-oig8vwws0p9",
+      "node": "n0005",
+      "field": "text",
+      "scope": "text",
+      "anchor": {
+        "unit": "utf16-code-units",
+        "start": 0,
+        "end": 4,
+        "exact": "Reno",
+        "prefix": "",
+        "suffix": " steered into the mist. Mara ask"
+      },
+      "comment": "Was this name different at the quay?"
+    }
+  ]
+}

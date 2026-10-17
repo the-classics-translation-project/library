@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "work": "demo-work",
+      "edition": "en-modern",
+      "revision": "3b3764ee1a24cb0e9970edada6e26068564c0080ba4fc26c7e273e7cc6ed9642",
+      "audience": "review",
+      "listed": true,
+      "approved_by": "Development fixture configuration",
+      "approval_note": "Explicit local demonstration only; not a literary publication."
+    },
+    {
+      "work": "tree-work",
+      "edition": "en-modern",
+      "revision": "2e021db39341300ffebe0868c1666c4c8fcb1fd2742fc9a730371347ce3e4f0d",
+      "audience": "review",
+      "listed": true,
+      "approved_by": "bootstrap-agent",
+      "approval_note": "Local demonstration only, explicitly requested as part of the project build. Not approval of a literary edition."
+    },
+    {
+      "work": "tree-work",
+      "edition": "ja",
+      "revision": "ebadad50b18cb23e5f46d60e756612816e463cfc8d322f2e098d74af4308f6e5",
+      "audience": "review",
+      "listed": true,
+      "approved_by": "bootstrap-agent",
+      "approval_note": "Local demonstration only, explicitly requested as part of the project build. Not approval of a literary edition."
+    }
+  ]
+}

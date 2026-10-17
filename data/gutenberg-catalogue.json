@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "kind": "seed",
+  "source": "Verified Project Gutenberg catalogue entries; not the complete catalogue",
+  "retrieved_at": "2026-10-16",
+  "records": [
+    {
+      "id": 41445,
+      "title": "Frankenstein; Or, The Modern Prometheus (1818)",
+      "authors": "Mary Wollstonecraft Shelley",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 42324,
+      "title": "Frankenstein; Or, The Modern Prometheus (1831)",
+      "authors": "Mary Wollstonecraft Shelley",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 84,
+      "title": "Frankenstein; or, the modern prometheus",
+      "authors": "Mary Wollstonecraft Shelley",
+      "languages": "en",
+      "type": "Text"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "blocks_sha256": "c9a537908e0504264c2858f7834bf59f0e900ee5d4d291099d9bb63f27a609d9",
+  "tree": {
+    "label_blocks": [
+      "b000001"
+    ],
+    "children": [
+      {
+        "label_blocks": [
+          "b000002"
+        ],
+        "text_blocks": [
+          "b000003"
+        ],
+        "children": [
+          {
+            "children": [
+              {
+                "label_blocks": [
+                  "b000004"
+                ],
+                "text_blocks": [
+                  [
+                    "b000005",
+                    "b000008"
+                  ]
+                ]
+              },
+              {
+                "label_blocks": [
+                  "b000009"
+                ],
+                "text_blocks": [
+                  [
+                    "b000010",
+                    "b000013"
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "excluded": []
+}

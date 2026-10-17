@@ -1,0 +1,16 @@
+{
+  "schema_version": 2,
+  "id": "target-id",
+  "language": "en",
+  "direction": "ltr",
+  "kind": "translation",
+  "status": "draft",
+  "description": "Record the target and intended edition",
+  "rights_note": "Not yet cleared for distribution",
+  "production": {
+    "ai_use": "Record the actual process",
+    "human_review": "Not performed",
+    "runs": []
+  },
+  "nodes": {}
+}

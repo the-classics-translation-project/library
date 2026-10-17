@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "en-modern",
+  "title": "The Last Ferry",
+  "language": "en",
+  "direction": "ltr",
+  "kind": "modernization",
+  "label": "Demonstration draft 1",
+  "description": "Fictional fixture for testing annotation, not an example of an approved literary edition.",
+  "status": "draft",
+  "rights_note": "Development fixture; not approved as a project publication.",
+  "production": {
+    "ai_use": "generated for software demonstration",
+    "model": null,
+    "human_work": [],
+    "review_records": [],
+    "parent_revisions": []
+  },
+  "sections": [
+    {
+      "id": "chapter-01",
+      "title": "The quay",
+      "file": "chapters/chapter-01.md"
+    },
+    {
+      "id": "chapter-02",
+      "title": "The crossing",
+      "file": "chapters/chapter-02.md"
+    }
+  ]
+}

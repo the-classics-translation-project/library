@@ -1,0 +1,36 @@
+name: Validate and build
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install document converter
+        run: sudo apt-get update && sudo apt-get install -y pandoc
+      - run: ./ctp validate
+      - run: python3 -m unittest discover -s tests -v
+      - name: JavaScript syntax and annotation tests
+        run: |
+          for file in site/*.js; do node --check "$file"; done
+          node tests/review-core.cjs
+          node tests/annotation-core.cjs
+      - name: Build sample previews without publishing
+        run: ./ctp build --demo --epub
+      - uses: actions/upload-artifact@v4
+        with:
+          name: local-preview
+          path: dist
+          retention-days: 7

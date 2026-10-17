@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "raw_sha256": "00543bf87fe4c426643286222cb8af87632831b750b9523478f87e3dec77794c",
+  "normalized_sha256": "00543bf87fe4c426643286222cb8af87632831b750b9523478f87e3dec77794c",
+  "normalization": [
+    "UTF-8 BOM removed if present",
+    "CRLF and CR converted to LF; no other textual changes"
+  ],
+  "blocks": [
+    {
+      "id": "b000001",
+      "start": 0,
+      "end": 16,
+      "text": "The Last Ferry\n\n",
+      "sha256": "f27ee1c54a5da3793a877978054f96fc7f79fe9e562b0f25b736de82421911ec"
+    },
+    {
+      "id": "b000002",
+      "start": 16,
+      "end": 26,
+      "text": "Part One\n\n",
+      "sha256": "88710fdba5ebcccdfc48ac632da16fc0352d12e3a2b9c4e2fa0e3b90f09a5863"
+    },
+    {
+      "id": "b000003",
+      "start": 26,
+      "end": 61,
+      "text": "The river was quiet that evening.\n\n",
+      "sha256": "578bf413b960895e0ff6087eabe30d42ca15ed6f87a7b1294d5f369784b80455"
+    },
+    {
+      "id": "b000004",
+      "start": 61,
+      "end": 71,
+      "text": "The quay\n\n",
+      "sha256": "e541dcb5c806f9a55f6b4273b3c7373483a746954f0afd05d2c6093696050b1b"
+    },
+    {
+      "id": "b000005",
+      "start": 71,
+      "end": 229,
+      "text": "At dusk Mara reached the quay with a letter she had promised not to read. The ferryman was called Leno. He looked once at the letter, and then at the river.\n\n",
+      "sha256": "615626311ee2226b59b9f2d521247471e37cb7f9e7aa530253b112e4fb23089a"
+    },
+    {
+      "id": "b000006",
+      "start": 229,
+      "end": 272,
+      "text": "“There's still time to go back,” he said.\n\n",
+      "sha256": "c246a9aec11d650fdf347dfaf49682e6e0f003907e9526b00968bf701a52f93b"
+    },
+    {
+      "id": "b000007",
+      "start": 272,
+      "end": 421,
+      "text": "Mara put one foot into the boat. Behind her, a bell sounded from the town. A shuttered café across the street bore a peeling blue ship sticker: 🚢.\n\n",
+      "sha256": "c75203e9739ef645fa14ccef43f718ed054a876517c5739c4704d5ac552bde6a"
+    },
+    {
+      "id": "b000008",
+      "start": 421,
+      "end": 467,
+      "text": "On the far bank, one window was already lit.\n\n",
+      "sha256": "3e6d10a4cb0a807ca6c65482efd41561c832e1b4dc9784b85246c5a99a560a0a"
+    },
+    {
+      "id": "b000009",
+      "start": 467,
+      "end": 481,
+      "text": "The crossing\n\n",
+      "sha256": "b2e902aa3cb6d47f6cffb5136b0641d6912b68d32894e1382ffa97d0577c8925"
+    },
+    {
+      "id": "b000010",
+      "start": 481,
+      "end": 554,
+      "text": "Leno steered into the mist. Mara asked whether the far bank had a name.\n\n",
+      "sha256": "0965e6b6d0d3befa43fac0fe7c82cb0ed3d046675ebea70a3172519ba7959d1a"
+    },
+    {
+      "id": "b000011",
+      "start": 554,
+      "end": 629,
+      "text": "“Every place has a name,” he said. “Not every traveler needs to know it.”\n\n",
+      "sha256": "23d5556a2c4e047bff7a66b0d5b92cc3f850725e76aa0ed5b3ef084f35e10e17"
+    },
+    {
+      "id": "b000012",
+      "start": 629,
+      "end": 730,
+      "text": "The letter remained unopened in her pocket. The boat struck something in the dark and continued on.\n\n",
+      "sha256": "4c6a10a2f529c2bccc8831be0c9ed655aa54af080a4ca2504cc2d5499e0a3878"
+    },
+    {
+      "id": "b000013",
+      "start": 730,
+      "end": 776,
+      "text": "When Mara looked back, the town had vanished.\n",
+      "sha256": "95f46484b10a4d1191568adc2f86c445e60c9aad15233a5972d88f0c25231b56"
+    }
+  ]
+}

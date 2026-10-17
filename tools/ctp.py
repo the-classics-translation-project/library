@@ -1,0 +1,332 @@
+#!/usr/bin/env python3
+"""The Classics Translation Project: local-first editorial and publishing tools.
+
+Network/model calls are never implicit in validation, snapshotting or building.
+"""
+from __future__ import annotations
+import argparse
+import json
+from pathlib import Path
+import re
+import sys
+from typing import Any
+import legacy_v1 as legacy
+# Preserve the v1 utility/test interface and read existing immutable v1 snapshots.
+from legacy_v1 import *
+from source_import import walk, validate_tree, validate_blocks, compile_plan, prepare, apply
+
+VERSION = '0.1.0'
+
+def is_tree(obj: dict) -> bool:
+    return obj.get('schema_version') == 2
+
+def validate_work_metadata(work: dict) -> None:
+    if not is_tree(work):
+        legacy.validate_metadata(work); return
+    for field in ('id','language','author','source_edition','source_provenance','rights_note'):
+        nonempty(work, field)
+    ident(work['id'])
+    check(isinstance(work.get('source'), dict), 'Work needs a source provenance object')
+    check(work.get('status') in ('imported','reviewed'), 'Invalid source status')
+    check(work.get('structure') == 'structure.json', 'The canonical tree is structure.json')
+
+def validate_work(work_dir: Path) -> tuple[dict, dict]:
+    work = read_json(work_dir/'work.json'); validate_work_metadata(work)
+    check(work['id'] == work_dir.name, 'Work directory does not match its ID')
+    if not is_tree(work):
+        for s in work['sections']: read_markdown(source_file(work_dir, s['file']))
+        return work, {}
+    tree = read_json(work_dir/'structure.json'); nodes = validate_tree(tree)
+    files = []
+    for n in nodes:
+        if 'text' in n:
+            p = source_file(work_dir, n['text']); read_markdown(p); files.append(str(p))
+    check(len(files) == len(set(files)), 'Two source nodes refer to the same body file')
+    if (work_dir/'acquisition/blocks.json').exists():
+        record = validate_blocks(work_dir/'acquisition')
+        plan = read_json(work_dir/'acquisition/plan.json')
+        expected, texts, audit = compile_plan(record, plan)
+        # v0.1 imports are immutable; explicit migration support can be added later.
+        check(tree == expected, 'Canonical tree differs from its source plan; document a migration rather than regenerating IDs')
+        for filename, text in texts.items():
+            check((work_dir/filename).read_text(encoding='utf-8') == text, 'Structured source body changed')
+        check(read_json(work_dir/'acquisition/audit.json') == audit, 'Source audit mismatch')
+    return work, tree
+
+def missing_fields(tree: dict, edition: dict) -> list[dict]:
+    mapping = edition['nodes']; missing = []
+    for n, _ in walk(tree):
+        t = mapping.get(n['id'], {})
+        for f in ('label','text'):
+            if f in n and f not in t: missing.append({'node':n['id'], 'field':f})
+    return missing
+
+def validate_tree_edition(tree: dict, ed: dict, base: Path | None = None) -> None:
+    check(is_tree(ed), 'Tree editions use schema_version 2')
+    for f in ('id','language','rights_note','description'): nonempty(ed, f)
+    ident(ed['id'])
+    check(bool(re.fullmatch(r'[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*', ed['language'])), 'Invalid language tag')
+    check(ed.get('direction') in ('ltr','rtl'), 'direction must be ltr or rtl')
+    check(ed.get('status') in ('draft','ready'), 'Invalid edition status')
+    check(ed.get('kind') in ('modernization','translation'), 'Invalid edition kind')
+    check(isinstance(ed.get('production'),dict), 'Missing production record')
+    check(isinstance(ed.get('nodes'),dict), 'Edition needs a node mapping')
+    source = {n['id']:n for n, _ in walk(tree)}
+    paths = []
+    for nid, target in ed['nodes'].items():
+        check(nid in source, f'Unknown target node {nid}')
+        check(isinstance(target,dict) and set(target) <= {'label','text'}, 'Targets only contain label and/or text')
+        for field, value in target.items():
+            check(field in source[nid], f'{nid}: target invents a {field} absent from source')
+            check(isinstance(value,str) and bool(value.strip()), 'A translated field is empty')
+            if field == 'text' and base is not None:
+                p = source_file(base,value); read_markdown(p); paths.append(str(p))
+    check(len(paths) == len(set(paths)), 'Two target nodes refer to the same body file')
+    if ed['status'] == 'ready': check(not missing_fields(tree,ed), 'Ready edition lacks translated labels or bodies')
+
+def load_work(work_dir: Path, edition_id: str) -> tuple[dict,dict,Path]:
+    work_dir = work_dir.resolve(); ident(edition_id)
+    work, tree = validate_work(work_dir)
+    if not is_tree(work): return legacy.load_work(work_dir,edition_id)
+    base = work_dir/'editions'/edition_id
+    ed = read_json(base/'edition.json')
+    check(ed['id'] == edition_id, 'Edition ID mismatch')
+    validate_tree_edition(tree,ed,base)
+    return work,ed,base
+
+def source_fingerprint(work_dir: Path) -> str:
+    work, tree = validate_work(work_dir)
+    values = {'work':work, 'tree':tree, 'texts':{}}
+    for n, _ in walk(tree):
+        if 'text' in n: values['texts'][n['id']] = read_markdown(source_file(work_dir,n['text']))
+    return object_hash(values)
+
+def freeze(work_dir: Path, edition_id: str, root: Path = ROOT) -> tuple[str,Path]:
+    work, ed, eddir = load_work(work_dir,edition_id)
+    if not is_tree(work): return legacy.freeze(work_dir,edition_id,root)
+    tree = read_json(work_dir/'structure.json')
+    check(bool(ed['nodes']), 'No target fields to snapshot')
+    if 'label' in tree:
+        check('label' in ed['nodes'].get(tree['id'],{}), 'Translate the work title before freezing a listed draft')
+    def content(value, namespace):
+        fragment = render(value, namespace)
+        return {'markdown':value, 'markdown_sha256':digest(value.encode()), 'html':fragment, 'text':html_text(fragment)}
+    source, target = {}, {}
+    for n, _ in walk(tree):
+        nid = n['id']; s, t = {}, {}
+        if 'label' in n: s['label'] = n['label']
+        if 'text' in n: s['text'] = content(read_markdown(source_file(work_dir,n['text'])), 'source-'+nid)
+        e = ed['nodes'].get(nid,{})
+        if 'label' in e: t['label'] = e['label']
+        if 'text' in e: t['text'] = content(read_markdown(source_file(eddir,e['text'])), 'target-'+nid)
+        source[nid] = s
+        if t: target[nid] = t
+    runs = []
+    for rid in ed['production'].get('runs',[]):
+        ident(rid); run = read_json(eddir/'runs'/(rid+'.json'))
+        validate_run(run,root)
+        runs.append(run)
+    obj = {'schema_version':2, 'work':work, 'edition':ed, 'tree':tree, 'source_nodes':source, 'target_nodes':target,
+           'source_fingerprint':source_fingerprint(work_dir), 'missing':missing_fields(tree,ed),
+           'production_runs':runs, 'renderer':{'name':'pandoc','version':pandoc('--version').splitlines()[0], 'format':MARKDOWN},
+           'git_context':git_context(root)}
+    revision = object_hash(obj); validate_snapshot(obj,revision)
+    path = snapshot_path(root,work['id'],ed['id'],revision)
+    if path.exists(): check(read_json(path)==obj, 'Existing snapshot differs')
+    else: write_json(path,obj)
+    return revision,path
+
+def field_map(obj: dict) -> dict:
+    fields = {}
+    for n, depth in walk(obj['tree']):
+        nid = n['id']; target = obj['target_nodes'].get(nid,{})
+        if 'label' in target:
+            fields[nid+':label'] = {'node':nid,'field':'label','text':target['label'], 'html':esc(target['label']), 'depth':depth}
+        if 'text' in target:
+            fields[nid+':text'] = {'node':nid,'field':'text','text':target['text']['text'], 'html':target['text']['html'], 'depth':depth}
+    # This is bibliographic credit, not translated prose, but it is still annotatable.
+    author = obj['edition'].get('author_credit',obj['work']['author'])
+    fields[obj['tree']['id']+':credit'] = {'node':obj['tree']['id'],'field':'credit','text':author,'html':esc(author),'depth':0}
+    return fields
+
+def validate_snapshot(obj: dict, revision: str) -> None:
+    if not is_tree(obj): legacy.validate_snapshot(obj,revision); return
+    check(bool(HASH.fullmatch(revision)) and object_hash(obj)==revision, 'Snapshot hash mismatch')
+    validate_work_metadata(obj['work']); nodes = validate_tree(obj['tree'])
+    validate_tree_edition(obj['tree'],obj['edition'])
+    check(obj['missing']==missing_fields(obj['tree'],obj['edition']), 'Incorrect missing-field inventory')
+    check(set(obj['source_nodes']) == {n['id'] for n in nodes}, 'Incomplete frozen source-node inventory')
+    expected_target = {k for k,v in obj['edition']['nodes'].items() if v}
+    check(set(obj['target_nodes']) == expected_target, 'Incorrect frozen target-node inventory')
+    for source_side in (True,False):
+        frozen = obj['source_nodes'] if source_side else obj['target_nodes']
+        expected = {n['id']:n for n in nodes} if source_side else obj['edition']['nodes']
+        for nid, data in frozen.items():
+            check(set(data) == (set(expected[nid]) & {'label','text'}), 'Frozen node fields mismatch')
+            if 'label' in data: check(data['label'] == expected[nid]['label'], 'Frozen label mismatch')
+            if 'text' in data:
+                v = data['text']
+                check(v['markdown_sha256']==digest(v['markdown'].encode()), 'Frozen Markdown hash mismatch')
+                check(v['text']==html_text(v['html']), 'Frozen HTML/text mismatch')
+    for run in obj.get('production_runs',[]): validate_run(run)
+
+def load_snapshot(root: Path, work: str, edition: str, revision: str) -> dict:
+    obj = read_json(snapshot_path(root,work,edition,revision)); validate_snapshot(obj,revision)
+    check(obj['work']['id']==work and obj['edition']['id']==edition, 'Snapshot identity mismatch')
+    return obj
+
+def load_catalog(root: Path, demo: bool = False) -> list[tuple[dict,dict]]:
+    files = [root/'catalog.json']
+    if demo and (root/'examples/catalog.json').exists(): files.append(root/'examples/catalog.json')
+    results, seen = [], set()
+    for filename in files:
+        data = read_json(filename); schema(data)
+        for r in data['revisions']:
+            check(r['revision'] not in seen, 'Duplicate listed revision'); seen.add(r['revision'])
+            for f in ('approved_by','approval_note'): nonempty(r,f)
+            check(r['audience'] in ('review','readers') and type(r['listed']) is bool, 'Invalid catalogue entry')
+            obj = load_snapshot(root,r['work'],r['edition'],r['revision'])
+            if r['audience']=='readers':
+                check(obj['edition']['status']=='ready' and not obj.get('missing',obj.get('missing_sections')), 'Reader listing needs a complete ready edition')
+            results.append((r,obj))
+    return results
+
+def validate_run(run: dict, root: Path | None = None) -> None:
+    check(run.get('schema_version')==1, 'Unknown run schema')
+    for f in ('id','operation','created_at','interface','model_label','context_completeness'): nonempty(run,f)
+    ident(run['id'])
+    for key in ('inputs','outputs','prompts'):
+        check(isinstance(run.get(key),list), f'Run lacks {key}')
+    check(bool(run['prompts']), 'Generation run needs a captured prompt')
+    for item in run['prompts']+run['inputs']:
+        check(item['sha256']==digest(item['text'].encode()), 'Run context text/hash mismatch')
+    for item in run['outputs']:
+        check(bool(HASH.fullmatch(item.get('sha256',''))), 'Run output lacks SHA-256')
+        path = Path(item['path'])
+        check(not path.is_absolute() and '..' not in path.parts, 'Unsafe run output path')
+    # Historical output hashes do not have to match the current editable file.
+
+def record_run(root: Path, work_id: str, edition_id: str, model: str, interface: str,
+               operation: str, prompts: list[Path], extra: str, output: list[Path]) -> Path:
+    from datetime import datetime, timezone
+    from uuid import uuid4
+    ident(work_id); ident(edition_id)
+    workdir = root/'books'/work_id
+    if not workdir.exists(): workdir = root/'examples'/work_id
+    work, ed, eddir = load_work(workdir,edition_id)
+    def capture(path: Path):
+        path = path.resolve(); check(path.is_relative_to(root.resolve()), 'Context must be inside repository')
+        text = path.read_text(encoding='utf-8')
+        return {'path':path.relative_to(root).as_posix(),'sha256':digest(text.encode()),'text':text}
+    captured_prompts = [capture(p) for p in prompts]
+    if extra: captured_prompts.append({'path':'session-instructions','text':extra,'sha256':digest(extra.encode())})
+    note_paths = [root/'docs/editorial-policy.md',workdir/'notes.md',eddir/'notes.md']
+    inputs = [capture(p) for p in note_paths if p.exists()]
+    outputs = []
+    for path in output:
+        path = path.resolve(); check(path.is_relative_to(eddir.resolve()), 'Output must be inside this edition')
+        outputs.append({'path':path.relative_to(root).as_posix(),'sha256':digest(path.read_bytes())})
+    run = {'schema_version':1,'id':'run-'+uuid4().hex,'operation':operation,'created_at':datetime.now(timezone.utc).isoformat(),
+           'work':work_id,'edition':edition_id,'interface':interface,'model_label':model,'model_snapshot':None,
+           'context_completeness':'Captured project prompts, notes and supplied session instructions; not a complete ChatGPT conversation or hidden system context.',
+           'source_fingerprint':source_fingerprint(workdir),'git_context':git_context(root),'prompts':captured_prompts,'inputs':inputs,'outputs':outputs}
+    validate_run(run,root); path = eddir/'runs'/(run['id']+'.json'); write_json(path,run)
+    ed['production'].setdefault('runs',[]).append(run['id']); write_json(eddir/'edition.json',ed)
+    return path
+
+def validate_review(report: dict, root: Path = ROOT) -> dict:
+    if report.get('schema_version')==1: return legacy.validate_review(report,root)
+    check(report.get('schema_version')==2, 'Unknown report schema')
+    for f in ('report_id','created_at'): nonempty(report,f)
+    check(report.get('repository')==read_json(root/'project.json')['repository'], 'Wrong report repository')
+    snap = load_snapshot(root,report['work'],report['edition'],report['revision'])
+    check(is_tree(snap), 'A v2 report requires a tree snapshot')
+    fields = field_map(snap); ids=set()
+    check(isinstance(report.get('annotations'),list) and bool(report['annotations']), 'No annotations')
+    for note in report['annotations']:
+        nid = nonempty(note,'id'); check(nid not in ids,'Duplicate annotation'); ids.add(nid)
+        nonempty(note,'comment')
+        key = f'{note.get("node")}:{note.get("field")}'
+        check(key in fields, 'Unknown node/field')
+        check(note.get('scope') in ('text','field'), 'Unknown observation scope')
+        if note['scope']=='field':
+            check(note.get('anchor') is None,'Whole-field observation must not have offsets'); continue
+        a = note.get('anchor'); check(isinstance(a,dict) and a.get('unit')=='utf16-code-units','Missing UTF-16 anchor')
+        text = fields[key]['text']; selected = utf16_slice(text,a['start'],a['end'])
+        check(bool(selected) and selected==a['exact'],'Quoted text does not match this revision')
+        check(isinstance(a.get('prefix'),str) and isinstance(a.get('suffix'),str),'Missing quotation context')
+        check(utf16_slice(text,0,a['start']).endswith(a['prefix']),'Prefix mismatch')
+        check(utf16_slice(text,a['end'],len(text.encode('utf-16-le'))//2).startswith(a['suffix']),'Suffix mismatch')
+    return {'revision':report['revision'],'annotations':len(ids),'anchors':'valid'}
+
+def validate_project(root: Path = ROOT) -> dict:
+    config=read_json(root/'project.json'); schema(config); nonempty(config,'name')
+    check(bool(re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+',config['repository'])),'Invalid repository')
+    editions, works, snapshots, runs=0,0,0,0
+    for parent in ('books','examples'):
+        for path in (root/parent).glob('*/work.json'):
+            validate_work(path.parent); works+=1
+            for edpath in (path.parent/'editions').glob('*/edition.json'):
+                load_work(path.parent,edpath.parent.name); editions+=1
+                for run in (edpath.parent/'runs').glob('*.json'):
+                    validate_run(read_json(run),root); runs+=1
+    for path in (root/'revisions').glob('*/*/*.json'):
+        load_snapshot(root,path.parents[1].name,path.parent.name,path.stem); snapshots+=1
+    load_catalog(root,False)
+    if (root/'examples/catalog.json').exists(): load_catalog(root,True)
+    if (root/'queue.json').exists():
+        from intake import validate_queue
+        validate_queue(read_json(root/'queue.json'),config)
+    return {'works':works,'editable_editions':editions,'frozen_snapshots':snapshots,'generation_runs':runs,
+            'note':'Structure, provenance and exact references only; not a literary quality guarantee.'}
+
+def build(root: Path = ROOT, demo: bool = False, epub: bool = False) -> Path:
+    from site_builder import build_site
+    return build_site(root,demo,epub)
+
+def main() -> int:
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--version',action='version',version=VERSION)
+    sub=parser.add_subparsers(dest='command',required=True)
+    sub.add_parser('validate')
+    p=sub.add_parser('snapshot'); p.add_argument('work_directory',type=Path); p.add_argument('edition_id')
+    p=sub.add_parser('build'); p.add_argument('--demo',action='store_true'); p.add_argument('--epub',action='store_true')
+    p=sub.add_parser('check-review'); p.add_argument('report',type=Path)
+    p=sub.add_parser('source-fetch'); p.add_argument('gutenberg_id',type=int)
+    p=sub.add_parser('source-prepare'); p.add_argument('raw_file',type=Path); p.add_argument('work_directory',type=Path)
+    p=sub.add_parser('source-apply'); p.add_argument('work_directory',type=Path); p.add_argument('plan',type=Path)
+    p=sub.add_parser('catalogue-refresh'); p.add_argument('--csv',type=Path)
+    p=sub.add_parser('intake'); p.add_argument('--issues',type=Path); p.add_argument('--github',action='store_true')
+    p=sub.add_parser('task'); p.add_argument('--output',type=Path,default=ROOT/'build/next-task.md')
+    p=sub.add_parser('record-run'); p.add_argument('work'); p.add_argument('edition'); p.add_argument('--model',required=True); p.add_argument('--interface',default='chatgpt'); p.add_argument('--operation',default='translation'); p.add_argument('--prompt',type=Path,action='append',required=True); p.add_argument('--instructions',default=''); p.add_argument('--output',type=Path,action='append',required=True)
+    args=parser.parse_args()
+    try:
+        if args.command=='validate': result=validate_project()
+        elif args.command=='snapshot':
+            rev,path=freeze(args.work_directory,args.edition_id); result={'revision':rev,'path':str(path),'published':False}
+        elif args.command=='build': result={'built':str(build(demo=args.demo,epub=args.epub)),'deployed':False}
+        elif args.command=='check-review': result=validate_review(read_json(args.report))
+        elif args.command=='source-fetch':
+            from source_import import fetch_gutenberg
+            result=fetch_gutenberg(ROOT,args.gutenberg_id)
+        elif args.command=='source-prepare':
+            b=prepare(args.raw_file,args.work_directory/'acquisition'); result={'blocks':len(b['blocks']),'blocks_sha256':object_hash(b)}
+        elif args.command=='source-apply': result=apply(args.work_directory,args.plan)
+        elif args.command=='catalogue-refresh':
+            from intake import refresh_catalogue
+            result=refresh_catalogue(ROOT,args.csv)
+        elif args.command=='intake':
+            from intake import import_issues, fetch_issues
+            check(bool(args.issues)!=bool(args.github),'Choose --issues file or --github')
+            issues=fetch_issues(read_json(ROOT/'project.json')['repository']) if args.github else read_json(args.issues)
+            result=import_issues(ROOT,issues)
+        elif args.command=='task':
+            from intake import task_brief
+            text=task_brief(ROOT); args.output.parent.mkdir(parents=True,exist_ok=True); args.output.write_text(text,encoding='utf-8'); result={'task':str(args.output),'model_called':False}
+        else:
+            result={'record':str(record_run(ROOT,args.work,args.edition,args.model,args.interface,args.operation,args.prompt,args.instructions,args.output))}
+        print(json.dumps(result,ensure_ascii=False,indent=2)); return 0
+    except (ProjectError,KeyError,TypeError,ValueError,OSError) as exc:
+        print(f'Error: {exc}',file=sys.stderr); return 1
+
+if __name__=='__main__': raise SystemExit(main())

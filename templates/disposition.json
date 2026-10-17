@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue_url": null,
+  "report_id": null,
+  "reviewed_revision": null,
+  "annotations": [
+    {
+      "annotation_id": null,
+      "assessment": "not-yet-checked",
+      "rationale": "",
+      "action": "",
+      "result_revision": null,
+      "checked_by": null
+    }
+  ]
+}

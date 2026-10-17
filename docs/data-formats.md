@@ -1,0 +1,83 @@
+# Working data contracts
+
+Metadata is UTF-8 JSON; prose and editorial notes are Markdown. Duplicate JSON keys
+and non-finite numbers are rejected. The tools use standard-library parsers, not a
+model-dependent runtime. The contracts below describe implemented v0.1 behavior.
+
+## Project, catalogue and queue (schema 1)
+
+`project.json` contains the project/repository name, configured maintainers, and
+allowed target-language IDs/labels. `queue.json` contains source IDs, additive
+requested targets and Issue number/author/body-hash evidence. Queue status is derived
+from files. It does not store a subjective percentage of literary readiness.
+
+`data/gutenberg-catalogue.json` distinguishes a small `seed` from a `full-csv` import,
+with source and retrieval/hash information. The CSV parser expects Gutenberg's
+Text#, Title, Authors and Language columns. A supplied local CSV is identified as
+local, not falsely claimed to be a live download.
+
+`catalog.json.revisions` records exact snapshot hashes, work/edition, audience
+`review` or `readers`, `listed`, `approved_by` and `approval_note`. A reader entry
+requires a complete, `ready` edition. **Every entry is built**, including an entry
+with `listed:false`; that flag removes the directory listing, not public access to
+its revision URL. To withhold a snapshot from Pages, omit its entry. Public Git
+history can still expose committed material; see RIGHTS.md.
+
+`examples/catalog.json` is an additional allowlist used only with `--demo`.
+
+## Source work and tree (schema 2)
+
+`work.json`: `schema_version`, `id`, `language`, `author`, `source_edition`,
+`source_provenance`, `rights_note`, `status` (`imported`/`reviewed`), `source` object,
+and `structure:"structure.json"`. `fixture:true` identifies synthetic examples.
+The source metadata is provenance, not a sales-product model.
+
+The structure object contains recursively nested nodes with `id`, optional `label`,
+`text`, `children`, and importer-produced `source_refs`. IDs match `n[0-9]{4,}` and
+are unique. Body paths are resolved inside their work, not as arbitrary URLs or
+external files. The source tree has its own provenance/checks, not a semantic ID
+naming scheme. See [source structure](source-structure.md).
+
+## Editable edition (schema 2)
+
+`edition.json` contains `id`, language/direction, kind (`translation`/`modernization`),
+status (`draft`/`ready`), description, rights note, a `production` object and `nodes`:
+
+```json
+{"n0001":{"label":"Translated book title"},
+ "n0002":{"label":"Translated heading","text":"text/n0002.md"}}
+```
+
+The actual file also contains `schema_version:2`. The node map cannot introduce
+labels or bodies absent from the source. Drafts may omit fields. A nonempty body
+file proves only that a field is present, not that all meaning has been translated.
+`author_credit` can override bibliographic display credit and is annotatable.
+
+`production.runs` references files in `runs/`. Run schema 1 stores captured prompt/
+notes, hashes, model/interface, scope through output paths and source fingerprint.
+See [provenance](provenance.md). These are records, not job schedules.
+
+## Frozen edition (schema 2; old schema 1 preserved)
+
+`revisions/<work>/<edition>/<full-sha256>.json` stores work/edition metadata, the
+source tree, source and target node fields, missing-field inventory, provenance
+records, renderer information and Git context. Its identifier hashes canonical JSON.
+Body fields contain Markdown, its hash, rendered safe HTML and exact plain text.
+Labels are independent fields. Do not regenerate old snapshot rendering in place.
+
+v1 flat-section snapshots and reports are read by the retained legacy module. New
+source trees use v2; compatibility does not manufacture a migration history.
+
+## Annotation report (schema 2)
+
+A report identifies repository, work, edition, revision, report ID and creation
+time. Each annotation has its own ID, `node`, `field` (`label`, `text`, or root
+`credit`), `comment`, scope, and optional anchor. A text anchor includes UTF-16 code
+unit start/end, exact text, prefix and suffix. Bounds cannot split a surrogate pair.
+A whole-field note uses `scope:"field"` and a null anchor.
+
+Offsets refer to the frozen field's text, not Markdown bytes, whole-page DOM text,
+or a future translation. Multiple overlapping notes and multi-section reports are
+valid. A selection may span paragraphs within one field; crossing fields needs
+separate notes or a whole-field observation. `./ctp check-review` verifies identity,
+quotes and positions. It never applies the comment or judges its literary merits.

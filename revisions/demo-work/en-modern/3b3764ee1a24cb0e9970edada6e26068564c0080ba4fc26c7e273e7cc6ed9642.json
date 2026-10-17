@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "work": {
+    "schema_version": 1,
+    "id": "demo-work",
+    "title": "The Last Ferry — software demonstration",
+    "author": "Synthetic fixture; no historical author",
+    "language": "en",
+    "source_edition": "Fictional development fixture, version 1",
+    "source_provenance": "Written for this scaffold. Not a public-domain classic or a real source acquisition.",
+    "rights_note": "Development fixture only. Not a rights precedent for real works.",
+    "sections": [
+      {
+        "id": "chapter-01",
+        "title": "The quay",
+        "file": "source/chapter-01.md"
+      },
+      {
+        "id": "chapter-02",
+        "title": "The crossing",
+        "file": "source/chapter-02.md"
+      }
+    ]
+  },
+  "edition": {
+    "schema_version": 1,
+    "id": "en-modern",
+    "title": "The Last Ferry",
+    "language": "en",
+    "direction": "ltr",
+    "kind": "modernization",
+    "label": "Demonstration draft 1",
+    "description": "Fictional fixture for testing annotation, not an example of an approved literary edition.",
+    "status": "draft",
+    "rights_note": "Development fixture; not approved as a project publication.",
+    "production": {
+      "ai_use": "generated for software demonstration",
+      "model": null,
+      "human_work": [],
+      "review_records": [],
+      "parent_revisions": []
+    },
+    "sections": [
+      {
+        "id": "chapter-01",
+        "title": "The quay",
+        "file": "chapters/chapter-01.md"
+      },
+      {
+        "id": "chapter-02",
+        "title": "The crossing",
+        "file": "chapters/chapter-02.md"
+      }
+    ]
+  },
+  "source_sections": [
+    {
+      "id": "chapter-01",
+      "title": "The quay",
+      "markdown": "At dusk Mara reached the quay with a letter she had promised not to read. The ferryman was called Leno. He looked once at the letter, and then at the river.\n\n“There's still time to go back,” he said.\n\nMara put one foot into the boat. Behind her, a bell sounded from the town. A shuttered café across the street bore a peeling blue ship sticker: 🚢.\n\nOn the far bank, one window was already lit.\n",
+      "markdown_sha256": "81dbf836ac4a6a0183992ee6e4e9b87579b97ffce67f1a99cb18c7f796226847",
+      "html": "<p>At dusk Mara reached the quay with a letter she had promised not to read. The ferryman was called Leno. He looked once at the letter, and then at the river.</p>\n<p>“There's still time to go back,” he said.</p>\n<p>Mara put one foot into the boat. Behind her, a bell sounded from the town. A shuttered café across the street bore a peeling blue ship sticker: 🚢.</p>\n<p>On the far bank, one window was already lit.</p>\n",
+      "text": "At dusk Mara reached the quay with a letter she had promised not to read. The ferryman was called Leno. He looked once at the letter, and then at the river.\n“There's still time to go back,” he said.\nMara put one foot into the boat. Behind her, a bell sounded from the town. A shuttered café across the street bore a peeling blue ship sticker: 🚢.\nOn the far bank, one window was already lit.\n"
+    },
+    {
+      "id": "chapter-02",
+      "title": "The crossing",
+      "markdown": "Leno steered into the mist. Mara asked whether the far bank had a name.\n\n“Every place has a name,” he said. “Not every traveler needs to know it.”\n\nThe letter remained unopened in her pocket. The boat struck something in the dark and continued on.\n\nWhen Mara looked back, the town had vanished.\n",
+      "markdown_sha256": "881e253ec822c8aecd17428250e45db14fad4752a1a40c5ca522ea61926dd8ce",
+      "html": "<p>Leno steered into the mist. Mara asked whether the far bank had a name.</p>\n<p>“Every place has a name,” he said. “Not every traveler needs to know it.”</p>\n<p>The letter remained unopened in her pocket. The boat struck something in the dark and continued on.</p>\n<p>When Mara looked back, the town had vanished.</p>\n",
+      "text": "Leno steered into the mist. Mara asked whether the far bank had a name.\n“Every place has a name,” he said. “Not every traveler needs to know it.”\nThe letter remained unopened in her pocket. The boat struck something in the dark and continued on.\nWhen Mara looked back, the town had vanished.\n"
+    }
+  ],
+  "sections": [
+    {
+      "id": "chapter-01",
+      "title": "The quay",
+      "markdown": "By the time Mara reached the quay, the light was fading. In her pocket was a letter she had promised not to open.\n\nThe ferryman, Leno, glanced at the letter and then at the river. “There's still time to go back,” he said.\n\nMara stepped into the boat. A bell rang behind her, somewhere in the town. Across the street, the shuttered café still had a blue ship sticker—🚢—peeling from its window.\n\nOn the opposite bank, a single window glowed in the dark.\n",
+      "markdown_sha256": "2c66798ba3f879d6bf18403b226ca478abd74fcddfe848bb0771663318809a8a",
+      "html": "<p>By the time Mara reached the quay, the light was fading. In her pocket was a letter she had promised not to open.</p>\n<p>The ferryman, Leno, glanced at the letter and then at the river. “There's still time to go back,” he said.</p>\n<p>Mara stepped into the boat. A bell rang behind her, somewhere in the town. Across the street, the shuttered café still had a blue ship sticker—🚢—peeling from its window.</p>\n<p>On the opposite bank, a single window glowed in the dark.</p>\n",
+      "text": "By the time Mara reached the quay, the light was fading. In her pocket was a letter she had promised not to open.\nThe ferryman, Leno, glanced at the letter and then at the river. “There's still time to go back,” he said.\nMara stepped into the boat. A bell rang behind her, somewhere in the town. Across the street, the shuttered café still had a blue ship sticker—🚢—peeling from its window.\nOn the opposite bank, a single window glowed in the dark.\n"
+    },
+    {
+      "id": "chapter-02",
+      "title": "The crossing",
+      "markdown": "Reno steered into the mist. Mara asked if the far bank had a name.\n\n“Every place has a name,” he said. “Not every traveler needs to know it.”\n\nShe left the letter unopened in her pocket. Something knocked against the hull, then slipped away.\n\nWhen she turned around, she could no longer see the town.\n",
+      "markdown_sha256": "f4f37665cd7e628ed0167c9910f93c4f28d2b650c0c762dfe3b59eff514cc2ae",
+      "html": "<p>Reno steered into the mist. Mara asked if the far bank had a name.</p>\n<p>“Every place has a name,” he said. “Not every traveler needs to know it.”</p>\n<p>She left the letter unopened in her pocket. Something knocked against the hull, then slipped away.</p>\n<p>When she turned around, she could no longer see the town.</p>\n",
+      "text": "Reno steered into the mist. Mara asked if the far bank had a name.\n“Every place has a name,” he said. “Not every traveler needs to know it.”\nShe left the letter unopened in her pocket. Something knocked against the hull, then slipped away.\nWhen she turned around, she could no longer see the town.\n"
+    }
+  ],
+  "missing_sections": [],
+  "renderer": {
+    "name": "pandoc",
+    "version": "pandoc 3.1.11.1",
+    "input_format": "markdown-smart-raw_html-raw_tex-yaml_metadata_block",
+    "html_format": "html5",
+    "wrap": "none"
+  },
+  "git_context": null
+}

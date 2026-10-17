@@ -1,0 +1,2 @@
+# Runtime uses Python's standard library and the system Pandoc executable.
+# No paid model/API client is required.

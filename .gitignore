@@ -1,0 +1,16 @@
+/dist/
+/.venv/
+/node_modules/
+/.browser-test/
+__pycache__/
+*.py[cod]
+.DS_Store
+.env
+.env.*
+!.env.example
+/private/
+/runs/local/
+/build/
+/bootstrap.bundle
+*.key
+*.pem

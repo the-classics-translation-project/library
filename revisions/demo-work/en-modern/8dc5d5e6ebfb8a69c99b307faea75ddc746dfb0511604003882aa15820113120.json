@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "work": {
+    "schema_version": 1,
+    "id": "demo-work",
+    "title": "The Last Ferry — software demonstration",
+    "author": "Synthetic fixture; no historical author",
+    "language": "en",
+    "source_edition": "Fictional development fixture, version 1",
+    "source_provenance": "Written for this scaffold. Not a public-domain classic or a real source acquisition.",
+    "rights_note": "Development fixture only. Not a rights precedent for real works.",
+    "sections": [
+      {
+        "id": "chapter-01",
+        "title": "The quay",
+        "file": "source/chapter-01.md"
+      },
+      {
+        "id": "chapter-02",
+        "title": "The crossing",
+        "file": "source/chapter-02.md"
+      }
+    ]
+  },
+  "edition": {
+    "schema_version": 1,
+    "id": "en-modern",
+    "title": "The Last Ferry",
+    "language": "en",
+    "direction": "ltr",
+    "kind": "modernization",
+    "label": "Demonstration draft 1",
+    "description": "Fictional fixture for testing annotation, not an example of an approved literary edition.",
+    "status": "draft",
+    "rights_note": "Development fixture; not approved as a project publication.",
+    "production": {
+      "ai_use": "generated for software demonstration",
+      "model": null,
+      "human_work": [],
+      "review_records": [],
+      "parent_revisions": []
+    },
+    "sections": [
+      {
+        "id": "chapter-01",
+        "title": "The quay",
+        "file": "chapters/chapter-01.md"
+      },
+      {
+        "id": "chapter-02",
+        "title": "The crossing",
+        "file": "chapters/chapter-02.md"
+      }
+    ]
+  },
+  "source_sections": [
+    {
+      "id": "chapter-01",
+      "title": "The quay",
+      "markdown": "At dusk Mara reached the quay with a letter she had promised not to read.\nThe ferryman was called Leno. He looked once at the letter, and then at the river.\n\n“There's still time to go back,” he said.\n\nMara put one foot into the boat. Behind her, a bell sounded from the town.\n",
+      "markdown_sha256": "0312e22695086d45dfaa32237e6218ebfb693767d1929d4dc6615e1ac660013b",
+      "html": "<p>At dusk Mara reached the quay with a letter she had promised not to read. The ferryman was called Leno. He looked once at the letter, and then at the river.</p>\n<p>“There's still time to go back,” he said.</p>\n<p>Mara put one foot into the boat. Behind her, a bell sounded from the town.</p>\n",
+      "text": "At dusk Mara reached the quay with a letter she had promised not to read. The ferryman was called Leno. He looked once at the letter, and then at the river.\n“There's still time to go back,” he said.\nMara put one foot into the boat. Behind her, a bell sounded from the town.\n"
+    },
+    {
+      "id": "chapter-02",
+      "title": "The crossing",
+      "markdown": "Leno steered into the mist. Mara asked whether the far bank had a name.\n\n“Every place has a name,” he said. “Not every traveler needs to know it.”\n\nThe letter remained unopened in her pocket.\n",
+      "markdown_sha256": "557b470c1729410c076d953c5d98fccf465e28c3cc7afeea666ae5beb7c722d7",
+      "html": "<p>Leno steered into the mist. Mara asked whether the far bank had a name.</p>\n<p>“Every place has a name,” he said. “Not every traveler needs to know it.”</p>\n<p>The letter remained unopened in her pocket.</p>\n",
+      "text": "Leno steered into the mist. Mara asked whether the far bank had a name.\n“Every place has a name,” he said. “Not every traveler needs to know it.”\nThe letter remained unopened in her pocket.\n"
+    }
+  ],
+  "sections": [
+    {
+      "id": "chapter-01",
+      "title": "The quay",
+      "markdown": "By the time Mara reached the quay, the light was fading. In her pocket was a\nletter she had promised not to open.\n\nThe ferryman, Leno, glanced at the letter and then at the river. “There's still\ntime to go back,” he said.\n\nMara stepped into the boat. A bell rang behind her, somewhere in the town.\n\n*Software-test aside, not narrative text:* café, é, 日本語、モーニング娘。 and 🚢\nexercise accents, combining characters and UTF-16 selection offsets.\n",
+      "markdown_sha256": "315d0033895646b28da4ea27265e3bbcb3eb28f730ffa3b40d8274161eae7333",
+      "html": "<p>By the time Mara reached the quay, the light was fading. In her pocket was a letter she had promised not to open.</p>\n<p>The ferryman, Leno, glanced at the letter and then at the river. “There's still time to go back,” he said.</p>\n<p>Mara stepped into the boat. A bell rang behind her, somewhere in the town.</p>\n<p><em>Software-test aside, not narrative text:</em> café, é, 日本語、モーニング娘。 and 🚢 exercise accents, combining characters and UTF-16 selection offsets.</p>\n",
+      "text": "By the time Mara reached the quay, the light was fading. In her pocket was a letter she had promised not to open.\nThe ferryman, Leno, glanced at the letter and then at the river. “There's still time to go back,” he said.\nMara stepped into the boat. A bell rang behind her, somewhere in the town.\nSoftware-test aside, not narrative text: café, é, 日本語、モーニング娘。 and 🚢 exercise accents, combining characters and UTF-16 selection offsets.\n"
+    },
+    {
+      "id": "chapter-02",
+      "title": "The crossing",
+      "markdown": "Reno steered into the mist. Mara asked if the far bank had a name.\n\n“Every place has a name,” he said. “Not every traveler needs to know it.”\n\nShe left the letter unopened.\n\n*Demonstration note:* “Leno” becoming “Reno” is an intentional fixture inconsistency.\nA reviewer can flag it here without proposing a replacement, and without finding\nan aligned source sentence. It is not an unnoticed error in a real translation.\n",
+      "markdown_sha256": "cc5ac53cdc1466d8cd4f30e553fbd780ba467c666e2b5057688a0bdf7aedd959",
+      "html": "<p>Reno steered into the mist. Mara asked if the far bank had a name.</p>\n<p>“Every place has a name,” he said. “Not every traveler needs to know it.”</p>\n<p>She left the letter unopened.</p>\n<p><em>Demonstration note:</em> “Leno” becoming “Reno” is an intentional fixture inconsistency. A reviewer can flag it here without proposing a replacement, and without finding an aligned source sentence. It is not an unnoticed error in a real translation.</p>\n",
+      "text": "Reno steered into the mist. Mara asked if the far bank had a name.\n“Every place has a name,” he said. “Not every traveler needs to know it.”\nShe left the letter unopened.\nDemonstration note: “Leno” becoming “Reno” is an intentional fixture inconsistency. A reviewer can flag it here without proposing a replacement, and without finding an aligned source sentence. It is not an unnoticed error in a real translation.\n"
+    }
+  ],
+  "missing_sections": [],
+  "renderer": {
+    "name": "pandoc",
+    "version": "pandoc 3.1.11.1",
+    "input_format": "markdown-smart-raw_html-raw_tex-yaml_metadata_block",
+    "html_format": "html5",
+    "wrap": "none"
+  },
+  "git_context": null
+}

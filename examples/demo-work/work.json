@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "demo-work",
+  "title": "The Last Ferry — software demonstration",
+  "author": "Synthetic fixture; no historical author",
+  "language": "en",
+  "source_edition": "Fictional development fixture, version 1",
+  "source_provenance": "Written for this scaffold. Not a public-domain classic or a real source acquisition.",
+  "rights_note": "Development fixture only. Not a rights precedent for real works.",
+  "sections": [
+    {
+      "id": "chapter-01",
+      "title": "The quay",
+      "file": "source/chapter-01.md"
+    },
+    {
+      "id": "chapter-02",
+      "title": "The crossing",
+      "file": "source/chapter-02.md"
+    }
+  ]
+}

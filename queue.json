@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "works": [
+    {
+      "id": "gutenberg-41445",
+      "source": {
+        "type": "gutenberg",
+        "id": 41445
+      },
+      "targets": [
+        "en"
+      ],
+      "requests": [],
+      "selection_note": "Initial candidate from the project discussion; no source acquired and no literary publication authorized."
+    }
+  ]
+}

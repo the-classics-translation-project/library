@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "run-4b26eaa7b1c44437899a543c6b9bb0ce",
+  "operation": "fixture-translation",
+  "created_at": "2026-10-16T04:31:58.487423+00:00",
+  "work": "tree-work",
+  "edition": "ja",
+  "interface": "chatgpt",
+  "model_label": "GPT-6 Astra Pro",
+  "model_snapshot": null,
+  "context_completeness": "Captured project prompts, notes and supplied session instructions; not a complete ChatGPT conversation or hidden system context.",
+  "source_fingerprint": "5ad14b88158f47755808c59cf8f032f00da73e7d84a57294a96cec80c8b54596",
+  "git_context": null,
+  "prompts": [
+    {
+      "path": "prompts/translate.md",
+      "sha256": "8ba4617889c16fc2c8de04432dfbefb2e2b4d9716515ec7fcb85296d70826676",
+      "text": "# Translate or modernize\n\nRead the short editorial policy and this work's and target edition's notes.\nImagine the original author born as a contemporary speaker of the target\nlanguage and becoming a novelist: how might they have written this work?\n\nPreserve the story and larger narrative structure. Do not abridge, add scenes,\nor reorganize the work. Sentence boundaries and paragraphing are not fixed.\nTranslate visible labels too; do not invent headings for unlabeled nodes.\nWork-specific choices and experiments belong in notes, not new global rules.\n\nSave the work as files, record the model label actually available and capture\nthis prompt, any session instructions, relevant notes and output hashes with\nrecord-run. Report unfinished or unverified work honestly. A draft is not an\napproved publication. No paid API calls unless explicitly authorized.\n"
+    },
+    {
+      "path": "session-instructions",
+      "text": "Translate the synthetic Last Ferry fixture into Japanese for annotation tests, including its labels and the branch introduction. This is an unreviewed development sample, not a published classic.",
+      "sha256": "8f8f23bc871b9d83dcc4155fa4951685867b39b7cb1155e9309b8717af926922"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "docs/editorial-policy.md",
+      "sha256": "577af62722684df0b70be624e47ee944409afcd552d265c1b16121697c2c55da",
+      "text": "# Editorial policy\n\n## Aim\n\nTranslate or modernize as though the original author had been born a contemporary\nspeaker of the target language and become a novelist. This is a working editorial\nquestion, not a claim that we can reconstruct a uniquely correct answer.\n\n## Scope\n\nChoose public-domain works that the maintainer expects contemporary readers to\nenjoy once the linguistic distance is reduced. Selection is a matter of taste and\nproject scope, not a universal judgment about a book's merit or accessibility.\nDo not select a work that would require turning it into a substantially different\nbook to achieve that aim.\n\nPreserve the story, characters, setting, narrative viewpoint, events and larger\nnarrative organization. Abridgement, new scenes, reordered chapters and structural\nadaptation are outside the present scope. Retain the source's meaningful\nBook/Volume/Chapter divisions and their order; translate existing book titles and\nheadings without inventing missing ones. Publishing the whole work as a single\nEPUB does not erase its internal divisions. Contemporary language does not mean\nmoving the story into the present day.\n\nSentence boundaries, paragraphing and phrasing may change freely in service of\nthat aim. Do not preserve an awkward sentence merely to retain correspondence.\nDo not mistake completeness for sentence-by-sentence literalism.\n\nNo universal house style, target sentence length, mandatory model or prescribed\ntranslation procedure is established here. Record work-specific decisions only\nwhen experience shows that they are useful. A whole new translation is a normal\npossible revision, not a failure of the workflow.\n"
+    },
+    {
+      "path": "examples/tree-work/notes.md",
+      "sha256": "03916b9d98b8f0feb37f94e3deb97f5e0a356b87a04170001acd704a4d218248",
+      "text": "# The Last Ferry — work notes\n\nThis is a synthetic software fixture carried forward from the starter, not a\nclassic. Its main purpose is to test nested and unlabeled nodes, Unicode,\nprose on branches, translation fields, snapshot anchoring and margin notes.\nThe crossing intentionally has a different paragraph structure in Japanese.\nDo not include the fixture in the finished-books catalogue.\n\n## Observations\nThe existing English demo changes the ferryman's name in chapter two. Keep\nthat test case available; it is not a proposed editorial convention.\n"
+    },
+    {
+      "path": "examples/tree-work/editions/ja/notes.md",
+      "sha256": "5c00460becd62fe50015ad571d4c0a7cc726300b25a3cab103dfdc3647f716d1",
+      "text": "# Japanese fixture\n\nThis is a new synthetic-fixture translation for UI testing. Names use マーラ\nand レノ consistently. No human review has taken place. Paragraph lengths need\nnot match the English fixture. These are not project-wide choices.\n"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "examples/tree-work/editions/ja/text/n0002.md",
+      "sha256": "4bcbcd70b2256a8e66a9d195d34575ea086c3f11eab07d84e45d790ec6140102"
+    },
+    {
+      "path": "examples/tree-work/editions/ja/text/n0004.md",
+      "sha256": "075c175cbd3173dbc4fac5f18e19c04ebab45b3a0b9d9a2731b010bd4de9d973"
+    },
+    {
+      "path": "examples/tree-work/editions/ja/text/n0005.md",
+      "sha256": "23d36d5a5d652b5e1aaec17a2c307558f7aaa0feac14ad976796b13d95da77db"
+    }
+  ]
+}

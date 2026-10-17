@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "report_id": "node-cross-language-test",
+  "repository": "the-classics-translation-project/library",
+  "work": "demo-work",
+  "edition": "en-modern",
+  "revision": "3b3764ee1a24cb0e9970edada6e26068564c0080ba4fc26c7e273e7cc6ed9642",
+  "created_at": "2026-10-16T00:00:00Z",
+  "annotations": [
+    {
+      "id": "a",
+      "section": "chapter-01",
+      "scope": "text",
+      "anchor": {
+        "unit": "utf16-code-units",
+        "start": 365,
+        "end": 367,
+        "exact": "🚢",
+        "prefix": "red café still had a blue ship sticker—",
+        "suffix": "—peeling from its window.\nOn the opposit"
+      },
+      "comment": "An observation."
+    },
+    {
+      "id": "b",
+      "section": "chapter-02",
+      "scope": "text",
+      "anchor": {
+        "unit": "utf16-code-units",
+        "start": 0,
+        "end": 4,
+        "exact": "Reno",
+        "prefix": "",
+        "suffix": " steered into the mist. Mara asked if th"
+      },
+      "comment": "An observation."
+    }
+  ]
+}

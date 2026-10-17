@@ -1,0 +1,17 @@
+{
+  "schema_version": 2,
+  "id": "tree-work",
+  "author": "Development fixture",
+  "fixture": true,
+  "language": "en",
+  "status": "imported",
+  "structure": "structure.json",
+  "source_edition": "Synthetic source inherited from the v3 starter",
+  "source_provenance": "Synthetic story retained from the starter; not an acquired public-domain classic. An introductory line is added to exercise text on a branch.",
+  "rights_note": "Software fixture only; not an approved literary publication.",
+  "source": {
+    "provider": "fixture",
+    "package": "The Last Ferry",
+    "byte_capture": "acquisition/acquired.txt"
+  }
+}

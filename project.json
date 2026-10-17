@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "name": "The Classics Translation Project",
+  "repository": "the-classics-translation-project/library",
+  "description": "Enjoyable classics, translated or modernized for contemporary readers.",
+  "interface_language": "en",
+  "version": "0.1.0",
+  "maintainers": [
+    "hiroshi-manabe"
+  ],
+  "targets": [
+    {
+      "id": "en",
+      "label": "English"
+    },
+    {
+      "id": "ja",
+      "label": "Japanese"
+    },
+    {
+      "id": "zh-Hans",
+      "label": "Chinese · Simplified"
+    },
+    {
+      "id": "zh-Hant",
+      "label": "Chinese · Traditional"
+    },
+    {
+      "id": "ko",
+      "label": "Korean"
+    },
+    {
+      "id": "fr",
+      "label": "French"
+    },
+    {
+      "id": "de",
+      "label": "German"
+    },
+    {
+      "id": "es",
+      "label": "Spanish"
+    },
+    {
+      "id": "it",
+      "label": "Italian"
+    },
+    {
+      "id": "pt-BR",
+      "label": "Portuguese · Brazil"
+    },
+    {
+      "id": "pt-PT",
+      "label": "Portuguese · Portugal"
+    }
+  ]
+}

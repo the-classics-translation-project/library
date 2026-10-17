@@ -1,0 +1,20 @@
+{
+  "checks": [
+    "Open a nested section",
+    "Book-title selection, popup and permanent margin note",
+    "Section-heading annotation",
+    "Mouse selection opens a comment popover",
+    "Overlapping and cross-paragraph highlights",
+    "Margin-note click edits the attached comment",
+    "Notes restore from simulated storage",
+    "Multi-section report passes the Python validator",
+    "Fixture cannot submit a real Issue",
+    "Tablet-width margin notes remain visible",
+    "Phone-width reader uses highlights without horizontal overflow",
+    "Catalogue selection generates a valid authorized intake request",
+    "Gutenberg ID fallback works without the full catalogue"
+  ],
+  "passed": 13,
+  "page_errors": [],
+  "scope": "Isolated Chromium DOM with simulated storage; real navigation/storage could not be tested; not physical iPad/Safari or live GitHub"
+}

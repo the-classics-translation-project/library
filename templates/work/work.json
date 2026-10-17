@@ -1,0 +1,17 @@
+{
+  "schema_version": 2,
+  "id": "work-id",
+  "language": "en",
+  "author": "Record the original author",
+  "source_edition": "Record the exact historical/source edition",
+  "source_provenance": "Record the acquisition route and verification evidence",
+  "rights_note": "Not yet cleared for distribution",
+  "status": "imported",
+  "source": {
+    "provider": "gutenberg",
+    "ebook_id": null,
+    "url": null,
+    "retrieved_at": null
+  },
+  "structure": "structure.json"
+}

@@ -1,0 +1,68 @@
+{
+  "id": "n0001",
+  "label": "The Last Ferry",
+  "source_refs": {
+    "label": [
+      "b000001"
+    ],
+    "text": []
+  },
+  "children": [
+    {
+      "id": "n0002",
+      "label": "Part One",
+      "text": "source/n0002.md",
+      "source_refs": {
+        "label": [
+          "b000002"
+        ],
+        "text": [
+          "b000003"
+        ]
+      },
+      "children": [
+        {
+          "id": "n0003",
+          "source_refs": {
+            "label": [],
+            "text": []
+          },
+          "children": [
+            {
+              "id": "n0004",
+              "label": "The quay",
+              "text": "source/n0004.md",
+              "source_refs": {
+                "label": [
+                  "b000004"
+                ],
+                "text": [
+                  "b000005",
+                  "b000006",
+                  "b000007",
+                  "b000008"
+                ]
+              }
+            },
+            {
+              "id": "n0005",
+              "label": "The crossing",
+              "text": "source/n0005.md",
+              "source_refs": {
+                "label": [
+                  "b000009"
+                ],
+                "text": [
+                  "b000010",
+                  "b000011",
+                  "b000012",
+                  "b000013"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

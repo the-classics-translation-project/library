@@ -278,10 +278,12 @@ def validate_project(root: Path = ROOT) -> dict:
         from intake import validate_queue
         queue=read_json(root/'queue.json')
         validate_queue(queue,config)
-        from acquire_queue import validate_receipt
-        for work in queue['works']:
-            receipt=root/'books'/work['id']/'acquisition-receipt.json'
-            if receipt.exists(): validate_receipt(read_json(receipt),work['id'],config['repository'])
+    from acquire_queue import validate_record
+    for rights_path in (root/'books').glob('*/rights.json'):
+        record=read_json(rights_path)
+        check(type(record.get('ebook_id')) is int and 0<record['ebook_id']<10_000_000, 'Invalid rights record Gutenberg ID')
+        check(rights_path.parent.name == f"gutenberg-{record['ebook_id']}", 'Rights record directory mismatch')
+        validate_record(rights_path.parent,record['ebook_id'])
     return {'works':works,'editable_editions':editions,'frozen_snapshots':snapshots,'generation_runs':runs,
             'note':'Structure, provenance and exact references only; not a literary quality guarantee.'}
 
@@ -298,7 +300,7 @@ def main() -> int:
     p=sub.add_parser('build'); p.add_argument('--demo',action='store_true'); p.add_argument('--epub',action='store_true')
     p=sub.add_parser('check-review'); p.add_argument('report',type=Path)
     p=sub.add_parser('acquire-queued'); p.add_argument('--output',type=Path,default=ROOT/'build/source-downloads')
-    p=sub.add_parser('register-acquisitions'); p.add_argument('--output',type=Path,default=ROOT/'build/source-downloads'); p.add_argument('--run-id',type=int,required=True); p.add_argument('--artifact-id',type=int,required=True)
+    p=sub.add_parser('stage-acquisitions'); p.add_argument('--output',type=Path,default=ROOT/'build/source-downloads')
     p=sub.add_parser('source-fetch'); p.add_argument('gutenberg_id',type=int)
     p=sub.add_parser('source-prepare'); p.add_argument('raw_file',type=Path); p.add_argument('work_directory',type=Path)
     p=sub.add_parser('source-apply'); p.add_argument('work_directory',type=Path); p.add_argument('plan',type=Path)
@@ -316,9 +318,9 @@ def main() -> int:
         elif args.command=='acquire-queued':
             from acquire_queue import acquire_queued
             result=acquire_queued(ROOT,args.output)
-        elif args.command=='register-acquisitions':
-            from acquire_queue import register_acquisitions
-            result=register_acquisitions(ROOT,args.output,args.run_id,args.artifact_id)
+        elif args.command=='stage-acquisitions':
+            from acquire_queue import stage_acquisitions
+            stage_acquisitions(ROOT,args.output); result={'staged':'Only validated acquisition files and rights records from this run'}
         elif args.command=='source-fetch':
             from source_import import fetch_gutenberg
             result=fetch_gutenberg(ROOT,args.gutenberg_id)

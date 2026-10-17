@@ -43,34 +43,19 @@ jobs:
             git push origin HEAD:main
             echo 'changed=true' >> "$GITHUB_OUTPUT"
           fi
-      - name: Download pending sources without interpreting their prose
+      - name: Assess US/Japan eligibility and acquire only passing sources
         run: ./ctp acquire-queued
-      - name: Retain source packages for verification (not in public Git)
-        id: packages
-        uses: actions/upload-artifact@v4
-        with:
-          name: source-acquisitions-${{ github.run_id }}-${{ github.run_attempt }}
-          path: build/source-downloads/
-          retention-days: 90
-          if-no-files-found: error
-      - name: Register only successfully retained acquisitions
-        env:
-          ARTIFACT_ID: ${{ steps.packages.outputs.artifact-id }}
-          RUN_ID: ${{ github.run_id }}
-        run: ./ctp register-acquisitions --run-id "$RUN_ID" --artifact-id "$ARTIFACT_ID"
       - run: ./ctp validate
-      - name: Commit acquisition receipts only
+      - name: Commit admitted source files and recorded hold reasons
         id: sources
         run: |
-          for receipt in books/*/acquisition-receipt.json; do
-            if [ -f "$receipt" ]; then git add -- "$receipt"; fi
-          done
+          ./ctp stage-acquisitions
           if git diff --cached --quiet; then
             echo 'changed=false' >> "$GITHUB_OUTPUT"
           else
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git commit -m 'Register acquired Gutenberg source packages'
+            git commit -m 'Assess requested sources and acquire eligible Gutenberg packages'
             git push origin HEAD:main
             echo 'changed=true' >> "$GITHUB_OUTPUT"
           fi
@@ -83,7 +68,7 @@ jobs:
           with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
               summary.write('## Source acquisition\n\n```json\n' + json.dumps(report, indent=2) + '\n```\n')
           if report['failed']:
-              raise SystemExit('Some downloads failed; inspect the report and rerun this workflow to retry.')
+              raise SystemExit('Acquisition errors were recorded; successful sources and hold reasons were preserved. Rerun to retry.')
           PYREPORT
   site:
     needs: intake

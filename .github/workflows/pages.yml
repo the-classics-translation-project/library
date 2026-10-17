@@ -30,7 +30,7 @@ jobs:
       - name: Build only the explicit catalogue (never test fixtures)
         run: ./ctp build --epub
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
   deploy:

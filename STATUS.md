@@ -144,10 +144,13 @@ source-admission decisions, **not** final human rights clearance, literary
 fidelity inspection, translation generation or permission to publish.
 
 PR #8 passed **100 Python**, **9 legacy JavaScript** and **10 schema-v2
-annotation** tests. The acquisition workflow's initial follow-up Pages build
-exposed a repository-fixture test that assumed both books would always remain
-on hold; that assumption is being corrected independently of the actual
-acquisition records. The original v1 assessment remains in Git history.
+annotation** tests. The acquisition workflow's first follow-up Pages build
+revealed a repository-fixture test that assumed both books would always remain
+on hold. Commit `6cbc753` corrected the test to replay legacy v1 records
+independently; the subsequent
+[CI run](https://github.com/the-classics-translation-project/library/actions/runs/39047021644)
+and [Pages deployment](https://github.com/the-classics-translation-project/library/actions/runs/39047021719)
+both passed. Historical v1 decisions remain in Git history.
 
 ## Local translation runner — design only
 

@@ -118,7 +118,7 @@ def validate_supplement(supplement: dict, ebook_id: int) -> dict:
     if 'production_credit' in supplement:
         item = supplement['production_credit']
         cited(item, {'text', 'url', 'basis'}, provider=True)
-        check(bool(re.fullmatch(r'Revised by [A-Za-z .-]{3,100}\\.', item['text'])),
+        check(bool(re.fullmatch(r'Revised by [A-Za-z .-]{3,100}\.', item['text'])),
               'Only a named, exact Gutenberg revision credit can be assessed')
     if 'transcriber_note' in supplement:
         item = supplement['transcriber_note']

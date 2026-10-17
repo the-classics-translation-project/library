@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
@@ -139,6 +140,33 @@ class SourceWorkerTests(unittest.TestCase):
             self.assertEqual(worker.selected(self.root, self.state)['pending'], [])
             (self.root / 'books/gutenberg-999/notes.md').write_text('New evidence to inspect.\n')
             self.assertEqual(len(worker.selected(self.root, self.state)['pending']), 1)
+
+    def test_existing_pinned_evidence_needs_owner_review(self):
+        held = {'status': 'held', 'eligible': False,
+                'admission_evidence': {'file': 'admission-evidence.json', 'sha256': 'old'},
+                'reasons': [{'country': 'JP', 'code': 'source_publication_missing',
+                             'detail': 'No publication year'}]}
+        with patch.object(worker, 'validate_record', return_value=held):
+            report = worker.selected(self.root, self.state)
+        self.assertEqual(report['pending'], [])
+        self.assertEqual(report['deferred'][0]['stage'], 'unsupported-hold')
+
+    def test_published_commit_needs_successful_ci_and_pages(self):
+        row = {'work': 'gutenberg-999', 'fingerprint': 'fixture'}
+        worker.write_outcome(self.state, row, 'published-pending', 'attempt', commit='abc')
+        runs = [
+            {'workflowName': 'Validate and build', 'status': 'completed',
+             'conclusion': 'success', 'url': 'https://example.invalid/ci',
+             'createdAt': '2026-10-18T00:00:00Z'},
+            {'workflowName': 'Deploy catalogue and workbench', 'status': 'completed',
+             'conclusion': 'success', 'url': 'https://example.invalid/pages',
+             'createdAt': '2026-10-18T00:00:00Z'},
+        ]
+        with patch.object(worker, 'command', return_value=SimpleNamespace(stdout=json.dumps(runs))):
+            result = worker.reconcile_published(self.root, self.state)
+        self.assertEqual(result[0]['state'], 'complete')
+        self.assertEqual(worker.read_ledger(self.state)['works']['gutenberg-999']['result'],
+                         'complete')
 
     def test_admin_exposes_tree_shape_without_full_source_prose(self):
         self.fake_agent(self.root, {'work': 'gutenberg-999'}, self.base / 'fake-run')

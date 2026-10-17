@@ -96,7 +96,7 @@ the same thing as published books.
   layouts. Those used simulated storage because browser navigation was
   restricted: **live browser storage persistence, Safari/iPad native text
   selection, and cross-device behavior remain unverified**.
-- The source-preparation branch passed **108 Python tests**, **9 legacy JS** and
+- The source-preparation branch passed **110 Python tests**, **9 legacy JS** and
   **10 schema-v2 JS** checks, `./ctp validate` and `./ctp build --epub` locally.
   A synthetic acquired work completed the mock one-work path without network or
   model use. A real Codex CLI invocation structured #36 in an isolated worktree;

@@ -95,7 +95,12 @@ def candidates(root: Path) -> list[dict]:
         elif rights['status'] == 'held':
             codes = {r['code'] for r in rights['reasons']}
             record['reasons'] = [f"{r['country']}/{r['code']}: {r['detail']}" for r in rights['reasons']]
-            if codes and codes <= RESEARCH_CODES:
+            if rights.get('admission_evidence') is not None:
+                # Replacing pinned evidence without an atomic rights reassessment
+                # would invalidate the current public record.
+                record.update(stage='unsupported-hold', actionable=False)
+                record['reasons'].append('Existing admission evidence is pinned by rights.json; owner review is required before replacing it.')
+            elif codes and codes <= RESEARCH_CODES:
                 record.update(stage='research', actionable=True)
             else:
                 record.update(stage='unsupported-hold', actionable=False)
@@ -380,9 +385,12 @@ def reconcile_published(root: Path, directory: Path) -> list[dict]:
         commit = entry['commit']
         runs = json.loads(command(['gh', 'run', 'list', '--commit', commit, '-R',
                                    'the-classics-translation-project/library', '--limit', '30',
-                                   '--json', 'workflowName,status,conclusion,url'],
+                                   '--json', 'workflowName,status,conclusion,url,createdAt'],
                                   root).stdout)
-        by_name = {run['workflowName']: run for run in runs if run['workflowName'] in expected}
+        by_name = {}
+        for run in sorted(runs, key=lambda item: item.get('createdAt', ''), reverse=True):
+            if run['workflowName'] in expected and run['workflowName'] not in by_name:
+                by_name[run['workflowName']] = run
         if not expected <= set(by_name):
             results.append({'work': wid, 'state': 'awaiting-runs'})
             continue

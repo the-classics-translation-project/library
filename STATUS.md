@@ -106,17 +106,20 @@ the same thing as published books.
 
 ## Next useful work
 
-1. Review the two newly acquired Gutenberg packages, verify their specific
-   historical editions and any ancillary text, then create source trees using
-   block-reference plans; preserve original bytes and validate coverage.
-2. Make and record the first real draft translation with an interactive agent;
-   use work-specific and target-language notes, and do not promote the draft
-   to the public reader catalogue without explicit editorial approval.
-3. Inspect the live reader/contributor/admin interfaces on intended browsers,
-   check EPUBs with EPUBCheck/readers, and update the stale setup documentation.
-4. Implement and locally smoke-test a **fresh-context CLI translation launcher**
-   against an installed CLI, following [its design](docs/translation-runner.md).
-   Ordinary manual/interactive translation remains supported.
+1. **Implement the locally scheduled source-preparation pipeline**, following
+   [the concrete brief](docs/local-source-automation.md): cheap no-op polling,
+   eligible vs. held work selection, one-work Codex execution, secure Git
+   publishing and clear retry/recovery behavior. Install the macOS LaunchAgent
+   only after real local CLI authentication and a smoke test.
+2. **Structure the two already admitted sources**, keeping their acquired bytes
+   and rights evidence intact, then expose source trees with expandable nodes in
+   Admin. Validate the tree and observe the real GitHub Pages deployment.
+3. Implement future **node-level translation request Issues** and the separate
+   fresh-context translation launcher, following
+   [docs/translation-runner.md](docs/translation-runner.md).
+4. Inspect Admin/workbench/EPUB on intended browsers and update remaining
+   historical setup documentation as needed. No draft should be promoted
+   without explicit approval.
 
 ## Source admission — successful v2 acquisition on 2026-10-17
 
@@ -165,3 +168,22 @@ repository and merge changes. PRs are optional for simple validated work.
 test or automatic translation has been implemented or exercised yet.** The next
 step is local implementation and an explicitly invoked smoke test before any
 claims about model invocation, context isolation or production translation.
+
+## Automated local source preparation — implementation approved, not running
+
+On 2026-10-18 the owner selected a **local macOS scheduler + on-demand Codex**
+approach for completing the path from a GitHub work Issue to source acquisition,
+bibliographic research when a hold requires it, literary source-tree analysis,
+version-controlled changes and an expandable Admin tree.
+
+The existing GitHub Actions intake and acquisition fast path is operational; the
+two present source packages are already acquired. **There is no local polling
+wrapper, launchd job, automatic source-analysis Codex invocation, state ledger,
+or live Admin source-tree viewer yet.** Do not conflate these proposed components
+with the existing rights/acquisition workflows. The fully specified first
+implementation task, constraints, tests and CLI starting point are in
+[docs/local-source-automation.md](docs/local-source-automation.md);
+the proposed source agent prompt is
+[prompts/source-preparation.md](prompts/source-preparation.md).
+No scheduled Codex job, unattended model use or local installation was
+performed from this conversation.

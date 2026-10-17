@@ -68,6 +68,19 @@ do a bounded task, validate and commit. Its availability, budget and permissions
 must be configured separately; ordinary GitHub Actions does not grant subscription
 model capacity. Keep API orchestration optional.
 
+**Near-term owner-selected automation design (not yet implemented):**
+[local source-preparation worker](local-source-automation.md). A macOS per-user
+`launchd` job periodically performs a deterministic no-op check. Only when
+there is an unfinished, actionable source task does a local Codex process
+investigate an unresolved copyright-evidence hold or structure an already
+admitted source. The trusted wrapper locks, creates a Git worktree, validates
+and publishes allowed changes; GitHub Pages can then show an expandable
+source tree in Admin. The previously written
+[translation runner design](translation-runner.md) applies to a *later*
+node-level translation stage, not this source-preparation worker.
+`launchd` installation and Codex authentication are local owner actions,
+never automatic effects of a GitHub commit.
+
 ## Deliberate limits
 
 No generic source-tree migration, image/PDF importer, cross-version automatic

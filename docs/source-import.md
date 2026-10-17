@@ -74,6 +74,16 @@ translation follow separately. `catalog.json` is never changed by acquisition.
 The manual `source-fetch` command above remains a local acquisition tool and does
 not grant automatic admission or authorize staging unassessed source text.
 
+## AI proposes references; code copies text## Scheduled local source preparation (planned)
+
+[docs/local-source-automation.md](local-source-automation.md) is the current
+implementation brief for a per-user local scheduler that calls Codex only when
+an authorized source task needs agent judgment. It handles unresolved rights
+holds by research/cited evidence when appropriate, then uses the existing
+`source-apply` path for first-import literary trees. Existing Gutenberg
+acquisitions are never re-downloaded or overwritten. The worker and its macOS
+installation are not yet implemented.
+
 ## AI proposes references; code copies text
 
 Give the numbered blocks to an agent with `prompts/structure-source.md`. The plan

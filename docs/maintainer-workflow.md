@@ -34,6 +34,17 @@ reasons and are not automatically actionable. Acquire and structure sources usin
 may prepare metadata directly; the owner need not author JSON. Use source and
 edition notes to record actual evidence and uncertainties.
 
+**Planned unattended preparation:** the first local-automation milestone is
+[docs/local-source-automation.md](local-source-automation.md). A cheap scheduled
+local check can select already acquired/unstructured works **and** holds needing
+evidence research (which `./ctp task` currently skips). The agent may investigate
+the exact hold, record narrow cited evidence under the existing policy and let
+the acquisition workflow reassess it; unsupported or unresolved issues stay on
+hold. After an admitted acquisition is available, the agent constructs a
+reference-only plan and uses the mechanical importer to allocate node IDs.
+The local wrapper handles validation and publishing. This is a design/implementation
+brief, not an installed scheduler or already functioning automation.
+
 ## Translate, read, revise
 
 Create an edition from `templates/edition/`, set its language/kind and map translated

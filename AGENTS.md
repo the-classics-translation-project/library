@@ -17,6 +17,14 @@ For source work, read [source import](docs/source-import.md) and
 [data formats](docs/data-formats.md) and [contributor workflow](docs/contributor-workflow.md).
 For a proposed **local CLI translation launcher**, read
 [translation runner design](docs/translation-runner.md); it is not implemented yet.
+**Immediate local-automation implementation task:** read
+[automated source-preparation brief](docs/local-source-automation.md).
+Implement deterministic idle checks, a macOS launchd worker, Codex execution,
+safe source/rights handling, Git publishing and the Admin expandable tree.
+The associated runtime agent instructions are in
+[prompts/source-preparation.md](prompts/source-preparation.md).
+This pipeline is NOT implemented yet; do not report it as running.
+Source preparation precedes the separate future translation launcher.
 
 ## Invariants
 
@@ -70,6 +78,11 @@ from physical Safari/iPad tests. Never report a check that was not run.
 
 Report changed scope, validation results, unknowns and the exact artifacts/commit.
 Do not claim remote deployment from a local build or a queued workflow.
+For unattended source preparation, first prove a no-op poll uses zero model
+calls, lock/retry behavior and a bounded one-work run. Never enable a local
+LaunchAgent merely by cloning/testing the repository. The user must explicitly
+perform one-time installation; check actual Codex CLI auth/flags in that user's
+local environment. Do not push unapproved literary material.
 
 ## Authority and publication
 

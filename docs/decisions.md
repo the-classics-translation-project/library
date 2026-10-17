@@ -152,3 +152,19 @@ merges where convenient. Prefer local Work/Codex for implementing and testing
 software that must execute an actual installed CLI. Direct commits are reasonable
 for limited, validated work; PRs are useful when cross-agent review or protection
 against consequential changes adds value, not an obligatory workflow.
+
+## 2026-10-18 — Deterministic rights fast path, local agent for source completion
+
+After an authorized GitHub Issue is accepted, existing GitHub Actions performs
+mechanical rights checks and acquires clear Gutenberg sources. A locally
+scheduled worker (macOS `launchd`; initially every 30 minutes) makes a cheap
+no-op/pending determination without spending model usage. Only unfinished,
+actionable work starts Codex to research a missing/ambiguous rights hold or
+structure an admitted source. Validated results are committed and displayed
+as expandable canonical source nodes in Admin. Existing source/rights
+evidence is preserved, with explicit escalation when a case cannot be cleared.
+This is the **next implementation task**, not currently functioning automation.
+See [local source automation](local-source-automation.md).
+Translation requests and fresh-context translation invocation remain later
+milestones. The user's permission to pursue local automation is not a blanket
+license to discard rights safeguards or publish reader editions.

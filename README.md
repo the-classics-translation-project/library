@@ -1,100 +1,93 @@
 # The Classics Translation Project
 
-Enjoyable public-domain classics, translated or modernized for contemporary readers.
-A solo, informal literary project with an evolving software toolkit.
+Enjoyable public-domain classics, translated or modernized for contemporary
+readers. This is an informal, solo literary project with an evolving toolchain.
 
-**Version 0.1.0 is a runnable local repository, not a live deployment.** The initial
-GitHub upload and Pages deployment have not been performed. There is no published
-literary edition yet. See [STATUS.md](STATUS.md) for precisely what was tested.
+**The GitHub repository and Pages site are live. There is no approved
+reader publication or actual translation yet.** See [STATUS.md](STATUS.md)
+for the verified current state.
 
-## Start locally
+- [GitHub repository](https://github.com/the-classics-translation-project/library)
+- [Reader catalogue and site](https://the-classics-translation-project.github.io/library/)
+- [Admin catalogue and work queue](https://the-classics-translation-project.github.io/library/admin/)
 
-Install Python 3.11+, Pandoc 3.x and Git. Node 22+ is used for JavaScript tests.
-There are no runtime Python packages, frontend framework, paid API calls or secrets.
+## Start in an existing or new local checkout
+
+Read [AGENTS.md](AGENTS.md), [STATUS.md](STATUS.md) and the
+[maintainer workflow](docs/maintainer-workflow.md). Clone the current
+repository rather than using an obsolete starter ZIP:
 
 ```sh
+git clone https://github.com/the-classics-translation-project/library.git
+cd library
 ./ctp validate
 python3 -m unittest discover -s tests -v
 node tests/review-core.cjs
 node tests/annotation-core.cjs
 ./ctp build --demo --epub
-python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
 ```
 
-Open `http://localhost:8000/`. The **Workbench** includes a small English/Japanese
-synthetic example with nested and unlabeled sections. It is a software fixture,
-not a published classic. The **Admin** page includes a three-record metadata seed
-and a Gutenberg-number fallback; the full catalogue still needs downloading.
-The **Library** lists only approved reader editions, and is initially empty.
+Python 3.11+, Pandoc 3.x and Git are used for source/build tasks; Node 22+
+is used for JavaScript checks. The demo is a synthetic UI fixture, not a
+published classic. See [setup](docs/setup.md) for local inspection.
 
-`./ctp build --epub` excludes examples. The build output is `dist/`, not Git-tracked
-publication evidence. Each reading/review HTML is self-contained; serve the site
-on localhost or HTTPS for sustained reviewing. Export notes for backup.
+## How works move through the project
 
-## How the project works
+A public, token-free Admin page searches the full cached Gutenberg catalogue
+and prepares a GitHub Issue. Authorized requests enter `queue.json`. An
+existing GitHub Actions workflow performs deterministic US/Japan source-admission
+checks, preserves passing Gutenberg packages in Git and records explicit
+holds for uncertain ones.
 
-One source package is one work. Its ordered tree has opaque, mechanically assigned
-IDs and optional labels, prose and children. Translate labels as well as prose;
-keep the larger structure, not its sentence or paragraph boundaries. Whole new
-translations are ordinary revisions. Read the deliberately short
-[editorial policy](docs/editorial-policy.md).
+The next development milestone is **local automatic source preparation**.
+A macOS scheduler will poll cheaply and invoke Codex only for actionable
+work: researching unresolved evidence holds and producing canonical source
+trees from already acquired Gutenberg bytes. The validated results will be
+committed, and Admin will show expandable node hierarchies. See the
+[implementation brief](docs/local-source-automation.md) and
+[agent prompt](prompts/source-preparation.md).
 
-The contributor page is a reader with optional annotations: select text, comment
-in a nearby popup, then see a compact margin note. Titles and headings can be
-annotated too. Reports cite an immutable revision and exact text, and may contain
-observations from several sections. They are observations, not automatic patches.
+**This local scheduler, its Codex runner and Admin source-tree viewer have
+not been implemented or installed yet.** The already acquired candidates
+are Gutenberg #36 (*The War of the Worlds*, Japanese target) and #41445
+(*Frankenstein*, English candidate); neither has been structurally imported.
 
-The administrator selects a Gutenberg record and target languages, then submits
-a prefilled GitHub Issue. Authorized requests are merged into `queue.json` by the
-intake workflow. The queue records intentions; source and translation files record
-progress. `./ctp task` prepares the next bounded task for an interactive agent.
-There is no unattended model runner, subscription automation or paid API dependency.
+A later milestone will let the owner check individual nodes in Admin, file
+translation-request Issues and run separate fresh-context local translation
+sessions. See [translation runner design](docs/translation-runner.md).
 
-Prompts are ordinary version-controlled Markdown. Substantial generation records
-capture the model label, prompt text, source fingerprint, notes and output hashes.
-Work-specific and edition-specific notes outlive individual translation attempts.
-
-## Publish the repository
-
-The downloadable ZIP includes `bootstrap.bundle`, which preserves the local Git
-history. With GitHub CLI installed and authenticated as an authorized owner:
-
-```sh
-./tools/publish-github.sh           # print the plan; change nothing
-./tools/publish-github.sh --publish # explicitly create/push/configure the public project
-```
-
-The script targets `the-classics-translation-project/library`, refuses unrelated
-remote history, never force-pushes, and requests Pages/catalogue workflows. It does
-not assert they succeeded. Initial deployment requires GitHub write/admin access;
-that access was unavailable in the build session. See [setup](docs/setup.md).
+The ordered source tree has mechanically allocated, stable opaque IDs, optional
+labels and body text on nodes, and arbitrary children; there is no mandatory
+sentence/paragraph alignment. Edited/retranslated prose is tracked with
+versioned prompts, notes, provenance records and immutable snapshots.
+No GitHub Issue or mechanical quality check silently approves a literary
+release. `catalog.json` is an explicit reader/review distribution allowlist.
 
 ## Repository map
 
 ```text
-books/        acquired source packages, canonical trees, notes, editable editions
-revisions/    immutable source/translation snapshots, including captured rendering
-prompts/      reusable prompts; generation records pin their exact contents
-catalog.json explicit distribution allowlist, separate review and reader audiences
-queue.json   requested works/target languages and accepted Issue evidence
-data/        cached catalogue metadata (currently only three seed records)
-site/        reader, contributor and administrator interfaces
-tools/       import, validation, snapshot, build, intake and publish commands
-tests/       source, provenance, annotation, build and browser checks
-examples/    opt-in synthetic fixtures; preserved legacy v1 example
-reviews/     optional maintainer dispositions linked to reports and revisions
-templates/   schema-v2 metadata and editorial note starting points
-docs/        operating guidance, decisions, data contracts and rights checkpoints
-.github/    validation, Pages, catalogue refresh and authorized Issue intake
+AGENTS.md      authoritative agent entry point
+STATUS.md      what has actually been implemented, tested and deployed
+docs/          workflow, rights, structures, implementation briefs
+prompts/       reproducible model/task instructions
+books/         admitted source packages, canonical trees, editions and notes
+queue.json     authorized requests; progress derived from actual files
+catalog.json   explicit reader/review distribution allowlist (currently empty)
+data/          cached full Gutenberg metadata catalogue
+tools/         deterministic validators, importers and site builder
+site/          Admin, reader and annotation-workbench UI
+tests/         mechanical/annotation/browser tests
+revisions/     immutable frozen examples and future literary snapshots
+.github/       CI, Pages, catalogue refresh, authorized Issue intake
 ```
 
-## Documentation
+[Editorial policy](docs/editorial-policy.md) ·
+[Local source automation](docs/local-source-automation.md) ·
+[Source import](docs/source-import.md) ·
+[Source structure](docs/source-structure.md) ·
+[Provenance](docs/provenance.md) ·
+[Rights](RIGHTS.md)
 
-[Agent instructions](AGENTS.md) · [Contributor guide](CONTRIBUTING.md) ·
-[Source import](docs/source-import.md) · [Source structure](docs/source-structure.md) ·
-[Maintainer workflow](docs/maintainer-workflow.md) · [Provenance](docs/provenance.md) ·
-[Data formats](docs/data-formats.md) · [Architecture](docs/architecture.md) ·
-[Decisions](docs/decisions.md) · [Rights](RIGHTS.md)
-
-No blanket license has been selected for code or new editorial material. Public
-repository visibility is not a licensing decision. No KDP upload is implemented.
+No blanket license has been selected for code or new editorial material.
+The repository is public, but that is not an authorization to distribute
+new translations or to submit anything to KDP.

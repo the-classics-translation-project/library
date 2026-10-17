@@ -54,6 +54,16 @@ exempted ancillary lines remain in exact acquired bytes.
 
 See [automatic rights policy](automatic-source-rights.md).
 
+## Source work and tree (schema 2)## Proposed source-tree view in Admin (not implemented)
+
+A future static Admin manifest will be derived exclusively from the validated
+`work.json` and `structure.json` of admitted, structured queued works, with
+source IDs, opaque node IDs, optional labels, ordered children and accurate
+status. It must not invent fixed chapters or expose unapproved translated
+content. It is distinct from the `catalog.json` reader distribution allowlist.
+See [local source-preparation brief](local-source-automation.md). No change to
+existing source-tree or Issue-request schemas is needed for this first viewer.
+
 ## Source work and tree (schema 2)
 
 `work.json`: `schema_version`, `id`, `language`, `author`, `source_edition`,

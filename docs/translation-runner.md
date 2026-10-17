@@ -6,6 +6,12 @@ this repository. The goal is to make a request such as *translate The War of the
 Worlds into Japanese* actionable once that source is lawfully admitted,
 structured and ready, without requiring the owner to manually shuttle prompts.
 
+**Separate first milestone:** [automated local source preparation](local-source-automation.md)
+runs before translation: Issue intake → rights/source → source-tree analysis →
+Admin display. That local coordinator may need broad bibliographic and source
+context. It is NOT the fresh-context literary translation worker specified
+below. Do not make the initial source automation translate any text.
+
 ## Responsibility boundary
 
 A **coordinating agent** can retain full repository context: `AGENTS.md`,

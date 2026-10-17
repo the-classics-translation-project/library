@@ -99,8 +99,27 @@ def admin(root,config,css):
     from intake import queue_status
     catalogue_path=root/'data/gutenberg-catalogue.json'
     cat=c.read_json(catalogue_path) if catalogue_path.exists() else {'kind':'unavailable','records':[],'source':''}
-    data={'repository':config['repository'],'targets':config.get('targets',[]),'catalogue':cat,'queue':queue_status(root)}
-    body=navigation(config,'../')+'''<main class="catalogue admin"><h1>Add a work</h1><label class="sr-only" for="search">Search title, author or Gutenberg number</label><input id="search" class="catalogue-search" type="search" placeholder="Title, author, or Gutenberg number" autocomplete="off"><p id="catalogue-status" class="small"></p><div id="results" role="list"></div><section id="selection" hidden><h2 id="selected-title"></h2><p id="selected-author" class="meta"></p><fieldset id="targets"><legend>Target languages</legend></fieldset><div class="actions"><a id="prepare-issue" class="button primary-action" target="_blank" rel="noopener noreferrer">Prepare GitHub Issue</a></div><p id="request-warning" class="small"></p><details><summary>Request data</summary><textarea id="request-data" rows="8" readonly></textarea></details></section><h2 class="queue-heading">Work queue</h2><div id="queue"></div><details class="admin-help"><summary>Help</summary><p>The form prepares a request; submit it on GitHub. Only configured maintainers' requests are imported into the queue. No credentials are stored here. A queued request does not authorize a public book release or paid model calls.</p><p>Requested Gutenberg sources are checked automatically for US/Japan source admission. Passing sources are saved to the repository; held sources show the reason below. This does not approve a translated edition for publication.</p><p>To refresh all Gutenberg titles, run <code>./ctp catalogue-refresh</code> or the catalogue workflow.</p></details></main>'''
+    rows=queue_status(root)
+    def summary_tree(node):
+        # Only public labels and mechanical IDs go to Admin, never full prose.
+        return {'id':node['id'], **({'label':node['label']} if 'label' in node else {}),
+                'has_text':'text' in node,
+                'children':[summary_tree(child) for child in node.get('children',[])]}
+    sources=[]
+    requests=c.read_json(root/'queue.json')['works'] if (root/'queue.json').exists() else []
+    for request in requests:
+        wd=root/'books'/request['id']
+        related=next((row for row in rows if row['work']==request['id']),None)
+        item={'work':request['id'], 'source_id':request['source']['id'],
+              'stage':related['stage'] if related else 'source needed',
+              'targets':request['targets']}
+        if (wd/'structure.json').exists() and (wd/'work.json').exists():
+            work,tree=c.validate_work(wd)
+            item.update(author=work['author'], tree=summary_tree(tree))
+        sources.append(item)
+    data={'repository':config['repository'],'targets':config.get('targets',[]),
+          'catalogue':cat,'queue':rows,'sources':sources}
+    body=navigation(config,'../')+'''<main class="catalogue admin"><h1>Add a work</h1><label class="sr-only" for="search">Search title, author or Gutenberg number</label><input id="search" class="catalogue-search" type="search" placeholder="Title, author, or Gutenberg number" autocomplete="off"><p id="catalogue-status" class="small"></p><div id="results" role="list"></div><section id="selection" hidden><h2 id="selected-title"></h2><p id="selected-author" class="meta"></p><fieldset id="targets"><legend>Target languages</legend></fieldset><div class="actions"><a id="prepare-issue" class="button primary-action" target="_blank" rel="noopener noreferrer">Prepare GitHub Issue</a></div><p id="request-warning" class="small"></p><details><summary>Request data</summary><textarea id="request-data" rows="8" readonly></textarea></details></section><h2 class="queue-heading">Work queue</h2><div id="queue"></div><h2 class="queue-heading">Source trees</h2><p class="small">Imported source structure only. A tree does not mean a translation or reader edition exists.</p><div id="source-trees"></div><details class="admin-help"><summary>Help</summary><p>The form prepares a request; submit it on GitHub. Only configured maintainers' requests are imported into the queue. No credentials are stored here. A queued request does not authorize a public book release or paid model calls.</p><p>Requested Gutenberg sources are checked automatically for US/Japan source admission. Passing sources are saved to the repository; held sources show the reason below. This does not approve a translated edition for publication.</p><p>To refresh all Gutenberg titles, run <code>./ctp catalogue-refresh</code> or the catalogue workflow.</p></details></main>'''
     return c.page('Admin · '+config['name'],body,css,tail=f'<script id="admin-data" type="application/json">{c.js_data(data)}</script><script>{(root/"site/admin.js").read_text()}</script>')
 
 def build_site(root: Path,demo: bool=False,make_epub: bool=False) -> Path:

@@ -40,15 +40,16 @@ checks, preserves passing Gutenberg packages in Git and records explicit
 holds for uncertain ones.
 
 The next development milestone is **local automatic source preparation**.
-A macOS scheduler will poll cheaply and invoke Codex only for actionable
-work: researching unresolved evidence holds and producing canonical source
-trees from already acquired Gutenberg bytes. The validated results will be
-committed, and Admin will show expandable node hierarchies. See the
+The repository now includes a deterministic worker, a macOS LaunchAgent
+installer and an Admin source-tree view. The worker is designed to poll cheaply
+and invoke Codex only for actionable work: researching supported evidence
+holds and producing canonical source trees from admitted Gutenberg bytes.
+See the
 [implementation brief](docs/local-source-automation.md) and
 [agent prompt](prompts/source-preparation.md).
 
-**This local scheduler, its Codex runner and Admin source-tree viewer have
-not been implemented or installed yet.** The already acquired candidates
+**The LaunchAgent has not been installed, and no real book has been structured
+through the worker or shown in the live Admin page yet.** The already acquired candidates
 are Gutenberg #36 (*The War of the Worlds*, Japanese target) and #41445
 (*Frankenstein*, English candidate); neither has been structurally imported.
 

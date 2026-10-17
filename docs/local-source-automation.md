@@ -1,9 +1,12 @@
 # Automated local source preparation — implementation brief
 
-**Status (2026-10-18): approved project direction, NOT implemented.** The local
-coding agent should implement and test this next, starting with the two already
-acquired Gutenberg works. It may use direct commits or a PR. Reading this document
-is not evidence that a Mac scheduler, Codex runner, or Admin tree viewer exists.
+**Status (2026-10-18): implementation in the repository, not installed or running.**
+The deterministic worker, safe publication path, launchd helper and Admin tree
+renderer have fixture tests. A small read-only Codex CLI smoke test passed using
+the CLI bundled with ChatGPT.app. No real source-tree job or periodic launchd
+run has completed. The two acquired Gutenberg works remain the first real
+end-to-end exercises. Code presence is not evidence of an installed scheduler,
+successful publishing, Pages deployment or literary review.
 
 ## Goal and boundary
 

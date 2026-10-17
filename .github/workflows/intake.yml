@@ -2,6 +2,15 @@ name: Import work requests
 on:
   issues:
     types: [opened, edited, reopened]
+  # Reassess held requests when a cited exception or the admission rule changes.
+  # GITHUB_TOKEN bot commits do not trigger another push run.
+  push:
+    branches: [main]
+    paths:
+      - 'books/*/admission-evidence.json'
+      - 'tools/source_rights.py'
+      - 'tools/acquire_queue.py'
+      - '.github/workflows/intake.yml'
   workflow_dispatch:
 permissions:
   contents: read

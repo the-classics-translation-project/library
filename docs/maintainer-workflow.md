@@ -43,7 +43,7 @@ the acquisition workflow reassess it; unsupported or unresolved issues stay on
 hold. After an admitted acquisition is available, the agent constructs a
 reference-only plan and uses the mechanical importer to allocate node IDs.
 The local wrapper handles validation and publishing. The code has fixture tests;
-the LaunchAgent is not installed and a real source job has not completed yet.
+the LaunchAgent is not installed and its full push/CI path has not run live yet.
 
 ## Translate, read, revise
 

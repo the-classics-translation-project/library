@@ -80,8 +80,9 @@ not grant automatic admission or authorize staging unassessed source text.
 per-user local worker. Its code calls Codex only for selected source work,
 handles supported rights holds through research/cited evidence, and uses
 `source-apply` for first-import literary trees. Existing Gutenberg acquisitions
-are never re-downloaded or overwritten. The LaunchAgent has not been installed
-and no real source tree has been completed through this worker yet.
+are never re-downloaded or overwritten. The LaunchAgent has not been installed.
+#36 was structured through the executor and validator in an isolated worktree;
+the complete scheduled push/CI path has not run live yet.
 
 ## AI proposes references; code copies text
 

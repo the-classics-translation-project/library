@@ -48,10 +48,11 @@ See the
 [implementation brief](docs/local-source-automation.md) and
 [agent prompt](prompts/source-preparation.md).
 
-**The LaunchAgent has not been installed, and no real book has been structured
-through the worker or shown in the live Admin page yet.** The already acquired candidates
-are Gutenberg #36 (*The War of the Worlds*, Japanese target) and #41445
-(*Frankenstein*, English candidate); neither has been structurally imported.
+**The LaunchAgent has not been installed, and the full worker publishing path
+has not run live.** Gutenberg #36 (*The War of the Worlds*, Japanese target)
+has a validated source tree in the repository. Gutenberg #41445
+(*Frankenstein*, English candidate) is acquired but unstructured. A live Admin
+deployment and browser interaction check for #36 remain to be confirmed.
 
 A later milestone will let the owner check individual nodes in Admin, file
 translation-request Issues and run separate fresh-context local translation

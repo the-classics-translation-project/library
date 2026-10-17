@@ -89,12 +89,12 @@ modify `catalog.json` or publish an edition.
 
 ## First real acceptance exercise
 
-The repository already contains original, admitted Gutenberg #36 and #41445
-source packages with reversible blocks and rights evidence. Neither has a
-canonical literary source tree yet. The local worker should identify them as
-pending without duplicating target-language rows, structure one with the
-reference-only plan, validate, safely push and confirm the Admin page shows
-its expandable labels and nodes after an actual successful Pages deployment.
+The repository contains original, admitted Gutenberg #36 and #41445 source
+packages with reversible blocks and rights evidence. #36 has a validated
+reference-only source tree; #41445 remains pending. The local worker should
+identify #41445 once regardless of target-language rows, validate, safely push
+and confirm Admin shows its expandable labels and nodes after an actual
+successful Pages deployment. Confirm the same deployment for #36.
 
 If a Mac is asleep/offline the GitHub queue remains durable; the next
 successful local poll must catch up without duplicate model jobs or overwriting

@@ -21,8 +21,8 @@ For local source automation, read the
 [automated source-preparation brief](docs/local-source-automation.md).
 The deterministic worker, launchd installation helper, guarded Codex execution,
 Git publishing path and Admin expandable tree have code and fixture tests.
-The local schedule is not installed or running; a complete real source-structure
-run and Pages observation remain to be done.
+The local schedule is not installed or running; the full worker push/CI path
+and Pages observation remain to be done.
 The associated runtime agent instructions are in
 [prompts/source-preparation.md](prompts/source-preparation.md).
 Do not report the pipeline as running merely because its code exists.

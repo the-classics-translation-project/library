@@ -140,7 +140,7 @@ def load_work(work_dir: Path, edition_id: str) -> tuple[dict, dict, Path]:
     return work, ed, ed_dir
 
 class SafeHTML(HTMLParser):
-    TAGS = {"p", "em", "strong", "a", "span", "blockquote", "ul", "ol", "li", "hr", "br", "h1", "h2", "h3", "h4", "h5", "h6", "code", "pre", "sup", "sub", "del", "section", "div"}
+    TAGS = {"p", "em", "strong", "a", "span", "blockquote", "ul", "ol", "li", "hr", "br", "h1", "h2", "h3", "h4", "h5", "h6", "code", "pre", "sup", "sub", "del", "section", "aside", "div"}
     ATTRS = {"id", "class", "href", "title", "role", "aria-label", "start", "type"}
     def __init__(self):
         super().__init__(convert_charrefs=True)

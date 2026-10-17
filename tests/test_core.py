@@ -125,6 +125,13 @@ class FrameworkTests(unittest.TestCase):
         p=self.work/'source/chapter-01.md';before=p.read_bytes()
         ctp.freeze(self.work,'en-modern',self.root)
         self.assertEqual(p.read_bytes(),before)
+    def test_safe_html_accepts_pandoc_footnote_aside(self):
+        # Older Pandoc 3.x renders footnotes in an aside rather than a section.
+        fragment = '<aside class="footnotes" role="doc-endnotes"><p>Note.</p></aside>'
+        self.assertEqual(ctp.html_text(fragment), "Note.")
+        with self.assertRaises(ctp.ProjectError):
+            ctp.html_text('<aside onclick="alert(1)">Note.</aside>')
+
     @unittest.skipUnless(shutil.which('pandoc'),'Pandoc not installed')
     def test_render_footnotes_and_id_namespaces(self):
         rendered=ctp.render('A note.[^n]\n\n[^n]: Text.\n','test')

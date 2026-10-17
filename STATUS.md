@@ -1,6 +1,6 @@
 # Status — version 0.1.0
 
-Last verified: **2026-10-17** (against the public GitHub repository and actual
+Last updated: **2026-10-18** (against the public GitHub repository and actual
 GitHub Actions results). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
 
@@ -43,10 +43,10 @@ claim that the software and literary workflows are finished.
    **Japanese (`ja`) only**, added through
    [Issue #6](https://github.com/the-classics-translation-project/library/issues/6).
 
-Neither source has been acquired or structured. On the PR #7 branch, `books/`
-contains automatic rights assessments and RDF evidence for both queued candidates;
-those checks held both requests without retaining literary source text. **No real literary translation
-has begun or been approved.** The `revisions/` material consists of synthetic
+Neither source has been acquired or structured. On `main`, `books/` contains
+automatic rights assessments and RDF evidence for both queued candidates; those
+checks held both requests without retaining literary source text. **No real
+literary translation has begun or been approved.** The `revisions/` material consists of synthetic
 test/example snapshots and preserved legacy fixtures. `catalog.json` has an
 empty distribution list, so there are **no approved reader or review editions**
 available for download yet. The deployed web application and catalogue are not
@@ -77,10 +77,11 @@ the same thing as published books.
 
 ## Verification and limitations
 
-- The latest verified CI run passed **64 Python tests**, **9 legacy JavaScript
-  checks** and **10 schema-v2 annotation checks**, plus the sample-preview
-  build. The previous Pandoc footnote `<aside>` compatibility failure was
-  corrected before these successful runs.
+- The source-admission merge was validated by
+  [CI run 39043911914](https://github.com/the-classics-translation-project/library/actions/runs/39043911914),
+  after the PR had passed **94 Python tests**, **9 legacy JavaScript checks** and
+  **10 schema-v2 annotation checks**, plus the sample-preview build. The previous
+  Pandoc footnote `<aside>` compatibility failure was corrected before these runs.
 - Earlier local isolated-Chromium tests passed 13 interaction checks,
   including selection, headings, overlapping annotations and tablet/phone
   layouts. Those used simulated storage because browser navigation was
@@ -111,10 +112,11 @@ the same thing as published books.
    to the public reader catalogue without explicit editorial approval.
 3. Inspect the live reader/contributor/admin interfaces on intended browsers,
    check EPUBs with EPUBCheck/readers, and update the stale setup documentation.
-4. Decide whether and when to add isolated fresh-context agent invocations;
-   do not require them for ordinary manual/interactive work.
+4. Implement and locally smoke-test a **fresh-context CLI translation launcher**
+   against an installed CLI, following [its design](docs/translation-runner.md).
+   Ordinary manual/interactive translation remains supported.
 
-## Acquisition automation revision — PR #7, 2026-10-18 (not deployed)
+## Source-admission automation — PR #7 merged on 2026-10-17
 
 The intake workflow now checks a versioned, conservative US/Japan admission policy.
 Passing English UTF-8 packages are preserved permanently under `books/` and staged
@@ -125,7 +127,7 @@ with reasons; no source text is committed for those cases. Network errors preser
 other successes and report failure after the records are saved. The policy is in
 `docs/automatic-source-rights.md`; it is not worldwide or human/legal clearance.
 
-A live metadata assessment on this branch held both current candidates:
+A live metadata assessment during PR development held both current candidates:
 
 - `gutenberg-36`: the provider supplies no original source-publication statement.
   Its Gutenberg release date is not evidence of the historical source edition.
@@ -143,5 +145,23 @@ HTML/EPUB build and workflow YAML/embedded-script parsing. A real in-app browser
 opened the generated Admin page over local HTTP, expanded both hold explanations
 and confirmed their text; no browser error logs were recorded. This checks the
 new queue display, not Safari/iPad selection, annotation storage or every browser.
-No live run of the revised intake workflow or remote source-acquisition deployment
-is claimed.
+The change was merged as
+[PR #7](https://github.com/the-classics-translation-project/library/pull/7)
+(commit `91eb535`). [Post-merge validation](https://github.com/the-classics-translation-project/library/actions/runs/39043911914)
+and [Pages deployment](https://github.com/the-classics-translation-project/library/actions/runs/39043911912)
+passed. The revised **intake/acquisition job itself** has not been observed running
+after that merge; a Pages deployment does not prove it has acquired source text.
+
+## Local translation runner — design only
+
+See [docs/translation-runner.md](docs/translation-runner.md). The intended local
+coordinator knows the repository and starts a separate CLI translation worker with
+an explicit bounded input, so previous coordinator conversation is not sent along
+implicitly. Local Work/Codex is preferred for implementing and experimentally
+verifying this CLI integration; GitHub-connected ChatGPT can maintain/review the
+repository and merge changes. PRs are optional for simple validated work.
+
+**No launcher, per-translation fresh CLI session, subscription-login compatibility
+test or automatic translation has been implemented or exercised yet.** The next
+step is local implementation and an explicitly invoked smoke test before any
+claims about model invocation, context isolation or production translation.

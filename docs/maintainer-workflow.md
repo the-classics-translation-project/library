@@ -76,3 +76,24 @@ No KDP work is automated in this version.
 The publishing helper only establishes/uploads this repository and requests site
 builds. It cannot make the translation commercially ready. Check workflow results
 rather than treating a push or dispatch as successful deployment.
+
+## Local CLI translation launcher (planned, not available yet)
+
+The preferred implementation environment is a **local Work/Codex agent** operating
+on a checkout, because it can test the installed CLI, authentication, process
+isolation, file output and failure recovery where the actual translations will run.
+ChatGPT with GitHub access can handle ordinary repository maintenance and review
+the implementation; neither role requires a PR for every small change.
+
+The intended user workflow is to ask the local coordinator to translate a
+specified work and language. It should inspect `AGENTS.md`, `STATUS.md`,
+`./ctp task`, source eligibility and the actual files; do not bypass a held
+source. Once a work is properly acquired and structured, the coordinator can prepare
+bounded translation inputs and launch separate **fresh-context CLI sessions**
+rather than carrying its entire conversation into each translation.
+
+See [translation runner design](translation-runner.md) for the input/output
+boundary, provenance, failure handling and acceptance tests. The current CLI
+commands `./ctp task` and `./ctp record-run` do **not** themselves invoke a model.
+Do not claim a fresh-context launcher exists, or make paid API calls or schedule
+unattended translations, without separately implementing and authorizing them.

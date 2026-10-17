@@ -15,6 +15,8 @@ For source work, read [source import](docs/source-import.md) and
 [source structure](docs/source-structure.md). For generation, read
 [provenance](docs/provenance.md). For UI/data changes, read
 [data formats](docs/data-formats.md) and [contributor workflow](docs/contributor-workflow.md).
+For a proposed **local CLI translation launcher**, read
+[translation runner design](docs/translation-runner.md); it is not implemented yet.
 
 ## Invariants
 
@@ -51,6 +53,8 @@ fixture prose was newly generated simply because its files were migrated.
 
 `record-run` captures prompt and relevant note contents; Git retains their broader
 history. It cannot capture hidden instructions or unseen conversation history.
+A new local runner must verify real CLI behavior before claiming fresh-context
+isolation, subscription authentication, or successful model execution.
 Keep work/edition notes separated into decisions, observations and unresolved
 questions. Add a durable note when a discovery should survive a future retranslation.
 Do not turn every tentative criticism into a binding instruction.

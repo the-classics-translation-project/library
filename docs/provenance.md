@@ -76,3 +76,25 @@ history, hidden instructions, model routing and nondeterminism may not be fully
 visible. Unknown values remain unknown. Attribution is not a claim of copyright,
 literary quality, or human review. Initial synthetic migration records explicitly
 identify inherited prose whose original model is not known.
+
+## Proposed provenance for isolated local CLI translation
+
+A future coordinating agent may render a **fully assembled, per-run input** from
+versioned prompts, authorized source text/labels, target-language instructions and
+relevant work/edition notes, then pass it to a fresh CLI translation worker.
+Preserve that exact supplied input (or its complete constituent files with
+order and hashes), not just the template name. Also capture the selected source
+node IDs, source fingerprint, output paths/hashes, exposed model label, actual
+CLI/interface and version when available, explicit command/configuration and
+any human-visible session instructions. Never record credentials.
+
+Use `./ctp record-run` and `./ctp snapshot` as the existing evidence and
+freezing mechanisms, adapting their integration only when necessary. The launcher
+must establish whether a new process really avoids prior user conversation and
+ambient repository context. It **cannot guarantee** absence of hidden system
+instructions, service-side behavior or nondeterminism. A skipped/failed/partial
+run is not a completed translation or editorial approval.
+
+This launcher and its CLI-specific metadata capture are **not yet implemented**.
+For the proposed execution contract and local smoke tests, see
+[translation runner design](translation-runner.md).

@@ -131,3 +131,24 @@ prepare an Issue. The public frontend has no credentials. A trusted parser accep
 only configured maintainers’ structured requests and merges them into a queue.
 The queue records intentions; current files record actual progress. A three-record
 seed is identified as such until the official CSV is successfully downloaded.
+
+## 2026-10-18 — Coordinate locally, translate in fresh CLI sessions (proposed)
+
+Keep the full work queue, editorial memory, validation and publication control in
+the repository and a coordinating agent. Prefer a distinct, newly launched local
+CLI agent/session for each bounded translation input so it need not inherit the
+coordinator's accumulated conversation context. Pass only the necessary source,
+instructions and relevant notes explicitly; capture the actual prompt and outputs.
+This is an implementation objective, not a statement that a launcher exists or a
+guarantee of a context-free base model. Confirm CLI flags, isolation and existing
+ChatGPT-account compatibility in the local environment. Do not require a paid API,
+automatic scheduling or a mandatory agent framework. See
+[translation runner design](translation-runner.md).
+
+## 2026-10-18 — Split work pragmatically; PRs optional
+
+Use GitHub-connected ChatGPT for normal repository edits, documentation, review and
+merges where convenient. Prefer local Work/Codex for implementing and testing
+software that must execute an actual installed CLI. Direct commits are reasonable
+for limited, validated work; PRs are useful when cross-agent review or protection
+against consequential changes adds value, not an obligatory workflow.

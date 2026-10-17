@@ -10,7 +10,8 @@ from urllib.request import Request, urlopen
 from xml.etree import ElementTree as ET
 from legacy_v1 import check, digest
 
-RULE_VERSION = 'gutenberg-us-jp-v1'
+LEGACY_RULE_VERSION = 'gutenberg-us-jp-v1'
+RULE_VERSION = 'gutenberg-us-jp-v2'
 WARTIME_DAYS = 4180  # Maximum in the cited JASRAC country table; applied to everyone.
 EXTENSION_DATE = date(2018, 12, 30)
 REFERENCES = [
@@ -86,7 +87,61 @@ def japan_expiry_bound(death_year: int) -> tuple[date, str]:
     return date(death_year + 70, 12, 31) + timedelta(days=WARTIME_DAYS), 'life+70+4180 days'
 
 
-def assess_metadata(facts: dict, as_of: date) -> dict:
+
+def validate_supplement(supplement: dict, ebook_id: int) -> dict:
+    """Validate version-controlled, per-book cited evidence (not an Issue waiver)."""
+    keys = {'schema_version', 'ebook_id', 'publication', 'production_credit', 'transcriber_note'}
+    check(isinstance(supplement, dict) and set(supplement) <= keys and
+          supplement.get('schema_version') == 1 and supplement.get('ebook_id') == ebook_id,
+          'Invalid source admission evidence identity or fields')
+    check(any(k in supplement for k in ('publication', 'production_credit', 'transcriber_note')),
+          'Empty source admission evidence')
+    def cited(item, fields, provider=False):
+        check(isinstance(item, dict) and set(item) == fields, 'Invalid admission evidence fields')
+        check(all(isinstance(v, str) and 0 < len(v.strip()) <= 1000
+                  for k, v in item.items() if k != 'year'),
+              'Source admission evidence requires bounded nonempty text')
+        url = urlparse(item['url'])
+        check(url.scheme == 'https' and bool(url.hostname) and url.port in (None, 443)
+              and not url.username and not url.password
+              and url.hostname not in {'localhost', '127.0.0.1'},
+              'Evidence citation must be HTTPS')
+        if provider:
+            check(url.hostname in {'www.gutenberg.org', 'gutenberg.org'} and
+                  url.path == f'/ebooks/{ebook_id}',
+                  'Production evidence must cite the matching official Gutenberg ebook')
+    if 'publication' in supplement:
+        item = supplement['publication']
+        cited(item, {'year', 'title', 'publisher', 'authority', 'url', 'basis'})
+        check(type(item['year']) is int and 1000 <= item['year'] <= 1970,
+              'External publication year outside supported scope')
+    if 'production_credit' in supplement:
+        item = supplement['production_credit']
+        cited(item, {'text', 'url', 'basis'}, provider=True)
+        check(bool(re.fullmatch(r'Revised by [A-Za-z .-]{3,100}\\.', item['text'])),
+              'Only a named, exact Gutenberg revision credit can be assessed')
+    if 'transcriber_note' in supplement:
+        item = supplement['transcriber_note']
+        cited(item, {'text', 'url', 'basis'}, provider=True)
+        check(item['text'].startswith(("[Transcriber's Note:", "[Transcriber’s Note:")) and
+              item['text'].endswith(']') and 'photo-reprint' in item['text'],
+              'Only an exact Gutenberg photo-reprint transcription note is supported')
+    return supplement
+
+
+def _without_credit_line(text: str, exact: str) -> tuple[str, int]:
+    """Ignore one complete, explicitly assessed credit line only while checking."""
+    pattern = re.compile(r'(?m)^[ \t]*' +
+                         r'[ \t]+'.join(re.escape(w) for w in exact.split()) +
+                         r'[ \t]*$')
+    matches = list(pattern.finditer(text))
+    if len(matches) != 1:
+        return text, len(matches)
+    match = matches[0]
+    return text[:match.start()] + text[match.end():], 1
+
+
+def assess_metadata(facts: dict, as_of: date, supplement: dict | None = None) -> dict:
     reasons = []
     def hold(country, code, detail):
         reasons.append({'country': country, 'code': code, 'detail': detail})
@@ -98,8 +153,16 @@ def assess_metadata(facts: dict, as_of: date) -> dict:
     if facts['types'] != ['Text'] or facts['languages'] != ['en']:
         hold('JP', 'unsupported_source_type_or_language', 'This rule supports English plain-text literary packages only.')
     years = []
-    if not facts['publication_statements']:
+    if supplement is not None:
+        validate_supplement(supplement, facts['ebook_id'])
+    extra_pub = supplement.get('publication') if supplement else None
+    if not facts['publication_statements'] and extra_pub is None:
         hold('JP', 'source_publication_missing', 'No original source-publication statement is supplied; Gutenberg release dates are not print publication dates.')
+    if extra_pub:
+        if len(facts['titles']) != 1 or extra_pub['title'].casefold() != facts['titles'][0].casefold():
+            hold('JP', 'publication_evidence_title_mismatch', 'Cited historical title differs from Gutenberg metadata.')
+        elif not facts['publication_statements']:
+            years.append(extra_pub['year'])
     for statement in facts['publication_statements']:
         # Only an unqualified MARC publication-year subfield is understood.
         matches = re.findall(r'\$c([^$]+)', statement)
@@ -107,6 +170,8 @@ def assess_metadata(facts: dict, as_of: date) -> dict:
             hold('JP', 'source_publication_ambiguous', 'The source publication year is absent, qualified, or outside the supported MARC format.')
         else:
             years.append(int(matches[0].strip().rstrip('.')))
+    if extra_pub and facts['publication_statements'] and years and extra_pub['year'] not in years:
+        hold('JP', 'publication_evidence_conflict', 'Cited historical and Gutenberg publication years disagree.')
     contributors = facts['contributors']
     if not any(p['role'] in {'creator', 'aut'} for p in contributors):
         hold('JP', 'author_missing', 'No named author is recorded.')
@@ -131,7 +196,14 @@ def assess_metadata(facts: dict, as_of: date) -> dict:
             hold('JP', 'japan_term_not_cleared', f'The conservative Japanese term bound for {name} has not elapsed ({expiry.isoformat()}).')
     # Production/transcription credits alone are not literary coauthorship. Signals
     # of revision, translation or added matter require clearer contributor evidence.
-    contextual = '\n'.join(facts['credits'] + [n for n in facts['notes'] if not n.startswith('Wikipedia page about this book:')])
+    credits = '\n'.join(facts['credits'])
+    approved = supplement.get('production_credit') if supplement else None
+    if approved:
+        credits, count = _without_credit_line(credits, approved['text'])
+        if count != 1:
+            hold('JP', 'production_credit_evidence_mismatch',
+                 'Exact cited Gutenberg revision credit missing or duplicated.')
+    contextual = '\n'.join([credits] + [n for n in facts['notes'] if not n.startswith('Wikipedia page about this book:')])
     signal = re.search(r'\b(revis(?:ed|ion)|translat\w*|edit(?:ed|ion with)|adapt\w*|introduction|foreword|afterword|annotat\w*|copyright|permission|posthum\w*|unpublished|anonymous)\b', contextual, re.I)
     if signal:
         line = contextual[contextual.rfind('\n', 0, signal.start()) + 1:].split('\n', 1)[0]
@@ -143,7 +215,7 @@ def assess_metadata(facts: dict, as_of: date) -> dict:
             'eligible': us and jp, 'reasons': reasons}
 
 
-def check_package(raw: bytes, ebook_id: int, facts: dict) -> list[dict]:
+def check_package(raw: bytes, ebook_id: int, facts: dict, supplement: dict | None = None) -> list[dict]:
     """Reject identity mismatches or unaccounted literary contribution signals."""
     text = raw.decode('utf-8-sig').replace('\r\n', '\n').replace('\r', '\n')
     reasons = []
@@ -156,6 +228,26 @@ def check_package(raw: bytes, ebook_id: int, facts: dict) -> list[dict]:
         return reasons
     header = text[:starts[0].start()]
     body = text[starts[0].end():ends[0].start()]
+    if supplement:
+        validate_supplement(supplement, ebook_id)
+        credit = supplement.get('production_credit')
+        if credit:
+            pos = header.find('Credits:')
+            tail = header[pos:] if pos >= 0 else ''
+            cleaned, count = _without_credit_line(tail, credit['text'])
+            if count != 1:
+                hold('package_evidence_mismatch', 'Approved production-credit line absent or duplicated in header.')
+            else:
+                header = header[:pos] + cleaned
+        note = supplement.get('transcriber_note')
+        if note:
+            pattern = re.compile(r'\s+'.join(re.escape(word) for word in note['text'].split()))
+            matches = list(pattern.finditer(body))
+            if len(matches) != 1 or body[:matches[0].start()].strip():
+                hold('package_evidence_mismatch', 'Approved historical photo-reprint note missing from body opening.')
+            else:
+                match = matches[0]
+                body = body[:match.start()] + body[match.end():]
     if not body.strip():
         hold('package_body_missing', 'The package contains no literary body.')
     ids = re.findall(r'\[EBook\s*#\s*(\d+)\]', header, re.I)

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "ebook_id": 36,
+  "publication": {
+    "year": 1898,
+    "title": "The war of the worlds",
+    "publisher": "London: William Heinemann",
+    "authority": "The Morgan Library & Museum, accession PML 147397 (first edition)",
+    "url": "https://www.themorgan.org/printed-books/371751",
+    "basis": "First book publication in 1898, preceded by serialized publication in 1897. This establishes a historical publication date for the work, not the exact print edition reproduced by Gutenberg #36."
+  }
+}

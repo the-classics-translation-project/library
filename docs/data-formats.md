@@ -45,6 +45,13 @@ A held record includes concrete reasons and does not count as an imported work.
 Queue progress exposes `rights_status` and `rights_reasons`; task discovery skips
 held requests when selecting actionable work. A provider failure can leave no
 usable RDF evidence; the saved record then explicitly has no extracted evidence.
+For v2, an optional `books/<id>/admission-evidence.json` contains a cited
+original-publication record and/or narrowly scoped Gutenberg production-credit
+or photo-reprint-note decisions. The rights record pins its bytes by SHA-256.
+Validation replays both the original v1 rules and v2 with exact evidence.
+External bibliographic dates do not override conflicting Gutenberg statements;
+exempted ancillary lines remain in exact acquired bytes.
+
 See [automatic rights policy](automatic-source-rights.md).
 
 ## Source work and tree (schema 2)

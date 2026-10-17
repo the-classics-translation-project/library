@@ -13,12 +13,12 @@ claim that the software and literary workflows are finished.
   Reader catalogue, contributor workbench and administrator intake interface
   are generated separately; Admin is at
   <https://the-classics-translation-project.github.io/library/admin/>.
-- GitHub Actions **validation/build** and **Pages build/deployment** succeeded on
-  2026-10-17:
-  [validation run 39032202747](https://github.com/the-classics-translation-project/library/actions/runs/39032202747)
-  and [deployment run 39032202765](https://github.com/the-classics-translation-project/library/actions/runs/39032202765).
-  Successful deployment was confirmed by GitHub Actions; this status record is
-  not a substitute for independent browser checks of every live interaction.
+- GitHub Actions **validation/build** and **Pages deployment** succeeded for the
+  latest source-tree commit `b787dc9`:
+  [validation run 39051177283](https://github.com/the-classics-translation-project/library/actions/runs/39051177283)
+  and [deployment run 39051177252](https://github.com/the-classics-translation-project/library/actions/runs/39051177252).
+  A direct read of the live Admin HTML confirmed both trees in its embedded
+  manifest; this does not verify browser expand/collapse interaction.
 - Project Gutenberg's official CSV catalogue was downloaded, parsed and
   committed by the
   [catalogue refresh workflow](https://github.com/the-classics-translation-project/library/actions/runs/39031721097)
@@ -47,11 +47,12 @@ Both Gutenberg sources were **admitted and acquired on 2026-10-17** under
 `gutenberg-us-jp-v2`, using the documented per-work citation files. The original
 UTF-8 packages, raw bytes, reversible blocks, evidence and hashes are retained in
 `books/gutenberg-36/acquisition/` and `books/gutenberg-41445/acquisition/`.
-Gutenberg #36 now has an AI-assisted, mechanically validated source tree with
-31 nodes. Its 981 blocks are accounted for (920 assigned, 61 explicitly
-excluded with reasons); the imported metadata does not claim human review or
-exact historical print-edition verification. Gutenberg #41445 is acquired but
-still needs a source tree. **Neither work has been translated.**
+Both works have AI-assisted, mechanically validated source trees. #36 has
+31 nodes and accounts for all 981 blocks (920 assigned, 61 explicitly excluded
+with reasons); #41445 has 38 nodes and accounts for all 917 blocks (854 assigned,
+63 explicitly excluded with reasons). Their imported metadata does not claim
+human review or exact historical print-edition verification. **Neither work has
+been translated.**
 `catalog.json` still has an empty distribution list, so there are **no approved
 reader or review editions** available for download.
 The deployed web application and catalogue are not
@@ -96,15 +97,20 @@ the same thing as published books.
   layouts. Those used simulated storage because browser navigation was
   restricted: **live browser storage persistence, Safari/iPad native text
   selection, and cross-device behavior remain unverified**.
-- The source-preparation branch passed **110 Python tests**, **9 legacy JS** and
-  **10 schema-v2 JS** checks, `./ctp validate` and `./ctp build --epub` locally.
-  A synthetic acquired work completed the mock one-work path without network or
-  model use. A real Codex CLI invocation structured #36 in an isolated worktree;
-  the full wrapper's Git push/CI reconciliation path has not run live. The
+- [PR #9](https://github.com/the-classics-translation-project/library/pull/9)
+  passed **110 Python tests**, **9 legacy JS** and **10 schema-v2 JS** checks,
+  `./ctp validate` and `./ctp build --epub` locally; its GitHub checks and Pages
+  deployment passed after merge. A synthetic acquired work completed the mock
+  one-work path without network or model use. A real Codex CLI invocation
+  structured #36 in an isolated worktree; the full wrapper then structured
+  #41445, validated the exact diff, and pushed
+  [commit `b787dc9`](https://github.com/the-classics-translation-project/library/commit/b787dc9a5d938b5768e26ff4611e2913bb16cb4c).
+  Both GitHub workflows passed, the worker ledger reconciled to `complete`, and
+  an idle re-run returned `pending: []` with `model_called: false`. The
   ChatGPT.app-bundled Codex CLI 0.162.0 passed a read-only login/model smoke test;
   the older global 0.46.0 CLI failed with this account's configured model.
-  The built Admin manifest contains #36's 31-node tree without full literary
-  prose, but **the new tree UI has not had a real browser interaction check**.
+  The live Admin manifest contains both trees without full literary prose, but
+  **the new tree UI has not had a real browser interaction check**.
 - Sample EPUB ZIP/XML/navigation checks are **not EPUBCheck certification or
   Kindle rendering tests**. HTML/EPUB literary presentation requires inspection
   with real books and target-language typography.
@@ -121,13 +127,13 @@ the same thing as published books.
 
 ## Next useful work
 
-1. **Validate the first source-tree deployment:** merge/review the implementation,
-   observe GitHub CI and Pages, and inspect #36's expandable Admin tree in an
-   allowed real browser. The browser interaction check remains open.
-2. **Exercise the complete local worker on #41445** from a clean current `main`
-   checkout. Confirm one bounded Codex run, guarded push, CI/Pages outcomes,
-   no source-byte changes and a correct tree before considering scheduling.
-   Install the LaunchAgent only through the owner's explicit one-time action.
+1. **Inspect both source trees:** verify the AI-assisted block placements and
+   exclusions against the source packages, then test the expandable Admin trees
+   in an allowed real browser. The manifest and deployment are confirmed; those
+   editorial and browser interaction checks remain open.
+2. **Enable periodic source preparation only through the owner's explicit
+   one-time LaunchAgent installation.** The bounded manual worker run passed;
+   login/sleep/restart behavior of a scheduled installation is still untested.
 3. Implement future **node-level translation request Issues** and the separate
    fresh-context translation launcher, following
    [docs/translation-runner.md](docs/translation-runner.md).
@@ -182,7 +188,7 @@ test or automatic translation has been implemented or exercised yet.** The next
 step is local implementation and an explicitly invoked smoke test before any
 claims about model invocation, context isolation or production translation.
 
-## Automated local source preparation — code present, not running
+## Automated local source preparation — manual run passed; schedule not installed
 
 On 2026-10-18 the owner selected a **local macOS scheduler + on-demand Codex**
 approach for completing the path from a GitHub work Issue to source acquisition,
@@ -192,12 +198,13 @@ version-controlled changes and an expandable Admin tree.
 The existing GitHub Actions intake and acquisition fast path is operational.
 The local worker, retry ledger, launchd installer and Admin tree renderer are
 implemented in repository code. #36 was structured through the Codex executor
-and trusted validation functions, then committed on the implementation branch;
-the complete scheduled wrapper has not published a live job. The first
-implementation constraints and tested command contract are in
+and trusted validation functions, then merged through PR #9. The complete
+`run-once` wrapper subsequently structured and published #41445 in commit
+`b787dc9`; validation and Pages deployment passed, and the next poll reconciled
+its ledger without a model call. The implementation contract is in
 [docs/local-source-automation.md](docs/local-source-automation.md);
 the source agent prompt is
 [prompts/source-preparation.md](prompts/source-preparation.md).
-No LaunchAgent installation or unattended Codex job has occurred. The public
-Admin page must not be reported as showing #36 until a successful Pages
-deployment and browser inspection confirm it.
+No LaunchAgent installation or unattended scheduled Codex job has occurred.
+The public Admin page serves both trees in its embedded data, but its actual
+expand/collapse interaction has not been verified in a real browser.

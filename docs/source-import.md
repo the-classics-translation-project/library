@@ -82,7 +82,8 @@ handles supported rights holds through research/cited evidence, and uses
 `source-apply` for first-import literary trees. Existing Gutenberg acquisitions
 are never re-downloaded or overwritten. The LaunchAgent has not been installed.
 #36 was structured through the executor and validator in an isolated worktree;
-the complete scheduled push/CI path has not run live yet.
+a bounded full worker run structured and published #41445. CI, Pages and ledger
+reconciliation succeeded, and an idle poll made no model call.
 
 ## AI proposes references; code copies text
 

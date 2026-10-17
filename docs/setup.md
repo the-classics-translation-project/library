@@ -47,7 +47,7 @@ before claiming a deployment or successful source import.
 ## Local macOS source-preparation automation (not installed)
 
 **Read [docs/local-source-automation.md](local-source-automation.md) before
-implementation.** That brief specifies the command contract, work selection,
+using the worker.** That brief specifies the command contract, work selection,
 lock, retry ledger, isolated Git worktree, Codex CLI execution, rights-hold
 research, source structuring, Git publishing and expandable Admin source tree.
 
@@ -87,14 +87,15 @@ Source-preparation scheduling is separate from
 The initial milestone must **not** run unattended literary translation,
 modify `catalog.json` or publish an edition.
 
-## First real acceptance exercise
+## First real acceptance exercise — completed without scheduling
 
 The repository contains original, admitted Gutenberg #36 and #41445 source
-packages with reversible blocks and rights evidence. #36 has a validated
-reference-only source tree; #41445 remains pending. The local worker should
-identify #41445 once regardless of target-language rows, validate, safely push
-and confirm Admin shows its expandable labels and nodes after an actual
-successful Pages deployment. Confirm the same deployment for #36.
+packages with reversible blocks and rights evidence. Both now have validated
+reference-only source trees. A bounded worker run selected #41445, used Codex
+once, validated and safely pushed its tree, and reconciled successful CI and
+Pages deployment. A subsequent idle poll used no model. The live Admin data
+serves both trees; their expand/collapse behavior still needs a real browser
+interaction check. See [STATUS.md](../STATUS.md) for exact runs and limits.
 
 If a Mac is asleep/offline the GitHub queue remains durable; the next
 successful local poll must catch up without duplicate model jobs or overwriting

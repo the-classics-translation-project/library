@@ -1,14 +1,15 @@
 # Automated local source preparation — implementation brief
 
-**Status (2026-10-18): implementation in the repository, not installed or running.**
+**Status (2026-10-18): implemented and exercised once; schedule not installed.**
 The deterministic worker, safe publication path, launchd helper and Admin tree
 renderer have fixture tests. A small read-only Codex CLI smoke test passed using
 the CLI bundled with ChatGPT.app. The Codex executor structured #36 in an
 isolated worktree and its result passed the trusted diff and source validation;
-the full `run-once` push/CI path and periodic launchd path have not run live.
-#41445 remains the first complete scheduled-worker exercise. Code presence is
-not evidence of an installed scheduler,
-successful publishing, Pages deployment or literary review.
+the full `run-once` path then structured and pushed #41445. GitHub validation
+and Pages deployment passed, and the ledger reconciled the result on a second
+poll without a model call. The live Admin manifest serves both trees. The
+periodic launchd path and real browser tree interaction have not been exercised;
+these checks do not constitute literary review.
 
 ## Goal and boundary
 
@@ -43,30 +44,28 @@ separate follow-up milestones. Do not translate or change `catalog.json` here.
   candidate (which did not arrive through an Issue). Do **not** treat arbitrary
   Issue prose as instructions or trust the unauthenticated Admin frontend.
 - `tools/intake.py`: `queue_status(root)` returns one row per target; stages include
-  `source on hold`, `structure needed` and `source structured`. Deduplicate by
-  work ID. The current `task_brief` **skips held works**; it is NOT a sufficient
-  scheduler selector. Implement a separate deterministic classifier for pending
-  source work, using the repository's validated data and the current rights files.
+  `source on hold`, `structure needed` and `source structured`. The worker's
+  separate deterministic classifier deduplicates by work ID and checks current
+  rights files; `task_brief` still skips held works and is not its selector.
 - `tools/acquire_queue.py` and `tools/source_rights.py`: existing source-admission
   checker; `admission-evidence.json` can resolve supported holds, and changing
   that file triggers the existing GitHub intake workflow to reassess/acquire.
 - `tools/source_import.py`: `validate_blocks`, `compile_plan`, `apply`, `walk`.
   Use the current `prompts/structure-source.md`. A model proposes *block
   references*, NEVER reconstructed prose or invented node IDs.
-- `tools/site_builder.py`: `admin(root, config, css)` currently embeds the work
-  queue but **does not expose source-tree data**. `site/admin.js` renders the queue.
-  Extend these, using the canonical `structure.json` after validation.
+- `tools/site_builder.py`: `admin(root, config, css)` embeds the queue and a
+  validated, label-only source-tree manifest from canonical `structure.json`;
+  `site/admin.js` renders nested expandable nodes.
 - `docs/source-structure.md` and `docs/source-import.md` specify arbitrary ordered
   trees with optional labels, own prose and children. Root labels are data too.
 
 At implementation time, `gutenberg-36` (Japanese requested) and
-`gutenberg-41445` (English candidate) were already acquired. #36 now has an
-AI-assisted source tree in the implementation branch; #41445 remains pending
-for a complete worker run. Preserve both original acquisitions.
+`gutenberg-41445` (English candidate) were already acquired. Both now have
+AI-assisted source trees on `main`. Preserve both original acquisitions.
 
-## Proposed local components / command contract
+## Local components / command contract
 
-Names are a suggested stable interface; change them only with documentation/tests:
+Keep this interface in sync with code and tests:
 
 - `tools/source_worker.py`: stdlib CLI with `check --json`,
   `run-once --dry-run`, `run-once` and optionally `status --json`.
@@ -205,9 +204,10 @@ bound to a verified source-tree revision; do not implement it implicitly here.
 
 - No queued work and already-structured work: `check`/scheduled tick do nothing
   and **never** launch Codex, write a Git commit or call GitHub unexpectedly.
-- Both current acquired Gutenberg sources appear as pending source structure,
-  once per work, regardless of target count; the runner can handle a synthetic
-  acquired fixture end-to-end without real model/network calls.
+- Acquired Gutenberg sources without trees appear as pending source structure,
+  once per work, regardless of target count; the runner handles a synthetic
+  acquired fixture end-to-end without real model/network calls. Both current
+  sources are now structured and an idle poll is a no-op.
 - An unchanged rights hold is investigated **once**, then cools down; a new
   evidence hash/reason or explicit owner retry reopens it. A genuinely unresolved
   or unsupported source is never committed as an admitted source.
@@ -242,7 +242,8 @@ bound to a verified source-tree revision; do not implement it implicitly here.
    enable automatic periodic execution.
 6. Test a complete real source structure (initially #36 or #41445), observe
    the commit and successful Pages deployment, and update `STATUS.md` with
-   **actual** test/run evidence and remaining gaps.
+   **actual** test/run evidence and remaining gaps. Completed for #41445;
+   actual browser interaction and periodic launchd behavior remain open.
 
 ## Documentation references
 
@@ -251,4 +252,4 @@ bound to a verified source-tree revision; do not implement it implicitly here.
 - Apple launch agents: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html
 - macOS scheduled jobs: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/ScheduledJobs.html
 
-**No installation or unattended run was performed when this brief was written.**
+**No LaunchAgent installation or unattended scheduled run has occurred.**

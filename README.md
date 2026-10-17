@@ -39,7 +39,6 @@ existing GitHub Actions workflow performs deterministic US/Japan source-admissio
 checks, preserves passing Gutenberg packages in Git and records explicit
 holds for uncertain ones.
 
-The next development milestone is **local automatic source preparation**.
 The repository now includes a deterministic worker, a macOS LaunchAgent
 installer and an Admin source-tree view. The worker is designed to poll cheaply
 and invoke Codex only for actionable work: researching supported evidence
@@ -48,11 +47,11 @@ See the
 [implementation brief](docs/local-source-automation.md) and
 [agent prompt](prompts/source-preparation.md).
 
-**The LaunchAgent has not been installed, and the full worker publishing path
-has not run live.** Gutenberg #36 (*The War of the Worlds*, Japanese target)
-has a validated source tree in the repository. Gutenberg #41445
-(*Frankenstein*, English candidate) is acquired but unstructured. A live Admin
-deployment and browser interaction check for #36 remain to be confirmed.
+**The LaunchAgent has not been installed.** Gutenberg #36 (*The War of the
+Worlds*, Japanese target) and #41445 (*Frankenstein*, English candidate) both
+have validated source trees in the repository. A bounded live worker run
+published #41445, CI and Pages passed, and the live Admin manifest serves both
+trees. The expandable tree still needs a real browser interaction check.
 
 A later milestone will let the owner check individual nodes in Admin, file
 translation-request Issues and run separate fresh-context local translation

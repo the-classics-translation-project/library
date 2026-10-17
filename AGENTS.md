@@ -21,8 +21,10 @@ For local source automation, read the
 [automated source-preparation brief](docs/local-source-automation.md).
 The deterministic worker, launchd installation helper, guarded Codex execution,
 Git publishing path and Admin expandable tree have code and fixture tests.
-The local schedule is not installed or running; the full worker push/CI path
-and Pages observation remain to be done.
+The worker completed a bounded live run for Gutenberg #41445, pushed its
+validated tree, and reconciled successful CI and Pages runs. The live Admin
+manifest serves both current Gutenberg trees. The local schedule is not installed
+or running, and a real browser interaction check of the tree remains open.
 The associated runtime agent instructions are in
 [prompts/source-preparation.md](prompts/source-preparation.md).
 Do not report the pipeline as running merely because its code exists.

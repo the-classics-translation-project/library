@@ -23,10 +23,10 @@ an Issue does not erase work already accepted, and editing a request only adds t
 ```
 
 Give `build/next-task.md` to an interactive agent with the repository. It identifies
-unfinished work from files and contains no model call. The initial candidate is
-Gutenberg 41445, based on the founding discussion, with an English target. It has
-not been imported and is not a publication approval. Change the candidate through
-ordinary maintenance if another work is preferred.
+unfinished work from files and contains no model call. The founding candidate,
+Gutenberg 41445, has an English target and an imported source tree; it is not
+translated or approved for publication. Change the candidate through ordinary
+maintenance if another work is preferred.
 
 Use already admitted acquisition files when present; held requests are listed with
 reasons and are not automatically actionable. Acquire and structure sources using
@@ -42,8 +42,9 @@ the exact hold, record narrow cited evidence under the existing policy and let
 the acquisition workflow reassess it; unsupported or unresolved issues stay on
 hold. After an admitted acquisition is available, the agent constructs a
 reference-only plan and uses the mechanical importer to allocate node IDs.
-The local wrapper handles validation and publishing. The code has fixture tests;
-the LaunchAgent is not installed and its full push/CI path has not run live yet.
+The local wrapper handles validation and publishing. The code has fixture tests,
+and a bounded live run published #41445 after validating its source tree; CI,
+Pages and ledger reconciliation succeeded. The LaunchAgent is not installed.
 
 ## Translate, read, revise
 

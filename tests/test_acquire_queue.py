@@ -360,6 +360,7 @@ class CitedAdmissionTests(unittest.TestCase):
                       [r['code'] for r in assess_metadata(facts, AS_OF, extra)['reasons']])
         copy = __import__('copy').deepcopy(extra)
         copy['publication']['title'] = 'Test Book'
+        copy['publication']['year'] = 1818
         self.assertTrue(assess_metadata(facts, AS_OF, copy)['eligible'])
         facts['rights'] = ['Copyrighted']
         self.assertFalse(assess_metadata(facts, AS_OF, copy)['eligible'])
@@ -415,6 +416,7 @@ class CitedAdmissionTests(unittest.TestCase):
             wd.mkdir(parents=True)
             evidence = self.supplement(36)
             evidence['publication']['title'] = 'Test Book'
+            evidence['publication']['year'] = 1818
             write_json(wd/'admission-evidence.json', evidence)
             def fake_metadata(eid):
                 raw = metadata(eid=eid, publication='')

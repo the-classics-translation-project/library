@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "ebook_id": 41445,
+  "production_credit": {
+    "text": "Revised by Richard Tonsing.",
+    "url": "https://www.gutenberg.org/ebooks/41445",
+    "basis": "The provider labels this person in its production/credits field rather than as a literary contributor. Its text says the transcription comes from a photo-reprint of the 1818 original. For source acquisition, record this specific digitization revision credit separately, without assuming that a modern literary revision is free or that the historical edition is verified."
+  },
+  "transcriber_note": {
+    "text": "[Transcriber’s Note: This text was produced from a photo-reprint of the 1818 edition.]",
+    "url": "https://www.gutenberg.org/ebooks/41445",
+    "basis": "Gutenberg identifies its source copy in a short ancillary transcriber note at the start of the body. Preserve the exact note in acquired bytes and require it to be assessed for exclusion when constructing the literary tree, not as Shelley's own prose."
+  }
+}

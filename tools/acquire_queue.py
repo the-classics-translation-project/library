@@ -3,12 +3,13 @@ from datetime import date, datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from xml.etree.ElementTree import ParseError
+from shutil import copyfile
 from zoneinfo import ZoneInfo
 from legacy_v1 import check, read_json, write_json, digest, object_hash, ProjectError
 from intake import validate_queue
 from source_import import fetch_gutenberg, validate_blocks
-from source_rights import (RULE_VERSION, REFERENCES, official_url, fetch_metadata, parse_metadata,
-                           assess_metadata, check_package)
+from source_rights import (RULE_VERSION, LEGACY_RULE_VERSION, REFERENCES, official_url, fetch_metadata,
+                           parse_metadata, assess_metadata, check_package, validate_supplement)
 
 
 def today() -> date:
@@ -20,7 +21,7 @@ def today() -> date:
 def _stable(record: dict) -> dict:
     """Provider download counters/XML node IDs and timestamps are not decisions."""
     return {key: record.get(key) for key in ('schema_version', 'rule_version', 'work', 'ebook_id',
-            'evidence', 'countries', 'eligible', 'status', 'reasons', 'acquisition', 'package_sha256', 'references')}
+            'evidence', 'countries', 'eligible', 'status', 'reasons', 'acquisition', 'package_sha256', 'references', 'admission_evidence')}
 
 
 def save_record(work_dir: Path, record: dict, metadata_raw: bytes | None) -> bool:
@@ -48,7 +49,14 @@ def acquire_queued(root: Path, output: Path, as_of: date | None = None) -> dict:
         record = {'schema_version': 1, 'rule_version': RULE_VERSION, 'work': wid, 'ebook_id': eid,
                   'evaluated_on': as_of.isoformat(), 'references': REFERENCES,
                   'metadata': None, 'evidence': None, 'countries': {'US': {'status': 'hold'}, 'JP': {'status': 'hold'}},
-                  'eligible': False, 'status': 'held', 'reasons': []}
+                  'eligible': False, 'status': 'held', 'reasons': [], 'admission_evidence': None}
+        supplement_path = wd/'admission-evidence.json'
+        supplement = None
+        if supplement_path.exists():
+            raw_supplement = supplement_path.read_bytes()
+            supplement = validate_supplement(read_json(supplement_path), eid)
+            record['admission_evidence'] = {'file': 'admission-evidence.json',
+                                            'sha256': digest(raw_supplement)}
         raw = None
         # Existing acquired packages are immutable. Validate the original decision,
         # rather than silently replacing their text with today's provider package.
@@ -76,7 +84,7 @@ def acquire_queued(root: Path, output: Path, as_of: date | None = None) -> dict:
             record['metadata'] = metadata
             facts = parse_metadata(raw, eid)
             record['evidence'] = facts
-            result = assess_metadata(facts, as_of)
+            result = assess_metadata(facts, as_of, supplement)
             record.update(result)
             if result['eligible']:
                 # Nothing from a failed/held download reaches canonical books/.
@@ -89,7 +97,7 @@ def acquire_queued(root: Path, output: Path, as_of: date | None = None) -> dict:
                     check(official_url(provenance['resolved_url']), 'Source redirected outside the official HTTPS provider')
                     check(provenance['ebook_id'] == eid and provenance['raw_sha256'] == blocks['raw_sha256'], 'Source identity/hash mismatch')
                     record['package_sha256'] = blocks['raw_sha256']
-                    problems = check_package((package/'acquired.txt').read_bytes(), eid, facts)
+                    problems = check_package((package/'acquired.txt').read_bytes(), eid, facts, supplement)
                     if problems:
                         record.update(eligible=False, reasons=record['reasons'] + problems)
                     else:
@@ -104,6 +112,8 @@ def acquire_queued(root: Path, output: Path, as_of: date | None = None) -> dict:
                         package.replace(target/'acquisition')
                         (target/'rights-metadata.rdf').write_bytes(raw)
                         write_json(target/'rights.json', record)
+                        if supplement is not None:
+                            copyfile(supplement_path, target/'admission-evidence.json')
                         validate_record(target, eid)
                         wd.mkdir(parents=True, exist_ok=True)
                         check(not dest.exists(), 'Acquisition appeared during processing; refusing overwrite')
@@ -131,7 +141,20 @@ def acquire_queued(root: Path, output: Path, as_of: date | None = None) -> dict:
 
 def validate_record(work_dir: Path, ebook_id: int) -> dict:
     record = read_json(work_dir/'rights.json')
-    check(record.get('schema_version') == 1 and record.get('rule_version') == RULE_VERSION, 'Unknown automatic rights policy')
+    version = record.get('rule_version')
+    check(record.get('schema_version') == 1 and version in {RULE_VERSION, LEGACY_RULE_VERSION},
+          'Unknown automatic rights policy')
+    supplement = None
+    if version == RULE_VERSION and record.get('admission_evidence') is not None:
+        evidence = record['admission_evidence']
+        check(evidence.get('file') == 'admission-evidence.json' and
+              isinstance(evidence.get('sha256'), str), 'Invalid admission evidence reference')
+        p = work_dir/'admission-evidence.json'
+        check(digest(p.read_bytes()) == evidence['sha256'], 'Admission evidence hash changed')
+        supplement = validate_supplement(read_json(p), ebook_id)
+    if version == LEGACY_RULE_VERSION:
+        check('admission_evidence' not in record,
+              'A legacy record cannot silently acquire modern evidence')
     check(record.get('ebook_id') == ebook_id and record.get('work') == f'gutenberg-{ebook_id}', 'Rights record identity mismatch')
     check(record.get('references') == REFERENCES, 'Rights rule references changed')
     as_of = date.fromisoformat(record['evaluated_on'])
@@ -149,7 +172,7 @@ def validate_record(work_dir: Path, ebook_id: int) -> dict:
         check(record.get('metadata') is not None, 'Extracted evidence needs retained metadata')
         facts = parse_metadata(raw, ebook_id)
         check(facts == record['evidence'], 'Rights evidence differs from saved metadata')
-        result = assess_metadata(facts, as_of)
+        result = assess_metadata(facts, as_of, supplement)
         check(record['countries'] == result['countries'], 'Country assessment does not match the rule calculation')
         check(all(r in record['reasons'] for r in result['reasons']), 'Recorded hold reasons omit a rule failure')
     else:
@@ -164,7 +187,7 @@ def validate_record(work_dir: Path, ebook_id: int) -> dict:
         check(provenance['ebook_id'] == ebook_id and provenance['raw_sha256'] == blocks['raw_sha256']
               and provenance['requested_url'] == record['acquisition']['source_url'] and official_url(provenance['resolved_url'])
               and provenance.get('rights_checked') is True and provenance.get('rights_assessment') == '../rights.json', 'Source provenance differs from the admission record')
-        check(not check_package((work_dir/'acquisition/acquired.txt').read_bytes(), ebook_id, facts), 'Source package does not pass identity/contribution checks')
+        check(not check_package((work_dir/'acquisition/acquired.txt').read_bytes(), ebook_id, facts, supplement), 'Source package does not pass identity/contribution checks')
     else:
         check(record.get('eligible') is False and bool(record['reasons']), 'Held sources need a reason and must not be eligible')
     return record
@@ -183,6 +206,8 @@ def stage_acquisitions(root: Path, output: Path) -> None:
         wd = root/'books'/wid
         record = validate_record(wd, allowed[wid])
         names = ['rights.json']
+        if record.get('admission_evidence') is not None:
+            names.append('admission-evidence.json')
         if record.get('metadata') is not None:
             names.append('rights-metadata.rdf')
         if record['status'] == 'acquired':

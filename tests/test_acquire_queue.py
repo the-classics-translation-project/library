@@ -325,5 +325,130 @@ class AcquisitionTests(unittest.TestCase):
         self.assertIn('## Sources on hold', brief)
 
 
+
+class CitedAdmissionTests(unittest.TestCase):
+    """The original Gutenberg RDF records are fixtures; no internet required."""
+    ROOT = Path(__file__).resolve().parents[1]
+
+    def supplement(self, ebook_id):
+        return read_json(self.ROOT/'books'/f'gutenberg-{ebook_id}'/'admission-evidence.json')
+
+    def test_real_saved_gutenberg_metadata_with_documented_evidence(self):
+        for eid in (36, 41445):
+            with self.subTest(ebook_id=eid):
+                raw = (self.ROOT/'books'/f'gutenberg-{eid}'/'rights-metadata.rdf').read_bytes()
+                facts = parse_metadata(raw, eid)
+                self.assertFalse(assess_metadata(facts, AS_OF)['eligible'])
+                accepted = assess_metadata(facts, AS_OF, self.supplement(eid))
+                self.assertTrue(accepted['eligible'], accepted['reasons'])
+                self.assertEqual(accepted['countries']['US']['status'], 'pass')
+                self.assertEqual(accepted['countries']['JP']['status'], 'pass')
+
+    def test_legacy_holds_still_replay_with_new_supplements_present(self):
+        for eid in (36, 41445):
+            with self.subTest(ebook_id=eid):
+                record = validate_record(self.ROOT/'books'/f'gutenberg-{eid}', eid)
+                self.assertEqual(record['rule_version'], 'gutenberg-us-jp-v1')
+                self.assertEqual(record['status'], 'held')
+
+    def test_external_publication_only_fixes_the_missing_field(self):
+        from source_rights import validate_supplement
+        extra = self.supplement(36)
+        facts = parse_metadata(metadata(publication=''), 36)
+        # This synthetic fixture has a different title from the cited first edition.
+        self.assertIn('publication_evidence_title_mismatch',
+                      [r['code'] for r in assess_metadata(facts, AS_OF, extra)['reasons']])
+        copy = __import__('copy').deepcopy(extra)
+        copy['publication']['title'] = 'Test Book'
+        copy['publication']['year'] = 1818
+        self.assertTrue(assess_metadata(facts, AS_OF, copy)['eligible'])
+        facts['rights'] = ['Copyrighted']
+        self.assertFalse(assess_metadata(facts, AS_OF, copy)['eligible'])
+        facts['rights'] = ['Public domain in the USA.']
+        facts['publication_statements'] = ['$aLondon :$c1910.']
+        self.assertIn('publication_evidence_conflict',
+                      [r['code'] for r in assess_metadata(facts, AS_OF, copy)['reasons']])
+        copy['publication']['year'] = 2020
+        with self.assertRaises(ProjectError):
+            validate_supplement(copy, 36)
+
+    def test_revision_credit_and_exact_photo_reprint_note(self):
+        evidence = self.supplement(41445)
+        credit = 'Produced by volunteers\nRevised by Richard Tonsing.'
+        rawmeta = metadata(eid=41445, credit=credit)
+        facts = parse_metadata(rawmeta, 41445)
+        self.assertFalse(assess_metadata(facts, AS_OF)['eligible'])
+        self.assertTrue(assess_metadata(facts, AS_OF, evidence)['eligible'])
+        original = package(eid=41445, body=(evidence['transcriber_note']['text'] +
+                    '\nA synthetic historical paragraph.'))
+        original = original.replace(b'Language: English',
+                     b'Language: English\r\nCredits: Produced by volunteers\r\n Revised by Richard Tonsing.')
+        self.assertTrue(check_package(original, 41445, facts))
+        self.assertEqual(check_package(original, 41445, facts, evidence), [])
+        self.assertTrue(check_package(original.replace(b'Revised by Richard Tonsing.',
+                                                      b'Revised by Another Person.'),
+                                      41445, facts, evidence))
+        self.assertTrue(check_package(original.replace(b'A synthetic historical paragraph.',
+                                                      b'Introduction by a Modern Writer.'),
+                                      41445, facts, evidence))
+        self.assertTrue(check_package(original.replace(b'A synthetic historical paragraph.',
+                                                      b'Copyright 2026 Modern Editor.'),
+                                      41445, facts, evidence))
+        self.assertTrue(check_package(original.replace('photo-reprint'.encode(), b'new adaptation'),
+                                      41445, facts, evidence))
+
+    def test_extra_metadata_revision_still_blocks_an_exception(self):
+        evidence = self.supplement(41445)
+        facts = parse_metadata(metadata(eid=41445,
+                             credit='Revised by Richard Tonsing.\nIntroduction by New Writer.'), 41445)
+        self.assertFalse(assess_metadata(facts, AS_OF, evidence)['eligible'])
+
+    def test_acquisition_cites_and_pins_supplement_hash(self):
+        from shutil import copyfile
+        from acquire_queue import acquire_queued, validate_record, stage_acquisitions
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            write_json(root/'project.json', {'repository':'owner/library','targets':[{'id':'ja'}]})
+            write_json(root/'queue.json', {'schema_version':1,'works':[
+                {'id':'gutenberg-36','source':{'type':'gutenberg','id':36},
+                 'targets':['ja'],'requests':[]}]})
+            wd = root/'books/gutenberg-36'
+            wd.mkdir(parents=True)
+            evidence = self.supplement(36)
+            evidence['publication']['title'] = 'Test Book'
+            evidence['publication']['year'] = 1818
+            write_json(wd/'admission-evidence.json', evidence)
+            def fake_metadata(eid):
+                raw = metadata(eid=eid, publication='')
+                return raw, {'requested_url':f'https://www.gutenberg.org/ebooks/{eid}.rdf',
+                             'resolved_url':f'https://www.gutenberg.org/ebooks/{eid}.rdf',
+                             'sha256':digest(raw)}
+            def fake_source(output, eid):
+                target = output/'books'/f'gutenberg-{eid}'/'acquisition'
+                raw = output/'download.txt'
+                raw.write_bytes(package(eid=eid))
+                blocks = prepare(raw, target)
+                write_json(target/'provenance.json', {
+                    'ebook_id':eid, 'raw_sha256':blocks['raw_sha256'],
+                    'requested_url':f'https://www.gutenberg.org/cache/epub/{eid}/pg{eid}.txt',
+                    'resolved_url':f'https://www.gutenberg.org/cache/epub/{eid}/pg{eid}.txt'})
+            with patch('acquire_queue.fetch_metadata', side_effect=fake_metadata), \
+                 patch('acquire_queue.fetch_gutenberg', side_effect=fake_source):
+                outcome = acquire_queued(root, root/'build/source-downloads', AS_OF)
+            self.assertEqual(outcome['acquired'], ['gutenberg-36'], outcome)
+            record = validate_record(wd, 36)
+            self.assertEqual(record['rule_version'], 'gutenberg-us-jp-v2')
+            self.assertEqual(record['status'], 'acquired')
+            self.assertEqual(record['admission_evidence']['file'], 'admission-evidence.json')
+            subprocess.run(['git', 'init', '-q', str(root)], check=True)
+            stage_acquisitions(root, root/'build/source-downloads')
+            staged = subprocess.check_output(['git','diff','--cached','--name-only'],
+                                             cwd=root, text=True)
+            self.assertIn('books/gutenberg-36/admission-evidence.json', staged)
+            before = (wd/'admission-evidence.json').read_bytes()
+            (wd/'admission-evidence.json').write_bytes(before + b' ')
+            with self.assertRaises(ProjectError):
+                validate_record(wd, 36)
+
 if __name__ == '__main__':
     unittest.main()

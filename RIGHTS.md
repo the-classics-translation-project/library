@@ -13,6 +13,12 @@ pass. It records the supporting evidence and decision. Uncertain cases stay on
 hold without publicly committing their source text. This is a scoped project
 admission rule, not human/legal review or a claim of worldwide public-domain status.
 
+Versioned evidence may supplement missing provider publication data or record
+exactly assessed ancillary Gutenberg credits; this does **not** authorize arbitrary
+modern adaptations or waive source-level inspection. See per-work
+`admission-evidence.json` and the v2 policy. The original package is preserved;
+transcriber commentary must not be mistaken for the historical author's prose.
+
 Record a source's edition evidence, provenance and rights basis before distributing
 it. Consider the territories in which the edition will be offered, and distinguish
 the historical work from later translations, apparatus, scans, images and other

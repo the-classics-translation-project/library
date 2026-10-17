@@ -43,13 +43,14 @@ claim that the software and literary workflows are finished.
    **Japanese (`ja`) only**, added through
    [Issue #6](https://github.com/the-classics-translation-project/library/issues/6).
 
-Neither source has been acquired or structured. On `main`, `books/` contains
-automatic rights assessments and RDF evidence for both queued candidates; those
-checks held both requests without retaining literary source text. **No real
-literary translation has begun or been approved.** The `revisions/` material consists of synthetic
-test/example snapshots and preserved legacy fixtures. `catalog.json` has an
-empty distribution list, so there are **no approved reader or review editions**
-available for download yet. The deployed web application and catalogue are not
+Both Gutenberg sources were **admitted and acquired on 2026-10-17** under
+`gutenberg-us-jp-v2`, using the documented per-work citation files. The original
+UTF-8 packages, raw bytes, reversible blocks, evidence and hashes are retained in
+`books/gutenberg-36/acquisition/` and `books/gutenberg-41445/acquisition/`.
+**Neither source has been structured into a literary tree or translated.**
+`catalog.json` still has an empty distribution list, so there are **no approved
+reader or review editions** available for download.
+The deployed web application and catalogue are not
 the same thing as published books.
 
 ## Software implemented
@@ -105,8 +106,9 @@ the same thing as published books.
 
 ## Next useful work
 
-1. Acquire and verify an actual Gutenberg source package (including relevant
-   rights/edition details), construct its source tree, and validate coverage.
+1. Review the two newly acquired Gutenberg packages, verify their specific
+   historical editions and any ancillary text, then create source trees using
+   block-reference plans; preserve original bytes and validate coverage.
 2. Make and record the first real draft translation with an interactive agent;
    use work-specific and target-language notes, and do not promote the draft
    to the public reader catalogue without explicit editorial approval.
@@ -116,41 +118,36 @@ the same thing as published books.
    against an installed CLI, following [its design](docs/translation-runner.md).
    Ordinary manual/interactive translation remains supported.
 
-## Source-admission automation — PR #7 merged on 2026-10-17
+## Source admission — successful v2 acquisition on 2026-10-17
 
-The intake workflow now checks a versioned, conservative US/Japan admission policy.
-Passing English UTF-8 packages are preserved permanently under `books/` and staged
-with their exact-byte/block hashes, source provenance, rights decision and RDF
-evidence. There is no expiring acquisition artifact or owner confirmation per book.
-Missing/unsupported evidence or unresolved contributions produces a durable hold
-with reasons; no source text is committed for those cases. Network errors preserve
-other successes and report failure after the records are saved. The policy is in
-`docs/automatic-source-rights.md`; it is not worldwide or human/legal clearance.
-
-A live metadata assessment during PR development held both current candidates:
-
-- `gutenberg-36`: the provider supplies no original source-publication statement.
-  Its Gutenberg release date is not evidence of the historical source edition.
-- `gutenberg-41445`: the provider credits say “Revised by Richard Tonsing.” The
-  first rule cannot resolve the separate contribution from that statement.
-
-Both have an explicit US public-domain designation; the holds concern the Japanese
-source-admission evidence/scope. Source prose was not acquired by this revised live
-queue run. The saved decisions do not assert that either book remains copyrighted.
-No literary tree or translation has been generated and `catalog.json` is unchanged.
-
-Local verification: **94 Python tests**, **9 legacy JavaScript checks** and
-**10 schema-v2 annotation checks** passed, along with project validation, the sample
-HTML/EPUB build and workflow YAML/embedded-script parsing. A real in-app browser
-opened the generated Admin page over local HTTP, expanded both hold explanations
-and confirmed their text; no browser error logs were recorded. This checks the
-new queue display, not Safari/iPad selection, annotation storage or every browser.
-The change was merged as
 [PR #7](https://github.com/the-classics-translation-project/library/pull/7)
-(commit `91eb535`). [Post-merge validation](https://github.com/the-classics-translation-project/library/actions/runs/39043911914)
-and [Pages deployment](https://github.com/the-classics-translation-project/library/actions/runs/39043911912)
-passed. The revised **intake/acquisition job itself** has not been observed running
-after that merge; a Pages deployment does not prove it has acquired source text.
+introduced conservative automatic US/Japan admission, originally holding both
+queue entries because of missing original-publication metadata for Wells and the
+later production-revision credit for Shelley's Gutenberg transcription.
+
+[PR #8](https://github.com/the-classics-translation-project/library/pull/8)
+added the `gutenberg-us-jp-v2` rule with narrowly scoped, version-controlled
+`admission-evidence.json` per work. The Morgan Library's **1898** first-edition
+record supplies Wells's missing historical publication year. The Gutenberg
+**1818 photo-reprint** note and the exact Richard Tonsing production credit
+are explicitly assessed as ancillary text without waiving checks for other
+modern additions. Old v1 records remain re-playable by the validator. Neither
+a historical publication citation nor an ancillary-credit assessment proves
+the exact source edition has been independently inspected.
+
+The [live acquisition workflow](https://github.com/the-classics-translation-project/library/actions/runs/39046838132)
+successfully admitted and committed both sources to `main` in commit
+`33ae1d5`. The exact packages are preserved with their Gutenberg credits and
+license text, block provenance and SHA-256 evidence hashes. Both saved rights
+records now have `status: acquired` and `eligible: true`. These are bounded
+source-admission decisions, **not** final human rights clearance, literary
+fidelity inspection, translation generation or permission to publish.
+
+PR #8 passed **100 Python**, **9 legacy JavaScript** and **10 schema-v2
+annotation** tests. The acquisition workflow's initial follow-up Pages build
+exposed a repository-fixture test that assumed both books would always remain
+on hold; that assumption is being corrected independently of the actual
+acquisition records. The original v1 assessment remains in Git history.
 
 ## Local translation runner — design only
 

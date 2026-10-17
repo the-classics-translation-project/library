@@ -344,12 +344,30 @@ class CitedAdmissionTests(unittest.TestCase):
                 self.assertEqual(accepted['countries']['US']['status'], 'pass')
                 self.assertEqual(accepted['countries']['JP']['status'], 'pass')
 
-    def test_legacy_holds_still_replay_with_new_supplements_present(self):
+    def test_legacy_holds_replay_even_after_repo_sources_are_acquired(self):
+        from shutil import copyfile
+        from source_rights import REFERENCES, LEGACY_RULE_VERSION
         for eid in (36, 41445):
-            with self.subTest(ebook_id=eid):
-                record = validate_record(self.ROOT/'books'/f'gutenberg-{eid}', eid)
-                self.assertEqual(record['rule_version'], 'gutenberg-us-jp-v1')
-                self.assertEqual(record['status'], 'held')
+            with self.subTest(ebook_id=eid), tempfile.TemporaryDirectory() as temp:
+                source = self.ROOT/'books'/f'gutenberg-{eid}'
+                raw = (source/'rights-metadata.rdf').read_bytes()
+                facts = parse_metadata(raw, eid)
+                old_decision = assess_metadata(facts, AS_OF)  # v1 had no supplements
+                self.assertFalse(old_decision['eligible'])
+                wd = Path(temp)/f'gutenberg-{eid}'
+                wd.mkdir()
+                (wd/'rights-metadata.rdf').write_bytes(raw)
+                copyfile(source/'admission-evidence.json', wd/'admission-evidence.json')
+                saved = read_json(source/'rights.json')
+                legacy_record = {
+                    'schema_version': 1, 'rule_version': LEGACY_RULE_VERSION,
+                    'work': f'gutenberg-{eid}', 'ebook_id': eid,
+                    'evaluated_on': AS_OF.isoformat(), 'references': REFERENCES,
+                    'metadata': saved['metadata'], 'evidence': facts,
+                    **old_decision, 'status': 'held'
+                }
+                write_json(wd/'rights.json', legacy_record)
+                self.assertEqual(validate_record(wd, eid)['status'], 'held')
 
     def test_external_publication_only_fixes_the_missing_field(self):
         from source_rights import validate_supplement

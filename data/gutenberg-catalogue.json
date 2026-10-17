@@ -2,7 +2,7 @@
   "schema_version": 1,
   "kind": "full-csv",
   "source": "https://www.gutenberg.org/cache/epub/feeds/pg_catalog.csv",
-  "retrieved_at": "2026-10-17T12:14:14.373402+00:00",
+  "retrieved_at": "2026-10-17T14:45:42.216543+00:00",
   "source_sha256": "3c60f0ad5181881587553d8e13925b3f862693b71854ea34261bf8a6cf3d4c1d",
   "records": [
     {

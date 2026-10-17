@@ -29,7 +29,7 @@ jobs:
           node tests/annotation-core.cjs
       - name: Build sample previews without publishing
         run: ./ctp build --demo --epub
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: local-preview
           path: dist

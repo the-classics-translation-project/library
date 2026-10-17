@@ -1,5 +1,10 @@
 name: Refresh Gutenberg catalogue
 on:
+  # Allow an initial import when this workflow is first configured or revised.
+  # The path filter prevents ordinary commits and catalogue bot commits from looping.
+  push:
+    branches: [main]
+    paths: ['.github/workflows/catalogue.yml']
   workflow_dispatch:
   schedule:
     - cron: '23 3 * * 1'
@@ -40,7 +45,7 @@ jobs:
           fi
   site:
     needs: refresh
-    if: needs.refresh.outputs.changed == 'true' && vars.CTP_PAGES_ENABLED == 'true'
+    if: needs.refresh.outputs.changed == 'true'
     permissions:
       contents: read
       pages: write

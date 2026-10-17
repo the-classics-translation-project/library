@@ -1,69 +1,114 @@
 # Status — version 0.1.0
 
-Built locally on 2026-10-16 from the third starter package and the subsequent
-project decisions. This is a working repository with implementation and tests, not
-only a proposed file layout. **It has not been created or pushed on GitHub.**
+Last verified: **2026-10-17** (against the public GitHub repository and actual
+GitHub Actions results). This file describes observed state, not a roadmap or a
+claim that the software and literary workflows are finished.
 
-## Implemented
+## Repository and live services
 
-- Schema-v2 ordered source trees with opaque mechanical IDs, optional labels/prose,
-  arbitrary nesting and text on branches; same IDs across target editions.
-- Reversible source-block preparation, AI reference-plan compilation, exact coverage/
-  source-order checks, raw-source retention and first-import ID allocation.
-- Draft missing-field inventories; title/heading translation; immutable snapshots
-  containing source and target rendering, tree, metadata and provenance.
-- Preserved schema-v1 snapshot/report compatibility without changing old hashes.
-- Version-controlled prompts, compact model/prompt generation records, source hashes,
-  captured policy/work/edition notes and output hashes.
-- Separate reader catalogue, annotation workbench and administrator catalogue/queue.
-  Title/heading/body annotations, selection popovers, overlapping highlights, compact
-  persistent marginal notes, multi-section reports, import/export and storage warnings.
-- Official Gutenberg CSV parser/fetch command, local substring catalogue search,
-  numeric-ID fallback, target checkboxes and GitHub Issue preparation.
-- Strict authorized/idempotent/additive Issue intake, file-derived queue progress
-  and a bounded task brief for interactive agents; no model API dependence.
-- HTML/EPUB export, local staging, CI/Pages/metadata-intake workflow definitions,
-  and an explicit guarded publishing helper.
+- Canonical repository: <https://github.com/the-classics-translation-project/library>
+  (public; default branch `main`). Work from its current files and
+  [AGENTS.md](AGENTS.md), not an earlier conversation archive or starter ZIP.
+- GitHub Pages: <https://the-classics-translation-project.github.io/library/>.
+  Reader catalogue, contributor workbench and administrator intake interface
+  are generated separately; Admin is at
+  <https://the-classics-translation-project.github.io/library/admin/>.
+- GitHub Actions **validation/build** and **Pages build/deployment** succeeded on
+  2026-10-17:
+  [validation run 39032202747](https://github.com/the-classics-translation-project/library/actions/runs/39032202747)
+  and [deployment run 39032202765](https://github.com/the-classics-translation-project/library/actions/runs/39032202765).
+  Successful deployment was confirmed by GitHub Actions; this status record is
+  not a substitute for independent browser checks of every live interaction.
+- Project Gutenberg's official CSV catalogue was downloaded, parsed and
+  committed by the
+  [catalogue refresh workflow](https://github.com/the-classics-translation-project/library/actions/runs/39031721097)
+  on 2026-10-17: **79,576 catalogue records** at that refresh. The administrator
+  search uses this cache, not the original three-record seed. Refresh is
+  configured weekly (Monday 03:23 UTC), as well as manually.
+- Authorized GitHub Issue intake has executed successfully:
+  [Issue #6](https://github.com/the-classics-translation-project/library/issues/6)
+  was accepted and recorded in `queue.json`. A subsequent workflow change
+  configured Pages to rebuild when later intake runs add queue entries;
+  the current public queue was redeployed in
+  [deployment run 39032202765](https://github.com/the-classics-translation-project/library/actions/runs/39032202765).
 
-## Content present
+## Literary work and requested editions
 
-There are no real imported literary works or approved reader publications. The
-English/Japanese nested-tree samples are synthetic. The legacy example is preserved.
-Gutenberg 41445 (Frankenstein, 1818) is a candidate in the queue, not an imported book.
-The catalogue has **three metadata seed records**, not the full Gutenberg catalogue.
-Direct source/CSV network downloads failed in this environment; the fetch code is
-provided but no live acquisition success is claimed.
+`queue.json` currently has **two requests/candidates**:
 
-## Tests actually run
+1. **Project Gutenberg #41445 — `gutenberg-41445`** (*Frankenstein*,
+   1818): English (`en`) target; initial candidate from the founding
+   discussion, not an Issue-submitted request.
+2. **Project Gutenberg #36 — `gutenberg-36`** (*The War of the Worlds*):
+   **Japanese (`ja`) only**, added through
+   [Issue #6](https://github.com/the-classics-translation-project/library/issues/6).
 
-63 Python tests; 9 legacy JavaScript checks; 10 schema-v2 annotation-core checks.
-The isolated Chromium run passed 13 interaction checks: nested navigation, title
-and heading comments, mouse selection, cross-paragraph overlapping highlights,
-margin editing, restoration from simulated storage, a multi-section report accepted
-by the Python validator, fixture submission guard, tablet/phone layouts and valid
-admin request preparation. No page JavaScript errors were recorded.
+Neither source has been acquired and structured into a real work directory
+(`books/` currently contains only its README). **No real literary translation
+has begun or been approved.** The `revisions/` material consists of synthetic
+test/example snapshots and preserved legacy fixtures. `catalog.json` has an
+empty distribution list, so there are **no approved reader or review editions**
+available for download yet. The deployed web application and catalogue are not
+the same thing as published books.
 
-Browser navigation was blocked by the environment. The test therefore used fresh
-DOMs and explicitly simulated in-memory Storage. **Real page navigation, true
-localStorage persistence, native iPad/Safari selection and cross-device behavior are
-not verified.** The code retains backup/export paths and explicit storage warnings.
-The sample EPUBs passed ZIP/XML/navigation checks, not EPUBCheck or Kindle testing.
+## Software implemented
 
-## Remaining boundaries
+- Source-package-per-work convention; schema-v2 ordered source trees with
+  mechanical opaque node IDs, optional labels/prose, arbitrary nesting and
+  text on branches. Translation preserves the larger source tree without
+  mandatory sentence/paragraph alignment.
+- Source acquisition and reversible block preparation; an AI can propose
+  block-reference structures while code validates coverage/order and copies
+  text mechanically, preserving original bytes and provenance.
+- Draft coverage inventories, translated labels and body text, immutable
+  revision-bound snapshots and review reports. Schema-v1 historical snapshots
+  remain supported. Full retranslations need not preserve prior prose structure.
+- Git-versioned prompts, work/edition notes and generation records that capture
+  the exposed model label, exact supplied instructions, source/note fingerprints
+  and generated output hashes. These are provenance records, not guarantees
+  of reproducibility or literary quality.
+- Reader/HTML and EPUB build machinery; contributor selection annotations,
+  popup comment editing, marginal notes and multi-selection reports; token-free
+  administrator search, language selection and Issue preparation.
+- Strict maintainer-authorized, additive Issue intake; a reproducible queue
+  and `./ctp task` brief for interactive agents. **No unattended model
+  translation worker or separately billed model API is required or configured.**
 
-GitHub write/admin access was unavailable. No remote repository creation, push,
-Actions execution, Pages deployment, live Issue intake or hosted catalogue refresh
-was performed. The shell helper was syntax/plan checked, not run against an account.
-Actions YAML has been inspected locally; runtime permissions and organization policy
-still need the first live run.
+## Verification and limitations
 
-The initial importer accepts TXT/Markdown only. Existing source trees require an
-explicit future migration rather than being silently reimported. Image/scan handling,
-automatic source identity/rights verification, fine-grained cross-version alignment,
-unattended AI generation and KDP submission are not implemented. No license was
-chosen on the owner's behalf and no literary edition was approved.
+- The latest verified CI run passed **64 Python tests**, **9 legacy JavaScript
+  checks** and **10 schema-v2 annotation checks**, plus the sample-preview
+  build. The previous Pandoc footnote `<aside>` compatibility failure was
+  corrected before these successful runs.
+- Earlier local isolated-Chromium tests passed 13 interaction checks,
+  including selection, headings, overlapping annotations and tablet/phone
+  layouts. Those used simulated storage because browser navigation was
+  restricted: **live browser storage persistence, Safari/iPad native text
+  selection, and cross-device behavior remain unverified**.
+- Sample EPUB ZIP/XML/navigation checks are **not EPUBCheck certification or
+  Kindle rendering tests**. HTML/EPUB literary presentation requires inspection
+  with real books and target-language typography.
+- The importer presently targets UTF-8 TXT/Markdown, not general scan/OCR,
+  illustrated layouts or arbitrary source formats. Existing trees are not
+  silently reimported or renumbered. Copyright/source-edition identity and
+  translation fidelity still require judgment and evidence.
+- There is no selected blanket license for code/translation materials, no
+  approved literary release, no automated KDP submission and no scheduled
+  fresh-context translation invocation.
+- **Documentation cleanup remains:** `README.md`, `docs/setup.md` and parts
+  of `docs/maintainer-workflow.md` still describe the pre-deployment seed
+  catalogue or missing GitHub deployment. This `STATUS.md` records the verified
+  newer facts; reconcile those documents separately rather than relying on
+  their stale status assertions.
 
-The next literary task is source acquisition/verification for the first chosen work,
-followed by block-plan structuring and an explicitly recorded initial translation.
-The next deployment task is running the publishing helper in a write-enabled,
-authenticated environment and inspecting the actual workflow results.
+## Next useful work
+
+1. Acquire and verify an actual Gutenberg source package (including relevant
+   rights/edition details), construct its source tree, and validate coverage.
+2. Make and record the first real draft translation with an interactive agent;
+   use work-specific and target-language notes, and do not promote the draft
+   to the public reader catalogue without explicit editorial approval.
+3. Inspect the live reader/contributor/admin interfaces on intended browsers,
+   check EPUBs with EPUBCheck/readers, and update the stale setup documentation.
+4. Decide whether and when to add isolated fresh-context agent invocations;
+   do not require them for ordinary manual/interactive work.

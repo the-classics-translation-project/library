@@ -1,0 +1,443 @@
+{
+  "blocks_sha256": "0ad1c4f8acd096e8bb0bdf0ffe18e2c5b210c2343be53b2c8b2414a2384a246a",
+  "tree": {
+    "label_blocks": [
+      [
+        "b000012",
+        "b000014"
+      ]
+    ],
+    "children": [
+      {
+        "label_blocks": [
+          "b000015"
+        ],
+        "text_blocks": [
+          [
+            "b000016",
+            "b000023"
+          ]
+        ],
+        "children": [
+          {
+            "label_blocks": [
+              "b000024"
+            ],
+            "text_blocks": [
+              [
+                "b000025",
+                "b000029"
+              ]
+            ]
+          },
+          {
+            "text_blocks": [
+              [
+                "b000030",
+                "b000032"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000033"
+            ],
+            "text_blocks": [
+              [
+                "b000034",
+                "b000046"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000047"
+            ],
+            "text_blocks": [
+              [
+                "b000048",
+                "b000058"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000059"
+            ],
+            "text_blocks": [
+              [
+                "b000060",
+                "b000068"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000069"
+            ],
+            "text_blocks": [
+              [
+                "b000070",
+                "b000108"
+              ]
+            ]
+          },
+          {
+            "text_blocks": [
+              [
+                "b000109",
+                "b000111"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000112"
+            ],
+            "text_blocks": [
+              [
+                "b000113",
+                "b000140"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000141"
+            ],
+            "text_blocks": [
+              [
+                "b000142",
+                "b000160"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000161"
+            ],
+            "text_blocks": [
+              [
+                "b000162",
+                "b000175"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000176"
+            ],
+            "text_blocks": [
+              [
+                "b000177",
+                "b000203"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000204"
+            ],
+            "text_blocks": [
+              [
+                "b000205",
+                "b000230"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000231"
+            ],
+            "text_blocks": [
+              [
+                "b000232",
+                "b000285"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000286"
+            ],
+            "text_blocks": [
+              [
+                "b000287",
+                "b000320"
+              ]
+            ]
+          },
+          {
+            "text_blocks": [
+              [
+                "b000321",
+                "b000321"
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "label_blocks": [
+          [
+            "b000322",
+            "b000325"
+          ]
+        ],
+        "text_blocks": [
+          [
+            "b000326",
+            "b000331"
+          ]
+        ],
+        "children": [
+          {
+            "label_blocks": [
+              "b000332"
+            ],
+            "text_blocks": [
+              [
+                "b000333",
+                "b000347"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000348"
+            ],
+            "text_blocks": [
+              [
+                "b000349",
+                "b000365"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000366"
+            ],
+            "text_blocks": [
+              [
+                "b000367",
+                "b000385"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000386"
+            ],
+            "text_blocks": [
+              [
+                "b000387",
+                "b000405"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000406"
+            ],
+            "text_blocks": [
+              [
+                "b000407",
+                "b000428"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000429"
+            ],
+            "text_blocks": [
+              [
+                "b000430",
+                "b000449"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000450"
+            ],
+            "text_blocks": [
+              [
+                "b000451",
+                "b000488"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000489"
+            ],
+            "text_blocks": [
+              [
+                "b000490",
+                "b000525"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000526"
+            ],
+            "text_blocks": [
+              [
+                "b000527",
+                "b000550"
+              ]
+            ]
+          },
+          {
+            "text_blocks": [
+              [
+                "b000551",
+                "b000551"
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "label_blocks": [
+          [
+            "b000552",
+            "b000555"
+          ]
+        ],
+        "text_blocks": [
+          [
+            "b000556",
+            "b000561"
+          ]
+        ],
+        "children": [
+          {
+            "label_blocks": [
+              "b000562"
+            ],
+            "text_blocks": [
+              [
+                "b000563",
+                "b000588"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000589"
+            ],
+            "text_blocks": [
+              [
+                "b000590",
+                "b000612"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000613"
+            ],
+            "text_blocks": [
+              [
+                "b000614",
+                "b000650"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000651"
+            ],
+            "text_blocks": [
+              [
+                "b000652",
+                "b000701"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000702"
+            ],
+            "text_blocks": [
+              [
+                "b000703",
+                "b000746"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000747"
+            ],
+            "text_blocks": [
+              [
+                "b000748",
+                "b000777"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000778"
+            ],
+            "text_blocks": [
+              [
+                "b000779",
+                "b000805"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000806"
+            ],
+            "text_blocks": [
+              [
+                "b000807",
+                "b000864"
+              ]
+            ]
+          },
+          {
+            "text_blocks": [
+              [
+                "b000865",
+                "b000865"
+              ]
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "excluded": [
+    {
+      "blocks": [
+        [
+          "b000001",
+          "b000010"
+        ]
+      ],
+      "reason": "Project Gutenberg distributor header: electronic metadata, usage notice, production/revision credits and START marker; not historical literary front matter. Preserved in the complete acquisition."
+    },
+    {
+      "blocks": [
+        "b000011"
+      ],
+      "reason": "Modern ancillary transcriber note identifying a photo-reprint of the 1818 edition, assessed separately in admission-evidence.json; not authorial prose. Preserved in acquisition; its claim does not independently verify the print exemplar."
+    },
+    {
+      "blocks": [
+        [
+          "b000866",
+          "b000917"
+        ]
+      ],
+      "reason": "Project Gutenberg END marker and trailing whitespace, update notice, full license, warranty, foundation, donation and provider information; distributor back matter, not the novel. Retained without alteration in the complete acquisition."
+    }
+  ]
+}

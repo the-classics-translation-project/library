@@ -1,0 +1,17 @@
+{
+  "schema_version": 2,
+  "id": "gutenberg-41445",
+  "language": "en",
+  "author": "Mary Wollstonecraft Shelley (1797–1851)",
+  "source_edition": "Project Gutenberg eBook #41445, Frankenstein; Or, The Modern Prometheus, UTF-8 package retrieved 2026-10-17; header last updated 2026-10-06. Provider describes a photo-reprint of the 1818 edition; title pages name London: Lackington, Hughes, Harding, Mavor, & Jones, 1818, in three volumes. Exact photo-reprint and historical print exemplar independently unverified.",
+  "source_provenance": "Existing admitted package from https://www.gutenberg.org/cache/epub/41445/pg41445.txt; original bytes, normalized source, reversible blocks and provenance retained in acquisition/. AI-assisted reference-only first structure, mechanically compiled by source-apply. No human structural review or exact print-edition verification claimed. See acquisition/analysis.md and notes.md.",
+  "rights_note": "Acquired under gutenberg-us-jp-v2 on 2026-10-17; existing rights.json records US and Japan passes. See rights.json, rights-metadata.rdf and admission-evidence.json for evidence and ancillary production-credit/transcriber-note assessment. Automatic admission is not human rights review, worldwide clearance or literary-release approval.",
+  "status": "imported",
+  "source": {
+    "provider": "gutenberg",
+    "ebook_id": 41445,
+    "url": "https://www.gutenberg.org/cache/epub/41445/pg41445.txt",
+    "retrieved_at": "2026-10-17T15:50:57.451736+00:00"
+  },
+  "structure": "structure.json"
+}

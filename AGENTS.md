@@ -17,13 +17,15 @@ For source work, read [source import](docs/source-import.md) and
 [data formats](docs/data-formats.md) and [contributor workflow](docs/contributor-workflow.md).
 For a proposed **local CLI translation launcher**, read
 [translation runner design](docs/translation-runner.md); it is not implemented yet.
-**Immediate local-automation implementation task:** read
+For local source automation, read the
 [automated source-preparation brief](docs/local-source-automation.md).
-Implement deterministic idle checks, a macOS launchd worker, Codex execution,
-safe source/rights handling, Git publishing and the Admin expandable tree.
+The deterministic worker, launchd installation helper, guarded Codex execution,
+Git publishing path and Admin expandable tree have code and fixture tests.
+The local schedule is not installed or running; the full worker push/CI path
+and Pages observation remain to be done.
 The associated runtime agent instructions are in
 [prompts/source-preparation.md](prompts/source-preparation.md).
-This pipeline is NOT implemented yet; do not report it as running.
+Do not report the pipeline as running merely because its code exists.
 Source preparation precedes the separate future translation launcher.
 
 ## Invariants

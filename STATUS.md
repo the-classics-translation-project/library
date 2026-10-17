@@ -47,7 +47,11 @@ Both Gutenberg sources were **admitted and acquired on 2026-10-17** under
 `gutenberg-us-jp-v2`, using the documented per-work citation files. The original
 UTF-8 packages, raw bytes, reversible blocks, evidence and hashes are retained in
 `books/gutenberg-36/acquisition/` and `books/gutenberg-41445/acquisition/`.
-**Neither source has been structured into a literary tree or translated.**
+Gutenberg #36 now has an AI-assisted, mechanically validated source tree with
+31 nodes. Its 981 blocks are accounted for (920 assigned, 61 explicitly
+excluded with reasons); the imported metadata does not claim human review or
+exact historical print-edition verification. Gutenberg #41445 is acquired but
+still needs a source tree. **Neither work has been translated.**
 `catalog.json` still has an empty distribution list, so there are **no approved
 reader or review editions** available for download.
 The deployed web application and catalogue are not
@@ -75,6 +79,10 @@ the same thing as published books.
 - Strict maintainer-authorized, additive Issue intake; a reproducible queue
   and `./ctp task` brief for interactive agents. **No unattended model
   translation worker or separately billed model API is required or configured.**
+- A deterministic local source-work selector, one-work Codex executor, external
+  retry ledger, OS lock, isolated Git worktree and guarded publication code.
+  A per-user LaunchAgent helper is available but not installed. The Admin build
+  embeds validated source-tree labels and IDs with nested expand/collapse code.
 
 ## Verification and limitations
 
@@ -88,6 +96,15 @@ the same thing as published books.
   layouts. Those used simulated storage because browser navigation was
   restricted: **live browser storage persistence, Safari/iPad native text
   selection, and cross-device behavior remain unverified**.
+- The source-preparation branch passed **110 Python tests**, **9 legacy JS** and
+  **10 schema-v2 JS** checks, `./ctp validate` and `./ctp build --epub` locally.
+  A synthetic acquired work completed the mock one-work path without network or
+  model use. A real Codex CLI invocation structured #36 in an isolated worktree;
+  the full wrapper's Git push/CI reconciliation path has not run live. The
+  ChatGPT.app-bundled Codex CLI 0.162.0 passed a read-only login/model smoke test;
+  the older global 0.46.0 CLI failed with this account's configured model.
+  The built Admin manifest contains #36's 31-node tree without full literary
+  prose, but **the new tree UI has not had a real browser interaction check**.
 - Sample EPUB ZIP/XML/navigation checks are **not EPUBCheck certification or
   Kindle rendering tests**. HTML/EPUB literary presentation requires inspection
   with real books and target-language typography.
@@ -98,27 +115,23 @@ the same thing as published books.
 - There is no selected blanket license for code/translation materials, no
   approved literary release, no automated KDP submission and no scheduled
   fresh-context translation invocation.
-- **Documentation cleanup remains:** `README.md`, `docs/setup.md` and parts
-  of `docs/maintainer-workflow.md` still describe the pre-deployment seed
-  catalogue or missing GitHub deployment. This `STATUS.md` records the verified
-  newer facts; reconcile those documents separately rather than relying on
-  their stale status assertions.
+- `README.md`, `docs/setup.md`, `docs/maintainer-workflow.md` and the founding
+  queue note have been reconciled with the admitted sources and local worker.
+  Physical Safari/iPad checks and independent source-edition inspection remain.
 
 ## Next useful work
 
-1. **Implement the locally scheduled source-preparation pipeline**, following
-   [the concrete brief](docs/local-source-automation.md): cheap no-op polling,
-   eligible vs. held work selection, one-work Codex execution, secure Git
-   publishing and clear retry/recovery behavior. Install the macOS LaunchAgent
-   only after real local CLI authentication and a smoke test.
-2. **Structure the two already admitted sources**, keeping their acquired bytes
-   and rights evidence intact, then expose source trees with expandable nodes in
-   Admin. Validate the tree and observe the real GitHub Pages deployment.
+1. **Validate the first source-tree deployment:** merge/review the implementation,
+   observe GitHub CI and Pages, and inspect #36's expandable Admin tree in an
+   allowed real browser. The browser interaction check remains open.
+2. **Exercise the complete local worker on #41445** from a clean current `main`
+   checkout. Confirm one bounded Codex run, guarded push, CI/Pages outcomes,
+   no source-byte changes and a correct tree before considering scheduling.
+   Install the LaunchAgent only through the owner's explicit one-time action.
 3. Implement future **node-level translation request Issues** and the separate
    fresh-context translation launcher, following
    [docs/translation-runner.md](docs/translation-runner.md).
-4. Inspect Admin/workbench/EPUB on intended browsers and update remaining
-   historical setup documentation as needed. No draft should be promoted
+4. Inspect Admin/workbench/EPUB on intended browsers. No draft should be promoted
    without explicit approval.
 
 ## Source admission — successful v2 acquisition on 2026-10-17
@@ -169,21 +182,22 @@ test or automatic translation has been implemented or exercised yet.** The next
 step is local implementation and an explicitly invoked smoke test before any
 claims about model invocation, context isolation or production translation.
 
-## Automated local source preparation — implementation approved, not running
+## Automated local source preparation — code present, not running
 
 On 2026-10-18 the owner selected a **local macOS scheduler + on-demand Codex**
 approach for completing the path from a GitHub work Issue to source acquisition,
 bibliographic research when a hold requires it, literary source-tree analysis,
 version-controlled changes and an expandable Admin tree.
 
-The existing GitHub Actions intake and acquisition fast path is operational; the
-two present source packages are already acquired. **There is no local polling
-wrapper, launchd job, automatic source-analysis Codex invocation, state ledger,
-or live Admin source-tree viewer yet.** Do not conflate these proposed components
-with the existing rights/acquisition workflows. The fully specified first
-implementation task, constraints, tests and CLI starting point are in
+The existing GitHub Actions intake and acquisition fast path is operational.
+The local worker, retry ledger, launchd installer and Admin tree renderer are
+implemented in repository code. #36 was structured through the Codex executor
+and trusted validation functions, then committed on the implementation branch;
+the complete scheduled wrapper has not published a live job. The first
+implementation constraints and tested command contract are in
 [docs/local-source-automation.md](docs/local-source-automation.md);
-the proposed source agent prompt is
+the source agent prompt is
 [prompts/source-preparation.md](prompts/source-preparation.md).
-No scheduled Codex job, unattended model use or local installation was
-performed from this conversation.
+No LaunchAgent installation or unattended Codex job has occurred. The public
+Admin page must not be reported as showing #36 until a successful Pages
+deployment and browser inspection confirm it.

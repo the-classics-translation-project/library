@@ -1,0 +1,364 @@
+{
+  "blocks_sha256": "52e3a9010ac31d0b4dcdedd16d3b6d3c70afbb489f7c87f5be93117df324cb2f",
+  "tree": {
+    "label_blocks": [
+      "b000010"
+    ],
+    "text_blocks": [
+      [
+        "b000011",
+        "b000012"
+      ]
+    ],
+    "children": [
+      {
+        "label_blocks": [
+          "b000013"
+        ],
+        "text_blocks": [
+          [
+            "b000014",
+            "b000017"
+          ]
+        ]
+      },
+      {
+        "label_blocks": [
+          "b000018"
+        ],
+        "children": [
+          {
+            "label_blocks": [
+              "b000019"
+            ],
+            "text_blocks": [
+              [
+                "b000020",
+                "b000039"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000040"
+            ],
+            "text_blocks": [
+              [
+                "b000041",
+                "b000062"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000063"
+            ],
+            "text_blocks": [
+              [
+                "b000064",
+                "b000078"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000079"
+            ],
+            "text_blocks": [
+              [
+                "b000080",
+                "b000099"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000100"
+            ],
+            "text_blocks": [
+              [
+                "b000101",
+                "b000124"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000125"
+            ],
+            "text_blocks": [
+              [
+                "b000126",
+                "b000135"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000136"
+            ],
+            "text_blocks": [
+              [
+                "b000137",
+                "b000170"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000171"
+            ],
+            "text_blocks": [
+              [
+                "b000172",
+                "b000181"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000182"
+            ],
+            "text_blocks": [
+              [
+                "b000183",
+                "b000225"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000226"
+            ],
+            "text_blocks": [
+              [
+                "b000227",
+                "b000255"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000256"
+            ],
+            "text_blocks": [
+              [
+                "b000257",
+                "b000292"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000293"
+            ],
+            "text_blocks": [
+              [
+                "b000294",
+                "b000362"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000363"
+            ],
+            "text_blocks": [
+              [
+                "b000364",
+                "b000413"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000414"
+            ],
+            "text_blocks": [
+              [
+                "b000415",
+                "b000467"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000468"
+            ],
+            "text_blocks": [
+              [
+                "b000469",
+                "b000502"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000503"
+            ],
+            "text_blocks": [
+              [
+                "b000504",
+                "b000584"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000585"
+            ],
+            "text_blocks": [
+              [
+                "b000586",
+                "b000620"
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "label_blocks": [
+          "b000621"
+        ],
+        "children": [
+          {
+            "label_blocks": [
+              "b000622"
+            ],
+            "text_blocks": [
+              [
+                "b000623",
+                "b000662"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000663"
+            ],
+            "text_blocks": [
+              [
+                "b000664",
+                "b000690"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000691"
+            ],
+            "text_blocks": [
+              [
+                "b000692",
+                "b000705"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000706"
+            ],
+            "text_blocks": [
+              [
+                "b000707",
+                "b000735"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000736"
+            ],
+            "text_blocks": [
+              [
+                "b000737",
+                "b000755"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000756"
+            ],
+            "text_blocks": [
+              [
+                "b000757",
+                "b000767"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000768"
+            ],
+            "text_blocks": [
+              [
+                "b000769",
+                "b000864"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000865"
+            ],
+            "text_blocks": [
+              [
+                "b000866",
+                "b000896"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000897"
+            ],
+            "text_blocks": [
+              [
+                "b000898",
+                "b000915"
+              ]
+            ]
+          },
+          {
+            "label_blocks": [
+              "b000916"
+            ],
+            "text_blocks": [
+              [
+                "b000917",
+                "b000929"
+              ]
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "excluded": [
+    {
+      "blocks": [
+        [
+          "b000001",
+          "b000008"
+        ]
+      ],
+      "reason": "Project Gutenberg distributor header: access/license notice, catalogue title/author, electronic release/update dates, language, format link and start delimiter. Bibliographic facts are recorded in metadata; original header remains in the complete acquisition."
+    },
+    {
+      "blocks": [
+        "b000009"
+      ],
+      "reason": "Isolated slash between the Gutenberg start delimiter and literary title, interpreted as a package formatting artifact, not a literary label or prose. Origin is unverified; retained unchanged in acquisition and noted for future inspection."
+    },
+    {
+      "blocks": [
+        [
+          "b000930",
+          "b000981"
+        ]
+      ],
+      "reason": "Project Gutenberg end delimiter, separator whitespace, electronic-edition replacement notice, full distributor license/warranty, Foundation mission/contact/donation information and website guidance. Modern distributor ancillary matter, not the novel; all remains intact in acquired.txt, normalized.txt and blocks.json."
+    }
+  ]
+}

@@ -1,9 +1,14 @@
 # Automated local source preparation — implementation brief
 
-**Status (2026-10-18): approved project direction, NOT implemented.** The local
-coding agent should implement and test this next, starting with the two already
-acquired Gutenberg works. It may use direct commits or a PR. Reading this document
-is not evidence that a Mac scheduler, Codex runner, or Admin tree viewer exists.
+**Status (2026-10-18): implementation in the repository, not installed or running.**
+The deterministic worker, safe publication path, launchd helper and Admin tree
+renderer have fixture tests. A small read-only Codex CLI smoke test passed using
+the CLI bundled with ChatGPT.app. The Codex executor structured #36 in an
+isolated worktree and its result passed the trusted diff and source validation;
+the full `run-once` push/CI path and periodic launchd path have not run live.
+#41445 remains the first complete scheduled-worker exercise. Code presence is
+not evidence of an installed scheduler,
+successful publishing, Pages deployment or literary review.
 
 ## Goal and boundary
 
@@ -54,9 +59,10 @@ separate follow-up milestones. Do not translate or change `catalog.json` here.
 - `docs/source-structure.md` and `docs/source-import.md` specify arbitrary ordered
   trees with optional labels, own prose and children. Root labels are data too.
 
-As of this brief, `gutenberg-36` (Japanese requested) and `gutenberg-41445`
-(English candidate) are **already acquired** and awaiting structure analysis;
-they should be the first real end-to-end exercises. No source trees exist yet.
+At implementation time, `gutenberg-36` (Japanese requested) and
+`gutenberg-41445` (English candidate) were already acquired. #36 now has an
+AI-assisted source tree in the implementation branch; #41445 remains pending
+for a complete worker run. Preserve both original acquisitions.
 
 ## Proposed local components / command contract
 

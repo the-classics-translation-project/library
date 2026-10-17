@@ -1,0 +1,17 @@
+{
+  "schema_version": 2,
+  "id": "gutenberg-36",
+  "language": "en",
+  "author": "H. G. Wells (Herbert George Wells, 1866–1946)",
+  "source_edition": "Project Gutenberg eBook #36, The War of the Worlds, UTF-8 package retrieved 2026-10-17; header last updated 2026-03-30. Exact underlying historical print edition unverified. The existing admission evidence cites the 1898 London: William Heinemann first edition for historical publication only.",
+  "source_provenance": "Existing admitted acquisition from https://www.gutenberg.org/cache/epub/36/pg36.txt; original bytes, normalized view, reversible blocks and provenance retained in acquisition/. AI-assisted reference-only first structure, compiled by source-apply; no human structural review or exact print-edition verification claimed. See acquisition/analysis.md and notes.md.",
+  "rights_note": "Acquired under gutenberg-us-jp-v2 on 2026-10-17: existing rights.json records US and Japan passes. See rights.json, rights-metadata.rdf and admission-evidence.json for evidence and limits. Automatic source admission is not human rights review, worldwide clearance or literary-release approval.",
+  "status": "imported",
+  "source": {
+    "provider": "gutenberg",
+    "ebook_id": 36,
+    "url": "https://www.gutenberg.org/cache/epub/36/pg36.txt",
+    "retrieved_at": "2026-10-17T15:50:59.031792+00:00"
+  },
+  "structure": "structure.json"
+}

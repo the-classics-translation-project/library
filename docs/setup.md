@@ -44,24 +44,42 @@ No GitHub Actions job currently invokes Codex. GitHub Pages is public;
 Admin is not an authentication boundary. Inspect actual workflow runs
 before claiming a deployment or successful source import.
 
-## Planned local macOS source-preparation automation
+## Local macOS source-preparation automation (not installed)
 
 **Read [docs/local-source-automation.md](local-source-automation.md) before
 implementation.** That brief specifies the command contract, work selection,
 lock, retry ledger, isolated Git worktree, Codex CLI execution, rights-hold
 research, source structuring, Git publishing and expandable Admin source tree.
 
-The local agent should implement a per-user `launchd` LaunchAgent template
-with `RunAtLoad` and an initial `StartInterval` of 1800 seconds (30 minutes).
-Installation is an explicit, once-per-Mac owner action; merely cloning or
-building this repository must not enable automatic model invocations. Add
-tested install, disable, uninstall, dry-run and log-viewing commands.
+The repository includes `tools/source_worker.py`, a scheduler-safe wrapper and
+a per-user `launchd` helper. The template uses `RunAtLoad` and a 1800-second
+interval. Installation is an explicit, once-per-Mac owner action; cloning or
+building the repository does not enable model invocations.
+
+```sh
+./tools/run-source-worker.sh check --json
+./tools/install-source-launch-agent.sh dry-run
+./tools/install-source-launch-agent.sh status
+# After a successful bounded real source run and inspection:
+./tools/install-source-launch-agent.sh install
+./tools/install-source-launch-agent.sh logs
+./tools/install-source-launch-agent.sh uninstall
+```
+
+Run the installed job from a **clean local `main` checkout** with the canonical
+HTTPS `origin`. The helper resolves paths for launchd. A running or unresolved
+attempt is recorded outside Git in `~/Library/Application Support/CTP/source-worker/`;
+inspect `status` and its run logs, then use
+`./tools/run-source-worker.sh retry gutenberg-<id>` only when a deliberate retry
+is justified. A held rights case is not retried merely because time passed.
 
 Before enabling it, authenticate `gh` and `codex` as the intended owner, verify
-CLI-supported flags and a **bounded live smoke test** using the local user
-account. `codex exec --ephemeral --sandbox workspace-write` is the documented
-starting point, not a promise that the installed binary/auth/network policy
-will work without testing. Do not embed tokens in source, plists or logs.
+CLI-supported flags and a **bounded live source run** using the local user
+account. The older `/usr/local/bin/codex` (0.46.0) failed a read-only smoke test
+with this account's configured model; the ChatGPT.app-bundled 0.162.0 CLI passed.
+The worker prefers that bundled CLI, or an explicit `CTP_CODEX_BIN`, and requires
+`--ephemeral`. Test access again after CLI/auth changes. Do not embed tokens in
+source, plists or logs.
 Never use `--yolo` / sandbox bypass just to make unattended execution pass.
 
 Source-preparation scheduling is separate from
@@ -71,12 +89,12 @@ modify `catalog.json` or publish an edition.
 
 ## First real acceptance exercise
 
-The repository already contains original, admitted Gutenberg #36 and #41445
-source packages with reversible blocks and rights evidence. Neither has a
-canonical literary source tree yet. The local worker should identify them as
-pending without duplicating target-language rows, structure one with the
-reference-only plan, validate, safely push and confirm the Admin page shows
-its expandable labels and nodes after an actual successful Pages deployment.
+The repository contains original, admitted Gutenberg #36 and #41445 source
+packages with reversible blocks and rights evidence. #36 has a validated
+reference-only source tree; #41445 remains pending. The local worker should
+identify #41445 once regardless of target-language rows, validate, safely push
+and confirm Admin shows its expandable labels and nodes after an actual
+successful Pages deployment. Confirm the same deployment for #36.
 
 If a Mac is asleep/offline the GitHub queue remains durable; the next
 successful local poll must catch up without duplicate model jobs or overwriting

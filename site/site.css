@@ -136,6 +136,13 @@ button.subtle { border-color: transparent; background: transparent; }
 [aria-disabled=true] { opacity:.5; cursor:default; }
 .queue-heading { margin-top:2.6rem !important; }
 .queue-row { display:flex; justify-content:space-between; gap:1rem; padding:.7rem 0; border-bottom:1px solid var(--line); }
+.source-work { border-block-end:1px solid var(--line); padding:.8rem 0 1rem; }
+.source-work h3 { margin:.2rem 0; }
+.source-tree { list-style:none; margin:.55rem 0; padding-inline-start:1.1rem; border-inline-start:1px solid var(--line); }
+.source-tree li { margin:.35rem 0; overflow-wrap:anywhere; }
+.source-tree summary { cursor:pointer; padding:.2rem .35rem; border-radius:.2rem; }
+.source-tree summary:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.source-tree details > .source-tree { margin-block:.3rem .7rem; }
 .admin-help { margin-top:2rem; font-size:.88rem; color:var(--muted); }
 @media(max-width:900px) and (min-width:741px){ .reader-shell { grid-template-columns:minmax(0,1fr) 170px; column-gap:24px; padding-inline:1.2rem; } .margin-note { font-size:.77rem; } }
 @media(max-width:740px){ .reader-shell { display:block; max-width:700px; padding:1.7rem 1rem 4rem; } .margin-rail,.note-connectors { display:none; } .workbench .toolbar { font-size:.76rem; } #sections { max-width:43vw; } .queue-row { display:block; } .queue-row span { display:block; } }

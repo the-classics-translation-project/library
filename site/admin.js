@@ -34,4 +34,24 @@
   }
   if(!data.queue.length)$('queue').textContent='No work requested yet.';
   for(const r of data.queue){const row=document.createElement('div');row.className='queue-row';const name=document.createElement('span');name.textContent=`Gutenberg #${r.source_id} · ${r.target}`;const status=document.createElement('span');status.className='meta';status.textContent=r.stage+(r.total_fields!==null?` · ${r.completed_fields}/${r.total_fields} fields present`:'');if(r.rights_reasons?.length){const details=document.createElement('details'),summary=document.createElement('summary'),list=document.createElement('ul');summary.textContent='Why this source is on hold';for(const reason of r.rights_reasons){const item=document.createElement('li');item.textContent=reason;list.append(item);}details.append(summary,list);status.append(details);}row.append(name,status);$('queue').append(row);}
+  function sourceNode(node){
+    const children=node.children || [];
+    const label=node.label || (node.has_text?'Unlabelled text':'Unlabelled group');
+    const caption=`${label} · ${node.id}${node.has_text?' · text':''}`;
+    if(!children.length){const leaf=document.createElement('li');leaf.textContent=caption;return leaf;}
+    const item=document.createElement('li'),details=document.createElement('details'),summary=document.createElement('summary'),list=document.createElement('ol');
+    summary.textContent=caption;list.className='source-tree';
+    for(const child of children)list.append(sourceNode(child));
+    details.append(summary,list);item.append(details);return item;
+  }
+  if(!data.sources?.length)$('source-trees').textContent='No works in the queue yet.';
+  for(const work of data.sources || []){
+    const section=document.createElement('section'),heading=document.createElement('h3'),state=document.createElement('p');
+    section.className='source-work';heading.textContent=`Gutenberg #${work.source_id}`;
+    state.className='meta';state.textContent=work.tree ? `${work.author} · source structured · targets: ${work.targets.join(', ')}` : `${work.stage} · targets: ${work.targets.join(', ')}`;
+    section.append(heading,state);
+    if(work.tree){const list=document.createElement('ol');list.className='source-tree';list.append(sourceNode(work.tree));section.append(list);}
+    else{const pending=document.createElement('p');pending.className='small';pending.textContent='No source tree is available yet.';section.append(pending);}
+    $('source-trees').append(section);
+  }
 })();

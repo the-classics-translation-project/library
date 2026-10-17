@@ -112,3 +112,21 @@ the same thing as published books.
    check EPUBs with EPUBCheck/readers, and update the stale setup documentation.
 4. Decide whether and when to add isolated fresh-context agent invocations;
    do not require them for ordinary manual/interactive work.
+
+## Acquisition automation implementation (pending deployment)
+
+The intake workflow now includes mechanical queued UTF-8 source download and
+block preparation, per-source failure reporting, retained Actions packages and
+committed acquisition receipts. Receipts keep edition/rights verification false;
+source prose is not automatically committed to public Git. Interactive retrieval,
+verification and source-tree decisions remain necessary. Packages have 90-day
+requested retention and can be reacquired on a later intake run. This addition has
+not yet been verified in a live Actions run and does not change the observed
+literary acquisition status recorded above.
+
+Local validation of this addition: 70 Python tests, 9 legacy JavaScript checks,
+10 schema-v2 annotation checks, `./ctp validate`, workflow YAML parsing and the
+sample HTML/EPUB build passed. A temporary live download of Gutenberg #36 succeeded
+and its 981 reversible blocks validated; the downloaded bytes were not committed
+or retained as a project acquisition. No live run of the new workflow or browser
+interaction check was performed for this change.

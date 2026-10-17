@@ -25,6 +25,16 @@ history can still expose committed material; see RIGHTS.md.
 
 `examples/catalog.json` is an additional allowlist used only with `--demo`.
 
+## Acquisition receipt (schema 1)
+
+`books/<id>/acquisition-receipt.json` registers an automatically downloaded source
+before literary import. It contains provider provenance, `raw_sha256`, work ID,
+Actions run/artifact IDs and URL, estimated `retained_until`, and
+`status:"awaiting verification"`. `source_edition_verified` and `rights_checked`
+remain false. It does not count as an imported work or authorize distribution of
+source prose. Original bytes and reversible blocks are retained separately in the
+Actions artifact. Queue progress includes its artifact link and expiry state.
+
 ## Source work and tree (schema 2)
 
 `work.json`: `schema_version`, `id`, `language`, `author`, `source_edition`,

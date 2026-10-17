@@ -4,9 +4,12 @@
 
 Open Admin, search title/author/ID, choose targets and prepare an Issue. Submit the
 form on GitHub. The intake workflow parses only the configured maintainer's requests
-and updates the queue. Public visitors may see the form but cannot authorize work.
-The initial cache contains three Frankenstein metadata records, not the complete
-catalogue. Run the catalogue workflow or `./ctp catalogue-refresh` to replace it.
+and updates the queue, then automatically downloads pending Gutenberg sources.
+Successful packages are retained as Actions artifacts; acquisition receipts are
+committed to the project. See [source import](source-import.md) for retention,
+retrieval, verification and retries. Public visitors may see the form but cannot
+authorize work. The live search uses the full Gutenberg CSV cache; the catalogue
+workflow or `./ctp catalogue-refresh` refreshes it.
 
 For manual intake, use `./ctp intake --github` with GH_TOKEN in the local environment,
 or `./ctp intake --issues trusted-issues-export.json`. A fabricated export is not

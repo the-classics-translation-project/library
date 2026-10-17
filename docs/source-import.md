@@ -28,6 +28,41 @@ territories. Distinguish old prose from later editorial additions. Record proven
 in `work.json`, and substantive source observations in `notes.md`. Do not silently
 import material merely because its title appears in the catalogue.
 
+## Automatic acquisition from the queue
+
+The intake workflow runs `./ctp acquire-queued` after accepting requests. It also
+processes existing queue candidates on manual dispatch. No AI/model call is made.
+Each missing UTF-8 source is downloaded and prepared independently. A failure does
+not discard other successful downloads; the workflow preserves successes and then
+fails visibly with a report. Rerun the intake workflow to retry.
+
+Downloaded `books/<id>/acquisition/` packages and `report.json` are retained in a
+GitHub Actions artifact for 90 days (subject to repository retention settings).
+Only `books/<id>/acquisition-receipt.json` is committed to Git. It records the URL,
+retrieval time, source hash, artifact location and an estimated retention deadline.
+This adds the acquired source to project tracking without automatically committing
+unverified source prose to the public repository. Artifacts require GitHub access;
+they are not a private archive and must not contain credentials. They are temporary
+storage, not a permanent source archive or source-rights approval.
+
+The queue distinguishes acquisition awaiting verification from sources not yet
+acquired. `./ctp task` includes the artifact link. Download the artifact and unpack
+its `books/` directory into the checkout, then validate the preserved bytes:
+
+```sh
+python3 -c 'import sys; sys.path.insert(0,"tools"); from pathlib import Path; from source_import import validate_blocks; validate_blocks(Path("books/gutenberg-36/acquisition"))'
+```
+
+Compare `raw_sha256` in `blocks.json` with the committed receipt as well. Complete
+edition/rights checks before committing prose, record the evidence, and continue
+with the block plan below. This automation does not create a literary tree,
+`work.json`, translated text, or catalogue approval. Existing local acquisitions
+are checked and never overwritten. A receipt with fewer than ten days remaining
+is refreshed on the next intake run; deleted artifacts can be recovered by locally
+removing their receipt before running `acquire-queued`, or by downloading explicitly
+with `source-fetch` in a checkout without that acquisition. There is no scheduled
+acquisition worker. Expired receipts are shown as needing acquisition again.
+
 ## AI proposes references; code copies text
 
 Give the numbered blocks to an agent with `prompts/structure-source.md`. The plan

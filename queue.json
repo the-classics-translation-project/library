@@ -12,6 +12,23 @@
       ],
       "requests": [],
       "selection_note": "Initial candidate from the project discussion; no source acquired and no literary publication authorized."
+    },
+    {
+      "id": "gutenberg-36",
+      "source": {
+        "type": "gutenberg",
+        "id": 36
+      },
+      "targets": [
+        "ja"
+      ],
+      "requests": [
+        {
+          "issue": 6,
+          "author": "hiroshi-manabe",
+          "body_sha256": "7f1d2e9e3377d2226d471006d4656fe5c59a3b4e2120c64be7c3562449d6ccdd"
+        }
+      ]
     }
   ]
 }

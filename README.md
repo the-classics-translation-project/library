@@ -47,11 +47,13 @@ See the
 [implementation brief](docs/local-source-automation.md) and
 [agent prompt](prompts/source-preparation.md).
 
-**The LaunchAgent has not been installed.** Gutenberg #36 (*The War of the
-Worlds*, Japanese target) and #41445 (*Frankenstein*, English candidate) both
-have validated source trees in the repository. A bounded live worker run
-published #41445, CI and Pages passed, and the live Admin manifest serves both
-trees. The expandable tree still needs a real browser interaction check.
+**A per-user LaunchAgent is installed for 30-minute source-work polls.** Its
+first scheduled tick found no pending work and made no model call. Gutenberg
+#36 (*The War of the Worlds*, Japanese target) and #41445 (*Frankenstein*,
+English candidate) both have validated source trees in the repository. A bounded
+live worker run published #41445. CI and Pages passed, and the live Admin
+manifest serves both trees. The expandable tree still needs a real browser
+interaction check.
 
 A later milestone will let the owner check individual nodes in Admin, file
 translation-request Issues and run separate fresh-context local translation

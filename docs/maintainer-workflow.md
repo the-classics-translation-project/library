@@ -44,7 +44,9 @@ hold. After an admitted acquisition is available, the agent constructs a
 reference-only plan and uses the mechanical importer to allocate node IDs.
 The local wrapper handles validation and publishing. The code has fixture tests,
 and a bounded live run published #41445 after validating its source tree; CI,
-Pages and ledger reconciliation succeeded. The LaunchAgent is not installed.
+Pages and ledger reconciliation succeeded. A per-user LaunchAgent is installed
+from a dedicated checkout under Application Support; its first scheduled tick
+found no pending work and made no model call.
 
 ## Translate, read, revise
 

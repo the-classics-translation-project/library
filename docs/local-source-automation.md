@@ -1,6 +1,6 @@
 # Automated local source preparation — implementation brief
 
-**Status (2026-10-18): implemented and exercised once; schedule not installed.**
+**Status (2026-10-18): implemented and first scheduled idle tick passed.**
 The deterministic worker, safe publication path, launchd helper and Admin tree
 renderer have fixture tests. A small read-only Codex CLI smoke test passed using
 the CLI bundled with ChatGPT.app. The Codex executor structured #36 in an
@@ -8,8 +8,11 @@ isolated worktree and its result passed the trusted diff and source validation;
 the full `run-once` path then structured and pushed #41445. GitHub validation
 and Pages deployment passed, and the ledger reconciled the result on a second
 poll without a model call. The live Admin manifest serves both trees. The
-periodic launchd path and real browser tree interaction have not been exercised;
-these checks do not constitute literary review.
+LaunchAgent was installed from a dedicated checkout under Application Support;
+its first `RunAtLoad` tick exited 0 with no pending work or model call. A timed
+interval tick, sleep/restart recovery, headless model invocation under launchd,
+and real browser tree interaction have not been observed; these checks do not
+constitute literary review.
 
 ## Goal and boundary
 
@@ -84,7 +87,7 @@ Keep this interface in sync with code and tests:
   Codex executor along with work ID, stage and source/evidence paths.
 - `tests/test_source_worker.py` plus site-render/JS tests for the new tree UI.
 
-A per-user macOS `launchd` LaunchAgent is recommended: `RunAtLoad` for initial
+A per-user macOS `launchd` LaunchAgent is installed: `RunAtLoad` for initial
 reconciliation and `StartInterval` = 1800 seconds as the initial polling cadence,
 not an always-on daemon. The owner may tune it. On sleep, reboot or network
 outage, outstanding requests remain in GitHub; the next successful poll catches up.
@@ -237,13 +240,14 @@ bound to a verified source-tree revision; do not implement it implicitly here.
 3. Implement first-import handling and safe Git worktree/push/PR integration,
    including failure recovery, evidence bookkeeping and exact change allowlist.
 4. Add nested source-tree data/rendering to Admin, with UI and build tests.
-5. Provide macOS `launchd` template and install/uninstall helper. Configure
-   and test once as the owner (login, sleep/restart behavior, logs). Only then
-   enable automatic periodic execution.
+5. Provide macOS `launchd` template and install/uninstall helper. The owner
+   authorized installation from a dedicated Application Support checkout after
+   macOS denied the first Documents-based job. Its initial tick passed; later
+   interval and sleep/restart behavior still need observation.
 6. Test a complete real source structure (initially #36 or #41445), observe
    the commit and successful Pages deployment, and update `STATUS.md` with
    **actual** test/run evidence and remaining gaps. Completed for #41445;
-   actual browser interaction and periodic launchd behavior remain open.
+   actual browser interaction and later periodic launchd behavior remain open.
 
 ## Documentation references
 
@@ -252,4 +256,4 @@ bound to a verified source-tree revision; do not implement it implicitly here.
 - Apple launch agents: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html
 - macOS scheduled jobs: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/ScheduledJobs.html
 
-**No LaunchAgent installation or unattended scheduled run has occurred.**
+**The LaunchAgent is installed; its first scheduled idle tick passed.**

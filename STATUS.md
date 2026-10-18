@@ -82,7 +82,7 @@ the same thing as published books.
   translation worker or separately billed model API is required or configured.**
 - A deterministic local source-work selector, one-work Codex executor, external
   retry ledger, OS lock, isolated Git worktree and guarded publication code.
-  A per-user LaunchAgent helper is available but not installed. The Admin build
+  A per-user LaunchAgent is installed at a 30-minute interval. The Admin build
   embeds validated source-tree labels and IDs with nested expand/collapse code.
 
 ## Verification and limitations
@@ -111,6 +111,14 @@ the same thing as published books.
   the older global 0.46.0 CLI failed with this account's configured model.
   The live Admin manifest contains both trees without full literary prose, but
   **the new tree UI has not had a real browser interaction check**.
+- The source-work LaunchAgent was installed on 2026-10-18 from a clean dedicated
+  checkout in `~/Library/Application Support/CTP/source-worker/library`. Its
+  first `RunAtLoad` invocation exited **0** with `pending: []` and
+  `model_called: false`; `launchctl` reports a 1800-second interval. A first
+  attempt from the Documents checkout exited 126 because macOS denied that
+  process access to the protected directory; it was removed before the
+  dedicated checkout was installed. An actual interval tick, sleep/restart
+  recovery and headless model invocation under launchd remain unverified.
 - Sample EPUB ZIP/XML/navigation checks are **not EPUBCheck certification or
   Kindle rendering tests**. HTML/EPUB literary presentation requires inspection
   with real books and target-language typography.
@@ -131,9 +139,9 @@ the same thing as published books.
    exclusions against the source packages, then test the expandable Admin trees
    in an allowed real browser. The manifest and deployment are confirmed; those
    editorial and browser interaction checks remain open.
-2. **Enable periodic source preparation only through the owner's explicit
-   one-time LaunchAgent installation.** The bounded manual worker run passed;
-   login/sleep/restart behavior of a scheduled installation is still untested.
+2. **Observe scheduled source preparation:** confirm a later interval tick and
+   login/sleep/restart recovery. The first installed `RunAtLoad` tick passed,
+   but no scheduled model invocation has been needed yet.
 3. Implement future **node-level translation request Issues** and the separate
    fresh-context translation launcher, following
    [docs/translation-runner.md](docs/translation-runner.md).
@@ -188,7 +196,7 @@ test or automatic translation has been implemented or exercised yet.** The next
 step is local implementation and an explicitly invoked smoke test before any
 claims about model invocation, context isolation or production translation.
 
-## Automated local source preparation — manual run passed; schedule not installed
+## Automated local source preparation — scheduled poll installed
 
 On 2026-10-18 the owner selected a **local macOS scheduler + on-demand Codex**
 approach for completing the path from a GitHub work Issue to source acquisition,
@@ -205,6 +213,9 @@ its ledger without a model call. The implementation contract is in
 [docs/local-source-automation.md](docs/local-source-automation.md);
 the source agent prompt is
 [prompts/source-preparation.md](prompts/source-preparation.md).
-No LaunchAgent installation or unattended scheduled Codex job has occurred.
+The owner-authorized LaunchAgent is installed from the dedicated Application
+Support checkout. Its first scheduled tick found no pending work and made no
+model call. A 30-minute interval is configured; subsequent timed ticks and
+headless Codex execution have not yet been observed.
 The public Admin page serves both trees in its embedded data, but its actual
 expand/collapse interaction has not been verified in a real browser.

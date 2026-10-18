@@ -44,7 +44,7 @@ No GitHub Actions job currently invokes Codex. GitHub Pages is public;
 Admin is not an authentication boundary. Inspect actual workflow runs
 before claiming a deployment or successful source import.
 
-## Local macOS source-preparation automation (not installed)
+## Local macOS source-preparation automation (installed on the owner's Mac)
 
 **Read [docs/local-source-automation.md](local-source-automation.md) before
 using the worker.** That brief specifies the command contract, work selection,
@@ -56,6 +56,15 @@ a per-user `launchd` helper. The template uses `RunAtLoad` and a 1800-second
 interval. Installation is an explicit, once-per-Mac owner action; cloning or
 building the repository does not enable model invocations.
 
+On the owner's Mac, the active LaunchAgent runs from a clean dedicated checkout
+at `~/Library/Application Support/CTP/source-worker/library`. A first attempt
+from a checkout under `~/Documents` failed with macOS `Operation not permitted`
+before the worker started; the job was removed and installed from Application
+Support instead. Its first `RunAtLoad` tick exited 0 without a model call.
+Keep the dedicated checkout clean: each tick fetches and fast-forwards from
+canonical `origin/main` before selecting work. For another Mac, use a checkout
+accessible to its LaunchAgent, not a protected Documents folder.
+
 ```sh
 ./tools/run-source-worker.sh check --json
 ./tools/install-source-launch-agent.sh dry-run
@@ -65,6 +74,9 @@ building the repository does not enable model invocations.
 ./tools/install-source-launch-agent.sh logs
 ./tools/install-source-launch-agent.sh uninstall
 ```
+
+`status` shows the worker selection and ledger. To check the installed job and
+its last exit code, use `launchctl print gui/$(id -u)/org.classics-translation-project.source-worker`.
 
 Run the installed job from a **clean local `main` checkout** with the canonical
 HTTPS `origin`. The helper resolves paths for launchd. A running or unresolved

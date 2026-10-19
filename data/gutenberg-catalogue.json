@@ -2,8 +2,8 @@
   "schema_version": 1,
   "kind": "full-csv",
   "source": "https://www.gutenberg.org/cache/epub/feeds/pg_catalog.csv",
-  "retrieved_at": "2026-10-17T14:45:42.216543+00:00",
-  "source_sha256": "3c60f0ad5181881587553d8e13925b3f862693b71854ea34261bf8a6cf3d4c1d",
+  "retrieved_at": "2026-10-19T09:04:40.767673+00:00",
+  "source_sha256": "3d402f23786a990140d990fe6946c3575b2fcdd7cffb31fd47769a78663d8c73",
   "records": [
     {
       "id": 1,
@@ -96482,7 +96482,7 @@
     {
       "id": 13853,
       "title": "New National First Reader",
-      "authors": "Barnes, Charles J. (Charles Joseph), 1837-1921; Ballard, Harlan Hoge, 1853-1934; Thayer, S. Proctor",
+      "authors": "Barnes, Charles J. (Charles Joseph), 1837-1921; Ballard, Harlan Hoge, 1853-1934; Thayer, S. Proctor, 1853-1909",
       "languages": "en",
       "type": "Text"
     },
@@ -108080,7 +108080,7 @@
     },
     {
       "id": 15510,
-      "title": "Advice to Young Men\nAnd (Incidentally) to Young Women in the Middle and Higher Ranks of Life. In a Series of Letters, Addressed to a Youth, a Bachelor, a Lover, a Husband, a Father, a Citizen, or a Subject.",
+      "title": "Advice to young men, and (incidentally) to young women, in the middle and higher ranks of life",
       "authors": "Cobbett, William, 1763-1835",
       "languages": "en",
       "type": "Text"
@@ -111202,7 +111202,7 @@
     },
     {
       "id": 15956,
-      "title": "Vellenaux\nA Novel",
+      "title": "Vellenaux",
       "authors": "Forrest, E. W. (Edmund William), -1880",
       "languages": "en",
       "type": "Text"
@@ -138278,7 +138278,7 @@
     },
     {
       "id": 19824,
-      "title": "Horses Nine\nStories of Harness and Saddle",
+      "title": "Horses nine",
       "authors": "Ford, Sewell, 1868-1946",
       "languages": "en",
       "type": "Text"
@@ -143913,7 +143913,7 @@
     },
     {
       "id": 20629,
-      "title": "Torchy As A Pa",
+      "title": "Torchy as a pa",
       "authors": "Ford, Sewell, 1868-1946",
       "languages": "en",
       "type": "Text"
@@ -159215,7 +159215,7 @@
     },
     {
       "id": 22815,
-      "title": "The Philippine Islands\r\nA Political, Geographical, Ethnographical, Social and Commercial History of the Philippine Archipelago, Embracing the Whole Period of Spanish Rule",
+      "title": "The Philippine Islands",
       "authors": "Foreman, John, F.R.G.S.",
       "languages": "en",
       "type": "Text"
@@ -171325,7 +171325,7 @@
     },
     {
       "id": 24545,
-      "title": "The tale of the the Muley Cow",
+      "title": "The tale of the Muley Cow",
       "authors": "Bailey, Arthur Scott, 1877-1949; Smith, Harry L. (Illustrator) [Illustrator]",
       "languages": "en",
       "type": "Text"
@@ -185206,8 +185206,8 @@
     },
     {
       "id": 26528,
-      "title": "Odd Numbers\nBeing Further Chronicles of Shorty McCabe",
-      "authors": "Ford, Sewell, 1868-1946",
+      "title": "Odd numbers",
+      "authors": "Ford, Sewell, 1868-1946; Wilson, F. Vaux (Francis Vaux), 1874-1938 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -199080,7 +199080,7 @@
     },
     {
       "id": 28510,
-      "title": "Rambles in the Islands of Corsica and Sardinia\nwith Notices of their History, Antiquities, and Present Condition.",
+      "title": "Rambles in the islands of Corsica and Sardinia",
       "authors": "Forester, Thomas",
       "languages": "en",
       "type": "Text"
@@ -217441,8 +217441,8 @@
     },
     {
       "id": 31135,
-      "title": "The Adventures of the Eleven Cuff-Buttons\r\nBeing one of the exciting episodes in the career of the famous detective Hemlock Holmes, as recorded by his friend Dr. Watson",
-      "authors": "Thierry, James Francis",
+      "title": "The adventure of the eleven cuff-buttons",
+      "authors": "Thierry, James Francis, 1887-1953",
       "languages": "en",
       "type": "Text"
     },
@@ -226296,8 +226296,8 @@
     },
     {
       "id": 32400,
-      "title": "Paper and Printing Recipes\r\nA Handy Volume of Practical Recipes, Concerning the Every-Day Business of Stationers, Printers, Binders, and the Kindred Trades",
-      "authors": "Ford, John Sawtelle",
+      "title": "Paper and printing recipes",
+      "authors": "Ford, John Sawtelle, 1851-1944",
       "languages": "en",
       "type": "Text"
     },
@@ -233478,8 +233478,8 @@
     },
     {
       "id": 33426,
-      "title": "Reminiscences of the Great Mutiny 1857-59\r\nIncluding the relief, siege, and capture of Lucknow, and the campaigns in Rohilcund and Oude",
-      "authors": "Forbes-Mitchell, William",
+      "title": "Reminiscences of the Great Mutiny, 1857-59",
+      "authors": "Forbes-Mitchell, William, 1836-1905",
       "languages": "en",
       "type": "Text"
     },
@@ -244727,8 +244727,8 @@
     },
     {
       "id": 35033,
-      "title": "Wayside Weeds",
-      "authors": "Ellis, William Hodgson, 1845-1921",
+      "title": "Wayside weeds",
+      "authors": "Ellis, William Hodgson, 1845-1920",
       "languages": "en",
       "type": "Text"
     },
@@ -259273,8 +259273,8 @@
     },
     {
       "id": 37112,
-      "title": "Life in the Confederate Army\r\nBeing Personal Experiences of a Private Soldier in the Confederate Army, and Some Experiences and Sketches of Southern Life",
-      "authors": "Ford, Arthur Peronneau; Ford, Marion Johnstone",
+      "title": "Life in the Confederate Army",
+      "authors": "Ford, Arthur Peronneau, 1843-1910; Ford, Marion Johnstone, 1848-1907",
       "languages": "en",
       "type": "Text"
     },
@@ -271194,7 +271194,7 @@
     },
     {
       "id": 38816,
-      "title": "Poor Relations",
+      "title": "Poor relations",
       "authors": "MacKenzie, Compton, 1883-1972",
       "languages": "en",
       "type": "Text"
@@ -271418,7 +271418,7 @@
     },
     {
       "id": 38848,
-      "title": "Paul Gauguin, His Life and Art",
+      "title": "Paul Gauguin, his life and art",
       "authors": "Fletcher, John Gould, 1886-1950",
       "languages": "en",
       "type": "Text"
@@ -272455,7 +272455,7 @@
     {
       "id": 38996,
       "title": "Dix contes modernes des meilleurs auteurs du jour",
-      "authors": "Potter, Henry Austin, 1869- [Editor]; Arène, Paul, 1843-1896; Daudet, Alphonse, 1840-1897; Daudet, Ernest, 1837-1921; Forge, Henry de; Laut, Ernest; Maupassant, Guy de, 1850-1893; Montjoyeux, 1851-; Nion, François de, 1854-1923; Normand, Jacques, 1848-1931; Rébrac, Jean du",
+      "authors": "Potter, Henry Austin, 1869-1944 [Editor]; Arène, Paul, 1843-1896; Daudet, Alphonse, 1840-1897; Daudet, Ernest, 1837-1921; Forge, Henry de, 1874-1943; Laut, Ernest, 1864-1951; Maupassant, Guy de, 1850-1893; Montjoyeux, 1851-1921; Nion, François de, 1854-1923; Normand, Jacques, 1848-1931; Rébrac, Jean du",
       "languages": "fr",
       "type": "Text"
     },
@@ -276248,8 +276248,8 @@
     },
     {
       "id": 39538,
-      "title": "A Soldier's Son",
-      "authors": "Butler, Maude Mary",
+      "title": "A soldier's son",
+      "authors": "Butler, Maude Mary, 1858-1933",
       "languages": "en",
       "type": "Text"
     },
@@ -276444,8 +276444,8 @@
     },
     {
       "id": 39566,
-      "title": "Curiosities of Heat",
-      "authors": "Tefft, Lyman Beecher, 1833-",
+      "title": "Curiosities of heat",
+      "authors": "Tefft, Lyman Beecher, 1833-1926",
       "languages": "en",
       "type": "Text"
     },
@@ -285425,8 +285425,8 @@
     },
     {
       "id": 40849,
-      "title": "Beethoven's Symphonies Critically Discussed",
-      "authors": "Teetgen, Alexander",
+      "title": "Beethoven's symphonies critically discussed",
+      "authors": "Teetgen, Alexander, 1843-1927; Broadhouse, John, 1842- [Author of introduction, etc.]",
       "languages": "en",
       "type": "Text"
     },
@@ -303394,8 +303394,8 @@
     },
     {
       "id": 43416,
-      "title": "Rambles in Rome\r\nAn Archæological and Historical Guide to the Museums, Galleries, Villas, Churches, and Antiquities of Rome and the Campagna",
-      "authors": "Forbes, S. Russell",
+      "title": "Rambles in Rome",
+      "authors": "Forbes, S. Russell, 1845-1933",
       "languages": "en",
       "type": "Text"
     },
@@ -308525,7 +308525,7 @@
     },
     {
       "id": 44149,
-      "title": "In Pawn",
+      "title": "In pawn",
       "authors": "Butler, Ellis Parker, 1869-1937; Lambdin, Robert Lynn, 1886-1981 [Illustrator]",
       "languages": "en",
       "type": "Text"
@@ -325123,7 +325123,7 @@
     {
       "id": 46520,
       "title": "Secret Service; or, Recollections of a City Detective",
-      "authors": "Forrester, Andrew",
+      "authors": "Forrester, Andrew, 1832-1909",
       "languages": "en",
       "type": "Text"
     },
@@ -334824,8 +334824,8 @@
     },
     {
       "id": 47906,
-      "title": "Touring Afoot",
-      "authors": "Fordyce, Claude P. (Claude Powell), 1883-",
+      "title": "Touring afoot",
+      "authors": "Fordyce, Claude P. (Claude Powell), 1883-1953",
       "languages": "en",
       "type": "Text"
     },
@@ -337163,7 +337163,7 @@
     {
       "id": 48240,
       "title": "Fort Gibson: A Brief History",
-      "authors": "Foreman, Grant, 1869-1953; Foreman, Carolyn Thomas, 1875-",
+      "authors": "Foreman, Grant, 1869-1953; Foreman, Carolyn Thomas, 1872-1967",
       "languages": "en",
       "type": "Text"
     },
@@ -337590,7 +337590,7 @@
     {
       "id": 48301,
       "title": "From Snotty to Sub",
-      "authors": "Forester, Wolston B. C. W. (Wolston Beaumont Charles Weld); Forester, Elspeth Lascelles, -1931 [Editor]",
+      "authors": "Forester, Wolston B. C. W. (Wolston Beaumont Charles Weld), 1899-1961; Forester, Elspeth Lascelles, 1872-1931 [Editor]",
       "languages": "en",
       "type": "Text"
     },
@@ -337869,8 +337869,8 @@
     },
     {
       "id": 48341,
-      "title": "Gunshot Roentgenograms\r\nA Collection of Roentgenograms Taken in Constantinople During the Turko-Balkan War, 1912-1913, Illustrating Some Gunshot Wounds in the Turkish Army",
-      "authors": "Ford, Clyde S. (Clyde Sinclair), 1867-",
+      "title": "Gunshot Roentgenograms",
+      "authors": "Ford, Clyde S. (Clyde Sinclair), 1867-1953",
       "languages": "en",
       "type": "Text"
     },
@@ -340733,7 +340733,7 @@
     {
       "id": 48750,
       "title": "Elias Lönnrots svenska skrifter. 1. Uppsatser och översättningar",
-      "authors": "Lönnrot, Elias, 1802-1884; Forselles, Jenny af [Editor]",
+      "authors": "Lönnrot, Elias, 1802-1884; Forselles, Jenny af, 1869-1938 [Editor]",
       "languages": "sv",
       "type": "Text"
     },
@@ -344184,7 +344184,7 @@
     {
       "id": 49243,
       "title": "From Dartmouth to the Dardanelles: A Midshipman's Log",
-      "authors": "Forester, Wolston B. C. W. (Wolston Beaumont Charles Weld); Forester, Elspeth Lascelles, -1931 [Editor]",
+      "authors": "Forester, Wolston B. C. W. (Wolston Beaumont Charles Weld), 1899-1961; Forester, Elspeth Lascelles, 1872-1931 [Editor]",
       "languages": "en",
       "type": "Text"
     },
@@ -348090,7 +348090,7 @@
     {
       "id": 49801,
       "title": "Svensk litteraturhistoria",
-      "authors": "Forsberg, Hjalmar; Henrikz, H. H.",
+      "authors": "Forsberg, Hjalmar, 1878-1941; Henrikz, H. H.",
       "languages": "sv",
       "type": "Text"
     },
@@ -352352,8 +352352,8 @@
     },
     {
       "id": 50410,
-      "title": "With the Rank and File",
-      "authors": "Ford, Thomas J.",
+      "title": "With the rank and file",
+      "authors": "Ford, Thomas J., 1839-1920",
       "languages": "en",
       "type": "Text"
     },
@@ -364043,7 +364043,7 @@
     {
       "id": 52080,
       "title": "Mikael Speranski",
-      "authors": "Schybergson, Magnus Gottfrid, 1851-1925; Forsgren, Eemil [Translator]",
+      "authors": "Schybergson, Magnus Gottfrid, 1851-1925; Forsgren, Eemil, 1860-1922 [Translator]",
       "languages": "fi",
       "type": "Text"
     },
@@ -371924,7 +371924,7 @@
     },
     {
       "id": 53206,
-      "title": "Selections from Modern Poets\r\nMade by J. C. Squire",
+      "title": "Selections from modern poets",
       "authors": "Squire, John Collings, Sir, 1884-1958 [Compiler]",
       "languages": "en",
       "type": "Text"
@@ -372309,7 +372309,7 @@
     },
     {
       "id": 53261,
-      "title": "We Moderns: Enigmas and Guesses",
+      "title": "We moderns",
       "authors": "Muir, Edwin, 1887-1959; Mencken, H. L. (Henry Louis), 1880-1956 [Editor]",
       "languages": "en",
       "type": "Text"
@@ -386226,7 +386226,7 @@
     {
       "id": 55249,
       "title": "Daniel Boone, Backwoodsman",
-      "authors": "Forbes-Lindsay, C. H., 1860-; McKernan, Frank, 1861-1934 [Illustrator]",
+      "authors": "Forbes-Lindsay, C. H., 1860-1923; McKernan, Frank, 1861-1934 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -387808,7 +387808,7 @@
     {
       "id": 55475,
       "title": "Captain John Smith",
-      "authors": "Forbes-Lindsay, C. H., 1860-; Lachman, Harry, 1886-1975 [Illustrator]",
+      "authors": "Forbes-Lindsay, C. H., 1860-1923; Lachman, Harry, 1886-1975 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -419350,7 +419350,7 @@
     {
       "id": 59985,
       "title": "Cuba and Her People of To-day\r\nAn account of the history and progress of the island previous to its independence; a description of its physical features; a study of its people; and, in particular, an examination of its present political conditions, its industries, natural resources, and prospects; together with information and suggestions designed to aid the prospective investor or settler",
-      "authors": "Forbes-Lindsay, C. H., 1860-",
+      "authors": "Forbes-Lindsay, C. H., 1860-1923",
       "languages": "en",
       "type": "Text"
     },
@@ -421415,7 +421415,7 @@
     {
       "id": 60280,
       "title": "A London Mosaic",
-      "authors": "George, Walter Lionel, 1882-1926; Forbes-Robertson, Philippe [Illustrator]",
+      "authors": "George, Walter Lionel, 1882-1926; Forbes-Robertson, Philippe, 1898-1968 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -429303,7 +429303,7 @@
     },
     {
       "id": 61407,
-      "title": "The Escorial\r\nA Historical and Descriptive Account of the Spanish Royal Palace, Monastery and Mausoleum",
+      "title": "The Escorial",
       "authors": "Calvert, Albert Frederick, 1872-1946",
       "languages": "en",
       "type": "Text"
@@ -470673,7 +470673,7 @@
     },
     {
       "id": 67321,
-      "title": "The Co-opolitan: A Story of the Co-operative Commonwealth of Idaho",
+      "title": "The Co-opolitan",
       "authors": "Forbush, Zebina",
       "languages": "en",
       "type": "Text"
@@ -475580,7 +475580,7 @@
     },
     {
       "id": 68022,
-      "title": "Nick Carter Stories No. 145, June 19, 1915: An Unsolved Mystery; Or, Nick Carter's Goverment Case",
+      "title": "Nick Carter Stories No. 145, June 19, 1915: An Unsolved Mystery; Or, Nick Carter's Government Case",
       "authors": "Carter, Nicholas (House name); Waddell, C. C. (Charles Carey), 1868-1930",
       "languages": "en",
       "type": "Text"
@@ -504106,7 +504106,7 @@
     {
       "id": 72194,
       "title": "Abrégé de l'histoire de l'Ukraine",
-      "authors": "Hrushevskyi, Mykhailo, 1866-1934",
+      "authors": "Hrushevsʹkyĭ, Mykhaĭlo, 1866-1934",
       "languages": "fr",
       "type": "Text"
     },
@@ -504813,7 +504813,7 @@
     {
       "id": 72295,
       "title": "The Thames and its docks",
-      "authors": "Forrow, Alexander",
+      "authors": "Forrow, Alexander, 1846?-1904",
       "languages": "en",
       "type": "Text"
     },
@@ -552371,7 +552371,7 @@
     {
       "id": 79096,
       "title": "Diana Carew",
-      "authors": "Forrester, Mrs.",
+      "authors": "Forrester, Mrs., 1843-1896",
       "languages": "en",
       "type": "Text"
     },
@@ -557034,6 +557034,412 @@
       "id": 79763,
       "title": "Geist der Utopie",
       "authors": "Bloch, Ernst, 1885-1977",
+      "languages": "de",
+      "type": "Text"
+    },
+    {
+      "id": 79764,
+      "title": "Dead end",
+      "authors": "Reynolds, Mack, 1917-1983",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79765,
+      "title": "Hero stories of France",
+      "authors": "Tappan, Eva March, 1854-1930",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79766,
+      "title": "A narrative of the causes which led to Philip's Indian War, of 1675 and 1676",
+      "authors": "Easton, John, 1617-1705; Hough, Franklin B. (Franklin Benjamin), 1822-1885 [Editor]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79767,
+      "title": "A reluctant hero",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79768,
+      "title": "Samhain, issue 2, October 1902",
+      "authors": "Yeats, W. B. (William Butler), 1865-1939 [Editor]; Hyde, Douglas, 1860-1949 [Contributor]; Russell, George William, 1867-1935 [Contributor]; Gregory, Lady, 1852-1932 [Translator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79769,
+      "title": "Il socialismo",
+      "authors": "Colajanni, Napoleone, 1847-1921",
+      "languages": "it",
+      "type": "Text"
+    },
+    {
+      "id": 79770,
+      "title": "Samhain, issue 3, October 1903",
+      "authors": "Yeats, W. B. (William Butler), 1865-1939 [Editor]; Gregory, Lady, 1852-1932 [Contributor]; Hyde, Douglas, 1860-1949 [Contributor]; Synge, J. M. (John Millington), 1871-1909 [Contributor]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79771,
+      "title": "Secret societies and the French revolution",
+      "authors": "Pope-Hennessy, Una, 1876-1949",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79772,
+      "title": "Jeff Clayton's surprise",
+      "authors": "Ward, William (Author at Arthur Westbrook Co. (Cleveland, Ohio))",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79773,
+      "title": "The historical evolution of the Ukrainian problem",
+      "authors": "Hrushevsʹkyĭ, Mykhaĭlo, 1866-1934; Raffalovich, George, 1880-1958 [Translator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79774,
+      "title": "The flaw",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Biggs, Walter, 1886-1968 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79775,
+      "title": "Picture logic",
+      "authors": "Swinburne, Alfred James, 1847?-1915",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79776,
+      "title": "A saudade portuguesa",
+      "authors": "Vasconcellos, Carolina Michaëlis de, 1851-1925",
+      "languages": "pt",
+      "type": "Text"
+    },
+    {
+      "id": 79777,
+      "title": "The early history of Piccadilly, Leicester Square, Soho, & their neighbourhood",
+      "authors": "Kingsford, Charles Lethbridge, 1862-1926",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79778,
+      "title": "Radiotechnik",
+      "authors": "Günther, Hanns, 1886-1969",
+      "languages": "de",
+      "type": "Text"
+    },
+    {
+      "id": 79779,
+      "title": "The widowhood of Queen Victoria",
+      "authors": "Jerrold, Clare, 1861-1937",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79780,
+      "title": "The voiceless sentinels",
+      "authors": "Aycock, Roger D., 1914-2004; Moritz, Edward, 1903-1975 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79781,
+      "title": "A pamphlet against anthologies",
+      "authors": "Riding, Laura, 1901-1991; Graves, Robert, 1895-1985",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79782,
+      "title": "How to become a United States citizen",
+      "authors": "Milburn, George, 1906-1966; Haldeman-Julius, E. (Emanuel), 1888-1951 [Editor]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79783,
+      "title": "Time and chance",
+      "authors": "Hubbard, Elbert, 1856-1915",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79784,
+      "title": "The story of Little Black Quibba",
+      "authors": "Bannerman, Helen, 1862-1946",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79785,
+      "title": "Men of their race",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79786,
+      "title": "His sacred family",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Lambdin, Robert Lynn, 1886-1981 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79787,
+      "title": "Norrbotten. Del I",
+      "authors": "Various",
+      "languages": "sv",
+      "type": "Text"
+    },
+    {
+      "id": 79788,
+      "title": "Norrbotten. Del II",
+      "authors": "Various",
+      "languages": "sv",
+      "type": "Text"
+    },
+    {
+      "id": 79789,
+      "title": "Geschichte des Kriegsschiffbaues vom Altertum bis zur Einführung der Dampfkraft",
+      "authors": "Altmann, Otto, 1875-1914",
+      "languages": "de",
+      "type": "Text"
+    },
+    {
+      "id": 79790,
+      "title": "My life and loves in Greenwich Village",
+      "authors": "Bodenheim, Maxwell, 1893-1954",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79791,
+      "title": "Cuttyhunk",
+      "authors": "Hall, Arthur Cleveland, 1865-1910",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79792,
+      "title": "The curse of Cleopatra",
+      "authors": "Avallone, Michael, 1924-1999; Nappi, Rudy, 1923-2015 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79793,
+      "title": "The malignant jewel",
+      "authors": "Porcelain, Sidney E., 1911-1997; Nappi, Rudy, 1923-2015 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79794,
+      "title": "The stop at Nothing",
+      "authors": "Avallone, Michael, 1924-1999; Nappi, Rudy, 1923-2015 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79795,
+      "title": "Mistaken identity",
+      "authors": "Williams, Ralph, 1914-1959; Nappi, Rudy, 1923-2015 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79796,
+      "title": "Œuvres de Froissart: Chroniques, Tome 12, 1386-1389",
+      "authors": "Froissart, Jean, 1338?-1410?; Kervyn de Lettenhove, Joseph Marie Bruno Constantin, Baron, 1817-1891 [Editor]",
+      "languages": "fr",
+      "type": "Text"
+    },
+    {
+      "id": 79797,
+      "title": "The singular occurence at Styles",
+      "authors": "Jakes, John, 1932-2023; Nappi, Rudy, 1923-2015 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79798,
+      "title": "The mother's mission",
+      "authors": "Guernsey, Lucy Ellen, 1826-1899",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79799,
+      "title": "Buried diamonds, Vol. 1 (of 3)",
+      "authors": "Tytler, Sarah, 1827-1914",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79800,
+      "title": "Summertime affair",
+      "authors": "Silverberg, Robert, 1935-; McCauley, Harold W. (Harold William), 1913-1977 [Artist]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79801,
+      "title": "Lord of Samarcand",
+      "authors": "Howard, Robert E. (Robert Ervin), 1906-1936; Brundage, Margaret, 1900-1976 [Illustrator]; Doolin, Joseph, 1896-1967 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79802,
+      "title": "Porträts der Königin Nofret-ete aus den Grabungen 1912/13 in Tell el-Amarna",
+      "authors": "Borchardt, Ludwig, 1863-1938",
+      "languages": "de",
+      "type": "Text"
+    },
+    {
+      "id": 79803,
+      "title": "Climate, considered especially in relation to man",
+      "authors": "Ward, Robert DeCourcy, 1867-1931",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79804,
+      "title": "White Lily",
+      "authors": "Taine, John, 1883-1960; Wessolowski, Hans Waldemar, 1894?-1948 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79805,
+      "title": "An account of the native Africans in the neighbourhood of Sierra Leone, Vol. 1 (of 2)",
+      "authors": "Winterbottom, Thomas Masterman, 1765-1859",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79806,
+      "title": "An account of the native Africans in the neighbourhood of Sierra Leone, Vol. 2 (of 2)",
+      "authors": "Winterbottom, Thomas Masterman, 1765-1859",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79807,
+      "title": "Common sense",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Couse, William Percy, 1898-1980 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79808,
+      "title": "The Frightened",
+      "authors": "Avallone, Michael, 1924-1999",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79809,
+      "title": "The lucky coffin",
+      "authors": "Gilford, C. B., 1920-2010",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79810,
+      "title": "Span trap",
+      "authors": "Porcelain, Sidney E., 1911-1997",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79811,
+      "title": "White legs",
+      "authors": "Avallone, Michael, 1924-1999",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79812,
+      "title": "The marriage verdict",
+      "authors": "Spearman, Frank H. (Frank Hamilton), 1859-1937",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79813,
+      "title": "The adventures of Dumpy Dimple and his dog!",
+      "authors": "Christie, G. F. [Illustrator]; Byron, May, 1861-1936",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79814,
+      "title": "Lord Lister No. 0056: De motorboot „Dolfijn\"",
+      "authors": "Matull, Kurt, 1872-1920; Blankensee, Theo von, 1881-1928",
+      "languages": "nl",
+      "type": "Text"
+    },
+    {
+      "id": 79815,
+      "title": "The return of the tripeds",
+      "authors": "Jones, Neil R., 1909-1988",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79816,
+      "title": "Thirty years of lynching in the United States",
+      "authors": "National Association for the Advancement of Colored People",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79817,
+      "title": "Scorpion",
+      "authors": "Ellson, Hal; Nappi, Rudy, 1923-2015 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79818,
+      "title": "The playboy",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Williams, Charles David [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79819,
+      "title": "Blight",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79820,
+      "title": "The yellow danger",
+      "authors": "Shiel, M. P. (Matthew Phipps), 1865-1947",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79821,
+      "title": "Irland",
+      "authors": "Schultze, Ernst, 1874-1933",
       "languages": "de",
       "type": "Text"
     }

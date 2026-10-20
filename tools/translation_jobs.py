@@ -100,3 +100,67 @@ def validate_request(root: Path, r: dict, pinned_prompt: str | None = None) -> l
         check(ref['revision'] is None,'Unexpected reference revision')
     return nodes
 
+def parse_issue(root: Path, issue: dict) -> dict | None:
+    if issue.get('pull_request') or issue.get('state')!='open':return None
+    body=issue.get('body') or ''
+    if MARKER not in body:return None
+    check(issue.get('user',{}).get('login') in read_json(root/'project.json')['maintainers'],
+          'Translation Issue author is not authorized')
+    check(type(issue.get('number')) is int and issue['number']>0,'Invalid Issue')
+    check(len(body)<=65000 and body.count(MARKER)==1,'Duplicate/oversized marker')
+    section=body.split(MARKER,1)[1]
+    fence=re.escape(chr(96)*3)
+    match=re.fullmatch(r'\s*'+fence+r'json\s*\n([\s\S]+?)\n'+fence+r'\s*',section)
+    check(match is not None,'Expected one final fenced JSON request')
+    from legacy_v1 import pairs, invalid_constant
+    req=json.loads(match.group(1),object_pairs_hook=pairs,parse_constant=invalid_constant)
+    validate_request(root,req)
+    return req
+
+def intake(root: Path, issues: list[dict]) -> dict:
+    path=root/'translation-requests.json'
+    queue=read_json(path) if path.exists() else {'schema_version':1,'requests':[]}
+    check(queue.get('schema_version')==1 and isinstance(queue.get('requests'),list),
+          'Invalid translation queue')
+    seen={entry['issue'] for entry in queue['requests']}
+    before=object_hash(queue)
+    accepted,rejected=[],[]
+    for issue in sorted(issues,key=lambda x:x.get('number',0)):
+        try:
+            if issue.get('number') in seen:continue
+            req=parse_issue(root,issue)
+            if req is None:continue
+            entry={'issue':issue['number'],'author':issue['user']['login'],
+                   'body_sha256':digest(issue['body'].encode()),
+                   'request':req,'prompt_text':prompt_text(root,req['prompt']['id'])}
+            queue['requests'].append(entry)
+            seen.add(issue['number']);accepted.append(issue['number'])
+        except (ProjectError,KeyError,TypeError,ValueError,AttributeError) as exc:
+            rejected.append({'issue':issue.get('number'),'reason':str(exc)})
+    changed=object_hash(queue)!=before
+    if changed:write_json(path,queue)
+    return {'changed':changed,'accepted':accepted,'rejected':rejected,
+            'requests':len(queue['requests']),'ai_called':False}
+
+def validate_queue(root: Path) -> dict:
+    path=root/'translation-requests.json'
+    data=read_json(path) if path.exists() else {'schema_version':1,'requests':[]}
+    check(data.get('schema_version')==1 and isinstance(data.get('requests'),list),
+          'Invalid translation queue')
+    seen=set()
+    for entry in data['requests']:
+        issue=entry['issue']
+        check(type(issue) is int and issue>0 and issue not in seen,'Duplicate Issue')
+        seen.add(issue)
+        check(entry['author'] in read_json(root/'project.json')['maintainers'],
+              'Unknown request maintainer')
+        check(isinstance(entry['body_sha256'],str) and HASH.fullmatch(entry['body_sha256']),
+              'Invalid request fingerprint')
+        validate_request(root,entry['request'],entry['prompt_text'])
+    return data
+
+def request_entry(root: Path, issue: int) -> dict:
+    for entry in validate_queue(root)['requests']:
+        if entry['issue']==issue:return entry
+    raise ProjectError('Unknown translation Issue')
+

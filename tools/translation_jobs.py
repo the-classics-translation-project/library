@@ -24,6 +24,7 @@ def _ctp():
 def prompt_catalogue(root: Path) -> list[dict]:
     result=[]
     for path in sorted((root/'prompts/translation').glob('*.md')):
+        if path.name=='README.md':continue
         check(PROMPT_ID.fullmatch(path.stem) is not None,'Invalid prompt filename')
         text=path.read_text(encoding='utf-8')
         check(bool(text.strip()) and len(text)<100000,'Empty/oversized prompt')
@@ -70,6 +71,9 @@ def validate_request(root: Path, r: dict, pinned_prompt: str | None = None) -> l
           'Invalid source work')
     wd=root/'books'/r['work']
     _,tree=c.validate_work(wd)
+    rights=read_json(wd/'rights.json')
+    check(rights.get('status')=='acquired' and rights.get('eligible') is True,
+          'Translation source has not passed the recorded admission policy')
     check(isinstance(r['source_fingerprint'],str) and
           HASH.fullmatch(r['source_fingerprint']) and
           r['source_fingerprint']==c.source_fingerprint(wd),
@@ -84,6 +88,7 @@ def validate_request(root: Path, r: dict, pinned_prompt: str | None = None) -> l
     check(isinstance(p,dict) and set(p)=={'id','sha256'} and
           isinstance(p['sha256'],str) and HASH.fullmatch(p['sha256']),
           'Invalid prompt reference')
+    check(isinstance(p['id'],str) and PROMPT_ID.fullmatch(p['id']), 'Unknown prompt ID')
     actual=pinned_prompt if pinned_prompt is not None else prompt_text(root,p['id'])
     check(digest(actual.encode())==p['sha256'],'Prompt changed since Issue creation')
     ref=r['reference']

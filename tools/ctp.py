@@ -280,6 +280,11 @@ def validate_project(root: Path = ROOT) -> dict:
         validate_queue(queue,config)
     from translation_jobs import prompt_catalogue, validate_results
     prompt_catalogue(root); validate_results(root)
+    from translation_jobs import _guide
+    for pointer in (root/'books').glob('*/reference/current.json'):
+        _guide(pointer.parent)
+    for pointer in (root/'books').glob('*/editions/*/reference/current.json'):
+        _guide(pointer.parent)
     from acquire_queue import validate_record
     for rights_path in (root/'books').glob('*/rights.json'):
         record=read_json(rights_path)

@@ -54,15 +54,15 @@ exempted ancillary lines remain in exact acquired bytes.
 
 See [automatic rights policy](automatic-source-rights.md).
 
-## Source work and tree (schema 2)## Proposed source-tree view in Admin (not implemented)
+## Source-tree view in Admin
 
-A future static Admin manifest will be derived exclusively from the validated
+The static Admin manifest is derived exclusively from the validated
 `work.json` and `structure.json` of admitted, structured queued works, with
 source IDs, opaque node IDs, optional labels, ordered children and accurate
 status. It must not invent fixed chapters or expose unapproved translated
 content. It is distinct from the `catalog.json` reader distribution allowlist.
-See [local source-preparation brief](local-source-automation.md). No change to
-existing source-tree or Issue-request schemas is needed for this first viewer.
+See [local source-preparation brief](local-source-automation.md). Its source-tree
+manifest uses existing source IDs and has no dependency on the reader catalogue.
 
 ## Source work and tree (schema 2)
 
@@ -120,3 +120,24 @@ or a future translation. Multiple overlapping notes and multi-section reports ar
 valid. A selection may span paragraphs within one field; crossing fields needs
 separate notes or a whole-field observation. `./ctp check-review` verifies identity,
 quotes and positions. It never applies the comment or judges its literary merits.
+
+## Translation request and ZIP exchange (schema 1)
+
+`translation-requests.json` is the immutable, maintainer-authorized Issue
+queue. Each accepted entry preserves the exact versioned recipe text and
+request body hash. The request contains work ID, target language, selected
+source node IDs (a parent includes its entire subtree), exact source fingerprint,
+prompt ID/sha256, translation scope (`all` or `missing`),
+reference setting (`none`, `notes`, or `text` with a frozen revision),
+and bounded optional instructions.
+
+`translation-export` produces a README, `input/job.json` with exact source
+fields and fully expanded prompt/context, and `input/manifest.json` with a
+SHA-256 job identity and expected translated fields. The relay must return a
+ZIP containing only `response.json` with the matching job hash, displayed
+model label and exactly those translated node fields. The importer validates,
+records a provenance run and creates an immutable edition snapshot. Each
+`translation-results/issue-N.json` prevents conflicting re-imports.
+Guide jobs similarly exchange one `response.json` and retain content-addressed
+work-level and target-level Markdown guides under `reference/`.
+See [translation ZIP workflow](translation-zip-workflow.md).

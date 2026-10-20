@@ -106,8 +106,8 @@ def freeze(work_dir: Path, edition_id: str, root: Path = ROOT) -> tuple[str,Path
     if not is_tree(work): return legacy.freeze(work_dir,edition_id,root)
     tree = read_json(work_dir/'structure.json')
     check(bool(ed['nodes']), 'No target fields to snapshot')
-    if 'label' in tree:
-        check('label' in ed['nodes'].get(tree['id'],{}), 'Translate the work title before freezing a listed draft')
+    # Partial drafts may be frozen for history before the root title is translated.
+    # Only ready reader releases require every source label/body (validated elsewhere).
     def content(value, namespace):
         fragment = render(value, namespace)
         return {'markdown':value, 'markdown_sha256':digest(value.encode()), 'html':fragment, 'text':html_text(fragment)}
@@ -278,6 +278,13 @@ def validate_project(root: Path = ROOT) -> dict:
         from intake import validate_queue
         queue=read_json(root/'queue.json')
         validate_queue(queue,config)
+    from translation_jobs import prompt_catalogue, validate_results
+    prompt_catalogue(root); validate_results(root)
+    from translation_jobs import _guide
+    for pointer in (root/'books').glob('*/reference/current.json'):
+        _guide(pointer.parent)
+    for pointer in (root/'books').glob('*/editions/*/reference/current.json'):
+        _guide(pointer.parent)
     from acquire_queue import validate_record
     for rights_path in (root/'books').glob('*/rights.json'):
         record=read_json(rights_path)
@@ -306,6 +313,13 @@ def main() -> int:
     p=sub.add_parser('source-apply'); p.add_argument('work_directory',type=Path); p.add_argument('plan',type=Path)
     p=sub.add_parser('catalogue-refresh'); p.add_argument('--csv',type=Path)
     p=sub.add_parser('intake'); p.add_argument('--issues',type=Path); p.add_argument('--github',action='store_true')
+    p=sub.add_parser('translation-intake'); p.add_argument('--issues',type=Path); p.add_argument('--github',action='store_true')
+    sub.add_parser('translation-pending')
+    sub.add_parser('prompt-list')
+    p=sub.add_parser('translation-export'); p.add_argument('issue',type=int); p.add_argument('--output',type=Path,required=True)
+    p=sub.add_parser('translation-import'); p.add_argument('response_zip',type=Path)
+    p=sub.add_parser('guide-export'); p.add_argument('work'); p.add_argument('target'); p.add_argument('--output',type=Path,required=True)
+    p=sub.add_parser('guide-import'); p.add_argument('response_zip',type=Path)
     p=sub.add_parser('task'); p.add_argument('--output',type=Path,default=ROOT/'build/next-task.md')
     p=sub.add_parser('record-run'); p.add_argument('work'); p.add_argument('edition'); p.add_argument('--model',required=True); p.add_argument('--interface',default='chatgpt'); p.add_argument('--operation',default='translation'); p.add_argument('--prompt',type=Path,action='append',required=True); p.add_argument('--instructions',default=''); p.add_argument('--output',type=Path,action='append',required=True)
     args=parser.parse_args()
@@ -321,6 +335,32 @@ def main() -> int:
         elif args.command=='stage-acquisitions':
             from acquire_queue import stage_acquisitions
             stage_acquisitions(ROOT,args.output); result={'staged':'Only validated acquisition files and rights records from this run'}
+        elif args.command=='translation-intake':
+            from translation_jobs import intake
+            from intake import fetch_issues
+            check(args.issues is not None or args.github,'Provide trusted issues export or --github')
+            issues=read_json(args.issues) if args.issues is not None else fetch_issues(read_json(ROOT/'project.json')['repository'])
+            result=intake(ROOT,issues)
+        elif args.command=='translation-pending':
+            from translation_jobs import validate_queue
+            entries=validate_queue(ROOT)['requests']
+            result={'requests':[{'issue':e['issue'],'work':e['request']['work'],'target':e['request']['target']}
+                                for e in entries if not (ROOT/'translation-results'/('issue-'+str(e['issue'])+'.json')).exists()]}
+        elif args.command=='prompt-list':
+            from translation_jobs import prompt_catalogue
+            result={'prompts':prompt_catalogue(ROOT)}
+        elif args.command=='translation-export':
+            from translation_jobs import export_translation
+            result=export_translation(ROOT,args.issue,args.output)
+        elif args.command=='translation-import':
+            from translation_jobs import import_translation
+            result=import_translation(ROOT,args.response_zip)
+        elif args.command=='guide-export':
+            from translation_jobs import export_guide
+            result=export_guide(ROOT,args.work,args.target,args.output)
+        elif args.command=='guide-import':
+            from translation_jobs import import_guide
+            result=import_guide(ROOT,args.response_zip)
         elif args.command=='source-fetch':
             from source_import import fetch_gutenberg
             result=fetch_gutenberg(ROOT,args.gutenberg_id)

@@ -15,8 +15,14 @@ For source work, read [source import](docs/source-import.md) and
 [source structure](docs/source-structure.md). For generation, read
 [provenance](docs/provenance.md). For UI/data changes, read
 [data formats](docs/data-formats.md) and [contributor workflow](docs/contributor-workflow.md).
-For a proposed **local CLI translation launcher**, read
-[translation runner design](docs/translation-runner.md); it is not implemented yet.
+For local ZIP-based translation and whole-work guide exchange, read
+[docs/translation-zip-workflow.md](docs/translation-zip-workflow.md).
+The repository has strict Issue intake, selectable versioned prompt recipes,
+node-level Admin request controls and ZIP export/import commands. The owner's
+existing external ZIP-to-ChatGPT relay performs the AI processing; this repo
+does not launch an unattended translation model or publish new text implicitly.
+For a separate proposed **local CLI translation launcher**, see
+[translation runner design](docs/translation-runner.md); it is still optional.
 For local source automation, read the
 [automated source-preparation brief](docs/local-source-automation.md).
 The deterministic worker, launchd installation helper, guarded Codex execution,

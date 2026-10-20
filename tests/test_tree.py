@@ -101,9 +101,11 @@ class TreeTests(unittest.TestCase):
         rev,snap=self.freeze();r=self.report(rev,snap,'n0004','text','Mara')
         (self.w/'editions/en-modern/text/n0004.md').write_text('A newly written paragraph.\n\nA different structure.\n')
         newer,_=self.freeze();self.assertNotEqual(rev,newer);ctp.validate_review(r,self.root)
-    def test_source_label_is_not_translated_fallback(self):
+    def test_partial_draft_can_be_frozen_without_root_title(self):
         del self.ed['nodes']['n0001']['label'];ctp.write_json(self.edpath,self.ed)
-        with self.assertRaises(ctp.ProjectError):self.freeze()
+        rev,snapshot=self.freeze()
+        self.assertEqual(rev,ctp.object_hash(snapshot))
+        self.assertIn({'node':'n0001','field':'label'},snapshot['missing'])
     def test_generation_prompt_tampering_rejected(self):
         r=ctp.read_json(next((self.edpath.parent/'runs').glob('*.json')));r['prompts'][0]['text']='changed'
         with self.assertRaises(ctp.ProjectError):ctp.validate_run(r)

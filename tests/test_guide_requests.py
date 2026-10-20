@@ -196,5 +196,41 @@ class WholeWorkGuideTests(unittest.TestCase):
         self.assertNotIn('a preferred term with contextual alternatives',html)
 
 
+    def test_cli_issue_intake_export_and_import(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        from unittest.mock import patch
+        issues=self.root/'issues.json'
+        write_json(issues,[self.issue(90)])
+        def run(*arguments):
+            out=StringIO()
+            with patch.object(ctp,'ROOT',self.root), \
+                 patch.object(sys,'argv',['ctp',*arguments]), redirect_stdout(out):
+                status=ctp.main()
+            self.assertEqual(status,0,out.getvalue())
+            return json.loads(out.getvalue())
+        intake=run('guide-intake','--issues',str(issues))
+        self.assertEqual(intake['accepted'],[90])
+        pending=run('guide-pending')
+        self.assertEqual(pending['requests'][0]['issue'],90)
+        package=self.root/'cli-guide.zip'
+        result=run('guide-export','--issue','90','--output',str(package))
+        self.assertEqual(result['issue'],90)
+        self.assertTrue(package.exists())
+        from translation_jobs import zip_files
+        _,manifest=prepare_guide_issue(self.root,guide_entry(self.root,90))
+        reply=self.root/'cli-return.zip'
+        zip_files(reply,{'response.json':{
+            'schema_version':1,'kind':'guide','issue':90,
+            'work':'gutenberg-36','target':'ja',
+            'job_sha256':manifest['job_sha256'],'model_label':'unknown',
+            'work_guide':'Useful observations on the full original.',
+            'target_guide':'Suggested terminology with contextual alternatives.'
+        }})
+        result=run('guide-import',str(reply))
+        self.assertEqual(result['issue'],90)
+        self.assertEqual(run('guide-pending')['requests'],[])
+
+
 if __name__=='__main__':
     unittest.main()

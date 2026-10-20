@@ -38,9 +38,13 @@
     const children=node.children || [];
     const label=node.label || (node.has_text?'Unlabelled text':'Unlabelled group');
     const caption=`${label} · ${node.id}${node.has_text?' · text':''}`;
-    if(!children.length){const leaf=document.createElement('li');leaf.textContent=caption;return leaf;}
+    const pick=document.createElement('input'),captionNode=document.createElement('span');
+    pick.type='checkbox';pick.className='node-pick';pick.dataset.nodeId=node.id;
+    pick.setAttribute('aria-label','Select '+caption);captionNode.textContent=caption;
+    if(!children.length){const leaf=document.createElement('li');leaf.append(pick,captionNode);return leaf;}
     const item=document.createElement('li'),details=document.createElement('details'),summary=document.createElement('summary'),list=document.createElement('ol');
-    summary.textContent=caption;list.className='source-tree';
+    summary.append(pick,captionNode);pick.addEventListener('click',event=>event.stopPropagation());
+    list.className='source-tree';
     for(const child of children)list.append(sourceNode(child));
     details.append(summary,list);item.append(details);return item;
   }

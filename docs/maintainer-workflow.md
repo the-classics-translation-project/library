@@ -111,3 +111,19 @@ boundary, provenance, failure handling and acceptance tests. The current CLI
 commands `./ctp task` and `./ctp record-run` do **not** themselves invoke a model.
 Do not claim a fresh-context launcher exists, or make paid API calls or schedule
 unattended translations, without separately implementing and authorizing them.
+
+## Translation Issues and existing ChatGPT ZIP relay
+
+Source preparation and translation are separate. The static Admin page now
+offers node selection, target language, a Git-versioned translation prompt,
+a missing-only/retranslation scope and optional previous-version reference.
+It prepares the Issue; the authorized intake workflow pins its exact prompt.
+Local `./ctp translation-pending`, `translation-export`, and
+`translation-import` commands form and validate packages for the owner's
+existing ZIP-to-ChatGPT relay. They do not invoke a model. Whole-work context
+and terminology guides use `guide-export` / `guide-import`.
+
+Read [the detailed exchange guide](translation-zip-workflow.md) before using
+the return ZIP importer. Frozen snapshots preserve previous translations;
+unapproved drafts are not exposed as history on public Pages. Neither a model
+result nor a successful import approves a reader release.

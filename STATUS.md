@@ -142,9 +142,12 @@ the same thing as published books.
 2. **Observe scheduled source preparation:** confirm a later interval tick and
    login/sleep/restart recovery. The first installed `RunAtLoad` tick passed,
    but no scheduled model invocation has been needed yet.
-3. Implement future **node-level translation request Issues** and the separate
-   fresh-context translation launcher, following
-   [docs/translation-runner.md](docs/translation-runner.md).
+3. Exercise the new **node-level translation Issue → ZIP exchange → draft import**
+   path using the existing local ChatGPT relay; see
+   [docs/translation-zip-workflow.md](docs/translation-zip-workflow.md).
+   Choose target language, prompt, scope and optional previous-translation reference.
+   Use guide ZIPs for whole-work terminology analysis before translation.
+   The separate unattended CLI translator remains an optional later milestone.
 4. Inspect Admin/workbench/EPUB on intended browsers. No draft should be promoted
    without explicit approval.
 
@@ -219,3 +222,27 @@ model call. A 30-minute interval is configured; subsequent timed ticks and
 headless Codex execution have not yet been observed.
 The public Admin page serves both trees in its embedded data, but its actual
 expand/collapse interaction has not been verified in a real browser.
+
+## ZIP-based translation requests and work guides — implementation
+
+The repository-side workflow adds selectable templates in
+`prompts/translation/`, node-level translation requests in Admin, a
+strict maintainer-authorized GitHub Issue parser, an immutable
+`translation-requests.json` queue, and `./ctp translation-export` /
+`./ctp translation-import` commands. A whole-work preparation task uses
+`./ctp guide-export` / `./ctp guide-import`; guide versions are retained
+by SHA-256. The CLI builds a self-contained README/manifest/source ZIP
+for the owner's existing local ChatGPT relay and imports an exact-coverage
+response ZIP. A successful translation import creates a draft, captures the
+actual expanded prompt and model label, preserves snapshots and tracks an
+idempotent result. No model execution or automatic distribution is involved.
+
+Admin displays current draft field coverage, allows retranslating translated
+nodes and loads **only explicitly approved** historical snapshots for viewing.
+Unapproved prose is retained in Git but is not automatically exposed on public
+Pages. The Issue UI merely prepares a GitHub form: clicking it does not submit
+an Issue. [Operating guide](docs/translation-zip-workflow.md).
+
+This is mechanical functionality, **not evidence that an actual novel has
+been translated or that the external ZIP relay has been integrated into CI**.
+Existing source-work LaunchAgent behavior is unchanged.

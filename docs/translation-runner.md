@@ -1,6 +1,10 @@
 # Local CLI translation runner — proposed design
 
-**Status: design brief only (2026-10-18).** There is no implemented launcher,
+**Status: optional future CLI automation proposal.** The separate ZIP-based
+translation-request/export/import workflow is implemented as described in
+[translation ZIP workflow](translation-zip-workflow.md); it uses the owner's
+existing external ChatGPT relay rather than launching a model here.
+There is no implemented unattended CLI translation launcher,
 verified CLI invocation, fresh-session integration or actual translation run in
 this repository. The goal is to make a request such as *translate The War of the
 Worlds into Japanese* actionable once that source is lawfully admitted,

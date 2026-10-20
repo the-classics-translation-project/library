@@ -98,3 +98,21 @@ run is not a completed translation or editorial approval.
 This launcher and its CLI-specific metadata capture are **not yet implemented**.
 For the proposed execution contract and local smoke tests, see
 [translation runner design](translation-runner.md).
+
+## Repository-side ZIP translation and guide exchange
+
+The repository now supports [translation ZIP exchange](translation-zip-workflow.md)
+instead of requiring an unattended CLI agent. An authorized Issue pins the
+exact prompt template content and a canonical source fingerprint; the
+exporter expands `{{target_language}}` and other validated variables,
+packages selected node text with optional notes/guides or an exact prior
+frozen revision, and writes a job hash. The importer requires matching
+job identity and field coverage, creates a draft, records the expanded
+prompt and exposed model label through `record-run`, and snapshots
+each imported result. A guide-only ZIP task stores separate work-level
+observations and target-language terms as content-hashed Markdown files.
+
+The exact prior prose is included only when explicitly selected. The
+source fingerprint and frozen revision identify their origin. This records
+provenance but not hidden instructions, literary quality or reproducibility.
+Always inspect the return ZIP from the external relay before committing.

@@ -94,3 +94,27 @@ revisions/     immutable frozen examples and future literary snapshots
 No blanket license has been selected for code or new editorial material.
 The repository is public, but that is not an authorization to distribute
 new translations or to submit anything to KDP.
+
+## Translation requests and ZIP exchange
+
+The [Admin page](https://the-classics-translation-project.github.io/library/admin/)
+also supports selecting source nodes for translation and retranslation,
+choosing a Git-versioned translation recipe and specifying whether to
+include notes or an earlier frozen translation. The generated Issue is
+registered only when submitted on GitHub by an authorized maintainer.
+
+The repository's deterministic ZIP tools work with the owner's existing
+ChatGPT ZIP relay; they do not make AI calls:
+
+```sh
+./ctp translation-pending
+./ctp translation-export 123 --output build/translation-123.zip
+./ctp translation-import build/return-123.zip
+./ctp guide-export gutenberg-36 ja --output build/guide-ja.zip
+./ctp guide-import build/guide-ja-return.zip
+```
+
+Replace `123` with an accepted translation Issue number. Translation
+imports remain drafts, with revision history preserved and no publication.
+For schemas and safety constraints, see
+[translation ZIP workflow](docs/translation-zip-workflow.md).

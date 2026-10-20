@@ -116,3 +116,18 @@ The exact prior prose is included only when explicitly selected. The
 source fingerprint and frozen revision identify their origin. This records
 provenance but not hidden instructions, literary quality or reproducibility.
 Always inspect the return ZIP from the external relay before committing.
+
+## Work and target guide provenance
+
+The whole-work guide prompt lives in `prompts/whole-work-guide.md`.
+Accepted guide Issues pin that exact Markdown text, source fingerprint
+and intended language. When a response is imported, the project retains
+both language-neutral and target-language guides under content-addressed
+Markdown names, their latest pointers, the model label and input/response
+hashes. Issue-based imports have idempotent receipts.
+
+This gives source and generation provenance, not a term-by-term database,
+proof of complete contextual analysis, human review or reproducible
+literary judgment. The guides may contain reasoned alternative renderings
+and explicitly uncertain proposals. See
+[ZIP guide workflow](translation-zip-workflow.md).

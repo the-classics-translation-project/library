@@ -127,3 +127,21 @@ Read [the detailed exchange guide](translation-zip-workflow.md) before using
 the return ZIP importer. Frozen snapshots preserve previous translations;
 unapproved drafts are not exposed as history on public Pages. Neither a model
 result nor a successful import approves a reader release.
+
+## Whole-work glossary request
+
+In Admin, a structured work now offers a separate **Whole-work glossary and
+translation guide** request for any supported target language. The prepared
+GitHub Issue must be submitted by an authorized maintainer. Intake pins
+the guide prompt and source fingerprint in `guide-requests.json`. After
+intake, use `./ctp guide-pending` and
+`./ctp guide-export --issue NUMBER --output build/guide.zip`, hand the ZIP
+to the existing external ChatGPT relay, and import its returned ZIP with
+`./ctp guide-import`. This preserves the guide's Markdown and earlier
+versions, updates the current references and writes an Issue-bound import
+receipt. The guide Markdown needs reasonable organization but has no
+mandatory per-term fields.
+
+See [the exchange instructions](translation-zip-workflow.md).
+Manual `guide-export WORK TARGET` remains supported for experiments
+without an Issue.

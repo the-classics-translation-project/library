@@ -22,3 +22,15 @@ the Admin dropdown label, and the supported placeholders are
 includes or arbitrary code are evaluated. A push to GitHub rebuilds Admin's
 prompt selection. Existing accepted translation Issues retain the precise
 prompt bytes at acceptance. See [translation ZIP workflow](../docs/translation-zip-workflow.md).
+
+## Whole-work guide prompt
+
+`whole-work-guide.md` is the reusable human-editable Markdown prompt for
+a work-wide reference and target-language terminology guide. It uses the
+same minimal language/title substitutions as translation prompts.
+A guide Issue saves its exact prompt contents at intake, so later
+edits do not change queued work. The output is **reasonably organized
+Markdown**, with optional headings, lists, tables and free-form
+explanations. A rigid entry schema is explicitly not required.
+The ZIP importer validates only the outer response envelope, not glossary
+row structure. See [ZIP guide workflow](../docs/translation-zip-workflow.md).

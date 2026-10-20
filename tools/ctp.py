@@ -280,6 +280,9 @@ def validate_project(root: Path = ROOT) -> dict:
         validate_queue(queue,config)
     from translation_jobs import prompt_catalogue, validate_results
     prompt_catalogue(root); validate_results(root)
+    from guide_requests import guide_prompt, validate_guide_results
+    if (root/'prompts/whole-work-guide.md').is_file(): guide_prompt(root)
+    validate_guide_results(root)
     from translation_jobs import _guide
     for pointer in (root/'books').glob('*/reference/current.json'):
         _guide(pointer.parent)
@@ -315,10 +318,12 @@ def main() -> int:
     p=sub.add_parser('intake'); p.add_argument('--issues',type=Path); p.add_argument('--github',action='store_true')
     p=sub.add_parser('translation-intake'); p.add_argument('--issues',type=Path); p.add_argument('--github',action='store_true')
     sub.add_parser('translation-pending')
+    p=sub.add_parser('guide-intake'); p.add_argument('--issues',type=Path); p.add_argument('--github',action='store_true')
+    sub.add_parser('guide-pending')
     sub.add_parser('prompt-list')
     p=sub.add_parser('translation-export'); p.add_argument('issue',type=int); p.add_argument('--output',type=Path,required=True)
     p=sub.add_parser('translation-import'); p.add_argument('response_zip',type=Path)
-    p=sub.add_parser('guide-export'); p.add_argument('work'); p.add_argument('target'); p.add_argument('--output',type=Path,required=True)
+    p=sub.add_parser('guide-export'); p.add_argument('work',nargs='?'); p.add_argument('target',nargs='?'); p.add_argument('--issue',type=int); p.add_argument('--output',type=Path,required=True)
     p=sub.add_parser('guide-import'); p.add_argument('response_zip',type=Path)
     p=sub.add_parser('task'); p.add_argument('--output',type=Path,default=ROOT/'build/next-task.md')
     p=sub.add_parser('record-run'); p.add_argument('work'); p.add_argument('edition'); p.add_argument('--model',required=True); p.add_argument('--interface',default='chatgpt'); p.add_argument('--operation',default='translation'); p.add_argument('--prompt',type=Path,action='append',required=True); p.add_argument('--instructions',default=''); p.add_argument('--output',type=Path,action='append',required=True)
@@ -341,6 +346,15 @@ def main() -> int:
             check(args.issues is not None or args.github,'Provide trusted issues export or --github')
             issues=read_json(args.issues) if args.issues is not None else fetch_issues(read_json(ROOT/'project.json')['repository'])
             result=intake(ROOT,issues)
+        elif args.command=='guide-intake':
+            from guide_requests import intake_guide
+            from intake import fetch_issues
+            check(bool(args.issues)!=bool(args.github),'Choose --issues file or --github')
+            issues=fetch_issues(read_json(ROOT/'project.json')['repository']) if args.github else read_json(args.issues)
+            result=intake_guide(ROOT,issues)
+        elif args.command=='guide-pending':
+            from guide_requests import pending_guides
+            result=pending_guides(ROOT)
         elif args.command=='translation-pending':
             from translation_jobs import validate_queue
             entries=validate_queue(ROOT)['requests']
@@ -356,8 +370,16 @@ def main() -> int:
             from translation_jobs import import_translation
             result=import_translation(ROOT,args.response_zip)
         elif args.command=='guide-export':
-            from translation_jobs import export_guide
-            result=export_guide(ROOT,args.work,args.target,args.output)
+            if args.issue is None:
+                from translation_jobs import export_guide
+                check(args.work is not None and args.target is not None,
+                      'Pass WORK TARGET, or use --issue ISSUE')
+                result=export_guide(ROOT,args.work,args.target,args.output)
+            else:
+                from guide_requests import export_guide_issue
+                check(args.work is None and args.target is None,
+                      '--issue exports use the saved work/target request')
+                result=export_guide_issue(ROOT,args.issue,args.output)
         elif args.command=='guide-import':
             from translation_jobs import import_guide
             result=import_guide(ROOT,args.response_zip)

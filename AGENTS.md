@@ -17,6 +17,12 @@ For source work, read [source import](docs/source-import.md) and
 [data formats](docs/data-formats.md) and [contributor workflow](docs/contributor-workflow.md).
 For local ZIP-based translation and whole-work guide exchange, read
 [docs/translation-zip-workflow.md](docs/translation-zip-workflow.md).
+The Admin whole-work guide control prepares a separately authorized GitHub
+Issue; the deterministic guide queue and Issue-bound ZIP flow use
+`guide-requests.json` and `guide-results/`. The guide prompt is
+`prompts/whole-work-guide.md` and is pinned when the Issue is accepted.
+Preserve the two guides as readable, reasonably organized Markdown;
+**do not introduce a rigid term schema or pretend the guide is exhaustive**.
 The repository has strict Issue intake, selectable versioned prompt recipes,
 node-level Admin request controls and ZIP export/import commands. The owner's
 existing external ZIP-to-ChatGPT relay performs the AI processing; this repo

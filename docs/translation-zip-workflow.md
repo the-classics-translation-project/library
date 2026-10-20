@@ -96,27 +96,92 @@ already exists. `scope=missing` excludes already present fields. Reference
 A single source node may have a label and body text, so both are tracked
 independently. No forced sentence alignment is introduced.
 
-## Whole-work guide / glossary
+## Whole-work translation guides / glossary
 
-Before translating selected chapters, it is useful to analyze the **entire**
-source (or, for very large works, break the analysis into separate packages,
-not silently truncate the source):
+The guide text is deliberately **organized Markdown rather than a structured
+terminology database**. The prompt in `prompts/whole-work-guide.md` suggests
+readable sections for characters/names, recurring terms, style/voice, and open
+questions. Tables, prose, bullet points and cited node IDs are all acceptable.
+A term may have context-dependent alternatives, and provisional suggestions
+must not be confused with adopted editorial decisions. The importer only
+validates the outer ZIP/JSON envelope and that the two guide strings are
+nonempty, bounded Markdown; it does not parse individual glossary entries.
+
+### From Admin and an authorized GitHub Issue
+
+1. Open [Admin](https://the-classics-translation-project.github.io/library/admin/),
+   find a structured work, select the desired target language under
+   **Whole-work glossary and translation guide**, and click
+   **Prepare guide-generation Issue**. The UI shows whether a work-wide
+   reference or target-language guide has already been saved. Generating
+   again is permitted; old content-hashed versions remain in Git.
+2. Submit the prepared GitHub Issue. The maintainer-authorized intake workflow
+   strictly parses the `ctp:guide-request:v1` marker, pins the prompt text, and
+   records the request under `guide-requests.json`. No model is invoked.
+3. In a current checkout, fetch `main` and export the accepted request:
+
+   ```sh
+   ./ctp guide-pending
+   ./ctp guide-export --issue 123 --output build/guide-123.zip
+   ```
+
+   Replace `123` with the accepted **guide Issue** number.
+   This ZIP includes the entire structured source, existing notes, pinned
+   instructions, a README and a job/manifest hash. Hand it to your existing
+   ZIP-to-ChatGPT relay.
+4. ChatGPT returns a ZIP containing **only** `response.json`. Its
+   `work_guide` and `target_guide` values are ordinary Markdown strings.
+   It must also include the matching integer `issue`, `job_sha256` and
+   the actual visible `model_label` (or `unknown`).
+   If a large work cannot be analyzed in full, disclose the limitation,
+   rather than claiming a complete reference.
+5. Import, inspect, validate and commit:
+
+   ```sh
+   ./ctp guide-import build/guide-123-return.zip
+   ./ctp validate
+   git status --short
+   ```
+
+   The importer stores both documents under their exact SHA-256 names,
+   updates their `reference/current.json` pointers, retains a guide
+   generation record with the model/source/job/response fingerprints, and
+   writes an idempotent `guide-results/issue-123.json` receipt. Returning
+   the same ZIP twice is harmless; conflicting output for an accepted
+   Issue is rejected. No reader release or model invocation is implied.
+
+The guide request payload after its strict GitHub Issue marker is:
+
+```json
+{
+  "schema_version": 1,
+  "work": "gutenberg-36",
+  "target": "ja",
+  "source_fingerprint": "<64-digit SHA-256>",
+  "prompt_sha256": "<64-digit SHA-256>"
+}
+```
+
+Only this request envelope is machine-readable. It pins the source and
+instructions at acceptance. The Markdown guide contents remain deliberately
+unconstrained by any per-term record schema.
+
+### Manual ZIP preparation (no Issue needed)
+
+The existing direct commands remain available:
 
 ```sh
 ./ctp guide-export gutenberg-36 ja --output build/guide-ja.zip
-# Pass ZIP through the existing local ChatGPT relay.
+# Process the ZIP with your existing ChatGPT relay.
 ./ctp guide-import build/guide-ja-return.zip
 ./ctp validate
 ```
 
-The guide ZIP includes all original source nodes, existing work notes, target
-notes and an analysis README. The response contains a language-neutral
-`work_guide` and target-specific `target_guide` in Markdown. The importer
-stores each guide under its SHA-256 name and updates a versioned
-`reference/current.json` pointer, without overwriting an old guide file.
-A later translation request with notes enabled uses these guides.
-Whole-work factual context and translation choices are kept distinct; they
-are editorial memory, not mandatory literal term substitutions.
+This mode also uses the Markdown prompt when present. It does not produce an
+Issue receipt, but still retains content-hashed Markdown and a generation
+record. Translate nodes later using `reference=notes` (or `reference=text`)
+so the corresponding work and target guides are included. These guides are
+editorial memory, not mechanically enforced one-to-one terminology.
 
 ## Admin history versus repository history
 

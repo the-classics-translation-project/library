@@ -387,3 +387,91 @@ def validate_results(root: Path) -> None:
         r=request_entry(root,value['issue'])['request']
         c.load_snapshot(root,r['work'],r['target'],value['revision'])
 
+GUIDE_README = """# Whole-work reference analysis
+
+Examine all source nodes in input/job.json. Identify recurring characters,
+locations, important terms, relationships, chronology, narrative perspectives,
+ambiguities and translation-relevant decisions. Distinguish firm observations
+from hypotheses. Do not translate the whole literary work or invent facts.
+
+Return a ZIP with ONLY response.json:
+{
+  "schema_version":1,"kind":"guide","work":"gutenberg-36",
+  "target":"ja","job_sha256":"<manifest job_sha256>",
+  "model_label":"<actual visible model or unknown>",
+  "work_guide":"Markdown work-wide observations",
+  "target_guide":"Markdown target-language terminology and style guidance"
+}
+"""
+
+def prepare_guide(root: Path, work_id: str, target: str) -> tuple[dict,dict]:
+    c=_ctp()
+    check(isinstance(work_id,str) and re.fullmatch(r'gutenberg-[0-9]{1,7}',work_id),
+          'Invalid work')
+    check(target in {x['id'] for x in read_json(root/'project.json')['targets']},
+          'Invalid guide language')
+    wd=root/'books'/work_id
+    work,tree=c.validate_work(wd)
+    rights=read_json(wd/'rights.json')
+    check(rights['status']=='acquired' and rights['eligible'],
+          'Guide source is not admitted')
+    texts=[]
+    for node,_ in walk(tree):
+        fields={'id':node['id']}
+        if 'label' in node: fields['label']=node['label']
+        if 'text' in node:fields['text']=(wd/node['text']).read_text(encoding='utf-8')
+        texts.append(fields)
+    job={'schema_version':1,'kind':'guide','work':work_id,'target':target,
+         'source_fingerprint':c.source_fingerprint(wd),
+         'source_language':work['language'],'source_nodes':texts,
+         'work_notes':_notes(wd/'notes.md'),
+         'target_notes':_notes(wd/'editions'/target/'notes.md')}
+    key=digest(json.dumps(job,sort_keys=True,ensure_ascii=False,
+             separators=(',',':')).encode())
+    manifest={'schema_version':1,'kind':'guide','work':work_id,
+              'target':target,'job_sha256':key}
+    return job,manifest
+
+def export_guide(root: Path, work_id: str, target: str, output: Path) -> dict:
+    job,manifest=prepare_guide(root,work_id,target)
+    zip_files(output,{'README.md':GUIDE_README,'input/job.json':job,
+                      'input/manifest.json':manifest})
+    return {'package':str(output),'job_sha256':manifest['job_sha256'],
+            'nodes':len(job['source_nodes']),'ai_called':False}
+
+def import_guide(root: Path, path: Path) -> dict:
+    response,raw=read_response(path)
+    fields={'schema_version','kind','work','target','job_sha256',
+            'model_label','work_guide','target_guide'}
+    check(isinstance(response,dict) and set(response)==fields and
+          response['schema_version']==1 and response['kind']=='guide',
+          'Invalid reference-guide response')
+    job,manifest=prepare_guide(root,response['work'],response['target'])
+    check(response['job_sha256']==manifest['job_sha256'],
+          'Guide response belongs to another source version')
+    check(isinstance(response['model_label'],str) and
+          0<len(response['model_label'].strip())<=160,
+          'Missing guide model label')
+    for key in ('work_guide','target_guide'):
+        value=response[key]
+        check(isinstance(value,str) and 0<len(value.strip())<=2000000 and
+              '\x00' not in value,'Invalid guide text')
+    wd=root/'books'/response['work']
+    files={}
+    for name,folder in (('work_guide',wd/'reference'),
+                        ('target_guide',wd/'editions'/response['target']/'reference')):
+        text=response[name];hashvalue=digest(text.encode())
+        dest=folder/(hashvalue+'.md')
+        if dest.exists():
+            check(dest.read_text(encoding='utf-8')==text,'Guide content/hash mismatch')
+        else:
+            dest.parent.mkdir(parents=True,exist_ok=True)
+            dest.write_text(text,encoding='utf-8')
+        write_json(folder/'current.json',{'sha256':hashvalue})
+        files[name]=dest.relative_to(root).as_posix()
+    record=wd/'reference'/('guide-run-'+manifest['job_sha256'][:20]+'.json')
+    write_json(record,{'schema_version':1,'job_sha256':manifest['job_sha256'],
+              'response_sha256':digest(raw),'source_fingerprint':job['source_fingerprint'],
+              'model_label':response['model_label'],'files':files})
+    return {'work':response['work'],'target':response['target'],
+            'files':files,'ai_called':False}

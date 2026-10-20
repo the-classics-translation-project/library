@@ -302,9 +302,6 @@ def import_translation(root: Path, path: Path) -> dict:
     issue=response['issue']
     check(type(issue) is int and issue>0,'Invalid Issue ID')
     entry=request_entry(root,issue)
-    job,manifest=prepare_job(root,entry)
-    check(response['job_sha256']==manifest['job_sha256'],
-          'Response belongs to a different source or request')
     model=response['model_label']
     check(isinstance(model,str) and 0<len(model.strip())<=160,
           'Missing actual model label (unknown is acceptable)')
@@ -316,6 +313,9 @@ def import_translation(root: Path, path: Path) -> dict:
               'A different response was already imported for this Issue')
         return {'issue':issue,'already_imported':True,
                 'revision':previous['revision']}
+    job,manifest=prepare_job(root,entry)
+    check(response['job_sha256']==manifest['job_sha256'],
+          'Response belongs to a different source or request')
     translations=response['translations']
     expected=manifest['requested_fields']
     check(isinstance(translations,dict) and set(translations)==set(expected),

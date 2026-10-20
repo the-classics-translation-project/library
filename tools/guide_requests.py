@@ -44,7 +44,7 @@ def validate_guide_request(root: Path, request: dict, pinned_prompt: str | None 
           digest(template.encode('utf-8'))==request['prompt_sha256'],
           'Guide prompt changed since Issue creation')
     # Reuses the existing work/rights/target validation and source fingerprint.
-    job,_=prepare_guide(root,work,target)
+    job,_=prepare_guide(root,work,target,guide_template=template)
     check(job['source_fingerprint']==request['source_fingerprint'],
           'Guide request refers to a different source revision')
     from translation_jobs import ALLOWED, VARIABLE
@@ -143,7 +143,8 @@ def guide_entry(root: Path, issue: int) -> dict:
 def prepare_guide_issue(root: Path, entry: dict) -> tuple[dict,dict]:
     request=entry['request']
     validate_guide_request(root,request,entry['prompt_text'])
-    job,manifest=prepare_guide(root,request['work'],request['target'])
+    job,manifest=prepare_guide(root,request['work'],request['target'],
+                               guide_template=entry['prompt_text'])
     job['issue']=entry['issue']
     job['guide_instructions']=render_prompt(
         entry['prompt_text'],_variables(root,request['work'],request['target']))

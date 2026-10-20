@@ -425,7 +425,8 @@ If you cannot examine the full input, report the limitation rather than
 inventing findings or representing a partial analysis as exhaustive.
 """
 
-def prepare_guide(root: Path, work_id: str, target: str) -> tuple[dict,dict]:
+def prepare_guide(root: Path, work_id: str, target: str,
+                  guide_template: str | None = None) -> tuple[dict,dict]:
     c=_ctp()
     check(isinstance(work_id,str) and re.fullmatch(r'gutenberg-[0-9]{1,7}',work_id),
           'Invalid work')
@@ -442,7 +443,8 @@ def prepare_guide(root: Path, work_id: str, target: str) -> tuple[dict,dict]:
         if 'label' in node: fields['label']=node['label']
         if 'text' in node:fields['text']=(wd/node['text']).read_text(encoding='utf-8')
         texts.append(fields)
-    guide_template=_notes(root/'prompts/whole-work-guide.md')
+    guide_template=(guide_template if guide_template is not None else
+                    _notes(root/'prompts/whole-work-guide.md'))
     if guide_template:
         language=next(t['label'] for t in read_json(root/'project.json')['targets']
                       if t['id']==target)

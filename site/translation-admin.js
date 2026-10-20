@@ -52,6 +52,45 @@
     const link=make('a',panel,'Prepare translation Issue','button primary-action');
     link.target='_blank';link.rel='noopener noreferrer';
 
+    const guides=make('section',section,null,'translation-request-panel guide-request-panel');
+    make('h4',guides,'Whole-work glossary and translation guide');
+    make('p',guides,'Ask ChatGPT to examine the entire original before translating chapters. The result is organized Markdown, not a rigid terminology database.','small');
+    const guideTarget=labeledSelect(guides,'Target language for terminology',
+        data.targets.map(t=>({value:t.id,label:t.label})));
+    guideTarget.value=target.value;
+    const guideState=make('p',guides,'','small');
+    const guideLink=make('a',guides,'Prepare guide-generation Issue','button primary-action');
+    guideLink.target='_blank';guideLink.rel='noopener noreferrer';
+    make('p',guides,'After submitting the GitHub Issue, run guide-pending and guide-export --issue NUMBER locally, then use your existing ZIP relay.','small');
+    function updateGuide(){
+      const haveWork=!!work.guides?.work;
+      const haveTarget=(work.guides?.targets||[]).includes(guideTarget.value);
+      guideState.textContent='Work-level reference: '+(haveWork?'Saved':'Not generated')+
+            ' · '+guideTarget.value+' terminology guide: '+(haveTarget?'Saved':'Not generated')+
+            '. A new request may regenerate either guide.';
+      if(!data.guide_prompt_sha256){
+        guideLink.removeAttribute('href');guideLink.setAttribute('aria-disabled','true');
+        return;
+      }
+      const request={schema_version:1,work:work.work,target:guideTarget.value,
+        source_fingerprint:work.source_fingerprint,
+        prompt_sha256:data.guide_prompt_sha256};
+      const fence=String.fromCharCode(96).repeat(3);
+      const body='Whole-work translation guide: '+work.work+' to '+guideTarget.value+
+        '\n\n<!-- ctp:guide-request:v1 -->\n\n'+fence+'json\n'+
+        JSON.stringify(request,null,2)+'\n'+fence+'\n';
+      guideLink.href='https://github.com/'+data.repository+'/issues/new?title='+
+        encodeURIComponent('[Guide] '+work.work+' → '+guideTarget.value)+
+        '&body='+encodeURIComponent(body);
+      guideLink.removeAttribute('aria-disabled');
+    }
+    guideTarget.addEventListener('change',updateGuide);
+    target.addEventListener('change',()=>{
+      guideTarget.value=target.value;
+      updateGuide();
+    });
+    updateGuide();
+
     const history=make('section',section,null,'translation-history');
     make('h4',history,'Previous versions');
     const note=make('p',history,'Only versions explicitly approved for public review or reading are viewable here. Other draft snapshots remain in Git and can be used locally.','small');

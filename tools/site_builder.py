@@ -97,7 +97,7 @@ def epub(obj,rev,path,root):
 
 def admin(root,config,css):
     from intake import queue_status
-    from translation_jobs import prompt_catalogue
+    from translation_jobs import prompt_catalogue, _guide
     catalogue_path=root/'data/gutenberg-catalogue.json'
     cat=c.read_json(catalogue_path) if catalogue_path.exists() else {'kind':'unavailable','records':[],'source':''}
     rows=queue_status(root)
@@ -125,6 +125,13 @@ def admin(root,config,css):
                 coverage[ed['language']]={nid:sorted(fields)
                                          for nid,fields in ed['nodes'].items()}
             item['coverage']=coverage
+            work_guide=wd/'reference/current.json'
+            if work_guide.exists(): _guide(work_guide.parent)
+            languages=[]
+            for pointer in sorted((wd/'editions').glob('*/reference/current.json')):
+                _guide(pointer.parent)
+                languages.append(pointer.parents[1].name)
+            item['guides']={'work':work_guide.exists(),'targets':languages}
             # Only approved catalogue revisions may expose translated prose
             # on public Pages. Other draft history stays in Git/local tools.
             item['history']=[]
@@ -140,8 +147,11 @@ def admin(root,config,css):
                             if snap.get('production_runs') else 'unknown'})
             item['history'].reverse()
         sources.append(item)
+    guide_prompt=root/'prompts/whole-work-guide.md'
     data={'repository':config['repository'],'targets':config.get('targets',[]),
-          'catalogue':cat,'queue':rows,'sources':sources,'prompts':prompt_catalogue(root)}
+          'catalogue':cat,'queue':rows,'sources':sources,'prompts':prompt_catalogue(root),
+          'guide_prompt_sha256':c.digest(guide_prompt.read_bytes())
+                               if guide_prompt.is_file() else None}
     body=navigation(config,'../')+'''<main class="catalogue admin"><h1>Add a work</h1><label class="sr-only" for="search">Search title, author or Gutenberg number</label><input id="search" class="catalogue-search" type="search" placeholder="Title, author, or Gutenberg number" autocomplete="off"><p id="catalogue-status" class="small"></p><div id="results" role="list"></div><section id="selection" hidden><h2 id="selected-title"></h2><p id="selected-author" class="meta"></p><fieldset id="targets"><legend>Target languages</legend></fieldset><div class="actions"><a id="prepare-issue" class="button primary-action" target="_blank" rel="noopener noreferrer">Prepare GitHub Issue</a></div><p id="request-warning" class="small"></p><details><summary>Request data</summary><textarea id="request-data" rows="8" readonly></textarea></details></section><h2 class="queue-heading">Work queue</h2><div id="queue"></div><h2 class="queue-heading">Source trees</h2><p class="small">Select source nodes to request translation or retranslation. Draft coverage is informational; historical text on Pages appears only for explicitly approved revisions.</p><div id="source-trees"></div><details class="admin-help"><summary>Help</summary><p>The form prepares a request; submit it on GitHub. Only configured maintainers' requests are imported into the queue. No credentials are stored here. A queued request does not authorize a public book release or paid model calls.</p><p>Requested Gutenberg sources are checked automatically for US/Japan source admission. Passing sources are saved to the repository; held sources show the reason below. This does not approve a translated edition for publication.</p><p>To refresh all Gutenberg titles, run <code>./ctp catalogue-refresh</code> or the catalogue workflow.</p></details></main>'''
     return c.page('Admin · '+config['name'],body,css,tail=f'<script id="admin-data" type="application/json">{c.js_data(data)}</script><script>{(root/"site/admin.js").read_text()}</script><script>{(root/"site/translation-admin.js").read_text()}</script>')
 

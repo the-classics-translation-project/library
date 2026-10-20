@@ -141,3 +141,27 @@ records a provenance run and creates an immutable edition snapshot. Each
 Guide jobs similarly exchange one `response.json` and retain content-addressed
 work-level and target-level Markdown guides under `reference/`.
 See [translation ZIP workflow](translation-zip-workflow.md).
+
+## Whole-work guide requests and flexible Markdown output
+
+A guide Issue uses `ctp:guide-request:v1`, a JSON envelope with schema version,
+canonical work ID, target language, source fingerprint, and the SHA-256 of
+`prompts/whole-work-guide.md`. The maintainer-authorized, immutable request
+queue is `guide-requests.json`. Its accepted entries include the pinned
+prompt text and original Issue body hash; a changed prompt cannot silently
+change an already accepted task.
+
+An Issue-bound guide ZIP contains `README.md`, `input/job.json` and
+`input/manifest.json`. The return ZIP contains only `response.json` with
+schema/kind, work, target, Issue number, job hash, exposed model label and
+two nonempty Markdown strings (`work_guide` and `target_guide`). The JSON is
+merely a safe transport format. **No table columns, record keys or term-level
+schema are required within either Markdown document.**
+
+Imported guide versions are saved as SHA-256-named Markdown files, with
+`reference/current.json` pointers, a guide generation record, and
+`guide-results/issue-N.json` to guard against conflicting re-imports.
+The Admin manifest displays only boolean saved-guide status per work
+and target; it does not embed glossary prose. Ordinary translations may
+include these Markdown guides as contextual notes, never as mechanically
+enforced substitutions.

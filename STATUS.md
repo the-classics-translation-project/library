@@ -1,6 +1,6 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-18** (against the public GitHub repository and actual
+Last updated: **2026-10-21** (against the public GitHub repository and actual
 GitHub Actions results). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
 
@@ -13,8 +13,8 @@ claim that the software and literary workflows are finished.
   Reader catalogue, contributor workbench and administrator intake interface
   are generated separately; Admin is at
   <https://the-classics-translation-project.github.io/library/admin/>.
-- GitHub Actions **validation/build** and **Pages deployment** succeeded for the
-  latest source-tree commit `b787dc9`:
+- GitHub Actions **validation/build** and **Pages deployment** succeeded for
+  source-tree commit `b787dc9`:
   [validation run 39051177283](https://github.com/the-classics-translation-project/library/actions/runs/39051177283)
   and [deployment run 39051177252](https://github.com/the-classics-translation-project/library/actions/runs/39051177252).
   A direct read of the live Admin HTML confirmed both trees in its embedded
@@ -246,3 +246,27 @@ an Issue. [Operating guide](docs/translation-zip-workflow.md).
 This is mechanical functionality, **not evidence that an actual novel has
 been translated or that the external ZIP relay has been integrated into CI**.
 Existing source-work LaunchAgent behavior is unchanged.
+
+## Whole-work glossary requests — Markdown guides with Issue handling
+
+Admin can now prepare separate work-level glossary/translation-guide requests
+for a target language, showing whether versioned guides are saved. The
+authorized GitHub intake workflow records accepted requests in
+`guide-requests.json` with pinned instructions from
+`prompts/whole-work-guide.md`. Local `guide-pending` and
+`guide-export --issue N` commands produce input ZIPs for the existing
+external ChatGPT relay; `guide-import` validates responses and records
+idempotent receipts under `guide-results/`. The earlier direct
+`guide-export WORK TARGET` command remains valid.
+
+The guide documents are **free-form, moderately organized Markdown**: the
+model is encouraged to distinguish confirmed decisions from tentative
+suggestions and document contextual alternatives, without a machine-readable
+term-by-term schema. Both source-level and target-specific guides retain
+content-addressed history. The Admin manifest shows their existence only;
+it does not expose their text. No automatic model call, claimed human review,
+or literary publication is involved.
+
+This workflow has new automated tests for authorized intake, prompt pinning,
+ZIP import, regeneration/history and Admin status. Real-browser checks and
+processing a real literary guide through the external relay remain to be done.

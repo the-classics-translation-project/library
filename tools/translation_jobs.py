@@ -279,3 +279,111 @@ def export_translation(root: Path, issue: int, output: Path) -> dict:
     return {'issue':issue,'package':str(output),'nodes':len(job['source_nodes']),
             'job_sha256':manifest['job_sha256'],'ai_called':False}
 
+def _edition(root: Path, work: str, target: str) -> dict:
+    wd=root/'books'/work
+    path=wd/'editions'/target/'edition.json'
+    if path.exists():return read_json(path)
+    original=read_json(wd/'work.json')
+    return {'schema_version':2,'id':target,'language':target,'direction':'ltr',
+            'kind':'modernization' if target==original['language'] else 'translation',
+            'status':'draft','description':'Partial literary translation draft',
+            'rights_note':'Not approved for distribution',
+            'production':{'ai_use':'ChatGPT ZIP exchange; see generation runs',
+                          'human_review':'Not performed','runs':[]},
+            'nodes':{}}
+
+def import_translation(root: Path, path: Path) -> dict:
+    c=_ctp()
+    response,raw=read_response(path)
+    keys={'schema_version','kind','issue','job_sha256','model_label','translations'}
+    check(isinstance(response,dict) and set(response)==keys and
+          response['schema_version']==1 and response['kind']=='translation',
+          'Unknown translation return format')
+    issue=response['issue']
+    check(type(issue) is int and issue>0,'Invalid Issue ID')
+    entry=request_entry(root,issue)
+    job,manifest=prepare_job(root,entry)
+    check(response['job_sha256']==manifest['job_sha256'],
+          'Response belongs to a different source or request')
+    model=response['model_label']
+    check(isinstance(model,str) and 0<len(model.strip())<=160,
+          'Missing actual model label (unknown is acceptable)')
+    result_path=root/'translation-results'/('issue-'+str(issue)+'.json')
+    response_hash=digest(raw)
+    if result_path.exists():
+        previous=read_json(result_path)
+        check(previous['response_sha256']==response_hash,
+              'A different response was already imported for this Issue')
+        return {'issue':issue,'already_imported':True,
+                'revision':previous['revision']}
+    translations=response['translations']
+    expected=manifest['requested_fields']
+    check(isinstance(translations,dict) and set(translations)==set(expected),
+          'Translated node coverage mismatch')
+    for nid,fields in translations.items():
+        check(isinstance(fields,dict) and set(fields)==set(expected[nid]),
+              'Translated field coverage mismatch')
+        for value in fields.values():
+            check(isinstance(value,str) and 0<len(value.strip())<=2000000 and
+                  '\x00' not in value,'Empty/oversized translation')
+    req=entry['request'];wd=root/'books'/req['work']
+    eddir=wd/'editions'/req['target']
+    existing=eddir/'edition.json'
+    ed=_edition(root,req['work'],req['target'])
+    c.validate_tree_edition(read_json(wd/'structure.json'),ed,
+                            eddir if existing.exists() else None)
+    previous_revision=None
+    if ed['nodes']:
+        previous_revision,_=c.freeze(wd,req['target'],root)
+    # All identity/coverage validation happens before writing any translated text.
+    eddir.mkdir(parents=True,exist_ok=True)
+    changed=[]
+    for nid,fields in translations.items():
+        target=ed['nodes'].setdefault(nid,{})
+        for kind,value in fields.items():
+            if kind=='label':
+                target['label']=value
+            else:
+                rel='text/'+nid+'.md'
+                dest=eddir/rel;dest.parent.mkdir(parents=True,exist_ok=True)
+                dest.write_text(value,encoding='utf-8')
+                target['text']=rel
+                changed.append(dest)
+    ed['status']='draft'
+    write_json(existing,ed)
+    c.validate_tree_edition(read_json(wd/'structure.json'),ed,eddir)
+    prompt_path=eddir/'inputs'/('issue-'+str(issue)+'-prompt.md')
+    check(not prompt_path.exists(),'Previously imported prompt already exists')
+    prompt_path.parent.mkdir(parents=True,exist_ok=True)
+    prompt_path.write_text(job['expanded_prompt'],encoding='utf-8')
+    run=c.record_run(root,req['work'],req['target'],model,'chatgpt-zip',
+           'retranslation' if previous_revision else 'translation',
+           [prompt_path],
+           'Request Issue '+str(issue)+'; input hash '+manifest['job_sha256']+
+           '; original request: '+json.dumps(req,sort_keys=True,ensure_ascii=False),
+           changed+[existing])
+    revision,snapshot=c.freeze(wd,req['target'],root)
+    record={'schema_version':1,'issue':issue,
+            'response_sha256':response_hash,'job_sha256':manifest['job_sha256'],
+            'previous_revision':previous_revision,'revision':revision,
+            'run_record':run.relative_to(root).as_posix()}
+    write_json(result_path,record)
+    return {'issue':issue,'revision':revision,
+            'previous_revision':previous_revision,'snapshot':str(snapshot),
+            'published':False,'ai_called':False}
+
+def validate_results(root: Path) -> None:
+    c=_ctp()
+    ids={x['issue'] for x in validate_queue(root)['requests']}
+    for path in (root/'translation-results').glob('issue-*.json'):
+        value=read_json(path)
+        check(value.get('issue') in ids and
+              path.name=='issue-'+str(value['issue'])+'.json',
+              'Unknown result Issue')
+        for field in ('response_sha256','job_sha256','revision'):
+            check(isinstance(value.get(field),str) and HASH.fullmatch(value[field]),
+                  'Invalid result fingerprint')
+        check((root/value['run_record']).is_file(),'Missing run record')
+        r=request_entry(root,value['issue'])['request']
+        c.load_snapshot(root,r['work'],r['target'],value['revision'])
+

@@ -120,3 +120,13 @@ or a future translation. Multiple overlapping notes and multi-section reports ar
 valid. A selection may span paragraphs within one field; crossing fields needs
 separate notes or a whole-field observation. `./ctp check-review` verifies identity,
 quotes and positions. It never applies the comment or judges its literary merits.
+
+## Local relay packages (schema 1)
+
+The offline package/import adapter stores private attempt records under
+`private/relay/`, with a source fingerprint and full edition-file baseline. Its
+request and result ZIP contracts are documented in [relay usage](chatgpt-relay.md).
+Successful imports retain per-attempt evidence under the edition's `relay/`
+directory and append an ordinary schema-1 generation record. `glossary.md` is
+plain Markdown with no required machine-readable schema. No queue, catalogue,
+source-tree or frozen-revision schema changes are introduced.

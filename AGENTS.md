@@ -15,6 +15,9 @@ For source work, read [source import](docs/source-import.md) and
 [source structure](docs/source-structure.md). For generation, read
 [provenance](docs/provenance.md). For UI/data changes, read
 [data formats](docs/data-formats.md) and [contributor workflow](docs/contributor-workflow.md).
+For local ChatGPT relay packaging/import, read [relay usage](docs/chatgpt-relay.md).
+The adapter is implemented with offline tests; live translation remains unverified.
+Read the edition Markdown glossary when present.
 For a proposed **local CLI translation launcher**, read
 [translation runner design](docs/translation-runner.md); it is not implemented yet.
 For local source automation, read the

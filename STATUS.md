@@ -4,6 +4,19 @@ Last updated: **2026-10-18** (against the public GitHub repository and actual
 GitHub Actions results). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
 
+## Local relay adapter — 2026-10-23
+
+`./ctp relay-package` and `./ctp relay-import` now prepare explicit translation
+packages and validate returned results as drafts, with Markdown glossaries,
+stale-input guards, preserved attempts and generation provenance. See
+[relay usage](docs/chatgpt-relay.md). This is a browser-relay alternative to the
+still-unimplemented CLI translation launcher. No live translation job was submitted
+or imported while implementing it; it adds no scheduler or publication approval.
+Validation passed locally: 126 Python tests (including 16 relay adapter tests),
+19 JavaScript checks, `./ctp validate` and `./ctp build --demo --epub`. These
+are offline/software checks, not a browser translation or deployment test.
+The repository/service observations below retain their stated verification dates.
+
 ## Repository and live services
 
 - Canonical repository: <https://github.com/the-classics-translation-project/library>

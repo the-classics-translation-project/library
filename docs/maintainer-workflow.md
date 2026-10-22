@@ -91,6 +91,14 @@ The publishing helper only establishes/uploads this repository and requests site
 builds. It cannot make the translation commercially ready. Check workflow results
 rather than treating a push or dispatch as successful deployment.
 
+## Local ChatGPT relay packages
+
+Use `./ctp relay-package` and `./ctp relay-import` for explicitly requested bounded
+translation jobs through the existing local browser relay. See
+[relay usage](chatgpt-relay.md) for package selection, submission, Markdown
+glossaries, result validation and provenance. Packaging alone does not submit.
+The adapter has offline tests; a real translation trial remains unverified.
+
 ## Local CLI translation launcher (planned, not available yet)
 
 The preferred implementation environment is a **local Work/Codex agent** operating

@@ -12,6 +12,15 @@ Admin display. That local coordinator may need broad bibliographic and source
 context. It is NOT the fresh-context literary translation worker specified
 below. Do not make the initial source automation translate any text.
 
+## Browser relay alternative
+
+The project now has an offline package/import adapter for the separate local
+ChatGPT browser relay: see [relay usage](chatgpt-relay.md). It implements explicit
+job inputs, result checks and draft provenance, using ordinary Chat conversations
+instead of the CLI session mechanism proposed here. It has offline fixture tests;
+no live translation trial through this adapter has been performed. The CLI launcher
+below remains unimplemented.
+
 ## Responsibility boundary
 
 A **coordinating agent** can retain full repository context: `AGENTS.md`,

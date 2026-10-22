@@ -94,3 +94,12 @@ revisions/     immutable frozen examples and future literary snapshots
 No blanket license has been selected for code or new editorial material.
 The repository is public, but that is not an authorization to distribute
 new translations or to submit anything to KDP.
+
+## Local translation through ChatGPT relay
+
+Prepare a bounded ZIP with `./ctp relay-package`, then validate and save its returned
+result with `./ctp relay-import`. The adapter supports Markdown glossaries and
+captures exact submitted context in generation records. Packaging does not submit
+or publish. See [relay usage](docs/chatgpt-relay.md) for the existing local relay,
+commands, result contract and recovery. Offline tests cover this adapter; a live
+translation trial remains outstanding.

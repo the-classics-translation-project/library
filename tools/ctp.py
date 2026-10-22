@@ -207,7 +207,8 @@ def validate_run(run: dict, root: Path | None = None) -> None:
     # Historical output hashes do not have to match the current editable file.
 
 def record_run(root: Path, work_id: str, edition_id: str, model: str, interface: str,
-               operation: str, prompts: list[Path], extra: str, output: list[Path]) -> Path:
+               operation: str, prompts: list[Path], extra: str, output: list[Path],
+               *, captured_inputs: list[dict] | None = None) -> Path:
     from datetime import datetime, timezone
     from uuid import uuid4
     ident(work_id); ident(edition_id)
@@ -220,8 +221,8 @@ def record_run(root: Path, work_id: str, edition_id: str, model: str, interface:
         return {'path':path.relative_to(root).as_posix(),'sha256':digest(text.encode()),'text':text}
     captured_prompts = [capture(p) for p in prompts]
     if extra: captured_prompts.append({'path':'session-instructions','text':extra,'sha256':digest(extra.encode())})
-    note_paths = [root/'docs/editorial-policy.md',workdir/'notes.md',eddir/'notes.md']
-    inputs = [capture(p) for p in note_paths if p.exists()]
+    note_paths = [root/'docs/editorial-policy.md',workdir/'notes.md',eddir/'notes.md',eddir/'glossary.md']
+    inputs = captured_inputs if captured_inputs is not None else [capture(p) for p in note_paths if p.exists()]
     outputs = []
     for path in output:
         path = path.resolve(); check(path.is_relative_to(eddir.resolve()), 'Output must be inside this edition')
@@ -308,9 +309,23 @@ def main() -> int:
     p=sub.add_parser('intake'); p.add_argument('--issues',type=Path); p.add_argument('--github',action='store_true')
     p=sub.add_parser('task'); p.add_argument('--output',type=Path,default=ROOT/'build/next-task.md')
     p=sub.add_parser('record-run'); p.add_argument('work'); p.add_argument('edition'); p.add_argument('--model',required=True); p.add_argument('--interface',default='chatgpt'); p.add_argument('--operation',default='translation'); p.add_argument('--prompt',type=Path,action='append',required=True); p.add_argument('--instructions',default=''); p.add_argument('--output',type=Path,action='append',required=True)
+    p=sub.add_parser('relay-package', help='Prepare a local ZIP; never submit')
+    p.add_argument('work'); p.add_argument('edition'); p.add_argument('--node', action='append', required=True)
+    p.add_argument('--context-node', action='append', default=[]); p.add_argument('--model', required=True)
+    p.add_argument('--language'); p.add_argument('--direction', choices=['ltr','rtl'], default='ltr')
+    p.add_argument('--kind', choices=['translation','modernization'], default='translation')
+    p=sub.add_parser('relay-import', help='Validate and import one returned ZIP as a draft')
+    p.add_argument('attempt'); p.add_argument('result', type=Path)
+    p.add_argument('--observed-model', default='unknown'); p.add_argument('--chat-url')
     args=parser.parse_args()
     try:
         if args.command=='validate': result=validate_project()
+        elif args.command=='relay-package':
+            from translation_relay import package
+            result=package(ROOT,args.work,args.edition,args.node,args.model,args.language,args.direction,args.kind,args.context_node)
+        elif args.command=='relay-import':
+            from translation_relay import import_result
+            result=import_result(ROOT,args.attempt,args.result,args.observed_model,args.chat_url)
         elif args.command=='snapshot':
             rev,path=freeze(args.work_directory,args.edition_id); result={'revision':rev,'path':str(path),'published':False}
         elif args.command=='build': result={'built':str(build(demo=args.demo,epub=args.epub)),'deployed':False}

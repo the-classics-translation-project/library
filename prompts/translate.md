@@ -1,6 +1,8 @@
 # Translate or modernize
 
-Read the short editorial policy and this work's and target edition's notes.
+Read the short editorial policy and this work's and target edition's notes,
+plus the edition's Markdown glossary when present. Treat tentative glossary
+entries as suggestions, not automatically as binding decisions.
 Imagine the original author born as a contemporary speaker of the target
 language and becoming a novelist: how might they have written this work?
 

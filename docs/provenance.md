@@ -6,7 +6,9 @@ Project guidance lives in `docs/editorial-policy.md` and related operating docum
 `books/<work>/notes.md` holds source-specific findings: characters, voices, uncertain
 readings, narrative context and issues shared by target languages.
 `books/<work>/editions/<edition>/notes.md` holds target-language decisions: names,
-forms of address, register and useful criticism from earlier versions.
+forms of address, register and useful criticism from earlier versions. An optional
+`glossary.md` beside edition notes holds organized, human-readable terminology;
+`record-run` captures it when present.
 
 Use **Decisions**, **Observations**, and **Open questions** rather than presenting
 all notes as established facts. Cite source locations, reports and relevant
@@ -98,3 +100,14 @@ run is not a completed translation or editorial approval.
 This launcher and its CLI-specific metadata capture are **not yet implemented**.
 For the proposed execution contract and local smoke tests, see
 [translation runner design](translation-runner.md).
+
+## Browser relay generation
+
+`relay-import` uses `record_run` with the exact archived package inputs instead of
+recapturing current policy/notes. It includes submitted source/context, glossary,
+manifest and the short relay submission message. The requested model is separate
+from the observed model label (default `unknown`); an internal model snapshot
+remains unknown. The result ZIP and request ZIP are retained under the edition's
+`relay/<attempt>/` directory with hashes in the run. See [relay usage](chatgpt-relay.md).
+Glossaries are Markdown editorial memory; proposed returned notes do not replace
+adopted decisions. Structural import success is not human review or publication.

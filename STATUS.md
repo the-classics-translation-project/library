@@ -1,8 +1,28 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-21** (against the public GitHub repository and actual
+Last updated: **2026-10-24** (against the public GitHub repository and actual
 GitHub Actions results). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
+
+## Ordered translation materials — planned, not implemented
+
+The current design direction is an **ordered transfer-list (dual-listbox) UI**
+for composing translation requests from versioned Markdown/text materials.
+The **Available** pool is filtered by general, target-language, work and
+work+target scope; the **Applied** pool is ordered, user-editable, and may start
+with suggested but removable guides. Materials distinguish **instructions**
+from **reference documents** (glossaries, character guides, terminology).
+A complete preview of resolved input is required before relay submission,
+including selected source and a proposed fixed final output contract.
+
+A shared material discovery/assembly layer should eventually serve **both**
+the Issue-based translation ZIP workflow and the direct browser-relay adapter.
+Their current prompt/reference storage and ZIP return contracts **still differ**.
+A unified output format (possibly JSON metadata plus Markdown body files)
+remains to be chosen and tested. No new UI, prompt assembler, automatic guide
+registration or return format was implemented by this documentation update.
+See [full design/implementation brief](docs/translation-materials-design.md).
+Do not mistake this direction for completed functionality.
 
 ## Local relay adapter — 2026-10-23
 
@@ -155,12 +175,13 @@ the same thing as published books.
 2. **Observe scheduled source preparation:** confirm a later interval tick and
    login/sleep/restart recovery. The first installed `RunAtLoad` tick passed,
    but no scheduled model invocation has been needed yet.
-3. Exercise the new **node-level translation Issue → ZIP exchange → draft import**
-   path using the existing local ChatGPT relay; see
-   [docs/translation-zip-workflow.md](docs/translation-zip-workflow.md).
-   Choose target language, prompt, scope and optional previous-translation reference.
-   Use guide ZIPs for whole-work terminology analysis before translation.
-   The separate unattended CLI translator remains an optional later milestone.
+3. Exercise an actual guide/translation ZIP round trip (Issue #12 is the
+   first accepted Wells/Japanese guide request) and then use the results to
+   develop the **shared scoped-material library and ordered two-pool UI** in
+   [docs/translation-materials-design.md](docs/translation-materials-design.md).
+   Keep the current Issue-based and direct browser-relay ZIP formats working
+   until a tested compatible output contract replaces them. The separate
+   unattended CLI translator remains optional.
 4. Inspect Admin/workbench/EPUB on intended browsers. No draft should be promoted
    without explicit approval.
 

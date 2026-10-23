@@ -44,6 +44,24 @@ produces a bounded agent instruction, not a claim that an agent has been schedul
 `tools/acquire_queue.py` and `tools/source_rights.py` run the separately approved,
 conservative Gutenberg US/Japan source-admission checks without calling a model.
 
+## Planned unified translation-material layer (design only)
+
+Two translation exchange paths currently coexist: authorized Issue requests
+(`translation-export` / `translation-import`) and direct bounded browser
+relay jobs (`relay-package` / `relay-import`). They package references and
+returned prose differently, including separate Markdown-glossary storage.
+
+The [ordered materials design](translation-materials-design.md) proposes one
+shared source of truth for discovered, versioned instructions and references,
+filtered by general, target language, work and work+target language. A
+reorderable two-pool Admin composer and deterministic assembler would produce
+the exact resolved input and preview for either request path. Generated
+whole-work guides become discoverable *references*; selected output-contract
+instructions remain non-removable protocol mechanics. An eventual canonical
+return ZIP must be selected after real experiments and preserve legacy
+compatibility. **This paragraph describes future software, not present
+capabilities.**
+
 ## Build versus release
 
 Building is local and deterministic except for artifact timestamps and optional
@@ -68,16 +86,15 @@ do a bounded task, validate and commit. Its availability, budget and permissions
 must be configured separately; ordinary GitHub Actions does not grant subscription
 model capacity. Keep API orchestration optional.
 
-**Near-term owner-selected automation design (not yet implemented):**
-[local source-preparation worker](local-source-automation.md). A macOS per-user
-`launchd` job periodically performs a deterministic no-op check. Only when
-there is an unfinished, actionable source task does a local Codex process
-investigate an unresolved copyright-evidence hold or structure an already
-admitted source. The trusted wrapper locks, creates a Git worktree, validates
-and publishes allowed changes; GitHub Pages can then show an expandable
-source tree in Admin. The previously written
-[translation runner design](translation-runner.md) applies to a *later*
-node-level translation stage, not this source-preparation worker.
+**Implemented source-preparation automation:** The
+[local source-preparation worker](local-source-automation.md) uses a per-user
+macOS `launchd` job for deterministic idle checks, with a bounded Codex step
+only for actionable source research/structure. It has structured the two
+admitted Gutenberg works and published their source trees; its initial
+installed idle tick completed successfully. Further interval/sleep/restart
+verification is still open (see [STATUS.md](../STATUS.md)).
+The separate [translation runner proposal](translation-runner.md) remains
+optional and should not be confused with the existing direct browser relay.
 `launchd` installation and Codex authentication are local owner actions,
 never automatic effects of a GitHub commit.
 

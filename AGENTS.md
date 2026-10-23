@@ -15,6 +15,15 @@ For source work, read [source import](docs/source-import.md) and
 [source structure](docs/source-structure.md). For generation, read
 [provenance](docs/provenance.md). For UI/data changes, read
 [data formats](docs/data-formats.md) and [contributor workflow](docs/contributor-workflow.md).
+For the **proposed** next translation-selection design, read
+[ordered translation materials](docs/translation-materials-design.md) before
+changing Admin prompt selection, guide discovery or ZIP formats. It describes
+four applicability scopes; a removable, reorderable dual-listbox material stack;
+a full assembled-input preview; and a recommended protocol-owned final output
+contract. **This is design only**: today's two ZIP protocols and their storage
+remain separate. Keep historical requests replayable and do not silently
+expose unapproved drafts in public Pages.
+
 For local ChatGPT relay packaging/import, read [relay usage](docs/chatgpt-relay.md).
 The adapter is implemented with offline tests; live translation remains unverified.
 Read the edition Markdown glossary when present.

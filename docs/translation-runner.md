@@ -16,6 +16,16 @@ Admin display. That local coordinator may need broad bibliographic and source
 context. It is NOT the fresh-context literary translation worker specified
 below. Do not make the initial source automation translate any text.
 
+## Planned ordered-material assembler (separate from this launcher)
+
+The next proposed editorial interface is an [ordered translation-materials
+library and two-pool UI](translation-materials-design.md), including scoped
+instructions/references, human and generated glossaries, stable version
+pinning and an inspectable final input. It should eventually feed **both**
+existing ZIP workflows independently of whether an optional CLI launcher
+is ever implemented. This is a planned input/UX layer, not proof of a
+running translation model or a finalized return protocol.
+
 ## Browser relay alternative
 
 The project now has an offline package/import adapter for the separate local

@@ -5,6 +5,23 @@
 exported ZIP files using their existing local ChatGPT relay, then imports
 the returned ZIP. GitHub Pages/Issues do not execute arbitrary AI requests.
 
+## Planned shared prompt/reference selection (not implemented)
+
+The current Issue-based translation form selects **one translation recipe**
+and a coarse previous-reference setting; the ZIP importer uses its existing
+`response.json` protocol. A proposed replacement uses **two pools**:
+all applicable materials (general, target language, work, work+target language)
+and a **user-ordered Applied** list. Versioned instruction and reference
+documents—including generated Markdown guides—would be freely added,
+removed and reordered, with full assembled-input preview and a separate
+protocol-owned final output contract.
+
+The full proposal, including reconciliation with the currently different
+`relay-package` / `relay-import` ZIP return contract, is in
+[ordered translation materials](translation-materials-design.md).
+These changes are **not yet implemented**; the commands and formats below
+remain current.
+
 ## End-to-end workflow
 
 1. Add or revise a Markdown translation recipe under

@@ -168,3 +168,29 @@ See [local source automation](local-source-automation.md).
 Translation requests and fresh-context translation invocation remain later
 milestones. The user's permission to pursue local automation is not a blanket
 license to discard rights safeguards or publish reader editions.
+
+## 2026-10-24 — Scoped, ordered translation materials (design direction)
+
+Use **one material library** for general, target-language, work and work+target
+scope. Distinguish *instructions* from *reference documents*, including
+generated work references and language-specific terminology guides. Keep them
+as human-editable Git-versioned Markdown/text and use only minimal variable
+substitution; do not impose a per-term machine-readable glossary schema.
+The public Admin UI should offer **Available** and **Applied** pools, with the
+Applied list explicitly ordered. Applicable work/target materials can be
+suggested by default but every editorial selection remains removable and
+reorderable. Show the *complete resolved assembled input* before handing it
+to the local relay, with public-site safety for unapproved drafts. Pins must
+record material identities, versions and order.
+
+**Recommended, not yet finally settled:** append a fixed, non-removable
+output-protocol contract last, outside the editorial pool. The precise
+canonical return ZIP (possibly JSON metadata plus separate Markdown bodies)
+is still open. Currently `translation-export` and `relay-package` have
+different return contracts and glossary stores; a single assembler and
+compatible migration should ultimately serve both, rather than adding yet
+another parallel workflow.
+
+**Status:** discussion/design only, not an implemented material registry,
+two-pool UI, combined prompt preview or changed ZIP format. See
+[translation materials design](translation-materials-design.md).

@@ -7,6 +7,10 @@ handles browser submission and download. Its README and RUNBOOK are the authorit
 for its operation. This adapter does not require a model API or a CLI translation
 worker. A direct interactive agent session remains an equally valid workflow.
 
+## Proposed project-owned task types (not yet implemented)
+
+The intended operations are `work_analysis`, `target_guide`, and `translation`, all transported through the existing external ChatGPT ZIP relay. Only the current direct bounded translation adapter is implemented here; legacy `guide-export` combines the first two editorial products in one task. The separate templates in `prompts/work-analysis.md` and `prompts/target-language-guide.md` are preparatory, not runnable new ZIP contracts. See [task model](relay-task-model.md). Planning pending guide tasks must not itself authorize moving ZIPs into the watched relay input directory.
+
 ## Proposed shared material composer (not yet implemented)
 
 The owner has selected a design direction for a Git-versioned material

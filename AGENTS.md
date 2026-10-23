@@ -18,8 +18,21 @@ For source work, read [source import](docs/source-import.md) and
 For local ChatGPT relay packaging/import, read [relay usage](docs/chatgpt-relay.md).
 The adapter is implemented with offline tests; live translation remains unverified.
 Read the edition Markdown glossary when present.
-For a proposed **local CLI translation launcher**, read
-[translation runner design](docs/translation-runner.md); it is not implemented yet.
+
+For local ZIP-based translation and whole-work guide exchange, read
+[docs/translation-zip-workflow.md](docs/translation-zip-workflow.md).
+The Admin whole-work guide control prepares a separately authorized GitHub
+Issue; the deterministic guide queue and Issue-bound ZIP flow use
+`guide-requests.json` and `guide-results/`. The guide prompt is
+`prompts/whole-work-guide.md` and is pinned when the Issue is accepted.
+Preserve the two guides as readable, reasonably organized Markdown;
+**do not introduce a rigid term schema or pretend the guide is exhaustive**.
+The repository has strict Issue intake, selectable versioned prompt recipes,
+node-level Admin request controls and ZIP export/import commands. The owner's
+existing external ZIP-to-ChatGPT relay performs the AI processing; this repo
+does not launch an unattended translation model or publish new text implicitly.
+For a separate proposed **local CLI translation launcher**, see
+[translation runner design](docs/translation-runner.md); it is still optional.
 For local source automation, read the
 [automated source-preparation brief](docs/local-source-automation.md).
 The deterministic worker, launchd installation helper, guarded Codex execution,

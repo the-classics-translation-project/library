@@ -38,16 +38,24 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: ./ctp intake --github
+      - name: Parse authorized translation requests and pin their prompts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ./ctp translation-intake --github
+      - name: Parse authorized whole-work guide requests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ./ctp guide-intake --github
       - run: ./ctp validate
-      - name: Commit only the queue; never execute Issue prose
+      - name: Commit only the queues; never execute Issue prose
         id: save
         run: |
-          if git diff --quiet -- queue.json; then
+          if git diff --quiet -- queue.json translation-requests.json guide-requests.json; then
             echo 'changed=false' >> "$GITHUB_OUTPUT"
           else
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add -- queue.json
+            git add -- queue.json translation-requests.json guide-requests.json
             git commit -m 'Import authorized work requests'
             git push origin HEAD:main
             echo 'changed=true' >> "$GITHUB_OUTPUT"

@@ -1,6 +1,6 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-18** (against the public GitHub repository and actual
+Last updated: **2026-10-21** (against the public GitHub repository and actual
 GitHub Actions results). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
 
@@ -26,8 +26,8 @@ The repository/service observations below retain their stated verification dates
   Reader catalogue, contributor workbench and administrator intake interface
   are generated separately; Admin is at
   <https://the-classics-translation-project.github.io/library/admin/>.
-- GitHub Actions **validation/build** and **Pages deployment** succeeded for the
-  latest source-tree commit `b787dc9`:
+- GitHub Actions **validation/build** and **Pages deployment** succeeded for
+  source-tree commit `b787dc9`:
   [validation run 39051177283](https://github.com/the-classics-translation-project/library/actions/runs/39051177283)
   and [deployment run 39051177252](https://github.com/the-classics-translation-project/library/actions/runs/39051177252).
   A direct read of the live Admin HTML confirmed both trees in its embedded
@@ -155,9 +155,12 @@ the same thing as published books.
 2. **Observe scheduled source preparation:** confirm a later interval tick and
    login/sleep/restart recovery. The first installed `RunAtLoad` tick passed,
    but no scheduled model invocation has been needed yet.
-3. Implement future **node-level translation request Issues** and the separate
-   fresh-context translation launcher, following
-   [docs/translation-runner.md](docs/translation-runner.md).
+3. Exercise the new **node-level translation Issue → ZIP exchange → draft import**
+   path using the existing local ChatGPT relay; see
+   [docs/translation-zip-workflow.md](docs/translation-zip-workflow.md).
+   Choose target language, prompt, scope and optional previous-translation reference.
+   Use guide ZIPs for whole-work terminology analysis before translation.
+   The separate unattended CLI translator remains an optional later milestone.
 4. Inspect Admin/workbench/EPUB on intended browsers. No draft should be promoted
    without explicit approval.
 
@@ -232,3 +235,51 @@ model call. A 30-minute interval is configured; subsequent timed ticks and
 headless Codex execution have not yet been observed.
 The public Admin page serves both trees in its embedded data, but its actual
 expand/collapse interaction has not been verified in a real browser.
+
+## ZIP-based translation requests and work guides — implementation
+
+The repository-side workflow adds selectable templates in
+`prompts/translation/`, node-level translation requests in Admin, a
+strict maintainer-authorized GitHub Issue parser, an immutable
+`translation-requests.json` queue, and `./ctp translation-export` /
+`./ctp translation-import` commands. A whole-work preparation task uses
+`./ctp guide-export` / `./ctp guide-import`; guide versions are retained
+by SHA-256. The CLI builds a self-contained README/manifest/source ZIP
+for the owner's existing local ChatGPT relay and imports an exact-coverage
+response ZIP. A successful translation import creates a draft, captures the
+actual expanded prompt and model label, preserves snapshots and tracks an
+idempotent result. No model execution or automatic distribution is involved.
+
+Admin displays current draft field coverage, allows retranslating translated
+nodes and loads **only explicitly approved** historical snapshots for viewing.
+Unapproved prose is retained in Git but is not automatically exposed on public
+Pages. The Issue UI merely prepares a GitHub form: clicking it does not submit
+an Issue. [Operating guide](docs/translation-zip-workflow.md).
+
+This is mechanical functionality, **not evidence that an actual novel has
+been translated or that the external ZIP relay has been integrated into CI**.
+Existing source-work LaunchAgent behavior is unchanged.
+
+## Whole-work glossary requests — Markdown guides with Issue handling
+
+Admin can now prepare separate work-level glossary/translation-guide requests
+for a target language, showing whether versioned guides are saved. The
+authorized GitHub intake workflow records accepted requests in
+`guide-requests.json` with pinned instructions from
+`prompts/whole-work-guide.md`. Local `guide-pending` and
+`guide-export --issue N` commands produce input ZIPs for the existing
+external ChatGPT relay; `guide-import` validates responses and records
+idempotent receipts under `guide-results/`. The earlier direct
+`guide-export WORK TARGET` command remains valid.
+
+The guide documents are **free-form, moderately organized Markdown**: the
+model is encouraged to distinguish confirmed decisions from tentative
+suggestions and document contextual alternatives, without a machine-readable
+term-by-term schema. Both source-level and target-specific guides retain
+content-addressed history. The Admin manifest shows their existence only;
+it does not expose their text. No automatic model call, claimed human review,
+or literary publication is involved.
+
+This workflow has new automated tests for authorized intake, prompt pinning,
+ZIP import, regeneration/history and Admin status. Real-browser checks and
+processing a real literary guide through the external relay remain to be done.

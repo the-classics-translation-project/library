@@ -172,6 +172,7 @@ class SourceWorkerTests(unittest.TestCase):
         self.fake_agent(self.root, {'work': 'gutenberg-999'}, self.base / 'fake-run')
         (self.root / 'site').mkdir()
         shutil.copy(ctp.ROOT / 'site/admin.js', self.root / 'site/admin.js')
+        shutil.copy(ctp.ROOT / 'site/translation-admin.js', self.root / 'site/translation-admin.js')
         html = site_builder.admin(self.root, ctp.read_json(self.root / 'project.json'), '')
         payload = re.search(r'<script id="admin-data" type="application/json">(.*?)</script>',
                             html, re.S).group(1)

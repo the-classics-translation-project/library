@@ -54,15 +54,15 @@ exempted ancillary lines remain in exact acquired bytes.
 
 See [automatic rights policy](automatic-source-rights.md).
 
-## Source work and tree (schema 2)## Proposed source-tree view in Admin (not implemented)
+## Source-tree view in Admin
 
-A future static Admin manifest will be derived exclusively from the validated
+The static Admin manifest is derived exclusively from the validated
 `work.json` and `structure.json` of admitted, structured queued works, with
 source IDs, opaque node IDs, optional labels, ordered children and accurate
 status. It must not invent fixed chapters or expose unapproved translated
 content. It is distinct from the `catalog.json` reader distribution allowlist.
-See [local source-preparation brief](local-source-automation.md). No change to
-existing source-tree or Issue-request schemas is needed for this first viewer.
+See [local source-preparation brief](local-source-automation.md). Its source-tree
+manifest uses existing source IDs and has no dependency on the reader catalogue.
 
 ## Source work and tree (schema 2)
 
@@ -130,3 +130,48 @@ Successful imports retain per-attempt evidence under the edition's `relay/`
 directory and append an ordinary schema-1 generation record. `glossary.md` is
 plain Markdown with no required machine-readable schema. No queue, catalogue,
 source-tree or frozen-revision schema changes are introduced.
+
+## Translation request and ZIP exchange (schema 1)
+
+`translation-requests.json` is the immutable, maintainer-authorized Issue
+queue. Each accepted entry preserves the exact versioned recipe text and
+request body hash. The request contains work ID, target language, selected
+source node IDs (a parent includes its entire subtree), exact source fingerprint,
+prompt ID/sha256, translation scope (`all` or `missing`),
+reference setting (`none`, `notes`, or `text` with a frozen revision),
+and bounded optional instructions.
+
+`translation-export` produces a README, `input/job.json` with exact source
+fields and fully expanded prompt/context, and `input/manifest.json` with a
+SHA-256 job identity and expected translated fields. The relay must return a
+ZIP containing only `response.json` with the matching job hash, displayed
+model label and exactly those translated node fields. The importer validates,
+records a provenance run and creates an immutable edition snapshot. Each
+`translation-results/issue-N.json` prevents conflicting re-imports.
+Guide jobs similarly exchange one `response.json` and retain content-addressed
+work-level and target-level Markdown guides under `reference/`.
+See [translation ZIP workflow](translation-zip-workflow.md).
+
+## Whole-work guide requests and flexible Markdown output
+
+A guide Issue uses `ctp:guide-request:v1`, a JSON envelope with schema version,
+canonical work ID, target language, source fingerprint, and the SHA-256 of
+`prompts/whole-work-guide.md`. The maintainer-authorized, immutable request
+queue is `guide-requests.json`. Its accepted entries include the pinned
+prompt text and original Issue body hash; a changed prompt cannot silently
+change an already accepted task.
+
+An Issue-bound guide ZIP contains `README.md`, `input/job.json` and
+`input/manifest.json`. The return ZIP contains only `response.json` with
+schema/kind, work, target, Issue number, job hash, exposed model label and
+two nonempty Markdown strings (`work_guide` and `target_guide`). The JSON is
+merely a safe transport format. **No table columns, record keys or term-level
+schema are required within either Markdown document.**
+
+Imported guide versions are saved as SHA-256-named Markdown files, with
+`reference/current.json` pointers, a guide generation record, and
+`guide-results/issue-N.json` to guard against conflicting re-imports.
+The Admin manifest displays only boolean saved-guide status per work
+and target; it does not embed glossary prose. Ordinary translations may
+include these Markdown guides as contextual notes, never as mechanically
+enforced substitutions.

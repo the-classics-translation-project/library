@@ -7,6 +7,18 @@ handles browser submission and download. Its README and RUNBOOK are the authorit
 for its operation. This adapter does not require a model API or a CLI translation
 worker. A direct interactive agent session remains an equally valid workflow.
 
+## Choose the matching workflow
+
+This direct, owner-requested adapter coexists with the Issue-bound
+[translation and whole-work guide workflow](translation-zip-workflow.md).
+Use `translation-export`/`translation-import` or `guide-export`/`guide-import`
+for accepted Issues. Use `relay-package`/`relay-import` for direct bounded jobs.
+Their ZIP contracts differ and are not interchangeable. In this adapter `--node`
+selects only the node's own fields; Issue requests expand selected subtrees.
+This adapter reads edition `glossary.md`; the Issue workflow uses its saved
+work/target guides under `reference/`. Neither path automatically synchronizes
+those editorial references with the other.
+
 ## Prepare a job
 
 Inspect the work's `structure.json`, notes and editorial policy first. Select

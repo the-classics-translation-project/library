@@ -103,3 +103,47 @@ captures exact submitted context in generation records. Packaging does not submi
 or publish. See [relay usage](docs/chatgpt-relay.md) for the existing local relay,
 commands, result contract and recovery. Offline tests cover this adapter; a live
 translation trial remains outstanding.
+
+## Translation requests and ZIP exchange
+
+The [Admin page](https://the-classics-translation-project.github.io/library/admin/)
+also supports selecting source nodes for translation and retranslation,
+choosing a Git-versioned translation recipe and specifying whether to
+include notes or an earlier frozen translation. The generated Issue is
+registered only when submitted on GitHub by an authorized maintainer.
+
+The repository's deterministic ZIP tools work with the owner's existing
+ChatGPT ZIP relay; they do not make AI calls:
+
+```sh
+./ctp translation-pending
+./ctp translation-export 123 --output build/translation-123.zip
+./ctp translation-import build/return-123.zip
+./ctp guide-export gutenberg-36 ja --output build/guide-ja.zip
+./ctp guide-import build/guide-ja-return.zip
+```
+
+Replace `123` with an accepted translation Issue number. Translation
+imports remain drafts, with revision history preserved and no publication.
+For schemas and safety constraints, see
+[translation ZIP workflow](docs/translation-zip-workflow.md).
+
+### Whole-work translation guides
+
+Admin also has a **Whole-work glossary and translation guide** request
+control. Choose the work and target language, submit its GitHub Issue, then
+process a ZIP via the existing local relay:
+
+```sh
+./ctp guide-pending
+./ctp guide-export --issue 123 --output build/guide-123.zip
+./ctp guide-import build/guide-123-return.zip
+```
+
+The guide prompt is ordinary Git-versioned Markdown at
+`prompts/whole-work-guide.md`. Resulting work-wide references and
+target-language terminology guidance are **organized Markdown, not a
+structured term database**. The output ZIP has a strict outer schema
+only so it can be imported safely. Earlier guide versions are preserved;
+repeating a request does not publish text or invoke a model in the repo.
+See [ZIP workflow](docs/translation-zip-workflow.md).

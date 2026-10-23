@@ -175,3 +175,21 @@ The Admin manifest displays only boolean saved-guide status per work
 and target; it does not embed glossary prose. Ordinary translations may
 include these Markdown guides as contextual notes, never as mechanically
 enforced substitutions.
+
+## Ordered translation-materials contract (proposed only)
+
+The [ordered materials design](translation-materials-design.md) proposes an
+additional *logical* document library over existing Markdown/text files
+and current content-addressed guides. Each material would have a stable
+logical identity, type (`instruction` or `reference`), one of four
+applicability scopes (general, target, work, work+target), optional tags,
+and an immutable version/content fingerprint. Selection data is an
+**ordered array of pinned material references**, not a set or mutable
+default list. At acceptance, preserve the exact content and assembly order;
+record the fully resolved input and output-contract version at execution.
+
+This is **not a new current schema**. No paths, manifest layout, migration,
+new Issue fields or canonical ZIP output files are finalized. Existing
+`translation-requests.json`, direct relay ZIPs, content-hashed guides and
+`record-run` records retain their actual formats until a compatible
+implementation is validated.

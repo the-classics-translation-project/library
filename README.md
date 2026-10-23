@@ -55,9 +55,13 @@ live worker run published #41445. CI and Pages passed, and the live Admin
 manifest serves both trees. The expandable tree still needs a real browser
 interaction check.
 
-A later milestone will let the owner check individual nodes in Admin, file
-translation-request Issues and run separate fresh-context local translation
-sessions. See [translation runner design](docs/translation-runner.md).
+Admin already supports selecting source-tree nodes and preparing translation
+and guide GitHub Issues. A **proposed next milestone** will replace its
+single-translation-recipe selector with a scoped library and an **ordered
+two-pool material composer**, eventually shared by the two local ZIP flows.
+See [ordered translation materials design](docs/translation-materials-design.md)
+and [translation runner proposal](docs/translation-runner.md) for separate
+automation ideas.
 
 The ordered source tree has mechanically allocated, stable opaque IDs, optional
 labels and body text on nodes, and arbitrary children; there is no mandatory
@@ -147,3 +151,18 @@ structured term database**. The output ZIP has a strict outer schema
 only so it can be imported safely. Earlier guide versions are preserved;
 repeating a request does not publish text or invoke a model in the repo.
 See [ZIP workflow](docs/translation-zip-workflow.md).
+
+## Planned ordered translation-material library
+
+The [ordered translation materials design](docs/translation-materials-design.md)
+records the next proposed interface: an **Available** pool of Git-versioned
+general, target-language, work and work+target Markdown instructions/references,
+plus an **Applied** pool in user-selected order. Work-specific character
+guides and target-language glossaries may be suggested initially but remain
+removable. A complete resolved-input preview and a fixed final output contract
+would feed a shared assembler for both the Issue ZIP and direct relay paths.
+
+**Design only:** the existing single-recipe Admin UI and two different ZIP
+contracts are still implemented as documented. No new selection UI, material
+registry, canonical return ZIP format or relay invocation was added by this
+documentation change.

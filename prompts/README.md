@@ -34,3 +34,18 @@ Markdown**, with optional headings, lists, tables and free-form
 explanations. A rigid entry schema is explicitly not required.
 The ZIP importer validates only the outer response envelope, not glossary
 row structure. See [ZIP guide workflow](../docs/translation-zip-workflow.md).
+
+## Planned material library (not yet implemented)
+
+See [ordered translation materials](../docs/translation-materials-design.md).
+A future shared library should discover human-edited and generated
+instructions/**reference** documents by general, target-language, work and
+work+target scope, with optional tags. The Admin composer would move
+documents between Available and user-ordered Applied pools, permit removing
+suggested defaults, and show the complete resolved prompt and a fixed
+output contract. Git remains the editor and version history.
+
+**Current implementation:** only the flat `translation/` recipe catalogue,
+work/target `reference/` guides, and the separate direct-relay
+`glossary.md` behavior described above exist. There is no new
+four-scope registry or dual-listbox yet.

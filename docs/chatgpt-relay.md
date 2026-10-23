@@ -7,6 +7,24 @@ handles browser submission and download. Its README and RUNBOOK are the authorit
 for its operation. This adapter does not require a model API or a CLI translation
 worker. A direct interactive agent session remains an equally valid workflow.
 
+## Proposed shared material composer (not yet implemented)
+
+The owner has selected a design direction for a Git-versioned material
+library: general, target-language, work and work+target documents; two
+transfer-list pools; an ordered, removable Applied stack; and a complete
+assembled-input preview. Generated Markdown guides would be available as
+reference documents alongside human-authored instructions. A mandatory
+output contract would remain under the control of the ZIP importer. See
+[ordered translation materials](translation-materials-design.md) for the
+complete proposal, scope/filter rules, provenance and unresolved output format.
+
+**Current behavior is unchanged.** This direct relay still packages
+`editions/<edition>/glossary.md` and expects `result.json` and separate
+Markdown files. The Issue-based ZIP path uses content-addressed work/target
+`reference/` guides and a different `response.json` format. They are not
+interchangeable. Do not infer that the proposed material composition, preview
+or protocol unification is implemented yet.
+
 ## Choose the matching workflow
 
 This direct, owner-requested adapter coexists with the Issue-bound

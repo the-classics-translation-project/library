@@ -4,6 +4,10 @@ Last updated: **2026-10-24** (against the public GitHub repository and actual
 GitHub Actions results). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
 
+## Three ChatGPT task types — documented, not executed
+
+The proposed project-owned task types are `work_analysis`, `target_guide` and `translation`; `chatgpt-relay` remains a ZIP submission/download transport. See [task model](docs/relay-task-model.md) and separate versioned `prompts/work-analysis.md` / `prompts/target-language-guide.md`. The existing combined guide ZIP operation, accepted Issue #12, and both current translation adapters remain unchanged. Automatic *discovery* on source/target addition is proposed, but no task planner, new task-type ZIP handler or auto-submission scheduler was implemented in this branch. Real round-trip verification remains necessary.
+
 ## Ordered translation materials — planned, not implemented
 
 The current design direction is an **ordered transfer-list (dual-listbox) UI**

@@ -9,6 +9,8 @@ Current implemented commands and formats remain authoritative in
 [translation ZIP workflow](translation-zip-workflow.md) and
 [local browser relay usage](chatgpt-relay.md).
 
+The complementary [three-type task model](relay-task-model.md) distinguishes original-work analysis, target-language guide generation and translation. The shared material selector is to serve all three, with operation-specific mandatory output contracts; the existing combined guide operation stays available for historical compatibility.
+
 ## Goal and mental model
 
 A translation task is defined by:

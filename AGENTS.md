@@ -24,6 +24,7 @@ contract. **This is design only**: today's two ZIP protocols and their storage
 remain separate. Keep historical requests replayable and do not silently
 expose unapproved drafts in public Pages.
 
+For the proposed three relay task types (work analysis, target-language guide and translation), read [the relay task model](docs/relay-task-model.md). Its standalone guide prompts are versioned but not yet wired to new ZIP importers; preserve accepted combined-guide Issue requests and require explicit owner authorization before relay submission.
 For local ChatGPT relay packaging/import, read [relay usage](docs/chatgpt-relay.md).
 The adapter is implemented with offline tests; live translation remains unverified.
 Read the edition Markdown glossary when present.

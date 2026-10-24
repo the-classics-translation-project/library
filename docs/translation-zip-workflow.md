@@ -5,9 +5,9 @@
 exported ZIP files using their existing local ChatGPT relay, then imports
 the returned ZIP. GitHub Pages/Issues do not execute arbitrary AI requests.
 
-## Planned three task types (not implemented)
+## Separate guide task types (new direct ZIP exchange; no automatic Issues)
 
-The longer-term task model separates language-independent `work_analysis` and target-specific `target_guide` from `translation`. The current `guide-export` / `guide-import` **still combines both guides in one response**, including already accepted guide requests. See [relay task model](relay-task-model.md); do not use the standalone new prompt files as though independent guide ZIP importers already existed.
+The task model separates language-independent `work_analysis` and target-specific `target_guide` from `translation`. **New** independent manual `guide-task-export` / `guide-task-import` commands package each guide with its own versioned prompt and model default of `6 Extra High`; see [independent guide ZIP usage](independent-guide-zip.md). The existing Issue-bound `guide-export` / `guide-import` **still combines both guides in one response**. Accepted guide Issue #12 retains its previous ZIP contract. The new commands do not register new Issue types or submit ZIPs to ChatGPT automatically.
 
 ## Planned shared prompt/reference selection (not implemented)
 

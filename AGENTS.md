@@ -4,6 +4,10 @@ This is an informal, owner-directed literary project. Keep its workflow usable
 through interactive ChatGPT/Codex sessions; do not require a model API or impose a
 mandatory editing/Issue process on the owner.
 
+## Durable automation handoff
+
+Before any task-automation or translation-workflow change, read and maintain [the automation roadmap](docs/automation-roadmap.md) alongside STATUS.md and the implementation. Update completed work, next tasks, verified test results and open risks **in the same PR**. Do not rely on chat context for state. Keep automatic model submission disabled without the owner's explicit execution authorization, and never label a proposed task as submitted or completed.
+
 ## Read before working
 
 Read [STATUS.md](STATUS.md), the [editorial policy](docs/editorial-policy.md), the

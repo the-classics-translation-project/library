@@ -1,16 +1,20 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-24** (against the public GitHub repository and actual
+Last updated: **2026-10-25** (against the public GitHub repository and actual
 GitHub Actions results). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
 
+## Independent guide ZIP export/import — implemented offline, unverified live
+
+New `./ctp guide-task-export` and `./ctp guide-task-import` commands independently package/import `work_analysis` and `target_guide` tasks, using versioned Markdown prompts and **requested model default `6 Extra High`**. One guide is returned as `result.json` plus `guide.md`. Packaging pins exact source, work-reference version, prompt, notes, target and previous-guide pointer. Import enforces strict ZIP/job/field identities, source and guide-baseline staleness, immutable SHA-named guide text, serializes local imports, records requested vs observed model and full rendered editorial instructions, and preserves old guide versions. See [independent guide ZIP usage](docs/independent-guide-zip.md). This is a manual/offline ZIP exchange, **not** an automatically submitted or completed relay task. No live model/relay run was performed in this implementation. Accepted legacy combined-guide Issue #12 and existing translation ZIP formats remain unchanged. The independent guide task queue/Issue intake, local authorized coordinator, and two-pool Admin interface are future work.
+
 ## Automation roadmap and bounded guide planner — implemented read-only
 
-The owner-facing end-to-end goal, milestones, compatibility constraints, and mandatory cross-session handoff are tracked in [docs/automation-roadmap.md](docs/automation-roadmap.md). The repository includes a read-only `tools/guide_task_planner.py` and offline tests. It proposes missing work/target guides from `queue.json`, existing content-hashed guide pointers and compatible outstanding legacy Issue requests. It makes **no relay, network, model or file-write actions**. Independent per-type guide ZIP implementations, authorized local coordinator and ordered-material UI are not yet implemented; do not infer otherwise from the planner. The live Mac/relay path remains unverified.
+The owner-facing end-to-end goal, milestones, compatibility constraints, and mandatory cross-session handoff are tracked in [docs/automation-roadmap.md](docs/automation-roadmap.md). The repository includes a read-only `tools/guide_task_planner.py` and offline tests. It proposes missing work/target guides from `queue.json`, existing content-hashed guide pointers and compatible outstanding legacy Issue requests. It makes **no relay, network, model or file-write actions**. Independent guide ZIP exporters/importers are now available manually, but no new independent guide Issue queue, authorized local coordinator or ordered-material UI is implemented. The live Mac/relay path remains unverified.
 
-## Three ChatGPT task types — documented, not executed
+## Three ChatGPT task types — independent guide ZIPs implemented, no auto-execution
 
-The proposed project-owned task types are `work_analysis`, `target_guide` and `translation`; `chatgpt-relay` remains a ZIP submission/download transport. See [task model](docs/relay-task-model.md) and separate versioned `prompts/work-analysis.md` / `prompts/target-language-guide.md`. The existing combined guide ZIP operation, accepted Issue #12, and both current translation adapters remain unchanged. Automatic *discovery* on source/target addition is proposed, but no task planner, new task-type ZIP handler or auto-submission scheduler was implemented in this branch. Real round-trip verification remains necessary.
+The proposed project-owned task types are `work_analysis`, `target_guide` and `translation`; `chatgpt-relay` remains a ZIP submission/download transport. See [task model](docs/relay-task-model.md) and separate versioned `prompts/work-analysis.md` / `prompts/target-language-guide.md`. The existing combined guide ZIP operation, accepted Issue #12, and both current translation adapters remain unchanged. Read-only task discovery and independent local guide ZIP handlers now exist; there is no automatic enqueue/submission scheduler or registered new independent guide Issue intake. Real relay round-trip verification remains necessary.
 
 ## Ordered translation materials — planned, not implemented
 

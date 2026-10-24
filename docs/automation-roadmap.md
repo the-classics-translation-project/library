@@ -35,7 +35,31 @@ name without changing accepted job identities. Offline guide/translation fixture
 checks passed. The owner explicitly requested the assessed local sequence;
 Issue #12 was packaged and placed in the relay input directory for pickup. This
 is submission authorization, not evidence that ChatGPT has received or completed
-it. The independent Frankenstein trial and coordinator implementation follow.
+it. The independent Frankenstein work-analysis package was prepared and delivered
+second, using the new coordinator's explicit authorization boundary. Both attempts
+are tracked under private local state; imported results must be verified separately.
+
+The opt-in [local coordinator](local-relay-coordinator.md) is now implemented. It
+supports explicit prepare/adopt/submit, read-only relay reconciliation, staged
+imports with journal/rollback, deliberate retries and separately approved exact-file
+Git publication. It installs no scheduler, makes no direct model/browser calls,
+and does not authorize proposals automatically. Offline tests cover all three
+supported adapter paths. Local validation passed: 173 Python tests (19 coordinator tests), 19 JavaScript
+checks, `./ctp validate` and `./ctp build --demo --epub`. The final Git-publication
+helper was additionally rechecked with its exact-file fixture after improving
+error reporting. No live guide result has been imported yet.
+
+Live state: Wells Issue #12 is relay job 21, observed `submitted`, with saved Chat
+URL in the private attempt receipt; Frankenstein is delivered to watched input,
+awaiting pickup. Neither status means import or literary review. Exact attempt
+IDs and archived ZIPs are under `private/relay-coordinator/attempts/`.
+The external relay remains on its existing hourly schedule; no requester queue
+state transition or new LaunchAgent has been used. Live outcome verification is
+still in progress.
+
+Actual Chrome checks passed for deployed Admin expansion/selection/request payloads
+and local synthetic-workbench note persistence across reload/navigation. See
+[verification](../verification/relay-browser-2026-10-25.md).
 
 
 Discover accepted project tasks; reconcile project task state with the external relay's transport ledger; package into immutable attempt ZIPs, copy atomically into watched input only when the owner has authorized this submission class, import valid downloaded responses, and commit/push safe approved changes. Locks, crash recovery, retries, no-op zero-model polling, stale inputs, duplicated completed results and Git conflicts all require tests. Separately verify the actual relay is operational on the Mac. Do not install/enable any new LaunchAgent without explicit owner action.

@@ -171,3 +171,10 @@ rather than a removable literary prompt. A shared assembler should eventually
 serve the direct browser-relay and Issue-based ZIP workflows without silently
 changing historical requests. **Do not use these proposed UI semantics as
 commands yet**; the current commands above remain authoritative.
+
+## Opt-in local relay coordination
+
+Use `./ctp relay-coordinator status`, `prepare`, `submit` and `reconcile` to manage
+explicitly authorized legacy guide Issues, translation Issues and independent guide
+jobs locally. See [coordinator usage](local-relay-coordinator.md). Preparation does
+not submit. No new scheduler is installed; publication is separately approved.

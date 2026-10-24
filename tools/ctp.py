@@ -347,9 +347,41 @@ def main() -> int:
     p=sub.add_parser('relay-import', help='Validate and import one returned ZIP as a draft')
     p.add_argument('attempt'); p.add_argument('result', type=Path)
     p.add_argument('--observed-model', default='unknown'); p.add_argument('--chat-url')
+    p=sub.add_parser('relay-coordinator', help='Opt-in local package, submit and import coordination')
+    p.add_argument('--relay',type=Path,default=Path.home()/'Software/chatgpt-relay')
+    modes=p.add_subparsers(dest='mode',required=True)
+    modes.add_parser('status',help='Read-only plan and attempt status')
+    q=modes.add_parser('prepare',help='Archive one task; never submit')
+    choice=q.add_mutually_exclusive_group(required=True)
+    choice.add_argument('--guide-issue',type=int); choice.add_argument('--translation-issue',type=int)
+    choice.add_argument('--task-type',choices=['work_analysis','target_guide'])
+    q.add_argument('--work'); q.add_argument('--target'); q.add_argument('--model',default='6 Extra High')
+    q.add_argument('--retry-of')
+    q=modes.add_parser('adopt',help='Archive an already prepared compatible request ZIP')
+    q.add_argument('request_zip',type=Path)
+    q=modes.add_parser('submit',help='Explicitly authorize and atomically deliver this attempt')
+    q.add_argument('attempt'); q.add_argument('--authorization',required=True)
+    q=modes.add_parser('reconcile',help='Observe relay status; optionally import valid returned files')
+    q.add_argument('--import-ready',action='store_true')
+    q=modes.add_parser('resume',help='Retry observation/import after review; never resend')
+    q.add_argument('attempt')
+    q=modes.add_parser('publish',help='Approve exact imported files for public Git distribution')
+    q.add_argument('attempt'); q.add_argument('--approve-git-distribution',action='store_true')
+    q.add_argument('--push',action='store_true')
     args=parser.parse_args()
     try:
         if args.command=='validate': result=validate_project()
+        elif args.command=='relay-coordinator':
+            import relay_coordinator as coordinator
+            if args.mode=='status':result=coordinator.status(ROOT)
+            elif args.mode=='prepare':
+                result=coordinator.prepare(ROOT,args.relay,args.guide_issue,args.translation_issue,
+                    args.task_type,args.work,args.target,args.model,args.retry_of)
+            elif args.mode=='adopt':result=coordinator.adopt(ROOT,args.request_zip,args.relay)
+            elif args.mode=='submit':result=coordinator.submit(ROOT,args.attempt,args.authorization)
+            elif args.mode=='reconcile':result=coordinator.reconcile(ROOT,args.import_ready)
+            elif args.mode=='resume':result=coordinator.resume(ROOT,args.attempt)
+            else:result=coordinator.publish(ROOT,args.attempt,args.approve_git_distribution,args.push)
         elif args.command=='relay-package':
             from translation_relay import package
             result=package(ROOT,args.work,args.edition,args.node,args.model,args.language,args.direction,args.kind,args.context_node)

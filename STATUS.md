@@ -11,7 +11,21 @@ local assessment's execution sequence. Legacy guide/translation ZIP exports now
 include an explicit requested model (default `6 Extra High`) and exact return
 filename while preserving accepted job hashes. Issue #12's package was copied
 into the relay input directory for pickup; no completed live result is claimed.
-See [automation roadmap](docs/automation-roadmap.md) for the durable handoff.
+A separate independent Frankenstein work-analysis job was delivered second.
+The opt-in project coordinator now supports explicit authorization, deduplication,
+transport reconciliation, staged import/recovery and separately approved exact-file
+Git publication; no new scheduler is installed. Local verification passed: 173 Python tests (19 coordinator tests), 19 JavaScript
+checks, `./ctp validate` and the sample EPUB build. Wells Issue #12 was observed
+as relay job 21 in `submitted` state; Frankenstein remains delivered for pickup.
+No live result has been imported, approved or published. Live completion remains
+to be verified. See [coordinator usage](docs/local-relay-coordinator.md) and
+[automation roadmap](docs/automation-roadmap.md) for the durable handoff.
+
+Actual Chrome checks passed for deployed Admin tree/selection/request controls
+and local synthetic-workbench persistence across reload and section navigation.
+The existing source worker reports 317 runs and latest exit code 0, with repeated
+idle no-model logs; sleep/restart and headless model execution remain unverified.
+See [browser/runtime verification](verification/relay-browser-2026-10-25.md).
 
 ## Independent guide ZIP export/import — implemented offline, unverified live
 

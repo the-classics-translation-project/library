@@ -35,6 +35,18 @@ its log was last modified at 2026-10-25 01:46:39 JST. The dedicated checkout was
 clean at 5b64630. This establishes repeated idle execution beyond RunAtLoad,
 not a successful headless model invocation, sleep/restart recovery or source review.
 
+## Wells live relay trial
+
+The external relay submitted the exact Issue #12 ZIP to a new ordinary Chat,
+recorded as transport job 21. The visible model control showed Extra High.
+The Chat subsequently reported completion after 13m43s, but the browser showed
+“This response couldn’t load.” A reload exposed no downloadable output and its
+response Copy control returned empty text. The original request and private
+browser evidence were retained. The project attempt was stopped for review;
+no transport queue state was changed and no duplicate model request was sent.
+No generated guide was available to validate or import. Frankenstein's separate
+work-analysis package was delivered second and remains awaiting relay pickup.
+
 ## Remaining
 
 Physical Safari/iPad selection, responsive device interaction, production-origin

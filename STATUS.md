@@ -15,10 +15,13 @@ A separate independent Frankenstein work-analysis job was delivered second.
 The opt-in project coordinator now supports explicit authorization, deduplication,
 transport reconciliation, staged import/recovery and separately approved exact-file
 Git publication; no new scheduler is installed. Local verification passed: 173 Python tests (19 coordinator tests), 19 JavaScript
-checks, `./ctp validate` and the sample EPUB build. Wells Issue #12 was observed
-as relay job 21 in `submitted` state; Frankenstein remains delivered for pickup.
-No live result has been imported, approved or published. Live completion remains
-to be verified. See [coordinator usage](docs/local-relay-coordinator.md) and
+checks, `./ctp validate` and the sample EPUB build. Wells Issue #12 was submitted as relay job 21. Its Chat completed after 13m43s,
+but Chrome showed a response-loading error and no downloadable result after
+reload; the response Copy control returned empty text. The project attempt is
+stopped as `needs_review`, with the original input retained and no automatic
+resubmission. The relay database was not edited by the requester. Frankenstein
+remains delivered for pickup. No live result has been imported, approved or
+published; real round-trip completion remains unverified. See [coordinator usage](docs/local-relay-coordinator.md) and
 [automation roadmap](docs/automation-roadmap.md) for the durable handoff.
 
 Actual Chrome checks passed for deployed Admin tree/selection/request controls

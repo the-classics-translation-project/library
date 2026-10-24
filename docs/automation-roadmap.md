@@ -49,9 +49,14 @@ checks, `./ctp validate` and `./ctp build --demo --epub`. The final Git-publicat
 helper was additionally rechecked with its exact-file fixture after improving
 error reporting. No live guide result has been imported yet.
 
-Live state: Wells Issue #12 is relay job 21, observed `submitted`, with saved Chat
-URL in the private attempt receipt; Frankenstein is delivered to watched input,
-awaiting pickup. Neither status means import or literary review. Exact attempt
+Live state: Wells Issue #12 was submitted as relay job 21, with saved Chat URL
+in the private attempt receipt. Its Chat completed after 13m43s, but Chrome
+reported a response-loading error; reloading and the response Copy control did
+not reveal a downloadable result. The project attempt is `needs_review` and
+preserves the original ZIP; the requester has neither changed the transport
+queue nor resent it. Frankenstein is delivered to watched input, awaiting pickup.
+No actual guide output has been imported. This is a failed live result-retrieval
+check, not a completed round trip or proof of an importer failure. Exact attempt
 IDs and archived ZIPs are under `private/relay-coordinator/attempts/`.
 The external relay remains on its existing hourly schedule; no requester queue
 state transition or new LaunchAgent has been used. Live outcome verification is

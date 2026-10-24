@@ -131,6 +131,10 @@ directory and append an ordinary schema-1 generation record. `glossary.md` is
 plain Markdown with no required machine-readable schema. No queue, catalogue,
 source-tree or frozen-revision schema changes are introduced.
 
+## Independent guide task ZIPs (offline schema 1)
+
+For direct manual guide jobs, `guide-task-export` writes `README.md`, `input/job.json`, `input/manifest.json`. The job includes `task_type=work_analysis|target_guide`, source-node fields, source fingerprint, target (null for work analysis), accepted target-language check, requested model default `6 Extra High`, template/version hash and fully expanded instructions, work/target notes, optional pinned work-reference Markdown/hash, and the current saved-guide baseline pointer. The manifest binds these bytes through `job_sha256` and specifies the exact expected response filename. The response ZIP contains only `result.json` (strict job identity, status, observed model) and free-form `guide.md`. Import requires the original request ZIP; it checks safe members, source staleness, guide baseline, complete status, and idempotent result identity. Imported guides use existing SHA-256 Markdown and `reference/current.json` pointers, plus `reference/guide-task-runs/JOB_SHA256.json` provenance records. This is an **additional compatible format**, not a migration of accepted legacy guide Issue responses. No independent guide GitHub Issue schema or scheduling is introduced. See [usage](independent-guide-zip.md).
+
 ## Translation request and ZIP exchange (schema 1)
 
 `translation-requests.json` is the immutable, maintainer-authorized Issue

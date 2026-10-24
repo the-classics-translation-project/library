@@ -91,6 +91,10 @@ The publishing helper only establishes/uploads this repository and requests site
 builds. It cannot make the translation commercially ready. Check workflow results
 rather than treating a push or dispatch as successful deployment.
 
+## Independent work and target guide ZIPs
+
+Use `./ctp guide-task-plan` to inspect proposed guide tasks. New `./ctp guide-task-export` / `guide-task-import` handle individual work-analysis or work+target-language guides using the versioned prompts and default requested model `6 Extra High`. Read [independent guide ZIP usage](independent-guide-zip.md) first. They do **not** replace pending combined guide Issue #12, submit to a relay, or automatically register requests through GitHub Issues. A local coordinator and explicit authorizations remain future work.
+
 ## Local ChatGPT relay packages
 
 Use `./ctp relay-package` and `./ctp relay-import` for explicitly requested bounded

@@ -285,6 +285,8 @@ def validate_project(root: Path = ROOT) -> dict:
     from guide_requests import guide_prompt, validate_guide_results
     if (root/'prompts/whole-work-guide.md').is_file(): guide_prompt(root)
     validate_guide_results(root)
+    from independent_guide_jobs import validate_records
+    validate_records(root)
     from translation_jobs import _guide
     for pointer in (root/'books').glob('*/reference/current.json'):
         _guide(pointer.parent)
@@ -322,6 +324,14 @@ def main() -> int:
     sub.add_parser('translation-pending')
     p=sub.add_parser('guide-intake'); p.add_argument('--issues',type=Path); p.add_argument('--github',action='store_true')
     sub.add_parser('guide-pending')
+    sub.add_parser('guide-task-plan', help='Read-only work/target guide discovery')
+    p=sub.add_parser('guide-task-export', help='Create one independent guide ZIP; never submit')
+    p.add_argument('task_type', choices=['work_analysis','target_guide'])
+    p.add_argument('work'); p.add_argument('--target')
+    p.add_argument('--model', default='6 Extra High'); p.add_argument('--attempt', default='initial')
+    p.add_argument('--force', action='store_true'); p.add_argument('--output', type=Path, required=True)
+    p=sub.add_parser('guide-task-import', help='Import a guide with its exact original request ZIP')
+    p.add_argument('request_zip', type=Path); p.add_argument('response_zip', type=Path)
     sub.add_parser('prompt-list')
     p=sub.add_parser('translation-export'); p.add_argument('issue',type=int); p.add_argument('--output',type=Path,required=True)
     p=sub.add_parser('translation-import'); p.add_argument('response_zip',type=Path)
@@ -331,7 +341,7 @@ def main() -> int:
     p=sub.add_parser('record-run'); p.add_argument('work'); p.add_argument('edition'); p.add_argument('--model',required=True); p.add_argument('--interface',default='chatgpt'); p.add_argument('--operation',default='translation'); p.add_argument('--prompt',type=Path,action='append',required=True); p.add_argument('--instructions',default=''); p.add_argument('--output',type=Path,action='append',required=True)
     p=sub.add_parser('relay-package', help='Prepare a local ZIP; never submit')
     p.add_argument('work'); p.add_argument('edition'); p.add_argument('--node', action='append', required=True)
-    p.add_argument('--context-node', action='append', default=[]); p.add_argument('--model', required=True)
+    p.add_argument('--context-node', action='append', default=[]); p.add_argument('--model', default='6 Extra High')
     p.add_argument('--language'); p.add_argument('--direction', choices=['ltr','rtl'], default='ltr')
     p.add_argument('--kind', choices=['translation','modernization'], default='translation')
     p=sub.add_parser('relay-import', help='Validate and import one returned ZIP as a draft')
@@ -368,6 +378,16 @@ def main() -> int:
             check(bool(args.issues)!=bool(args.github),'Choose --issues file or --github')
             issues=fetch_issues(read_json(ROOT/'project.json')['repository']) if args.github else read_json(args.issues)
             result=intake_guide(ROOT,issues)
+        elif args.command=='guide-task-plan':
+            from guide_task_planner import discover
+            result=discover(ROOT)
+        elif args.command=='guide-task-export':
+            from independent_guide_jobs import export
+            result=export(ROOT,args.task_type,args.work,args.target,args.output,
+                          args.model,args.attempt,args.force)
+        elif args.command=='guide-task-import':
+            from independent_guide_jobs import import_result
+            result=import_result(ROOT,args.request_zip,args.response_zip)
         elif args.command=='guide-pending':
             from guide_requests import pending_guides
             result=pending_guides(ROOT)

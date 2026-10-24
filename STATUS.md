@@ -4,9 +4,9 @@ Last updated: **2026-10-24** (against the public GitHub repository and actual
 GitHub Actions results). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
 
-## Automation roadmap and bounded guide planner — feature branch
+## Automation roadmap and bounded guide planner — implemented read-only
 
-The owner-facing end-to-end goal, milestones, compatibility constraints, and mandatory cross-session handoff are tracked in [docs/automation-roadmap.md](docs/automation-roadmap.md). The current development branch adds a read-only `tools/guide_task_planner.py` and offline tests. It proposes missing work/target guides from `queue.json`, existing content-hashed guide pointers and compatible outstanding legacy Issue requests. It makes **no relay, network, model or file-write actions**. Independent per-type guide ZIP implementations, authorized local coordinator and ordered-material UI are not yet implemented; do not infer otherwise from the planner. The live Mac/relay path remains unverified.
+The owner-facing end-to-end goal, milestones, compatibility constraints, and mandatory cross-session handoff are tracked in [docs/automation-roadmap.md](docs/automation-roadmap.md). The repository includes a read-only `tools/guide_task_planner.py` and offline tests. It proposes missing work/target guides from `queue.json`, existing content-hashed guide pointers and compatible outstanding legacy Issue requests. It makes **no relay, network, model or file-write actions**. Independent per-type guide ZIP implementations, authorized local coordinator and ordered-material UI are not yet implemented; do not infer otherwise from the planner. The live Mac/relay path remains unverified.
 
 ## Three ChatGPT task types — documented, not executed
 

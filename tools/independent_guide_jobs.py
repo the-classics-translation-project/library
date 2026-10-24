@@ -10,6 +10,7 @@ from __future__ import annotations
 from pathlib import Path
 from zipfile import ZipFile, BadZipFile
 import json
+import fcntl
 import os
 import re
 import stat
@@ -41,6 +42,7 @@ def _pointer(folder: Path) -> str | None:
     pointer = folder / "current.json"
     if not pointer.exists():
         return None
+    check(not pointer.is_symlink(), 'Guide pointer must not be a symlink')
     _guide(folder)  # Validate current content against its immutable SHA-256.
     return read_json(pointer)["sha256"]
 
@@ -77,7 +79,7 @@ def prepare(root: Path, task_type: str, wid: str, target: str | None,
           isinstance(target, str) and bool(target), "Invalid target for task type")
     check(isinstance(attempt, str) and IDENTIFIER.fullmatch(attempt) is not None,
           "Invalid attempt label")
-    check(isinstance(model, str) and 0 < len(model.strip()) <= 160,
+    check(isinstance(model, str) and re.fullmatch(r"[A-Za-z0-9 ._+\-]{1,160}", model) is not None and model.strip(),
           "Invalid requested model label")
     work, tree = _admitted_work(root, wid, target)
     wd = root / "books" / wid
@@ -264,6 +266,18 @@ def _atomic_pointer(path: Path, sha: str) -> None:
 
 
 def import_result(root: Path, request_zip: Path, response_zip: Path) -> dict:
+    # Serialize imports across guide types to avoid lost pointer updates.
+    lock_file = root / "private" / "guide-task-import.lock"
+    lock_file.parent.mkdir(parents=True, exist_ok=True)
+    with lock_file.open("a+b") as lock:
+        fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
+        try:
+            return _import_result_locked(root, request_zip, response_zip)
+        finally:
+            fcntl.flock(lock.fileno(), fcntl.LOCK_UN)
+
+
+def _import_result_locked(root: Path, request_zip: Path, response_zip: Path) -> dict:
     packaged = _members(request_zip, PACKAGE_FILES)
     job = _json_bytes(packaged["input/job.json"])
     manifest = _json_bytes(packaged["input/manifest.json"])
@@ -306,7 +320,19 @@ def import_result(root: Path, request_zip: Path, response_zip: Path) -> dict:
               "Invalid pinned work reference")
     check(isinstance(job["source_nodes"], list) and bool(job["source_nodes"]),
           "Source nodes missing")
-    _admitted_work(root, job["work"], job["target"])
+    work, tree = _admitted_work(root, job["work"], job["target"])
+    wd = root / "books" / job["work"]
+    source_nodes = []
+    for node, _ in walk(tree):
+        entry = {"id": node["id"]}
+        if "label" in node:
+            entry["label"] = node["label"]
+        if "text" in node:
+            entry["text"] = source_file(wd, node["text"]).read_text(encoding="utf-8")
+        source_nodes.append(entry)
+    check(job["source_nodes"] == source_nodes and
+          job["source_language"] == work["language"],
+          "Packaged source differs from the canonical original")
     check(_ctp().source_fingerprint(root / "books" / job["work"]) ==
           job["source_fingerprint"], "Source changed since guide packaging")
     returned = _members(response_zip, RETURN_FILES)

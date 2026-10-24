@@ -4,6 +4,15 @@ Last updated: **2026-10-25** (against the public GitHub repository and actual
 GitHub Actions results). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
 
+## Local relay integration work — 2026-10-25, in progress
+
+The Documents checkout was fast-forwarded to `5b64630`. The owner authorized the
+local assessment's execution sequence. Legacy guide/translation ZIP exports now
+include an explicit requested model (default `6 Extra High`) and exact return
+filename while preserving accepted job hashes. Issue #12's package was copied
+into the relay input directory for pickup; no completed live result is claimed.
+See [automation roadmap](docs/automation-roadmap.md) for the durable handoff.
+
 ## Independent guide ZIP export/import — implemented offline, unverified live
 
 New `./ctp guide-task-export` and `./ctp guide-task-import` commands independently package/import `work_analysis` and `target_guide` tasks, using versioned Markdown prompts and **requested model default `6 Extra High`**. One guide is returned as `result.json` plus `guide.md`. Packaging pins exact source, work-reference version, prompt, notes, target and previous-guide pointer. Import enforces strict ZIP/job/field identities, source and guide-baseline staleness, immutable SHA-named guide text, serializes local imports, records requested vs observed model and full rendered editorial instructions, and preserves old guide versions. See [independent guide ZIP usage](docs/independent-guide-zip.md). This is a manual/offline ZIP exchange, **not** an automatically submitted or completed relay task. No live model/relay run was performed in this implementation. Accepted legacy combined-guide Issue #12 and existing translation ZIP formats remain unchanged. The independent guide task queue/Issue intake, local authorized coordinator, and two-pool Admin interface are future work.

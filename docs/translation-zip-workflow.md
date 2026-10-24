@@ -72,6 +72,14 @@ remain current.
    Reusing the same return ZIP is a no-op; different results for the same Issue
    are rejected. **Nothing is added to `catalog.json` automatically.**
 
+## Relay transport settings
+
+New legacy guide and translation exports include root README metadata naming the
+requested Chat setting (default `6 Extra High`, override with `--model`) and the
+exact result name `<request ZIP stem>-result.zip`. Use a unique request filename.
+These transport instructions preserve accepted Issue prompts, job hashes and the
+historical single-`response.json` return contracts. They do not submit the ZIP.
+
 ## Prompt variables
 
 Supported simple literal substitutions are:

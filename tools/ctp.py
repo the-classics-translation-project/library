@@ -333,9 +333,9 @@ def main() -> int:
     p=sub.add_parser('guide-task-import', help='Import a guide with its exact original request ZIP')
     p.add_argument('request_zip', type=Path); p.add_argument('response_zip', type=Path)
     sub.add_parser('prompt-list')
-    p=sub.add_parser('translation-export'); p.add_argument('issue',type=int); p.add_argument('--output',type=Path,required=True)
+    p=sub.add_parser('translation-export'); p.add_argument('issue',type=int); p.add_argument('--output',type=Path,required=True); p.add_argument('--model',default='6 Extra High')
     p=sub.add_parser('translation-import'); p.add_argument('response_zip',type=Path)
-    p=sub.add_parser('guide-export'); p.add_argument('work',nargs='?'); p.add_argument('target',nargs='?'); p.add_argument('--issue',type=int); p.add_argument('--output',type=Path,required=True)
+    p=sub.add_parser('guide-export'); p.add_argument('work',nargs='?'); p.add_argument('target',nargs='?'); p.add_argument('--issue',type=int); p.add_argument('--output',type=Path,required=True); p.add_argument('--model',default='6 Extra High')
     p=sub.add_parser('guide-import'); p.add_argument('response_zip',type=Path)
     p=sub.add_parser('task'); p.add_argument('--output',type=Path,default=ROOT/'build/next-task.md')
     p=sub.add_parser('record-run'); p.add_argument('work'); p.add_argument('edition'); p.add_argument('--model',required=True); p.add_argument('--interface',default='chatgpt'); p.add_argument('--operation',default='translation'); p.add_argument('--prompt',type=Path,action='append',required=True); p.add_argument('--instructions',default=''); p.add_argument('--output',type=Path,action='append',required=True)
@@ -401,7 +401,7 @@ def main() -> int:
             result={'prompts':prompt_catalogue(ROOT)}
         elif args.command=='translation-export':
             from translation_jobs import export_translation
-            result=export_translation(ROOT,args.issue,args.output)
+            result=export_translation(ROOT,args.issue,args.output,args.model)
         elif args.command=='translation-import':
             from translation_jobs import import_translation
             result=import_translation(ROOT,args.response_zip)
@@ -410,12 +410,12 @@ def main() -> int:
                 from translation_jobs import export_guide
                 check(args.work is not None and args.target is not None,
                       'Pass WORK TARGET, or use --issue ISSUE')
-                result=export_guide(ROOT,args.work,args.target,args.output)
+                result=export_guide(ROOT,args.work,args.target,args.output,args.model)
             else:
                 from guide_requests import export_guide_issue
                 check(args.work is None and args.target is None,
                       '--issue exports use the saved work/target request')
-                result=export_guide_issue(ROOT,args.issue,args.output)
+                result=export_guide_issue(ROOT,args.issue,args.output,args.model)
         elif args.command=='guide-import':
             from translation_jobs import import_guide
             result=import_guide(ROOT,args.response_zip)

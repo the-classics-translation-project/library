@@ -27,7 +27,16 @@ In public Admin select *The War of the Worlds* and requested target languages (c
 
 **Acceptance:** one work with two target languages yields one work reference and two target guides; repeat checks submit nothing; existing references are never overwritten without a versioned regeneration; old requests keep working.
 
-### M2. Local authorized relay coordinator — NOT STARTED
+### M2. Local authorized relay coordinator — IN PROGRESS
+
+2026-10-25 local work: updated the Documents checkout to `5b64630`. Legacy ZIP
+export README transport metadata now supplies an explicit model and exact output
+name without changing accepted job identities. Offline guide/translation fixture
+checks passed. The owner explicitly requested the assessed local sequence;
+Issue #12 was packaged and placed in the relay input directory for pickup. This
+is submission authorization, not evidence that ChatGPT has received or completed
+it. The independent Frankenstein trial and coordinator implementation follow.
+
 
 Discover accepted project tasks; reconcile project task state with the external relay's transport ledger; package into immutable attempt ZIPs, copy atomically into watched input only when the owner has authorized this submission class, import valid downloaded responses, and commit/push safe approved changes. Locks, crash recovery, retries, no-op zero-model polling, stale inputs, duplicated completed results and Git conflicts all require tests. Separately verify the actual relay is operational on the Mac. Do not install/enable any new LaunchAgent without explicit owner action.
 

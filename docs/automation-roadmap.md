@@ -17,11 +17,13 @@ In public Admin select *The War of the Worlds* and requested target languages (c
 
 ## Milestones (ordered)
 
-### M1. Guide task planning and independent guide operations — IN PROGRESS
+### M1. Guide task planning and independent guide operations — OFFLINE IMPLEMENTED; ISSUE AUTOMATION PENDING
 
-**Done in feature branch:** read-only deterministic planner `python3 tools/guide_task_planner.py`; legacy combined-guide Issue coverage; SHA-256 verification of existing guide pointers; unit tests. The planner returns `proposed`, `awaiting_work_analysis`, `covered_by_legacy_issue`, `completed`, and `blocked`. It currently derives requests from `queue.json` and the current guide Issue queue; it does **not** persist a new task queue, submit ZIPs, or mutate Git files. It uses the current canonical source fingerprint.
+**Done on main:** read-only deterministic planner `python3 tools/guide_task_planner.py`; legacy combined-guide Issue coverage; SHA-256 verification of existing guide pointers; unit tests. The planner returns `proposed`, `awaiting_work_analysis`, `covered_by_legacy_issue`, `completed`, and `blocked`. It currently derives requests from `queue.json` and the current guide Issue queue; it does **not** persist a new task queue, submit ZIPs, or mutate Git files. It uses the current canonical source fingerprint.
 
-**Next:** independently package/import `work_analysis` and `target_guide` results under explicit per-type versioned contracts, with content-addressed Markdown, identity hashes, provenance, incomplete/unsafe response rejection, atomic file installation and backwards-compatible accepted Issue #12. Decide how automatic task proposals become persistent authorized requests; include deduplication and stale-source tests. Do not require a target guide for every translation.
+**Implemented offline in this milestone:** `./ctp guide-task-export` / `guide-task-import` provide **separate** `work_analysis` and `target_guide` ZIP contracts, saved and rendered versioned prompts, requested default model `6 Extra High`, SHA-pinned source/reference context, strict return ZIP validation, atomic immutable-guide/pointer updates, local import lock, per-job provenance and stale/duplicate rejection. The accepted legacy Issue #12 combined-guide importer remains unchanged. See [independent guide ZIP usage](independent-guide-zip.md) and `tests/test_independent_guide_jobs.py`. These new commands have not submitted or imported a **real ChatGPT relay result**.
+
+**Next:** decide how automatic task proposals become persistent **authorized** independent requests, handle a coordinator's job/attempt ledger, and wire them to the local relay without duplicate submissions. The planner itself still makes no model call. Do not require a target guide for every translation.
 
 **Acceptance:** one work with two target languages yields one work reference and two target guides; repeat checks submit nothing; existing references are never overwritten without a versioned regeneration; old requests keep working.
 

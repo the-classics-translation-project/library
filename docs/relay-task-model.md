@@ -30,6 +30,8 @@ Use the original, the target language and the *specific immutable version* of th
 
 Operate on explicit node/field selections with an ordered, pinned stack of applicable instructions and references; translate labels as well as source bodies. Old translated prose is supplied **only when explicitly selected** from a frozen revision. AI-produced glossary suggestions do not become editorial decisions without a separate adoption policy. See [ordered materials design](translation-materials-design.md).
 
+The implementation sequence and verified handoff obligations are maintained in [automation roadmap](automation-roadmap.md). An initial **read-only** planner is being introduced under `tools/guide_task_planner.py`; it is not a persistent task queue or executor.
+
 ## Initial task discovery (proposal, not active automation)
 
 - On the first validated, admitted source-tree completion, **propose** one `work_analysis` task if no matching completed guide exists and no equivalent pending/submitted task exists.

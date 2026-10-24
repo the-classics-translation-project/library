@@ -1,6 +1,6 @@
 # Three task types for ChatGPT ZIP exchange
 
-**Status:** implementation plan and versioned prompt templates. The two existing ZIP adapters remain authoritative; this document does **not** imply a shared queue, new importer, or automatic execution has been implemented.
+**Status:** three-type design with implemented offline independent guide package/import commands. There is **no shared persistent queue, independent guide Issue intake, or automatic model execution**. Old combined guide Issue requests and both historical translation ZIP contracts remain authoritative for those tasks; see [independent guide ZIP usage](independent-guide-zip.md).
 
 ## Boundary
 
@@ -30,7 +30,7 @@ Use the original, the target language and the *specific immutable version* of th
 
 Operate on explicit node/field selections with an ordered, pinned stack of applicable instructions and references; translate labels as well as source bodies. Old translated prose is supplied **only when explicitly selected** from a frozen revision. AI-produced glossary suggestions do not become editorial decisions without a separate adoption policy. See [ordered materials design](translation-materials-design.md).
 
-The implementation sequence and verified handoff obligations are maintained in [automation roadmap](automation-roadmap.md). An initial **read-only** planner is being introduced under `tools/guide_task_planner.py`; it is not a persistent task queue or executor.
+The implementation sequence and verified handoff obligations are maintained in [automation roadmap](automation-roadmap.md). A **read-only** planner exists under `tools/guide_task_planner.py`, and two independent guide ZIP protocols are implemented by `tools/independent_guide_jobs.py`. Neither is a persistent task queue, executor, or relay scheduler.
 
 ## Initial task discovery (proposal, not active automation)
 
@@ -66,9 +66,9 @@ Today `translation-export` / `translation-import` expect a different single-`res
 
 Recommended incremental implementation:
 
-1. Keep the existing accepted guide request contract operational. Add standalone prompt templates for work analysis and target-language guidance; these are **not** yet registered as selectable runnable ZIP task types.
-2. Implement a read-only, deterministic discovery/planning command with idempotent canonical task keys, including seeded fixtures, missing-guide cases, stale source and no-submission tests.
-3. Add new packaging/import support for one guide type at a time, with explicit per-type output validation, content-addressed Markdown, current-version pointers and provenance. Never overwrite or erase existing guide versions.
+1. **Implemented offline:** Keep the existing accepted guide request contract operational; version standalone prompts and expose two separate direct ZIP export/import commands (not new Issue types).
+2. **Implemented read-only:** Provide deterministic discovery of missing guide work, respecting existing guide pointers and outstanding legacy Issues. It is not a persisted attempt queue.
+3. **Implemented manually, not live-tested:** Package/import each guide type with strict job identity, content-addressed Markdown, current pointers, model/provenance records and collision/stale-input checks. Never erase existing guide versions. A real relay round trip is still required.
 4. Integrate those operations with the shared ordered-material assembler, then connect an authorized local queue to the existing relay transport.
 5. Exercise one real round trip for each type before enabling any opt-in automatic submissions; check rollback, no-op polling, idempotent retries and no accidental publication.
 

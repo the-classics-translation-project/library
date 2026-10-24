@@ -54,6 +54,21 @@ class GuidePlannerTests(unittest.TestCase):
         self.assertEqual(1, len(rows))
         self.assertEqual("blocked", rows[0]["state"])
 
+    def test_durable_handoff_documents(self):
+        root = Path(__file__).resolve().parents[1]
+        agents = (root / "AGENTS.md").read_text(encoding="utf-8")
+        status = (root / "STATUS.md").read_text(encoding="utf-8")
+        roadmap = (root / "docs/automation-roadmap.md").read_text(encoding="utf-8")
+        self.assertIn("automation-roadmap.md", agents)
+        self.assertIn("automation-roadmap.md", status)
+        for label in ("M1.", "M2.", "M3.", "M4.",
+                      "Maintaining a trustworthy handoff", "Issue #12"):
+            # The legacy request appears in narrative with or without emphasis.
+            if label == "Issue #12":
+                self.assertIn("#12", roadmap)
+            else:
+                self.assertIn(label, roadmap)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -11,7 +11,7 @@ In public Admin select *The War of the Worlds* and requested target languages (c
 - Project Git repository: canonical admitted sources, authorized work/language requests, three task types (`work_analysis`, `target_guide`, `translation`), immutable reference versions, task/attempt provenance and snapshots.
 - Public static Admin: select works, languages, nodes and applicable **safe metadata** only; never expose private/unapproved draft text to implement prompt preview.
 - GitHub Issue intake: authenticates authorized requestors and pins exact request meaning. Opening an Issue form is not submission.
-- Local project coordinator (not yet built): discovers eligible jobs, prepares exact bounded ZIPs, checks dependencies, verifies relay completion, validates/imports the result, and publishes only permitted records safely.
+- Local project coordinator (implemented, opt-in): discovers eligible jobs, prepares exact bounded ZIPs, checks dependencies, verifies relay completion, validates/imports the result, and publishes only permitted records safely.
 - External `chatgpt-relay`: ZIP submission and retrieval transport, **not** the source of truth for editorial tasks.
 - Source preparation worker and launchd installation: separate, already implemented; do not piggyback a model submission on its idle check.
 
@@ -21,13 +21,38 @@ In public Admin select *The War of the Worlds* and requested target languages (c
 
 **Done on main:** read-only deterministic planner `python3 tools/guide_task_planner.py`; legacy combined-guide Issue coverage; SHA-256 verification of existing guide pointers; unit tests. The planner returns `proposed`, `awaiting_work_analysis`, `covered_by_legacy_issue`, `completed`, and `blocked`. It currently derives requests from `queue.json` and the current guide Issue queue; it does **not** persist a new task queue, submit ZIPs, or mutate Git files. It uses the current canonical source fingerprint.
 
-**Implemented offline in this milestone:** `./ctp guide-task-export` / `guide-task-import` provide **separate** `work_analysis` and `target_guide` ZIP contracts, saved and rendered versioned prompts, requested default model `6 Extra High`, SHA-pinned source/reference context, strict return ZIP validation, atomic immutable-guide/pointer updates, local import lock, per-job provenance and stale/duplicate rejection. The accepted legacy Issue #12 combined-guide importer remains unchanged. See [independent guide ZIP usage](independent-guide-zip.md) and `tests/test_independent_guide_jobs.py`. These new commands have not submitted or imported a **real ChatGPT relay result**.
+**Implemented offline in this milestone:** `./ctp guide-task-export` / `guide-task-import` provide **separate** `work_analysis` and `target_guide` ZIP contracts, saved and rendered versioned prompts, requested default model `6 Extra High`, SHA-pinned source/reference context, strict return ZIP validation, atomic immutable-guide/pointer updates, local import lock, per-job provenance and stale/duplicate rejection. The accepted legacy Issue #12 combined-guide importer remains unchanged. See [independent guide ZIP usage](independent-guide-zip.md) and `tests/test_independent_guide_jobs.py`. A real independent Frankenstein work-analysis result was imported locally on 2026-10-25. The standalone target-guide round trip remains unverified; Wells used its legacy combined contract.
 
-**Next:** decide how automatic task proposals become persistent **authorized** independent requests, handle a coordinator's job/attempt ledger, and wire them to the local relay without duplicate submissions. The planner itself still makes no model call. Do not require a target guide for every translation.
+**Next:** decide how automatic proposals become persistent **authorized** independent requests. The coordinator already has a local job/attempt ledger and opt-in transport delivery; the new heartbeat only imports previously authorized results and does not authorize proposals. The planner itself still makes no model call. Do not require a target guide for every translation.
 
 **Acceptance:** one work with two target languages yields one work reference and two target guides; repeat checks submit nothing; existing references are never overwritten without a versioned regeneration; old requests keep working.
 
-### M2. Local authorized relay coordinator — IN PROGRESS
+### M2. Local authorized relay coordinator — IMPLEMENTED; LIVE GUIDE IMPORT VERIFIED LOCALLY
+
+**Latest observation, 2026-10-25:** Wells Issue #12 and the independent Frankenstein
+work-analysis request both completed in the external relay, and both were imported
+locally through the coordinator with retained exact ZIPs/provenance. Wells was
+explicitly resumed after its download was recovered. `./ctp validate` passed; a
+second import poll left editorial files, attempt records and relay state unchanged.
+No generated guide has been committed, pushed or approved for distribution.
+The live guide import exposed a guide-only target directory before an edition
+exists: the direct translator now checks for `edition.json` rather than treating
+any directory as an existing edition, preserving previously imported guides.
+A regression fixture covers the first translation after a guide-only import;
+source-based tests isolate their temporary fixtures from real local results.
+All 174 Python tests, project validation and the sample HTML/EPUB build passed.
+The public-Git leg of the acceptance criterion remains a separate owner decision.
+
+The owner then requested automatic result handling. The app heartbeat
+**Import completed Classics relay results** is active every 30 minutes, running
+only `reconcile --import-ready` on existing authorized attempts. It never
+prepares/submits jobs, automatically resumes review holds or publishes files.
+The first timed heartbeat and Mac sleep/restart behavior are unverified; creation
+was confirmed by the app. This is separate from both the external relay's existing
+hourly schedule and the source-worker LaunchAgent. Exact configured instructions
+are recorded in `prompts/relay-result-import.md`.
+
+**Initial implementation and trial history (superseded by the observations above):**
 
 2026-10-25 local work: updated the Documents checkout to `5b64630`. Legacy ZIP
 export README transport metadata now supplies an explicit model and exact output
@@ -77,7 +102,13 @@ Four scopes (general, target language, work, work+target), instruction/reference
 
 **Acceptance:** select work/target/nodes/materials in Admin, pin exact order/versions, and import translated node-level results using their supplied guides.
 
-### M4. Real integration and ZIP contract consolidation — NOT STARTED
+### M4. Real integration and ZIP contract consolidation — GUIDE ROUND TRIPS VERIFIED LOCALLY; REMAINDER OPEN
+
+The legacy combined Wells guide and independent Frankenstein work-analysis guide
+have completed actual relay-to-local-import paths. Standalone target-guide and
+translated-node round trips, restart/failure behavior of the new heartbeat and
+format consolidation still require work. No output format was retired or changed.
+
 
 Run actual whole-work guide, target-guide and translation round trips. Evaluate output size/context coverage, malformed ZIP handling, retries/restarts, snapshot/report preservation and Pages safety. Only after that select a unified long-prose output format (likely JSON metadata plus Markdown body files) and retain compatibility adapters for historical formats.
 
@@ -87,7 +118,7 @@ Run actual whole-work guide, target-guide and translation round trips. Evaluate 
 - `guide-requests.json`: accepted Issue **#12** asks for both Wells work guide and Japanese guide through the **legacy combined** output contract. A pending legacy request must suppress duplicate proposals for both of these products for the same source fingerprint.
 - Both Wells and Frankenstein have canonical source trees, but neither has a recorded translated edition.
 - The two existing translation ZIP protocols differ and must not be silently conflated.
-- Existing offline relay tests do not prove the physical browser transport ran.
+- Offline tests remain distinct from real execution: the two guide relay/import paths above are observed; translation and standalone target-guide paths remain unverified.
 - Reader/review publication requires separate explicit approval; public Git commits themselves distribute content.
 
 ## Maintaining a trustworthy handoff (mandatory for future work)

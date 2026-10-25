@@ -24,6 +24,11 @@ class CoordinatorTests(unittest.TestCase):
         self.root=Path(self.temp.name)/'project';self.root.mkdir()
         for name in ('books','prompts'):
             shutil.copytree(c.ROOT/name,self.root/name)
+        # Copy admitted source only, independent of real local result imports.
+        for work in (self.root/'books').iterdir():
+            if work.is_dir():
+                for name in ('editions','reference'):
+                    shutil.rmtree(work/name,ignore_errors=True)
         (self.root/'docs').mkdir()
         shutil.copy2(c.ROOT/'docs/editorial-policy.md',self.root/'docs/editorial-policy.md')
         for name in ('project.json','queue.json','guide-requests.json','translation-requests.json','catalog.json'):

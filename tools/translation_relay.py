@@ -102,7 +102,7 @@ def package(root, work_id, edition_id, nodes, model, language=None, direction='l
         base = wd/'editions'/edition_id
         c.check(base.resolve().is_relative_to(wd.resolve()), 'Unsafe edition path')
         before = inventory(base)
-        if before is not None:
+        if (base/'edition.json').is_file():
             _, ed, _ = c.load_work(wd, edition_id)
             c.check(language is None or language == ed['language'], 'Target language conflicts with edition')
         else:

@@ -4,6 +4,32 @@ Last updated: **2026-10-25** (against the public GitHub repository and actual
 GitHub Actions results). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
 
+## Local relay integration work — 2026-10-25, in progress
+
+The Documents checkout was fast-forwarded to `5b64630`. The owner authorized the
+local assessment's execution sequence. Legacy guide/translation ZIP exports now
+include an explicit requested model (default `6 Extra High`) and exact return
+filename while preserving accepted job hashes. Issue #12's package was copied
+into the relay input directory for pickup; no completed live result is claimed.
+A separate independent Frankenstein work-analysis job was delivered second.
+The opt-in project coordinator now supports explicit authorization, deduplication,
+transport reconciliation, staged import/recovery and separately approved exact-file
+Git publication; no new scheduler is installed. Local verification passed: 173 Python tests (19 coordinator tests), 19 JavaScript
+checks, `./ctp validate` and the sample EPUB build. Wells Issue #12 was submitted as relay job 21. Its Chat completed after 13m43s,
+but Chrome showed a response-loading error and no downloadable result after
+reload; the response Copy control returned empty text. The project attempt is
+stopped as `needs_review`, with the original input retained and no automatic
+resubmission. The relay database was not edited by the requester. Frankenstein
+remains delivered for pickup. No live result has been imported, approved or
+published; real round-trip completion remains unverified. See [coordinator usage](docs/local-relay-coordinator.md) and
+[automation roadmap](docs/automation-roadmap.md) for the durable handoff.
+
+Actual Chrome checks passed for deployed Admin tree/selection/request controls
+and local synthetic-workbench persistence across reload and section navigation.
+The existing source worker reports 317 runs and latest exit code 0, with repeated
+idle no-model logs; sleep/restart and headless model execution remain unverified.
+See [browser/runtime verification](verification/relay-browser-2026-10-25.md).
+
 ## Independent guide ZIP export/import — implemented offline, unverified live
 
 New `./ctp guide-task-export` and `./ctp guide-task-import` commands independently package/import `work_analysis` and `target_guide` tasks, using versioned Markdown prompts and **requested model default `6 Extra High`**. One guide is returned as `result.json` plus `guide.md`. Packaging pins exact source, work-reference version, prompt, notes, target and previous-guide pointer. Import enforces strict ZIP/job/field identities, source and guide-baseline staleness, immutable SHA-named guide text, serializes local imports, records requested vs observed model and full rendered editorial instructions, and preserves old guide versions. See [independent guide ZIP usage](docs/independent-guide-zip.md). This is a manual/offline ZIP exchange, **not** an automatically submitted or completed relay task. No live model/relay run was performed in this implementation. Accepted legacy combined-guide Issue #12 and existing translation ZIP formats remain unchanged. The independent guide task queue/Issue intake, local authorized coordinator, and two-pool Admin interface are future work.

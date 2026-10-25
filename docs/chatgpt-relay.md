@@ -212,3 +212,11 @@ The adapter has offline fixture tests for packaging, import, provenance, stale
 inputs, malformed results, retries and rollback. No real translation has been
 submitted or imported through this adapter yet. The separate CLI translation
 launcher remains a design proposal; source preparation remains a separate worker.
+
+## Project-side coordinator
+
+The opt-in [local coordinator](local-relay-coordinator.md) can archive supported
+legacy Issue or independent guide packages, record exact submission authorization,
+deliver once and reconcile/import completed transport results. It never performs
+relay queue transitions or browser submission itself and adds no scheduler.
+The direct `relay-package` format remains available through its own importer.

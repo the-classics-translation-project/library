@@ -166,3 +166,10 @@ would feed a shared assembler for both the Issue ZIP and direct relay paths.
 contracts are still implemented as documented. No new selection UI, material
 registry, canonical return ZIP format or relay invocation was added by this
 documentation change.
+
+## Opt-in relay coordinator
+
+`./ctp relay-coordinator` adds local attempt records, explicit per-package
+submission authorization, relay reconciliation and staged imports. It installs
+no scheduler and requires separate approval for public Git distribution.
+See [coordinator usage](docs/local-relay-coordinator.md).

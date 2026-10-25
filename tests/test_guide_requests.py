@@ -101,6 +101,9 @@ class WholeWorkGuideTests(unittest.TestCase):
         with ZipFile(package) as z:
             self.assertEqual(set(z.namelist()),
                 {'README.md','input/job.json','input/manifest.json'})
+            readme=z.read('README.md').decode('utf-8')
+            self.assertIn('model: 6 Extra High',readme)
+            self.assertIn('output_filename: guide-input-result.zip',readme)
             job=json.loads(z.read('input/job.json'))
             manifest=json.loads(z.read('input/manifest.json'))
             self.assertEqual(job['issue'],70)

@@ -333,9 +333,9 @@ def main() -> int:
     p=sub.add_parser('guide-task-import', help='Import a guide with its exact original request ZIP')
     p.add_argument('request_zip', type=Path); p.add_argument('response_zip', type=Path)
     sub.add_parser('prompt-list')
-    p=sub.add_parser('translation-export'); p.add_argument('issue',type=int); p.add_argument('--output',type=Path,required=True)
+    p=sub.add_parser('translation-export'); p.add_argument('issue',type=int); p.add_argument('--output',type=Path,required=True); p.add_argument('--model',default='6 Extra High')
     p=sub.add_parser('translation-import'); p.add_argument('response_zip',type=Path)
-    p=sub.add_parser('guide-export'); p.add_argument('work',nargs='?'); p.add_argument('target',nargs='?'); p.add_argument('--issue',type=int); p.add_argument('--output',type=Path,required=True)
+    p=sub.add_parser('guide-export'); p.add_argument('work',nargs='?'); p.add_argument('target',nargs='?'); p.add_argument('--issue',type=int); p.add_argument('--output',type=Path,required=True); p.add_argument('--model',default='6 Extra High')
     p=sub.add_parser('guide-import'); p.add_argument('response_zip',type=Path)
     p=sub.add_parser('task'); p.add_argument('--output',type=Path,default=ROOT/'build/next-task.md')
     p=sub.add_parser('record-run'); p.add_argument('work'); p.add_argument('edition'); p.add_argument('--model',required=True); p.add_argument('--interface',default='chatgpt'); p.add_argument('--operation',default='translation'); p.add_argument('--prompt',type=Path,action='append',required=True); p.add_argument('--instructions',default=''); p.add_argument('--output',type=Path,action='append',required=True)
@@ -347,9 +347,41 @@ def main() -> int:
     p=sub.add_parser('relay-import', help='Validate and import one returned ZIP as a draft')
     p.add_argument('attempt'); p.add_argument('result', type=Path)
     p.add_argument('--observed-model', default='unknown'); p.add_argument('--chat-url')
+    p=sub.add_parser('relay-coordinator', help='Opt-in local package, submit and import coordination')
+    p.add_argument('--relay',type=Path,default=Path.home()/'Software/chatgpt-relay')
+    modes=p.add_subparsers(dest='mode',required=True)
+    modes.add_parser('status',help='Read-only plan and attempt status')
+    q=modes.add_parser('prepare',help='Archive one task; never submit')
+    choice=q.add_mutually_exclusive_group(required=True)
+    choice.add_argument('--guide-issue',type=int); choice.add_argument('--translation-issue',type=int)
+    choice.add_argument('--task-type',choices=['work_analysis','target_guide'])
+    q.add_argument('--work'); q.add_argument('--target'); q.add_argument('--model',default='6 Extra High')
+    q.add_argument('--retry-of')
+    q=modes.add_parser('adopt',help='Archive an already prepared compatible request ZIP')
+    q.add_argument('request_zip',type=Path)
+    q=modes.add_parser('submit',help='Explicitly authorize and atomically deliver this attempt')
+    q.add_argument('attempt'); q.add_argument('--authorization',required=True)
+    q=modes.add_parser('reconcile',help='Observe relay status; optionally import valid returned files')
+    q.add_argument('--import-ready',action='store_true')
+    q=modes.add_parser('resume',help='Retry observation/import after review; never resend')
+    q.add_argument('attempt')
+    q=modes.add_parser('publish',help='Approve exact imported files for public Git distribution')
+    q.add_argument('attempt'); q.add_argument('--approve-git-distribution',action='store_true')
+    q.add_argument('--push',action='store_true')
     args=parser.parse_args()
     try:
         if args.command=='validate': result=validate_project()
+        elif args.command=='relay-coordinator':
+            import relay_coordinator as coordinator
+            if args.mode=='status':result=coordinator.status(ROOT)
+            elif args.mode=='prepare':
+                result=coordinator.prepare(ROOT,args.relay,args.guide_issue,args.translation_issue,
+                    args.task_type,args.work,args.target,args.model,args.retry_of)
+            elif args.mode=='adopt':result=coordinator.adopt(ROOT,args.request_zip,args.relay)
+            elif args.mode=='submit':result=coordinator.submit(ROOT,args.attempt,args.authorization)
+            elif args.mode=='reconcile':result=coordinator.reconcile(ROOT,args.import_ready)
+            elif args.mode=='resume':result=coordinator.resume(ROOT,args.attempt)
+            else:result=coordinator.publish(ROOT,args.attempt,args.approve_git_distribution,args.push)
         elif args.command=='relay-package':
             from translation_relay import package
             result=package(ROOT,args.work,args.edition,args.node,args.model,args.language,args.direction,args.kind,args.context_node)
@@ -401,7 +433,7 @@ def main() -> int:
             result={'prompts':prompt_catalogue(ROOT)}
         elif args.command=='translation-export':
             from translation_jobs import export_translation
-            result=export_translation(ROOT,args.issue,args.output)
+            result=export_translation(ROOT,args.issue,args.output,args.model)
         elif args.command=='translation-import':
             from translation_jobs import import_translation
             result=import_translation(ROOT,args.response_zip)
@@ -410,12 +442,12 @@ def main() -> int:
                 from translation_jobs import export_guide
                 check(args.work is not None and args.target is not None,
                       'Pass WORK TARGET, or use --issue ISSUE')
-                result=export_guide(ROOT,args.work,args.target,args.output)
+                result=export_guide(ROOT,args.work,args.target,args.output,args.model)
             else:
                 from guide_requests import export_guide_issue
                 check(args.work is None and args.target is None,
                       '--issue exports use the saved work/target request')
-                result=export_guide_issue(ROOT,args.issue,args.output)
+                result=export_guide_issue(ROOT,args.issue,args.output,args.model)
         elif args.command=='guide-import':
             from translation_jobs import import_guide
             result=import_guide(ROOT,args.response_zip)

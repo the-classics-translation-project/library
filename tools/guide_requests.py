@@ -11,7 +11,7 @@ import re
 
 from legacy_v1 import check, read_json, write_json, digest, object_hash, ProjectError
 from translation_jobs import (
-    HASH, prepare_guide, render_prompt, zip_files, GUIDE_README
+    HASH, prepare_guide, render_prompt, zip_files, GUIDE_README, relay_readme
 )
 
 GUIDE_MARKER = '<!-- ctp:guide-request:v1 -->'
@@ -155,10 +155,10 @@ def prepare_guide_issue(root: Path, entry: dict) -> tuple[dict,dict]:
     return job,manifest
 
 
-def export_guide_issue(root: Path, issue: int, output: Path) -> dict:
+def export_guide_issue(root: Path, issue: int, output: Path, model: str = '6 Extra High') -> dict:
     entry=guide_entry(root,issue)
     job,manifest=prepare_guide_issue(root,entry)
-    zip_files(output,{'README.md':GUIDE_README,
+    zip_files(output,{'README.md':relay_readme(GUIDE_README,output,model),
                       'input/job.json':job,'input/manifest.json':manifest})
     return {'issue':issue,'package':str(output),'nodes':len(job['source_nodes']),
             'job_sha256':manifest['job_sha256'],'ai_called':False}

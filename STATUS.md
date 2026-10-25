@@ -4,7 +4,44 @@ Last updated: **2026-10-25** (against the public GitHub repository and actual
 GitHub Actions results). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
 
-## Local relay integration work — 2026-10-25, in progress
+## Automatic relay result import — 2026-10-25
+
+Both real guide jobs have now been imported **locally** using the coordinator:
+Wells Issue #12 supplied a work reference and Japanese terminology guide; the
+independent Frankenstein job supplied a work-analysis guide. Source/job identities,
+strict return ZIP contracts and project validation passed. Wells was explicitly
+resumed after the previously unavailable download became available; that earlier
+browser failure remains recorded below. Both private attempt records now say
+`imported`. This verifies real guide relay/import paths, not translation fidelity,
+human review or the standalone target-guide protocol.
+
+At the owner's request, the app heartbeat **Import completed Classics relay
+results** is ACTIVE at a 30-minute interval for this local chat/workspace. It runs
+`./ctp relay-coordinator reconcile --import-ready` for existing, explicitly
+submission-authorized attempts only. It does not submit new jobs, automatically
+resume review holds, change the external relay, commit/push generated material or
+approve publication. It stays quiet on unchanged state and reports new imports
+or actionable problems. The app confirmed registration; the first timed heartbeat
+and sleep/restart behavior have not yet been observed. The local Mac/app must be
+available. The source-worker LaunchAgent was not changed.
+
+A repeat local import poll changed neither editorial files nor attempt records,
+made no relay database writes or new submissions, and `./ctp validate` passed.
+All 174 Python tests passed, including a regression for the first translation
+after importing a guide-only target directory. The sample HTML/EPUB build also
+passed. The translation packager now distinguishes an existing `edition.json`
+from a directory that only contains imported reference material.
+The generated Markdown, content-addressed pointers and provenance are currently
+uncommitted local draft references, not included in this documentation change or
+reader distribution. The catalogue remains empty. See
+[coordinator usage](docs/local-relay-coordinator.md) and
+[automation roadmap](docs/automation-roadmap.md).
+
+Post-merge validation and Pages deployment for `b2c5b8a` both succeeded:
+[validation](https://github.com/the-classics-translation-project/library/actions/runs/40154561062),
+[deployment](https://github.com/the-classics-translation-project/library/actions/runs/40154560930).
+
+## Initial local relay integration observations — 2026-10-25 (historical)
 
 The Documents checkout was fast-forwarded to `5b64630`. The owner authorized the
 local assessment's execution sequence. Legacy guide/translation ZIP exports now
@@ -32,11 +69,11 @@ See [browser/runtime verification](verification/relay-browser-2026-10-25.md).
 
 ## Independent guide ZIP export/import — implemented offline, unverified live
 
-New `./ctp guide-task-export` and `./ctp guide-task-import` commands independently package/import `work_analysis` and `target_guide` tasks, using versioned Markdown prompts and **requested model default `6 Extra High`**. One guide is returned as `result.json` plus `guide.md`. Packaging pins exact source, work-reference version, prompt, notes, target and previous-guide pointer. Import enforces strict ZIP/job/field identities, source and guide-baseline staleness, immutable SHA-named guide text, serializes local imports, records requested vs observed model and full rendered editorial instructions, and preserves old guide versions. See [independent guide ZIP usage](docs/independent-guide-zip.md). This is a manual/offline ZIP exchange, **not** an automatically submitted or completed relay task. No live model/relay run was performed in this implementation. Accepted legacy combined-guide Issue #12 and existing translation ZIP formats remain unchanged. The independent guide task queue/Issue intake, local authorized coordinator, and two-pool Admin interface are future work.
+New `./ctp guide-task-export` and `./ctp guide-task-import` commands independently package/import `work_analysis` and `target_guide` tasks, using versioned Markdown prompts and **requested model default `6 Extra High`**. One guide is returned as `result.json` plus `guide.md`. Packaging pins exact source, work-reference version, prompt, notes, target and previous-guide pointer. Import enforces strict ZIP/job/field identities, source and guide-baseline staleness, immutable SHA-named guide text, serializes local imports, records requested vs observed model and full rendered editorial instructions, and preserves old guide versions. See [independent guide ZIP usage](docs/independent-guide-zip.md). This is a manual/offline ZIP exchange, **not** an automatically submitted or completed relay task. No live model/relay run was performed in this implementation. Accepted legacy combined-guide Issue #12 and existing translation ZIP formats remain unchanged. The independent guide task queue/Issue intake and two-pool Admin interface remain future work; the opt-in local coordinator and result-import heartbeat are described above.
 
 ## Automation roadmap and bounded guide planner — implemented read-only
 
-The owner-facing end-to-end goal, milestones, compatibility constraints, and mandatory cross-session handoff are tracked in [docs/automation-roadmap.md](docs/automation-roadmap.md). The repository includes a read-only `tools/guide_task_planner.py` and offline tests. It proposes missing work/target guides from `queue.json`, existing content-hashed guide pointers and compatible outstanding legacy Issue requests. It makes **no relay, network, model or file-write actions**. Independent guide ZIP exporters/importers are now available manually, but no new independent guide Issue queue, authorized local coordinator or ordered-material UI is implemented. The live Mac/relay path remains unverified.
+The owner-facing end-to-end goal, milestones, compatibility constraints, and mandatory cross-session handoff are tracked in [docs/automation-roadmap.md](docs/automation-roadmap.md). The repository includes a read-only `tools/guide_task_planner.py` and offline tests. It proposes missing work/target guides from `queue.json`, existing content-hashed guide pointers and compatible outstanding legacy Issue requests. It makes **no relay, network, model or file-write actions**. Independent guide ZIP exporters/importers are now available manually, but no new independent guide Issue queue or ordered-material UI is implemented. The coordinator and live guide imports are recorded above.
 
 ## Three ChatGPT task types — independent guide ZIPs implemented, no auto-execution
 

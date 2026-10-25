@@ -22,6 +22,9 @@ class RelayTests(unittest.TestCase):
         self.wid = 'gutenberg-36'
         self.wd = self.root/'books'/self.wid
         shutil.copytree(c.ROOT/'books'/self.wid, self.wd)
+        # Source fixtures must not inherit local real guide/edition output.
+        for name in ('editions','reference'):
+            shutil.rmtree(self.wd/name,ignore_errors=True)
         shutil.copytree(c.ROOT/'prompts', self.root/'prompts')
         (self.root/'docs').mkdir()
         shutil.copy2(c.ROOT/'docs/editorial-policy.md', self.root/'docs/editorial-policy.md')
@@ -68,6 +71,18 @@ class RelayTests(unittest.TestCase):
             self.assertEqual(source[-1]['role'], 'context')
             self.assertIn('model: test-model', z.read('README.md').decode())
         self.assertNotEqual(job['attempt'], self.package()['attempt'])
+
+    def test_first_translation_preserves_preexisting_guide_directory(self):
+        body=b'# Synthetic terminology guide\n'
+        folder=self.base/'reference';folder.mkdir(parents=True)
+        sha=c.digest(body);guide=folder/(sha+'.md');guide.write_bytes(body)
+        c.write_json(folder/'current.json',{'sha256':sha})
+        job=self.package()
+        self.assertFalse((self.base/'edition.json').exists())
+        self.accept(job)
+        self.assertEqual(guide.read_bytes(),body)
+        self.assertEqual(c.read_json(folder/'current.json'),{'sha256':sha})
+        c.load_work(self.wd,'ja')
 
     def test_import_records_exact_inputs_and_draft(self):
         job = self.package()

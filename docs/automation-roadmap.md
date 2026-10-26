@@ -125,11 +125,16 @@ relay adapter can also include ordered pinned materials and a private exact
 preview. Legacy request/response contracts remain available. The public Admin
 cannot select uncommitted private guides; using them locally requires the direct
 adapter until the owner approves their Git distribution. A real translated-node
-round trip and genuine deployed browser check are still pending. Offline
+round trip is still pending. The PR #19 Pages build/deployment succeeded; a real
+browser check selected Wells chapter II, added/reordered/removed two public
+materials and inspected the v2 Issue URL with exact ordered hashes. Private
+uncommitted guides were absent from the public list. The selection reset on
+reload; no Issue was submitted. See
+[browser verification](../verification/materials-browser-2026-10-27.md). Offline
 verification passed: 186 Python tests, 19 JavaScript core checks, Admin syntax
 check, `./ctp validate`, and `./ctp build --demo --epub`. The committed-material
 privacy fixture passed after the final guard change. These checks do not
-establish browser behavior or literary fidelity.
+establish literary fidelity.
 
 Four scopes (general, target language, work, work+target), instruction/reference type, optional tags, ordered/removable Applied list, defaults that can be removed, material versions pinned at Issue acceptance. One deterministic assembler produces exact preview and ZIP contents. Full private-source preview must happen at an authorized local step, not through public Pages. Existing translation requests retain backwards compatibility.
 

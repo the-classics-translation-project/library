@@ -61,8 +61,14 @@ recorded in `prompts/translation-pilot-follow-up.md`.
 Offline verification: 186 Python tests passed, including committed-material
 privacy, exact-input and interrupted-import recovery checks. Nineteen JavaScript
 core checks and `node --check site/translation-admin.js` passed. `./ctp validate`
-and `./ctp build --demo --epub` passed locally. No deployed browser interaction
-or real translated-node result has been verified. The remaining work is to confirm the standalone
+and `./ctp build --demo --epub` passed locally. The Pages build and deployment
+for merged PR #19 completed successfully in [run 40358969727](https://github.com/the-classics-translation-project/library/actions/runs/40358969727).
+A real browser check of that deployed Admin selected Wells chapter II, added,
+reordered and removed public materials, and confirmed that the prepared v2
+Issue URL pinned the selected order and hashes. Private uncommitted guides were
+absent from the public list; no Issue was submitted. A reload cleared the local
+selection. See [browser verification](verification/materials-browser-2026-10-27.md).
+No real translated-node result has been verified. The remaining work is to confirm the standalone
 guide result, run one short chapter through the real relay, evaluate unified
 ZIP formats, and exercise remaining recovery paths. See
 [automation roadmap](docs/automation-roadmap.md).

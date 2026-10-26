@@ -1,14 +1,18 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-27** (implementation branch and private local relay
-state; live deployment is not claimed). This file describes observed state, not a roadmap or a
+Last updated: **2026-10-27** (merged implementation and private local relay
+state; deployment is reported separately below). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
 
-## Ordered materials and guide task preparation — 2026-10-27 branch
+## Ordered materials and guide task preparation — 2026-10-27
 
-Implementation branch: [PR #19](https://github.com/the-classics-translation-project/library/pull/19).
+Implementation merged through [PR #19](https://github.com/the-classics-translation-project/library/pull/19)
+as `4cc4922`. The Documents checkout was fast-forwarded to that commit without
+adding its private generated guides. A live `relay-coordinator sync` reused the
+already queued attempt, prepared no duplicate, and reported zero model calls or
+relay submissions. `./ctp validate` passed in that checkout.
 
-The current implementation branch adds idempotent local guide task preparation
+The merged implementation adds idempotent local guide task preparation
 from accepted work/language requests. Submission stays per-package and requires
 the owner's explicit authorization. It also adds a four-scope material library,
 safe committed Admin metadata, ordered two-pool selection, v2 translation
@@ -24,9 +28,35 @@ authorized standalone Frankenstein English target-guide package is queued in
 the existing relay as attempt `attempt-40f5d35474a14e6b8f495a581f8ffc04`.
 The relay registered it as job 25; another job is ahead of it, and the relay
 submits at most one new ZIP per hourly run. No returned guide or translated chapter
-has been imported. The app heartbeat is still configured only to reconcile and
-import completed attempts, not to prepare new ones. Neither a new model
-submission schedule nor Git publication is enabled by this branch.
+has been imported. The existing 30-minute app heartbeat was updated in place to
+run `sync` before `reconcile --import-ready`; the app confirmed it remains ACTIVE.
+Its first updated timed execution reported no new preparations, imports or
+failures while the Frankenstein guide remained queued; it stayed quiet as
+configured. It prepares guide ZIPs
+locally and imports already authorized completed results; it never submits a
+new model job or publishes generated text. No generated text was committed.
+
+For the bounded translation trial, *The War of the Worlds* Japanese chapter II
+(`n0005`, 7,384 source characters) was packaged locally as direct relay attempt
+`ctp-b6b987c229d8405aa6744e9fafebbb88`, with chapter I (`n0004`) as context
+and exact ordered private Wells work and Japanese guide versions. The 69,026-byte
+assembled-input preview matched the ZIP and manifest hash; requested fields are
+only the chapter's label and body. The 47,102-byte ZIP was atomically placed in
+the existing relay input with a private, hash-bound owner authorization record.
+Its expected return is `ctp-b6b987c229d8405aa6744e9fafebbb88-result.zip`.
+At this observation it has not been registered by the relay scanner, submitted
+to ChatGPT, returned or imported. No chapter prose was publicly committed.
+
+A separate 30-minute app heartbeat, **Finish Classics translation pilot**, is
+ACTIVE for the bounded implementation follow-up. It checks only these two
+already authorized relay trials without resubmitting either package or changing
+the relay queue. The existing import heartbeat may import the guide; the new
+heartbeat may import the exact chapter result once the relay records completion,
+then verify the draft and continue compatible ZIP/recovery work in a PR. It
+does not authorize any further model job, public Git distribution, catalogue
+change or literary release. The app confirmed registration; no timed execution
+of this new heartbeat has yet been observed. Its configured instructions are
+recorded in `prompts/translation-pilot-follow-up.md`.
 
 Offline verification: 186 Python tests passed, including committed-material
 privacy, exact-input and interrupted-import recovery checks. Nineteen JavaScript
@@ -104,19 +134,19 @@ The existing source worker reports 317 runs and latest exit code 0, with repeate
 idle no-model logs; sleep/restart and headless model execution remain unverified.
 See [browser/runtime verification](verification/relay-browser-2026-10-25.md).
 
-## Independent guide ZIP export/import — implemented offline, unverified live
+## Independent guide ZIP export/import — initial offline milestone (historical)
 
-New `./ctp guide-task-export` and `./ctp guide-task-import` commands independently package/import `work_analysis` and `target_guide` tasks, using versioned Markdown prompts and **requested model default `6 Extra High`**. One guide is returned as `result.json` plus `guide.md`. Packaging pins exact source, work-reference version, prompt, notes, target and previous-guide pointer. Import enforces strict ZIP/job/field identities, source and guide-baseline staleness, immutable SHA-named guide text, serializes local imports, records requested vs observed model and full rendered editorial instructions, and preserves old guide versions. See [independent guide ZIP usage](docs/independent-guide-zip.md). This is a manual/offline ZIP exchange, **not** an automatically submitted or completed relay task. No live model/relay run was performed in this implementation. Accepted legacy combined-guide Issue #12 and existing translation ZIP formats remain unchanged. The independent guide task queue/Issue intake and two-pool Admin interface remain future work; the opt-in local coordinator and result-import heartbeat are described above.
+At this milestone, new `./ctp guide-task-export` and `./ctp guide-task-import` commands independently packaged/imported `work_analysis` and `target_guide` tasks, using versioned Markdown prompts and **requested model default `6 Extra High`**. One guide is returned as `result.json` plus `guide.md`. Packaging pins exact source, work-reference version, prompt, notes, target and previous-guide pointer. Import enforces strict ZIP/job/field identities, source and guide-baseline staleness, immutable SHA-named guide text, serializes local imports, records requested vs observed model and full rendered editorial instructions, and preserves old guide versions. See [independent guide ZIP usage](docs/independent-guide-zip.md). No live model/relay run was performed during that initial implementation. Later real guide imports and the current coordinator/Admin state are recorded above.
 
-## Automation roadmap and bounded guide planner — implemented read-only
+## Automation roadmap and bounded guide planner — initial read-only milestone (historical)
 
 The owner-facing end-to-end goal, milestones, compatibility constraints, and mandatory cross-session handoff are tracked in [docs/automation-roadmap.md](docs/automation-roadmap.md). The repository includes a read-only `tools/guide_task_planner.py` and offline tests. It proposes missing work/target guides from `queue.json`, existing content-hashed guide pointers and compatible outstanding legacy Issue requests. It makes **no relay, network, model or file-write actions**. Independent guide ZIP exporters/importers are now available manually, but no new independent guide Issue queue or ordered-material UI is implemented. The coordinator and live guide imports are recorded above.
 
-## Three ChatGPT task types — independent guide ZIPs implemented, no auto-execution
+## Three ChatGPT task types — initial ZIP milestone (historical)
 
 The proposed project-owned task types are `work_analysis`, `target_guide` and `translation`; `chatgpt-relay` remains a ZIP submission/download transport. See [task model](docs/relay-task-model.md) and separate versioned `prompts/work-analysis.md` / `prompts/target-language-guide.md`. The existing combined guide ZIP operation, accepted Issue #12, and both current translation adapters remain unchanged. Read-only task discovery and independent local guide ZIP handlers now exist; there is no automatic enqueue/submission scheduler or registered new independent guide Issue intake. Real relay round-trip verification remains necessary.
 
-## Ordered translation materials — planned, not implemented
+## Ordered translation materials — initial design before PR #19 (historical)
 
 The current design direction is an **ordered transfer-list (dual-listbox) UI**
 for composing translation requests from versioned Markdown/text materials.

@@ -93,7 +93,7 @@ rather than treating a push or dispatch as successful deployment.
 
 ## Independent work and target guide ZIPs
 
-Use `./ctp guide-task-plan` to inspect proposed guide tasks. New `./ctp guide-task-export` / `guide-task-import` handle individual work-analysis or work+target-language guides using the versioned prompts and default requested model `6 Extra High`. Read [independent guide ZIP usage](independent-guide-zip.md) first. They do **not** replace pending combined guide Issue #12, submit to a relay, or automatically register requests through GitHub Issues. A local coordinator and explicit authorizations remain future work.
+Use `./ctp guide-task-plan` to inspect proposed guide tasks. `./ctp relay-coordinator sync` can prepare local immutable ZIP attempts for eligible accepted work/language requests; it never submits them. `./ctp guide-task-export` / `guide-task-import` handle individual work-analysis or work+target-language guides using versioned prompts and default requested model `6 Extra High`. Read [independent guide ZIP usage](independent-guide-zip.md) and [local coordinator usage](local-relay-coordinator.md) first. The pending combined-guide Issue #12 retains its own contract. Each new relay submission still needs explicit owner authorization.
 
 ## Local ChatGPT relay packages
 

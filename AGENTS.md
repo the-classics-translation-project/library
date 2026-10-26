@@ -27,13 +27,14 @@ For source work, read [source import](docs/source-import.md) and
 [source structure](docs/source-structure.md). For generation, read
 [provenance](docs/provenance.md). For UI/data changes, read
 [data formats](docs/data-formats.md) and [contributor workflow](docs/contributor-workflow.md).
-For the **proposed** next translation-selection design, read
+For the ordered translation-selection implementation and remaining ZIP design, read
 [ordered translation materials](docs/translation-materials-design.md) before
 changing Admin prompt selection, guide discovery or ZIP formats. It describes
 four applicability scopes; a removable, reorderable dual-listbox material stack;
 a full assembled-input preview; and a recommended protocol-owned final output
-contract. **This is design only**: today's two ZIP protocols and their storage
-remain separate. Keep historical requests replayable and do not silently
+contract. The initial library, Admin selector, and local exact-input preview are
+implemented; unified ZIP handling remains a design proposal. Today's two ZIP
+protocols and their storage remain separate. Keep historical requests replayable and do not silently
 expose unapproved drafts in public Pages.
 
 For the proposed three relay task types (work analysis, target-language guide and translation), read [the relay task model](docs/relay-task-model.md). Independent offline guide ZIP packaging/import is documented in [independent guide ZIP usage](docs/independent-guide-zip.md); use its standalone versioned prompts, preserve accepted combined-guide Issue requests, and require explicit owner authorization before relay submission.

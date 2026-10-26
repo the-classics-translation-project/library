@@ -25,21 +25,23 @@ Repeated syncs reuse active attempts; stopped attempts remain held for deliberat
 retry. It never delivers a ZIP or authorizes model submission. The independent
 Frankenstein English target-guide package was separately prepared and explicitly
 delivered for one owner-authorized live trial; the relay registered it as
-queued job 25, with another job ahead and no imported result. The initial preservation of the three
-previously imported guides is a private hash-checked local snapshot, with no
-Git distribution approval. The app result-import heartbeat still needs an
-explicit configuration update to call `sync` on each run.
-Implementation and tests are in [PR #19](https://github.com/the-classics-translation-project/library/pull/19).
+queued job 25, with another job ahead and no imported result. The three
+previously imported guides have a private hash-checked local snapshot, with no
+Git distribution approval. The existing 30-minute heartbeat now runs `sync`
+before reconciled import; the app confirmed ACTIVE status. Its first updated
+timed run found no new preparation/import/failure and stayed quiet. Implementation and tests merged in
+[PR #19](https://github.com/the-classics-translation-project/library/pull/19)
+as `4cc4922`. A live no-op sync on the updated Documents checkout reused job 25
+and reported zero model calls/submissions; project validation passed.
 
 **Done on main:** read-only deterministic planner `python3 tools/guide_task_planner.py`; legacy combined-guide Issue coverage; SHA-256 verification of existing guide pointers; unit tests. The planner returns `proposed`, `awaiting_work_analysis`, `covered_by_legacy_issue`, `completed`, and `blocked`. It currently derives requests from `queue.json` and the current guide Issue queue; it does **not** persist a new task queue, submit ZIPs, or mutate Git files. It uses the current canonical source fingerprint.
 
 **Implemented offline in this milestone:** `./ctp guide-task-export` / `guide-task-import` provide **separate** `work_analysis` and `target_guide` ZIP contracts, saved and rendered versioned prompts, requested default model `6 Extra High`, SHA-pinned source/reference context, strict return ZIP validation, atomic immutable-guide/pointer updates, local import lock, per-job provenance and stale/duplicate rejection. The accepted legacy Issue #12 combined-guide importer remains unchanged. See [independent guide ZIP usage](independent-guide-zip.md) and `tests/test_independent_guide_jobs.py`. A real independent Frankenstein work-analysis result was imported locally on 2026-10-25. The standalone target-guide round trip remains unverified; Wells used its legacy combined contract.
 
-**Next:** after the code reaches the canonical local checkout, update the
-existing heartbeat to call `sync` before result reconciliation. Each prepared
-attempt still needs separate owner submission authorization. Verify the live
-standalone target-guide return and do not require a target guide for every
-translation.
+**Next:** verify the live standalone target-guide return. Each newly prepared
+attempt still needs separate owner submission authorization; the already
+delivered trial does not authorize future ones. Do not require a target guide
+for every translation.
 
 **Acceptance:** one work with two target languages yields one work reference and two target guides; repeat checks submit nothing; existing references are never overwritten without a versioned regeneration; old requests keep working.
 
@@ -59,10 +61,10 @@ source-based tests isolate their temporary fixtures from real local results.
 All 174 Python tests, project validation and the sample HTML/EPUB build passed.
 The public-Git leg of the acceptance criterion remains a separate owner decision.
 
-The owner then requested automatic result handling. The app heartbeat
-**Import completed Classics relay results** is active every 30 minutes, running
-only `reconcile --import-ready` on existing authorized attempts. It never
-prepares/submits jobs, automatically resumes review holds or publishes files.
+The owner then requested automatic result handling. At its initial installation,
+the app heartbeat **Import completed Classics relay results** ran only
+`reconcile --import-ready` every 30 minutes on existing authorized attempts.
+It never submitted jobs, automatically resumed review holds or published files.
 The first timed heartbeat and Mac sleep/restart behavior are unverified; creation
 was confirmed by the app. This is separate from both the external relay's existing
 hourly schedule and the source-worker LaunchAgent. Exact configured instructions
@@ -139,8 +141,23 @@ The legacy combined Wells guide and independent Frankenstein work-analysis guide
 have completed actual relay-to-local-import paths. Standalone target-guide and
 translated-node round trips, restart/failure behavior of the new heartbeat and
 format consolidation still require work. No output format was retired or changed.
-The standalone target-guide trial is queued in the external relay, not yet completed. A short
-Frankenstein chapter trial is planned only after the guide result is imported.
+The standalone target-guide trial is queued in the external relay, not yet
+completed. Independently, a bounded Wells Japanese chapter II (`n0005`) direct
+translation package was prepared with chapter I as context and both existing
+private Wells guide versions, then placed in the relay's watched input with
+exact hash-bound owner authorization. Its attempt is
+`ctp-b6b987c229d8405aa6744e9fafebbb88`; it awaits scanner registration and
+later relay processing. The external relay submits at most one new ZIP per run,
+so neither trial's completion is inferred from placement in watched input.
+No translated prose has been imported or publicly distributed.
+The app registered a separate 30-minute **Finish Classics translation pilot**
+heartbeat for this bounded follow-up. Its exact instructions are recorded in
+`prompts/translation-pilot-follow-up.md`. It watches the two already-authorized
+trials, does not resubmit either, and may import the exact direct chapter result
+once the relay records completion. It can continue the compatible ZIP/recovery
+work after real results are verified. It grants no new model submission or Git
+publication authority. Registration is confirmed; its first timed run and
+sleep/restart behavior are unverified.
 The direct adapter's old-edition rename gap now has an explicit guarded recovery
 command and an interruption/concurrent-edit fixture. Relay heartbeat restart
 behavior remains unverified in the live app.

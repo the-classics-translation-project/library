@@ -334,6 +334,8 @@ def main() -> int:
     p.add_argument('request_zip', type=Path); p.add_argument('response_zip', type=Path)
     sub.add_parser('prompt-list')
     p=sub.add_parser('translation-export'); p.add_argument('issue',type=int); p.add_argument('--output',type=Path,required=True); p.add_argument('--model',default='6 Extra High')
+    p=sub.add_parser('translation-preview', help='Write the exact assembled input for an accepted v2 request')
+    p.add_argument('issue',type=int); p.add_argument('--output',type=Path)
     p=sub.add_parser('translation-import'); p.add_argument('response_zip',type=Path)
     p=sub.add_parser('guide-export'); p.add_argument('work',nargs='?'); p.add_argument('target',nargs='?'); p.add_argument('--issue',type=int); p.add_argument('--output',type=Path,required=True); p.add_argument('--model',default='6 Extra High')
     p=sub.add_parser('guide-import'); p.add_argument('response_zip',type=Path)
@@ -342,6 +344,7 @@ def main() -> int:
     p=sub.add_parser('relay-package', help='Prepare a local ZIP; never submit')
     p.add_argument('work'); p.add_argument('edition'); p.add_argument('--node', action='append', required=True)
     p.add_argument('--context-node', action='append', default=[]); p.add_argument('--model', default='6 Extra High')
+    p.add_argument('--material', action='append', default=[], help='Ordered material ID@SHA-256; repeat to add')
     p.add_argument('--language'); p.add_argument('--direction', choices=['ltr','rtl'], default='ltr')
     p.add_argument('--kind', choices=['translation','modernization'], default='translation')
     p=sub.add_parser('relay-import', help='Validate and import one returned ZIP as a draft')
@@ -351,6 +354,7 @@ def main() -> int:
     p.add_argument('--relay',type=Path,default=Path.home()/'Software/chatgpt-relay')
     modes=p.add_subparsers(dest='mode',required=True)
     modes.add_parser('status',help='Read-only plan and attempt status')
+    modes.add_parser('sync',help='Prepare eligible guide tasks from accepted requests; never submit')
     q=modes.add_parser('prepare',help='Archive one task; never submit')
     choice=q.add_mutually_exclusive_group(required=True)
     choice.add_argument('--guide-issue',type=int); choice.add_argument('--translation-issue',type=int)
@@ -374,6 +378,7 @@ def main() -> int:
         elif args.command=='relay-coordinator':
             import relay_coordinator as coordinator
             if args.mode=='status':result=coordinator.status(ROOT)
+            elif args.mode=='sync':result=coordinator.sync_proposals(ROOT,args.relay)
             elif args.mode=='prepare':
                 result=coordinator.prepare(ROOT,args.relay,args.guide_issue,args.translation_issue,
                     args.task_type,args.work,args.target,args.model,args.retry_of)
@@ -384,7 +389,7 @@ def main() -> int:
             else:result=coordinator.publish(ROOT,args.attempt,args.approve_git_distribution,args.push)
         elif args.command=='relay-package':
             from translation_relay import package
-            result=package(ROOT,args.work,args.edition,args.node,args.model,args.language,args.direction,args.kind,args.context_node)
+            result=package(ROOT,args.work,args.edition,args.node,args.model,args.language,args.direction,args.kind,args.context_node,args.material)
         elif args.command=='relay-import':
             from translation_relay import import_result
             result=import_result(ROOT,args.attempt,args.result,args.observed_model,args.chat_url)
@@ -434,6 +439,15 @@ def main() -> int:
         elif args.command=='translation-export':
             from translation_jobs import export_translation
             result=export_translation(ROOT,args.issue,args.output,args.model)
+        elif args.command=='translation-preview':
+            from translation_jobs import prepare_job,request_entry
+            job,manifest=prepare_job(ROOT,request_entry(ROOT,args.issue))
+            check('assembled_input' in job,'An accepted v2 materials request is required')
+            output=args.output or ROOT/'build'/('translation-preview-'+str(args.issue)+'.md')
+            output.parent.mkdir(parents=True,exist_ok=True)
+            output.write_text(job['assembled_input'],encoding='utf-8')
+            result={'output':str(output),'job_sha256':manifest['job_sha256'],
+                    'input_sha256':digest(job['assembled_input'].encode()),'submitted':False}
         elif args.command=='translation-import':
             from translation_jobs import import_translation
             result=import_translation(ROOT,args.response_zip)

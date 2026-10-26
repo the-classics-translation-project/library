@@ -26,6 +26,7 @@ class RelayTests(unittest.TestCase):
         for name in ('editions','reference'):
             shutil.rmtree(self.wd/name,ignore_errors=True)
         shutil.copytree(c.ROOT/'prompts', self.root/'prompts')
+        shutil.copy2(c.ROOT/'queue.json', self.root/'queue.json')
         (self.root/'docs').mkdir()
         shutil.copy2(c.ROOT/'docs/editorial-policy.md', self.root/'docs/editorial-policy.md')
         self.base = self.wd/'editions/ja'
@@ -83,6 +84,29 @@ class RelayTests(unittest.TestCase):
         self.assertEqual(guide.read_bytes(),body)
         self.assertEqual(c.read_json(folder/'current.json'),{'sha256':sha})
         c.load_work(self.wd,'ja')
+
+    def test_ordered_materials_make_exact_private_preview_without_changing_return_zip(self):
+        folder=self.wd/'reference';folder.mkdir(parents=True)
+        first=b'# Synthetic work reference\n\nWork context.\n'
+        sha=c.digest(first);(folder/(sha+'.md')).write_bytes(first)
+        c.write_json(folder/'current.json',{'sha256':sha})
+        from materials import discover
+        items={item['id']:item for item in discover(self.root)}
+        ids=['guide.work.'+self.wid,'policy.editorial']
+        selected=[ident+'@'+items[ident]['sha256'] for ident in ids]
+        job=self.package(materials=selected)
+        with zipfile.ZipFile(job['package']) as z:
+            preview=z.read('assembled-input.md')
+            manifest=json.loads(z.read('manifest.json'))
+            self.assertEqual(manifest['materials'],
+                             [{'id':ident,'sha256':items[ident]['sha256']} for ident in ids])
+            self.assertEqual(manifest['assembled_input_sha256'],c.digest(preview))
+            self.assertIn('Synthetic work reference',preview.decode())
+            self.assertLess(preview.index(b'Synthetic work reference'),
+                            preview.index(b'Editorial policy'))
+        self.assertEqual(Path(job['preview']).read_bytes(),preview)
+        self.accept(job)
+        self.assertTrue((self.base/'edition.json').exists())
 
     def test_import_records_exact_inputs_and_draft(self):
         job = self.package()

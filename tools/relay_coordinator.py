@@ -116,8 +116,10 @@ def info(request):
         match=re.match(r'---\nmodel: ([^\n]+)\noutput_filename: ([^\n]+)\n---\n',text)
         c.check(match is not None,'Legacy request needs explicit relay model and filename metadata')
         model,output=match.groups()
-        from translation_jobs import relay_readme,GUIDE_README,TRANSLATION_README
-        body=GUIDE_README if adapter=='legacy_guide' else TRANSLATION_README
+        from translation_jobs import relay_readme,GUIDE_README,TRANSLATION_README,TRANSLATION_README_V2
+        body=(GUIDE_README if adapter=='legacy_guide' else
+              TRANSLATION_README_V2 if job.get('request',{}).get('schema_version')==2 else
+              TRANSLATION_README)
         c.check(text==relay_readme(body,request,model),'Legacy relay instructions differ from exporter')
         work,target=manifest['work'],manifest['target']
     c.ident(work)
@@ -412,6 +414,31 @@ def status(root):
         planning={'read_only':True,'proposed':[],'error':str(exc)}
     return {'attempts':records(root),'planning':planning,'model_invoked_directly':False,
             'scheduler_installed':False,'publication_automatic':False}
+
+
+def sync_proposals(root, relay=DEFAULT_RELAY, model='6 Extra High'):
+    """Prepare exact ZIPs for eligible accepted guide requests, never submit them.
+
+    Existing attempt job hashes provide the durable, idempotent task identity.
+    Stopped attempts stay stopped until an owner selects a deliberate retry.
+    """
+    from guide_task_planner import discover
+    root=root.resolve()
+    planning=discover(root)
+    prepared=[]; existing=[]; held=[]
+    for proposal in planning['proposed']:
+        before={row['id'] for row in records(root)}
+        try:
+            row=prepare(root,relay,task_type=proposal['type'],work=proposal['work'],
+                        target=proposal.get('target'),model=model)
+        except (c.ProjectError,OSError,ValueError,KeyError,TypeError) as exc:
+            held.append({'proposal':proposal,'reason':str(exc)})
+            continue
+        summary={'proposal':proposal,'attempt':row['id'],'state':row['state']}
+        (existing if row['id'] in before else prepared).append(summary)
+    return {'prepared':prepared,'existing':existing,'held':held,
+            'model_called':False,'relay_submitted':False,
+            'publication_automatic':False}
 
 
 def publish(root,attempt,approve=False,push=False):

@@ -17,17 +17,20 @@ should survive a complete retranslation. Maintain one logical edition per target
 approach; stylistic experiments can be branches/revisions rather than needless new
 edition IDs with detached notes.
 
-## Future ordered-material provenance (proposed)
+## Ordered-material provenance (initial implementation)
 
-The planned [scoped translation materials system](translation-materials-design.md)
-would capture an **ordered list** of immutable material identities/versions,
+The [scoped translation materials system](translation-materials-design.md)
+captures an **ordered list** of immutable material identities/versions,
 their complete resolved contents and applicability/type metadata, plus the
 source/target fingerprint, optional historical translation, and exact final
 output-contract version. This extends rather than replaces the existing
 `record-run` and frozen snapshots. An accepted request must retain the prompt
 versions it actually selected even if a glossary is regenerated or a human
-edits a Markdown file later. **No unified assembler or ordered-material run
-schema has been implemented yet**; current ZIP provenance below applies.
+edits a Markdown file later. The accepted v2 request queue snapshots complete
+material text and the job stores exact assembled input; the direct adapter saves
+the same kind of private input in its ZIP and attempt archive. Existing
+generation records and both return ZIP contracts remain in effect; a unified
+format and reviewed literary status are not implied.
 
 ## Reusable prompts
 

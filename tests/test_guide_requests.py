@@ -3,6 +3,7 @@ from pathlib import Path
 from zipfile import ZipFile
 import json
 import re
+import subprocess
 import shutil
 import sys
 import tempfile
@@ -189,6 +190,19 @@ class WholeWorkGuideTests(unittest.TestCase):
         intake_guide(self.root,[self.issue(70)])
         from translation_jobs import import_guide
         imported=import_guide(self.root,self.answer(70))
+        html=site_builder.admin(self.root,read_json(self.root/'project.json'),'')
+        raw=re.search(r'<script id="admin-data" type="application/json">(.*?)</script>',
+                      html,re.S).group(1)
+        data=json.loads(raw)
+        self.assertEqual(data['sources'][0]['guides'],
+                         {'work':False,'targets':[]})
+        subprocess.run(['git','init','-q',str(self.root)],check=True)
+        subprocess.run(['git','-C',str(self.root),'add',
+                        'books/gutenberg-36/reference',
+                        'books/gutenberg-36/editions/ja/reference'],check=True)
+        for key,value in [('user.name','Fixture'),('user.email','fixture@example.invalid')]:
+            subprocess.run(['git','-C',str(self.root),'config',key,value],check=True)
+        subprocess.run(['git','-C',str(self.root),'commit','-qm','Approved guide fixture'],check=True)
         html=site_builder.admin(self.root,read_json(self.root/'project.json'),'')
         raw=re.search(r'<script id="admin-data" type="application/json">(.*?)</script>',
                       html,re.S).group(1)

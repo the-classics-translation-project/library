@@ -90,6 +90,48 @@ class TranslationZipTests(unittest.TestCase):
         with self.assertRaises(ProjectError):
             validate_request(self.root,self.request())
 
+    def test_v2_material_order_and_accepted_snapshot_survive_later_edits(self):
+        from materials import discover
+        from translation_jobs import MARKER_V2,prepare_job,request_entry
+        (self.root/'queue.json').write_text(json.dumps({'schema_version':1,'works':[
+            {'id':'gutenberg-36','targets':['ja']}]}))
+        material=self.root/'materials/files/ja.md';material.parent.mkdir(parents=True)
+        material.write_text('# Japanese guide\n\nUse natural dialogue.\n')
+        manifest={'schema_version':1,'entries':[{'id':'style.ja','path':'materials/files/ja.md',
+            'title':'Japanese guide','description':'Draft style note','scope':'target_language',
+            'kind':'reference','work':None,'target':'ja','tags':['draft']}]}
+        (self.root/'materials/manifest.json').write_text(json.dumps(manifest))
+        row=next(x for x in discover(self.root) if x['id']=='style.ja')
+        request=self.request();request['schema_version']=2
+        request['materials']=[{'id':'style.ja','sha256':row['sha256']}]
+        fence=chr(96)*3
+        issue=self.issue(48,request)
+        issue['body']=MARKER_V2+'\n'+fence+'json\n'+json.dumps(request)+'\n'+fence
+        self.assertEqual(intake(self.root,[issue])['accepted'],[48])
+        pinned=validate_queue(self.root)['requests'][0]['materials_snapshot']
+        self.assertEqual(pinned[0]['text'],material.read_text())
+        material.write_text('# Replaced later\n\nDifferent advice.\n')
+        self.assertEqual(validate_queue(self.root)['requests'][0]['materials_snapshot'],pinned)
+        job,metadata=prepare_job(self.root,request_entry(self.root,48))
+        self.assertIn('Use natural dialogue.',job['assembled_input'])
+        self.assertNotIn('Different advice.',job['assembled_input'])
+        self.assertEqual(job['ordered_materials'],pinned)
+        out=self.root/'v2-request.zip';export_translation(self.root,48,out)
+        with ZipFile(out) as archive:
+            packaged=json.loads(archive.read('input/job.json'))
+            self.assertEqual(packaged['assembled_input'],job['assembled_input'])
+            self.assertIn('ordered materials',archive.read('README.md').decode())
+        self.assertEqual(metadata['job_sha256'],json.loads(ZipFile(out).read('input/manifest.json'))['job_sha256'])
+        from unittest.mock import patch
+        from contextlib import redirect_stdout
+        from io import StringIO
+        preview=self.root/'full-preview.md';screen=StringIO()
+        with patch.object(ctp,'ROOT',self.root),patch.object(sys,'argv',
+             ['ctp','translation-preview','48','--output',str(preview)]),redirect_stdout(screen):
+            self.assertEqual(ctp.main(),0)
+        self.assertEqual(preview.read_text(),job['assembled_input'])
+        self.assertFalse(json.loads(screen.getvalue())['submitted'])
+
     def test_zip_export_import_retranslation_and_history(self):
         self.assertEqual(intake(self.root,[self.issue(42)])['accepted'],[42])
         out=self.root/'request.zip'

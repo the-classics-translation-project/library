@@ -64,6 +64,19 @@ content. It is distinct from the `catalog.json` reader distribution allowlist.
 See [local source-preparation brief](local-source-automation.md). Its source-tree
 manifest uses existing source IDs and has no dependency on the reader catalogue.
 
+## Ordered translation materials
+
+`materials/manifest.json` schema 1 registers optional Markdown/text files under
+`materials/files/` with a stable ID, title, description, `scope` (`general`,
+`target_language`, `work`, `work_target`), `kind` (`instruction` or `reference`),
+optional work/target qualifiers and tags. The same library discovers tracked
+recipes, editorial policy, notes and content-addressed guide pointers. Public
+Admin includes only committed safe metadata, never complete material text or
+private guide paths. A v2 translation Issue adds ordered `{id,sha256}` material
+references; authorized intake snapshots their full text in
+`translation-requests.json`. An accepted snapshot remains replayable after a
+material changes. Old v1 requests and ZIP response contracts remain valid.
+
 ## Source work and tree (schema 2)
 
 `work.json`: `schema_version`, `id`, `language`, `author`, `source_edition`,

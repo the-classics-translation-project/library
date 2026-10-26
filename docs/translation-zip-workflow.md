@@ -9,22 +9,22 @@ the returned ZIP. GitHub Pages/Issues do not execute arbitrary AI requests.
 
 The task model separates language-independent `work_analysis` and target-specific `target_guide` from `translation`. **New** independent manual `guide-task-export` / `guide-task-import` commands package each guide with its own versioned prompt and model default of `6 Extra High`; see [independent guide ZIP usage](independent-guide-zip.md). The existing Issue-bound `guide-export` / `guide-import` **still combines both guides in one response**. Accepted guide Issue #12 retains its previous ZIP contract. The new commands do not register new Issue types or submit ZIPs to ChatGPT automatically.
 
-## Planned shared prompt/reference selection (not implemented)
+## Ordered material selection
 
-The current Issue-based translation form selects **one translation recipe**
-and a coarse previous-reference setting; the ZIP importer uses its existing
-`response.json` protocol. A proposed replacement uses **two pools**:
-all applicable materials (general, target language, work, work+target language)
-and a **user-ordered Applied** list. Versioned instruction and reference
-documents—including generated Markdown guides—would be freely added,
-removed and reordered, with full assembled-input preview and a separate
-protocol-owned final output contract.
+The Issue-based form retains its recipe and previous-reference settings and now
+offers **Available** and ordered **Applied** material pools. Optional selected
+materials produce a v2 Issue payload pinning each ID, SHA-256 and order. The
+accepted local queue snapshots complete text, so subsequent material edits do
+not rewrite an accepted task. `./ctp translation-preview ISSUE` writes the
+exact assembled input used by `translation-export`; complete text stays local.
+The importer continues to require its existing `response.json` contract.
 
 The full proposal, including reconciliation with the currently different
 `relay-package` / `relay-import` ZIP return contract, is in
 [ordered translation materials](translation-materials-design.md).
-These changes are **not yet implemented**; the commands and formats below
-remain current.
+The two return ZIP protocols remain distinct. A private guide does not appear
+in public Admin until its metadata is built from an approved public checkout;
+use the local direct adapter for private-guide experiments.
 
 ## End-to-end workflow
 
@@ -115,6 +115,13 @@ The Admin page emits a machine-readable payload following
   "instructions": ""
 }
 ```
+
+With one or more Applied materials it emits
+`<!-- ctp:translation-request:v2 -->`, changes `schema_version` to `2`, and
+adds an ordered `"materials"` array such as
+`[{"id":"policy.editorial","sha256":"<64-digit SHA-256>"}]`. The other
+fields keep their v1 meanings. A new Issue must be submitted by a configured
+maintainer; preparing its link does not accept or submit a task to the relay.
 
 The request and the selected source tree must match exactly, including source
 fingerprint. Accepted requests are immutable; correcting a request requires

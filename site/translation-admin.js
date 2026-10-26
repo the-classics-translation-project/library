@@ -44,6 +44,27 @@
       {value:'text',label:'Include exact earlier translated text'}
     ]);
     const revision=labeledSelect(panel,'Reference version',[]);
+    const materialRows=(data.materials||[]).filter(m=>!(m.tags||[]).includes('recipe'));
+    const materialPanel=make('section',panel,null,'material-picker');
+    make('h5',materialPanel,'Ordered materials');
+    make('p',materialPanel,'Add reference or instruction documents in the order ChatGPT should receive them. Every item is removable. Full text is previewed locally after the request is accepted.','small');
+    const materialSearchLabel=make('label',materialPanel,'Filter available materials','translation-option');
+    const materialSearch=make('input',materialSearchLabel);materialSearch.type='search';
+    const pools=make('div',materialPanel,null,'material-pools');
+    const availableLabel=make('label',pools,'Available','translation-option');
+    const available=make('select',availableLabel);available.size=7;
+    available.setAttribute('aria-label','Available materials');
+    const buttons=make('div',pools,null,'material-actions');
+    const add=make('button',buttons,'Add →');add.type='button';
+    const remove=make('button',buttons,'← Remove');remove.type='button';
+    const up=make('button',buttons,'Move up');up.type='button';
+    const down=make('button',buttons,'Move down');down.type='button';
+    const appliedLabel=make('label',pools,'Applied in this order','translation-option');
+    const applied=make('select',appliedLabel);applied.size=7;
+    applied.setAttribute('aria-label','Applied materials in order');
+    const materialNotice=make('p',materialPanel,'','small');
+    const materialPreview=make('ol',materialPanel,null,'material-preview');
+    const selectedMaterials=[];
     const instructionsLabel=make('label',panel,'Additional instructions (optional)','translation-option');
     const instructions=make('textarea',instructionsLabel);
     instructions.rows=2;instructions.maxLength=4000;
@@ -108,6 +129,51 @@
     function selectedIds(){
       return selectors.filter(x=>x.checked).map(x=>x.dataset.nodeId);
     }
+    function materialApplies(m){
+      return (!m.work||m.work===work.work)&&(!m.target||m.target===target.value);
+    }
+    function renderMaterials(){
+      const previousAvailable=available.value,previousApplied=applied.value;
+      available.replaceChildren();applied.replaceChildren();materialPreview.replaceChildren();
+      const q=materialSearch.value.trim().toLocaleLowerCase();
+      for(const m of materialRows){
+        if(!materialApplies(m)||selectedMaterials.includes(m.id))continue;
+        if(q&&!`${m.title} ${m.scope} ${m.kind} ${(m.tags||[]).join(' ')}`.toLocaleLowerCase().includes(q))continue;
+        const option=make('option',available,m.title+' · '+m.scope+' · '+m.kind);
+        option.value=m.id;
+      }
+      for(const id of selectedMaterials){
+        const m=materialRows.find(x=>x.id===id);
+        if(!m)continue;
+        const option=make('option',applied,m.title+' · '+m.scope+' · '+m.kind);
+        option.value=id;
+        make('li',materialPreview,m.title+' · '+m.kind+' · '+m.sha256.slice(0,12));
+      }
+      if([...available.options].some(o=>o.value===previousAvailable))available.value=previousAvailable;
+      if([...applied.options].some(o=>o.value===previousApplied))applied.value=previousApplied;
+      materialNotice.textContent=selectedMaterials.length+
+        ' material(s) selected. The Issue pins their order and exact versions.';
+    }
+    function moveMaterial(step){
+      const index=selectedMaterials.indexOf(applied.value),next=index+step;
+      if(index<0||next<0||next>=selectedMaterials.length)return;
+      [selectedMaterials[index],selectedMaterials[next]]=[selectedMaterials[next],selectedMaterials[index]];
+      renderMaterials();applied.value=selectedMaterials[next];update();
+    }
+    add.addEventListener('click',()=>{
+      if(!available.value||selectedMaterials.includes(available.value))return;
+      const id=available.value;selectedMaterials.push(id);renderMaterials();applied.value=id;update();
+    });
+    remove.addEventListener('click',()=>{
+      const index=selectedMaterials.indexOf(applied.value);
+      if(index<0)return;
+      selectedMaterials.splice(index,1);renderMaterials();update();
+    });
+    up.addEventListener('click',()=>moveMaterial(-1));
+    down.addEventListener('click',()=>moveMaterial(1));
+    materialSearch.addEventListener('input',renderMaterials);
+    available.addEventListener('dblclick',()=>add.click());
+    applied.addEventListener('dblclick',()=>remove.click());
     function refreshHistory(){
       revision.replaceChildren();versions.replaceChildren();
       const found=activeHistory();
@@ -160,9 +226,16 @@
         nodes:selected,source_fingerprint:work.source_fingerprint,scope:scope.value,
         prompt:{id:p.id,sha256:p.sha256},
         reference:{mode:ref,revision:old},instructions:instructions.value};
+      if(selectedMaterials.length){
+        request.schema_version=2;
+        request.materials=selectedMaterials.map(id=>{
+          const m=materialRows.find(x=>x.id===id);
+          return {id:m.id,sha256:m.sha256};
+        });
+      }
       const fence=String.fromCharCode(96).repeat(3);
       const body='Translation request: '+work.work+' to '+target.value+
-          '\n\n<!-- ctp:translation-request:v1 -->\n\n'+fence+'json\n'+
+          '\n\n<!-- ctp:translation-request:v'+request.schema_version+' -->\n\n'+fence+'json\n'+
           JSON.stringify(request,null,2)+'\n'+fence+'\n';
       const url='https://github.com/'+data.repository+'/issues/new?title='+
           encodeURIComponent('[Translation] '+work.work+' → '+target.value)+
@@ -179,7 +252,17 @@
         update();
       });
     }
-    target.addEventListener('change',()=>{refreshHistory();update();});
+    target.addEventListener('change',()=>{
+      refreshHistory();
+      const removed=selectedMaterials.filter(id=>{
+        const m=materialRows.find(x=>x.id===id);return !m||!materialApplies(m);
+      });
+      for(const id of removed)selectedMaterials.splice(selectedMaterials.indexOf(id),1);
+      renderMaterials();
+      if(removed.length)materialNotice.textContent='Removed '+removed.length+
+        ' material(s) that do not apply to the new target.';
+      update();
+    });
     for(const input of [prompt,scope,reference,revision,instructions])
       input.addEventListener('input',update);
     versions.addEventListener('change',()=>{preview.hidden=true;});
@@ -201,6 +284,6 @@
         readerLink.href=base+'read.html';
       }catch(_err){preview.textContent='Could not load the approved historical revision.';}
     });
-    refreshHistory();update();
+    refreshHistory();renderMaterials();update();
   }
 })();

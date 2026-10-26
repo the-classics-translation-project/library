@@ -7,27 +7,33 @@ handles browser submission and download. Its README and RUNBOOK are the authorit
 for its operation. This adapter does not require a model API or a CLI translation
 worker. A direct interactive agent session remains an equally valid workflow.
 
-## Proposed project-owned task types (not yet implemented)
+## Project-owned task types
 
-The project task types are `work_analysis`, `target_guide`, and `translation`; all can in principle use the existing external ChatGPT ZIP relay, but only manual/offline independent guide packaging and import is implemented. The direct bounded translation adapter is implemented here. Two **independent offline guide ZIP commands** (`guide-task-export` / `guide-task-import`) now use `prompts/work-analysis.md` and `prompts/target-language-guide.md`, while legacy `guide-export` still combines the first two editorial products in one Issue task. These guide commands have no new Issue intake, auto-submitter, or verified live relay run; see [independent guide ZIP usage](independent-guide-zip.md). See [task model](relay-task-model.md). Planning pending guide tasks must not itself authorize moving ZIPs into the watched relay input directory. The requested model defaults to `6 Extra High` on new independent guide ZIPs and now also on `relay-package` when `--model` is omitted; verify the actually observed model separately.
+The project task types are `work_analysis`, `target_guide`, and `translation`.
+Separate guide ZIP exporters/importers use versioned prompts, while the legacy
+combined Issue contract remains. `relay-coordinator sync` prepares eligible
+guide tasks from accepted work/language requests without submitting them.
+The existing external relay handles each explicitly authorized ZIP; standalone
+target-guide and translation live results remain to be verified. See
+[independent guide ZIP usage](independent-guide-zip.md) and
+[task model](relay-task-model.md). The default requested model is `6 Extra High`;
+record the actually observed model separately.
 
-## Proposed shared material composer (not yet implemented)
+## Ordered materials (optional)
 
-The owner has selected a design direction for a Git-versioned material
-library: general, target-language, work and work+target documents; two
-transfer-list pools; an ordered, removable Applied stack; and a complete
-assembled-input preview. Generated Markdown guides would be available as
-reference documents alongside human-authored instructions. A mandatory
-output contract would remain under the control of the ZIP importer. See
-[ordered translation materials](translation-materials-design.md) for the
-complete proposal, scope/filter rules, provenance and unresolved output format.
+The shared library discovers applicable instructions and references, including
+locally imported guides. Select exact versions with repeated
+`--material ID@SHA-256` options in the desired order. The package writes the
+full `assembled-input.md` to its private attempt folder and into the ZIP;
+the command reports the private preview path. The manifest pins material IDs,
+hashes and assembled-input hash. The adapter's existing return ZIP contract is
+unchanged. See [ordered translation materials](translation-materials-design.md).
 
-**Current behavior is unchanged.** This direct relay still packages
+Without `--material`, behavior is unchanged. This direct relay still packages
 `editions/<edition>/glossary.md` and expects `result.json` and separate
 Markdown files. The Issue-based ZIP path uses content-addressed work/target
 `reference/` guides and a different `response.json` format. They are not
-interchangeable. Do not infer that the proposed material composition, preview
-or protocol unification is implemented yet.
+interchangeable; return protocol unification remains future work.
 
 ## Choose the matching workflow
 

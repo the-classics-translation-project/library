@@ -2,8 +2,8 @@
   "schema_version": 1,
   "kind": "full-csv",
   "source": "https://www.gutenberg.org/cache/epub/feeds/pg_catalog.csv",
-  "retrieved_at": "2026-10-19T09:04:40.767673+00:00",
-  "source_sha256": "3d402f23786a990140d990fe6946c3575b2fcdd7cffb31fd47769a78663d8c73",
+  "retrieved_at": "2026-10-26T09:07:20.884203+00:00",
+  "source_sha256": "3cece81ad3a9261f1b2fbfd2db1e1819cf0c4d3bcffc02ef74ccb8865b46895c",
   "records": [
     {
       "id": 1,
@@ -588,7 +588,7 @@
     },
     {
       "id": 84,
-      "title": "Frankenstein; or, the modern prometheus",
+      "title": "Frankenstein; or, The modern Prometheus",
       "authors": "Shelley, Mary Wollstonecraft, 1797-1851",
       "languages": "en",
       "type": "Text"
@@ -40180,7 +40180,7 @@
     },
     {
       "id": 5781,
-      "title": "Le Grand Meaulnes",
+      "title": "Le grand Meaulnes",
       "authors": "Alain-Fournier, 1886-1914",
       "languages": "fr",
       "type": "Text"
@@ -84861,8 +84861,8 @@
     },
     {
       "id": 12193,
-      "title": "The Gentleman from Everywhere",
-      "authors": "Foss, James Henry, 1841-",
+      "title": "The gentleman from everywhere",
+      "authors": "Foss, James Henry, 1841-1916",
       "languages": "en",
       "type": "Text"
     },
@@ -94325,8 +94325,8 @@
     },
     {
       "id": 13545,
-      "title": "Mary at the Farm and Book of Recipes Compiled During Her Visit Among the \"Pennsylvania Germans\"",
-      "authors": "Thomas, Edith May Bertels, 1859-",
+      "title": "Mary at the farm, and book of recipes compiled during her visit among the \"Pennsylvania Germans\"",
+      "authors": "Thomas, Edith M. (Edith May), 1859-1941",
       "languages": "en",
       "type": "Text"
     },
@@ -101907,7 +101907,7 @@
     {
       "id": 14628,
       "title": "The Sweet and Touching Tale of Fleur & Blanchefleur\r\nA Mediæval Legend Translated from the French",
-      "authors": "Leighton, Mrs.; Fortescue-Brickdale, Eleanor [Illustrator]",
+      "authors": "Leighton, Mrs.; Fortescue-Brickdale, Eleanor, 1872-1945 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -139776,7 +139776,7 @@
     },
     {
       "id": 20038,
-      "title": "Frankenstein; Or, The Modern Prometheus",
+      "title": "Frankenstein; or, The modern Prometheus",
       "authors": "Shelley, Mary Wollstonecraft, 1797-1851",
       "languages": "en",
       "type": "Sound"
@@ -149940,8 +149940,8 @@
     },
     {
       "id": 21490,
-      "title": "The Two Supercargoes; Or, Adventures in Savage Africa",
-      "authors": "Kingston, William Henry Giles, 1814-1880; Skinner, E. F. [Illustrator]",
+      "title": "The two supercargoes",
+      "authors": "Kingston, William Henry Giles, 1814-1880; Skinner, E. F. (Edward Frederick), 1865-1924 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -177402,7 +177402,7 @@
     {
       "id": 25413,
       "title": "Blue Ridge Country",
-      "authors": "Thomas, Jean, 1881-; Caldwell, Erskine, 1903-1987 [Editor]",
+      "authors": "Thomas, Jean, 1881-1982; Caldwell, Erskine, 1903-1987 [Editor]",
       "languages": "en",
       "type": "Text"
     },
@@ -196372,7 +196372,7 @@
     {
       "id": 28123,
       "title": "The Scarlet Feather",
-      "authors": "Townley, Houghton; Grefé, Will, 1875-1957 [Illustrator]",
+      "authors": "Townley, Houghton, 1866-1938; Grefé, Will, 1875-1957 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -233975,7 +233975,7 @@
     },
     {
       "id": 33497,
-      "title": "From Xylographs to Lead Molds; A.D. 1440-A.D. 1921",
+      "title": "From xylographs to lead molds; A.D. 1440-A.D. 1921",
       "authors": "Forster, H. C.",
       "languages": "en",
       "type": "Text"
@@ -238294,8 +238294,8 @@
     },
     {
       "id": 34114,
-      "title": "Soap-Making Manual\r\nA Practical Handbook on the Raw Materials, Their Manipulation, Analysis and Control in the Modern Soap Plant.",
-      "authors": "Thomssen, Edgar George, 1886-",
+      "title": "Soap-making manual",
+      "authors": "Thomssen, E. G. (Edgar George), 1886-1957",
       "languages": "en",
       "type": "Text"
     },
@@ -289597,7 +289597,7 @@
     },
     {
       "id": 41445,
-      "title": "Frankenstein; Or, The Modern Prometheus",
+      "title": "Frankenstein; or, The modern Prometheus",
       "authors": "Shelley, Mary Wollstonecraft, 1797-1851",
       "languages": "en",
       "type": "Text"
@@ -295750,7 +295750,7 @@
     },
     {
       "id": 42324,
-      "title": "Frankenstein; Or, The Modern Prometheus",
+      "title": "Frankenstein; or, The modern Prometheus",
       "authors": "Shelley, Mary Wollstonecraft, 1797-1851",
       "languages": "en",
       "type": "Text"
@@ -310101,7 +310101,7 @@
     {
       "id": 44374,
       "title": "The Robber Baron of Bedford Castle",
-      "authors": "Foster, A. J.; Cuthell, Edith E., -1929",
+      "authors": "Foster, Albert J. (Albert John), 1843-1918; Cuthell, Edith E., -1929; Skinner, E. F. (Edward Frederick), 1865-1924 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -472108,8 +472108,8 @@
     },
     {
       "id": 67526,
-      "title": "Letters on the Moral and Religious State of South America\r\nWritten during a residence of nearly seven years in Buenos Aires, Chile, Peru and Colombia",
-      "authors": "Thomson, James, D.D.",
+      "title": "Letters on the moral and religious state of South America",
+      "authors": "Thomson, Diego, 1788-1854",
       "languages": "en",
       "type": "Text"
     },
@@ -480887,7 +480887,7 @@
     {
       "id": 68798,
       "title": "Strange stories of the Civil War",
-      "authors": "Shackleton, Robert, 1860-1923; Chittenden, L. E. (Lucius Eugene), 1824-1900; Drysdale, William, 1852-1901; Forsyth, G. A.; Habberton, John, 1842-1921; Henderson, William J.; Lillie, Lucy C. (Lucy Cecil), 1855-; Patterson, Howard, 1856-1916; Zogbaum, Rufus Fairchild, 1849-1925 [Illustrator]",
+      "authors": "Shackleton, Robert, 1860-1923; Chittenden, L. E. (Lucius Eugene), 1824-1900; Drysdale, William, 1852-1901; Forsyth, George Alexander, 1837-1915; Habberton, John, 1842-1921; Henderson, William J., 1856?-; Lillie, Lucy C. (Lucy Cecil), 1855-; Patterson, Howard, 1856-1916; Zogbaum, Rufus Fairchild, 1849-1925 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -549249,7 +549249,7 @@
     {
       "id": 78650,
       "title": "The framed fifty",
-      "authors": "Decker, Karl, 1868-1941",
+      "authors": "Decker, Karl, 1868-1941; Brown, Howard V., 1878-1945 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -554149,7 +554149,7 @@
     {
       "id": 79351,
       "title": "Naked holiday",
-      "authors": "Silverberg, Robert, 1935-; McCauley, Harold W. (Harold William), 1913-1977 [Illustrator]",
+      "authors": "Elliott, Don, 1935-; McCauley, Harold W. (Harold William), 1913-1977 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -554366,14 +554366,14 @@
     {
       "id": 79382,
       "title": "Party girl",
-      "authors": "Silverberg, Robert, 1935-; McCauley, Harold W. (Harold William), 1913-1977 [Illustrator]",
+      "authors": "Elliott, Don, 1935-; McCauley, Harold W. (Harold William), 1913-1977 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
     {
       "id": 79383,
       "title": "Clever—?",
-      "authors": "Woodford, Jack, 1894-1971",
+      "authors": "Woodford, Jack, 1894-1971; Wittmack, E. Franklin (Edgar Franklin), 1894-1956 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -554695,7 +554695,7 @@
     {
       "id": 79429,
       "title": "Applause mail",
-      "authors": "Sweet, Oney Fred, 1882-1965",
+      "authors": "Sweet, Oney Fred, 1882-1965; Stahr, Paul, 1883-1953 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -554723,7 +554723,7 @@
     {
       "id": 79433,
       "title": "Ducky entertains",
-      "authors": "Woodworth, Douglas H., 1894-1940",
+      "authors": "Woodworth, Douglas H., 1894-1940; Wittmack, E. Franklin (Edgar Franklin), 1894-1956 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -554856,7 +554856,7 @@
     {
       "id": 79452,
       "title": "Please stand by",
-      "authors": "Lawrence, Joseph I. (Joseph Ivers), 1879-1963",
+      "authors": "Lawrence, Joseph I. (Joseph Ivers), 1879-1963; Brown, Howard V., 1878-1945 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -557292,7 +557292,7 @@
     {
       "id": 79800,
       "title": "Summertime affair",
-      "authors": "Silverberg, Robert, 1935-; McCauley, Harold W. (Harold William), 1913-1977 [Artist]",
+      "authors": "Elliott, Don, 1935-; McCauley, Harold W. (Harold William), 1913-1977 [Artist]",
       "languages": "en",
       "type": "Text"
     },
@@ -557397,13 +557397,13 @@
     {
       "id": 79815,
       "title": "The return of the tripeds",
-      "authors": "Jones, Neil R., 1909-1988",
+      "authors": "Jones, Neil R., 1909-1988; Morey, Leo, 1889-1965 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
     {
       "id": 79816,
-      "title": "Thirty years of lynching in the United States",
+      "title": "Thirty years of lynching in the United States, 1889-1918",
       "authors": "National Association for the Advancement of Colored People",
       "languages": "en",
       "type": "Text"
@@ -557411,14 +557411,14 @@
     {
       "id": 79817,
       "title": "Scorpion",
-      "authors": "Ellson, Hal; Nappi, Rudy, 1923-2015 [Illustrator]",
+      "authors": "Ellson, Hal, 1910-1994; Nappi, Rudy, 1923-2015 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
     {
       "id": 79818,
       "title": "The playboy",
-      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Williams, Charles David [Illustrator]",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Williams, C. D. (Charles D.), 1875-1954 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -557441,6 +557441,286 @@
       "title": "Irland",
       "authors": "Schultze, Ernst, 1874-1933",
       "languages": "de",
+      "type": "Text"
+    },
+    {
+      "id": 79822,
+      "title": "Buried diamonds, Vol. 2 (of 3)",
+      "authors": "Tytler, Sarah, 1827-1914",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79823,
+      "title": "Buried diamonds, Vol. 3 (of 3)",
+      "authors": "Tytler, Sarah, 1827-1914",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79824,
+      "title": "Many cities",
+      "authors": "Belloc, Hilaire, 1870-1953; Warre, Edmond L. (Edmond Lancelot), 1877-1961 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79825,
+      "title": "The idealists",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79826,
+      "title": "A-gypsying",
+      "authors": "Mezquida, Anna Blake, 1883-1965",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79827,
+      "title": "The wanderer",
+      "authors": "Alain-Fournier, 1886-1914; Ellis, Havelock, 1859-1939 [Author of introduction, etc.]; Delisle, Françoise Roussel, 1886-1974 [Translator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79828,
+      "title": "The man who was two men",
+      "authors": "Cummings, Ray, 1887-1957; Stahr, Paul, 1883-1953 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79829,
+      "title": "Emptiness",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79830,
+      "title": "Prátaí Ṁíċíl Ṫaiḋg",
+      "authors": "Ó Dubhghaill, Séamus, 1855-1929",
+      "languages": "ga",
+      "type": "Text"
+    },
+    {
+      "id": 79831,
+      "title": "Realmah",
+      "authors": "Helps, Arthur, Sir, 1813-1875",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79832,
+      "title": "A deputy was king",
+      "authors": "Stern, G. B. (Gladys Bronwyn), 1890-1973",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79833,
+      "title": "The Bishop's emeralds",
+      "authors": "Townley, Houghton, 1866-1938; Grefé, Will, 1875-1957 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79834,
+      "title": "The city of the blind",
+      "authors": "Leinster, Murray, 1896-1975; Brown, Howard V., 1878-1945 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79835,
+      "title": "Inhibition, symptom and anxiety",
+      "authors": "Freud, Sigmund, 1856-1939; Ferenczi, Sándor, 1873-1933 [Author of introduction, etc.]; Clark, L. Pierce (Leon Pierce), 1870-1933 [Translator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79836,
+      "title": "Pendragon",
+      "authors": "Assollant, Alfred, 1827-1886; Gilbert, Camille, 1838- [Illustrator]",
+      "languages": "fr",
+      "type": "Text"
+    },
+    {
+      "id": 79837,
+      "title": "Im Bernsteinwald",
+      "authors": "Bölsche, Wilhelm, 1861-1939",
+      "languages": "de",
+      "type": "Text"
+    },
+    {
+      "id": 79838,
+      "title": "Textiles; a handbook for the student and the consumer",
+      "authors": "Woolman, Mary Schenck, 1860-1940; McGowan, Ellen Beers, 1873-1963",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79839,
+      "title": "Claude Monet",
+      "authors": "Geffroy, Gustave, 1855-1926",
+      "languages": "fr",
+      "type": "Text"
+    },
+    {
+      "id": 79840,
+      "title": "Young people abroad",
+      "authors": "Pansy, 1841-1930 [Editor]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79841,
+      "title": "The Congo",
+      "authors": "Congo Free State. Commission to Investigate the State Territories",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79842,
+      "title": "The temple",
+      "authors": "Lovecraft, H. P. (Howard Phillips), 1890-1937; Brosnatch, Andrew, 1896-1965 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79843,
+      "title": "Married in haste",
+      "authors": "Stephens, Ann S. (Ann Sophia), 1810-1886",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79844,
+      "title": "The return",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79845,
+      "title": "You can't print that!",
+      "authors": "Seldes, George, 1890-1995",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79846,
+      "title": "The written leaves",
+      "authors": "Belleville, Belle",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79847,
+      "title": "On shipboard",
+      "authors": "Craig, Anne Atherton Starrett, 1865-1943; Bock, Vera, 1905-2006 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79848,
+      "title": "Dry-law debate",
+      "authors": "Darrow, Clarence, 1857-1938; Wheeler, Wayne Bidwell, 1869-1927; Haldeman-Julius, E. (Emanuel), 1888-1951 [Editor]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79849,
+      "title": "The preparation",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79850,
+      "title": "Nothing but terror",
+      "authors": "Bone, Jesse F. (Jesse Franklin), 1916-2006",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79851,
+      "title": "Faith killer",
+      "authors": "Marks, Winston K. (Winston Kinney), 1915-1979; Nappi, Rudy, 1923-2015 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79852,
+      "title": "Asteroid 745: Mauritia",
+      "authors": "Wollheim, Donald A., 1914-1990; Belarski, Rudolph, 1900-1983 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79853,
+      "title": "Romance in science",
+      "authors": "Miller, Bessie Irving, 1884-1931",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79854,
+      "title": "How to see the Vatican",
+      "authors": "Sladen, Douglas Brooke Wheelton, 1856-1947",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79855,
+      "title": "Wolves of the sea",
+      "authors": "Leroux, Gaston, 1868-1927; Peck, H. J. (Henry Jarvis), 1880-1964 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79856,
+      "title": "Collected papers, Volume I",
+      "authors": "Freud, Sigmund, 1856-1939; Löwenfeld, Leopold; Jones, Ernest, 1879-1958 [Editor]; Riviere, Joan, 1883-1962 [Translator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79857,
+      "title": "Double take",
+      "authors": "Marks, Winston K. (Winston Kinney), 1915-1979; Schomburg, Alex, 1905-1998 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79858,
+      "title": "\"Blue for your eyes and brown for your hair\"",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79859,
+      "title": "Het labyrint der wereld en het paradijs des harten",
+      "authors": "Comenius, Jan Amos; Oosterhuis, Rutger Adolph Benthem [Translator]",
+      "languages": "nl",
+      "type": "Text"
+    },
+    {
+      "id": 79860,
+      "title": "Less than a bird",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Schmidt, Oscar Frederick [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79861,
+      "title": "The crew of the Dolphin",
+      "authors": "Stretton, Hesba, 1832-1911",
+      "languages": "en",
       "type": "Text"
     }
   ]

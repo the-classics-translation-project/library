@@ -1,10 +1,11 @@
-# Bounded translation pilot follow-up
+# Retired bounded translation pilot follow-up
 
-This records the current 30-minute app heartbeat prompt. The standalone guide
-trial is held after a failed result download; the independent chapter trial
-continues. No further submission or publication authority is granted.
+This records the last configured prompt for the 30-minute app heartbeat. It was
+deleted on 2026-10-27 after both the guide and chapter trials reached
+`needs_review` without downloadable result ZIPs. The prompt below is historical,
+not an active schedule or submission authorization.
 
-## Configured prompt
+## Last configured prompt
 
 Continue the owner's 2026-10-27 Classics implementation in this chat. Read the
 current canonical GitHub AGENTS.md, STATUS.md, and docs/automation-roadmap.md

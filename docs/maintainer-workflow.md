@@ -158,23 +158,20 @@ See [the exchange instructions](translation-zip-workflow.md).
 Manual `guide-export WORK TARGET` remains supported for experiments
 without an Issue.
 
-## Next planned material-selection UI (design only)
+## Ordered translation materials
 
-[Ordered translation materials](translation-materials-design.md) describes
-a future replacement for the single-recipe dropdown: browse all eligible
-general, target-language, work and work+target Markdown instructions/references
-in an Available pool, add them to a reorderable Applied pool, optionally
-include a specific earlier frozen translation, then inspect the **exact full
-assembled input**. Work/target guides may be included by default but must
-remain removable. The final return-format contract would be protocol-owned
-rather than a removable literary prompt. A shared assembler should eventually
-serve the direct browser-relay and Issue-based ZIP workflows without silently
-changing historical requests. **Do not use these proposed UI semantics as
-commands yet**; the current commands above remain authoritative.
+[Ordered translation materials](translation-materials-design.md) now describes
+the initial shared library and Admin Available/Applied list. Materials are
+removable and reorderable, and an accepted v2 Issue pins their exact versions
+and text. `translation-preview ISSUE` writes its complete assembled input
+locally. `relay-package` can select private local guides through ordered
+`--material ID@SHA-256` options and returns a private preview path. Public
+Admin exposes only committed material metadata. The two return ZIP formats
+remain separate, and older v1 requests retain their contract.
 
 ## Opt-in local relay coordination
 
-Use `./ctp relay-coordinator status`, `prepare`, `submit` and `reconcile` to manage
+Use `./ctp relay-coordinator status`, `sync`, `prepare`, `submit` and `reconcile` to manage
 explicitly authorized legacy guide Issues, translation Issues and independent guide
 jobs locally. See [coordinator usage](local-relay-coordinator.md). Preparation does
 not submit. No new scheduler is installed; publication is separately approved.

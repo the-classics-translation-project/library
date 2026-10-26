@@ -14,6 +14,13 @@ request ZIP, captured response ZIP, authorization note and recovery journal.
 Back up that directory when moving machines; do not delete an uncertain attempt
 merely to make it disappear from status.
 
+`./ctp relay-coordinator sync` turns eligible accepted work/language requests
+into prepared, immutable independent guide attempts. It is idempotent for an
+active job and leaves stopped attempts held for explicit review/retry. It does
+not deliver ZIPs, call a model, or authorize submission. Use `status` to inspect
+the attempt IDs, then `submit` with authorization for each exact ZIP. Repository
+code alone does not update the app heartbeat.
+
 Prepare one accepted guide or translation Issue:
 
 ```sh
@@ -140,8 +147,10 @@ including no-op polling, same-job deduplication, explicit authorization, result
 identity checks, legacy/independent/translation import, rollback, process locking,
 retry boundaries and exact-file Git distribution. Actual model/browser/relay
 outcomes are recorded separately in STATUS and the automation roadmap. Nothing
-in this implementation enables automatic scheduled project submissions. The
-independent guide Issue intake and ordered-material UI remain future milestones.
+in this implementation enables automatic scheduled project submissions. Guide
+tasks can be prepared from accepted work/language requests without a new Issue
+type; the initial ordered-material UI is implemented, with live browser and
+translation trials still pending.
 
 ## Automatic completed-result follow-up (owner enabled on 2026-10-25)
 

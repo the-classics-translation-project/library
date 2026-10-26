@@ -92,7 +92,7 @@ def read_zip(path):
 
 
 def package(root, work_id, edition_id, nodes, model, language=None, direction='ltr',
-            kind='translation', context_nodes=()):
+            kind='translation', context_nodes=(), materials=()):
     root = root.resolve()
     c.ident(edition_id)
     c.check(isinstance(model, str) and model.strip() and '\n' not in model and '\r' not in model,
@@ -150,6 +150,38 @@ def package(root, work_id, edition_id, nodes, model, language=None, direction='l
         files['manifest.json'] = json_bytes(manifest)
         template = (root/'prompts/relay-translation.md').read_text(encoding='utf-8')
         files['README.md'] = (f'---\nmodel: {model}\noutput_filename: {output}\n---\n\n' + template).encode()
+        if materials:
+            from materials import resolve, assembled_translation
+            refs = []
+            for value in materials:
+                c.check(isinstance(value, str) and value.count('@') == 1,
+                        'Use --material ID@SHA-256')
+                ident, sha = value.split('@', 1)
+                refs.append({'id': ident, 'sha256': sha})
+            resolved = resolve(root, work_id, ed['language'], refs)
+            source_fields = [item for item in source if item['role'] == 'translate']
+            context = {name: files[name].decode('utf-8') for name in
+                       ('policy.md', 'work-notes.md', 'edition-notes.md', 'glossary.md')
+                       if name in files}
+            context['selected neighboring source'] = json.dumps(
+                [item for item in source if item['role'] == 'context'],
+                ensure_ascii=False, indent=2)
+            config=c.read_json(root/'project.json')
+            language_name=next((item['label'] for item in config['targets']
+                                if item['id']==ed['language']),ed['language'])
+            variables={'target_language':language_name,
+                       'target_language_code':ed['language'],
+                       'source_language':work['language'],
+                       'work_title':tree.get('label',work_id)}
+            assembled = assembled_translation(files.get('translate.md', b'').decode('utf-8'),
+                                               resolved, source_fields, context, {}, template,
+                                               variables)
+            files['assembled-input.md'] = assembled.encode('utf-8')
+            manifest['materials'] = refs
+            manifest['assembled_input_sha256'] = c.digest(files['assembled-input.md'])
+            files['manifest.json'] = json_bytes(manifest)
+            files['README.md'] += ("\n\nFor this package, use assembled-input.md as the "
+                                   "complete pinned literary input and output contract.\n").encode()
         c.check(sum(map(len, files.values())) <= MAX_BYTES, 'Package exceeds size limit; select fewer nodes')
         for data in files.values():
             data.decode('utf-8')
@@ -159,9 +191,13 @@ def package(root, work_id, edition_id, nodes, model, language=None, direction='l
         with zipfile.ZipFile(path, 'x', compression=zipfile.ZIP_DEFLATED) as archive:
             for name, data in files.items():
                 archive.writestr(name, data)
+        preview = folder/'assembled-input.md'
+        if materials:
+            preview.write_bytes(files['assembled-input.md'])
         c.write_json(folder/'job.json', {'package_sha256': c.digest(path.read_bytes()),
                                        'manifest': manifest})
         return {'attempt': attempt, 'package': str(path), 'output_filename': output,
+                'preview': str(preview) if materials else None,
                 'submitted': False, 'model_called': False}
 
 
@@ -280,3 +316,28 @@ def import_result(root, attempt, result_path, observed_model='unknown', chat_url
                 raise
         return {'edition': str(base), 'run': run['id'], 'status': 'draft',
                 'missing': c.missing_fields(tree, ed), 'published': False}
+
+
+def recover_interrupted_import(root, attempt):
+    """Restore a verified old edition left in the private backup after a crash."""
+    root = root.resolve()
+    c.ident(attempt)
+    with locked(root) as jobs:
+        folder = jobs/attempt
+        job = c.read_json(folder/'job.json')
+        manifest = job['manifest']
+        c.check(manifest['attempt'] == attempt, 'Attempt identity mismatch')
+        wd, _, _ = ready(root, manifest['work'])
+        c.ident(manifest['edition'])
+        base = wd/'editions'/manifest['edition']
+        c.check(base.resolve().is_relative_to(wd.resolve()), 'Unsafe edition path')
+        backup = folder/'edition-before'
+        c.check(manifest['edition_before'] is not None and backup.is_dir() and
+                not backup.is_symlink(), 'No interrupted prior edition backup')
+        c.check(inventory(backup) == manifest['edition_before'],
+                'Prior edition backup differs from the prepared baseline')
+        c.check(not base.exists() and not base.is_symlink(),
+                'Edition path exists; inspect it before recovery')
+        os.rename(backup, base)
+        return {'attempt': attempt, 'restored': str(base), 'submitted': False,
+                'published': False}

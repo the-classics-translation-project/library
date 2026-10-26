@@ -1,8 +1,45 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-25** (against the public GitHub repository and actual
-GitHub Actions results). This file describes observed state, not a roadmap or a
+Last updated: **2026-10-27** (implementation branch and private local relay
+state; live deployment is not claimed). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
+
+## Ordered materials and guide task preparation — 2026-10-27 branch
+
+Implementation branch: [PR #19](https://github.com/the-classics-translation-project/library/pull/19).
+
+The current implementation branch adds idempotent local guide task preparation
+from accepted work/language requests. Submission stays per-package and requires
+the owner's explicit authorization. It also adds a four-scope material library,
+safe committed Admin metadata, ordered two-pool selection, v2 translation
+Issue pinning and snapshotting, a local exact-input preview, and optional ordered
+materials for the direct translation ZIP. Existing v1 Issue and direct return ZIP
+formats remain supported. The public Admin cannot list locally imported,
+uncommitted guides. No generated text has been approved for public Git
+distribution or reader release.
+
+Three previously generated local guides and their provenance/pointers were
+hash-checked and copied to a private backup on 2026-10-27. A separately
+authorized standalone Frankenstein English target-guide package is queued in
+the existing relay as attempt `attempt-40f5d35474a14e6b8f495a581f8ffc04`.
+The relay registered it as job 25; another job is ahead of it, and the relay
+submits at most one new ZIP per hourly run. No returned guide or translated chapter
+has been imported. The app heartbeat is still configured only to reconcile and
+import completed attempts, not to prepare new ones. Neither a new model
+submission schedule nor Git publication is enabled by this branch.
+
+Offline verification: 186 Python tests passed, including committed-material
+privacy, exact-input and interrupted-import recovery checks. Nineteen JavaScript
+core checks and `node --check site/translation-admin.js` passed. `./ctp validate`
+and `./ctp build --demo --epub` passed locally. No deployed browser interaction
+or real translated-node result has been verified. The remaining work is to confirm the standalone
+guide result, run one short chapter through the real relay, evaluate unified
+ZIP formats, and exercise remaining recovery paths. See
+[automation roadmap](docs/automation-roadmap.md).
+
+The direct ZIP importer also has a guarded `relay-recover ATTEMPT` command and
+fixture for a crash between its directory renames. It restores only a byte-matched
+prior edition when the target path is absent; an intervening edit remains intact.
 
 ## Automatic relay result import — 2026-10-25
 

@@ -94,6 +94,41 @@ class CoordinatorTests(unittest.TestCase):
         self.assertEqual(len(list((self.relay/'input').glob('*.zip'))),1)
         self.assertEqual(self.latest(row)['state'],'delivered')
 
+    def test_sync_prepares_accepted_guides_without_submission_or_duplicates(self):
+        first=r.sync_proposals(self.root,self.relay)
+        self.assertEqual(len(first['prepared']),1)
+        self.assertEqual(first['prepared'][0]['proposal']['work'],'gutenberg-41445')
+        self.assertEqual(first['prepared'][0]['proposal']['type'],'work_analysis')
+        self.assertFalse(first['model_called'])
+        self.assertFalse(first['relay_submitted'])
+        self.assertFalse(list((self.relay/'input').iterdir()))
+        attempt=first['prepared'][0]['attempt']
+        self.assertIsNone(r.load(self.root,attempt)['authorization'])
+        second=r.sync_proposals(self.root,self.relay)
+        self.assertEqual(second['prepared'],[])
+        self.assertEqual(second['existing'][0]['attempt'],attempt)
+        self.assertEqual(len(r.records(self.root)),1)
+
+        work=r.load(self.root,attempt)
+        self.submit(work);self.response(work);r.reconcile(self.root,True)
+        third=r.sync_proposals(self.root,self.relay)
+        self.assertEqual(len(third['prepared']),1)
+        self.assertEqual(third['prepared'][0]['proposal']['type'],'target_guide')
+        self.assertEqual(third['prepared'][0]['proposal']['target'],'en')
+        self.assertEqual(len(r.records(self.root)),2)
+        self.assertEqual(len(list((self.relay/'input').iterdir())),1)
+
+    def test_sync_does_not_retry_stopped_attempt(self):
+        first=r.sync_proposals(self.root,self.relay)
+        attempt=first['prepared'][0]['attempt']
+        row=r.load(self.root,attempt)
+        row['state']='needs_review';row['reason']='Synthetic review hold';r.save(self.root,row)
+        again=r.sync_proposals(self.root,self.relay)
+        self.assertEqual(again['prepared'],[])
+        self.assertEqual(len(again['held']),1)
+        self.assertEqual(len(r.records(self.root)),1)
+        self.assertFalse(list((self.relay/'input').iterdir()))
+
     def test_delivered_job_can_be_adopted_without_resending(self):
         row=self.prepare();path=r.request_path(self.root,row)
         duplicate=r.adopt(self.root,path,self.relay)
@@ -266,6 +301,26 @@ class CoordinatorTests(unittest.TestCase):
         self.assertTrue((self.root/'translation-results/issue-77.json').exists())
         self.assertTrue(list((self.root/'revisions/gutenberg-36/ja').glob('*.json')))
         self.assertFalse(c.read_json(self.root/'catalog.json')['revisions'])
+
+    def test_ordered_material_request_uses_existing_translation_return_contract(self):
+        from translation_jobs import prompt_catalogue,intake,MARKER_V2
+        from materials import discover
+        recipe=prompt_catalogue(self.root)[0]
+        material=next(x for x in discover(self.root) if x['id']=='notes.work.gutenberg-36')
+        req={'schema_version':2,'work':'gutenberg-36','target':'ja','nodes':['n0004'],
+             'source_fingerprint':c.source_fingerprint(self.root/'books/gutenberg-36'),
+             'scope':'all','prompt':{'id':recipe['id'],'sha256':recipe['sha256']},
+             'reference':{'mode':'none','revision':None},'instructions':'',
+             'materials':[{'id':material['id'],'sha256':material['sha256']}]}
+        intake(self.root,[{'number':78,'state':'open','user':{'login':'hiroshi-manabe'},
+                          'body':MARKER_V2+'\n```json\n'+json.dumps(req)+'\n```'}])
+        row=self.prepare(translation_issue=78)
+        metadata,job=r.info(r.request_path(self.root,row))
+        self.assertEqual(metadata['adapter'],'translation')
+        self.assertEqual(job['request']['schema_version'],2)
+        self.assertIn('source notes',job['assembled_input'])
+        self.submit(row);self.response(row);r.reconcile(self.root,True)
+        self.assertEqual(self.latest(row)['state'],'imported')
 
 
 if __name__=='__main__':unittest.main()

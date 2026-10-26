@@ -1,13 +1,26 @@
 # Ordered translation materials — library, selection UI and assembly design
 
-**Status (2026-10-24): design / implementation brief, not an implemented UI or
-migration.** This records the owner's current direction after discussion of
+**Status (2026-10-27): initial library, two-pool Admin selector and local
+assembler implemented in this change; unified ZIP design remains open.** This records the owner's current direction after discussion of
 reusable prompts, whole-work guides, language-specific conventions, independent
 retranslation and ZIP-based ChatGPT processing. It is intentionally a design
 baseline, not a claim that the exact interface or output format has been finalized.
 Current implemented commands and formats remain authoritative in
 [translation ZIP workflow](translation-zip-workflow.md) and
 [local browser relay usage](chatgpt-relay.md).
+
+The implementation discovers repository materials through
+`materials/manifest.json`, versioned recipes, work/edition notes and imported
+content-addressed guides. Public Admin embeds titles, scopes, kinds, tags and
+hashes only for committed files. Selecting materials creates a v2 Issue request that pins their
+order and versions; acceptance copies their complete text into the local queue.
+`translation-preview ISSUE` writes the exact assembled text used in the ZIP.
+The direct `relay-package` adapter accepts ordered `--material ID@SHA-256`
+arguments and stores its assembled input both privately and in the ZIP.
+Existing v1 requests and both return ZIP protocols remain readable. Private
+uncommitted guides do not appear in public Admin until separately approved for
+public Git distribution; a local direct package can select them without that
+distribution. A browser preview of private full text is not offered by Pages.
 
 The complementary [three-type task model](relay-task-model.md) distinguishes original-work analysis, target-language guide generation and translation. The shared material selector is to serve all three, with operation-specific mandatory output contracts; the existing combined guide operation stays available for historical compatibility.
 
@@ -62,9 +75,9 @@ The owner may author language-independent instructions with simple supported
 variables such as `{{target_language}}` and `{{work_title}}`, or maintain
 explicitly language-specific alternatives. File metadata/discovery must be
 deterministic and validate scope/type/IDs; it should not depend on a model
-interpreting filenames. The **exact on-disk layout and metadata representation
-are not yet chosen**. Prefer a small manifest or convention, ordinary Git files,
-and minimal metadata rather than a general-purpose prompt database.
+interpreting filenames. The initial layout uses `materials/manifest.json` for
+custom files under `materials/files/`, alongside convention-based discovery of
+the existing notes, recipes and content-addressed guides.
 
 ## Guides as selectable versioned reference documents
 

@@ -48,21 +48,19 @@ only the chapter's label and body. The 47,102-byte ZIP was atomically placed in
 the existing relay input with a private, hash-bound owner authorization record.
 Its expected return is `ctp-b6b987c229d8405aa6744e9fafebbb88-result.zip`.
 The relay registered it as job 26 and submitted it at 2026-10-26 18:21 UTC.
-No chapter result has been returned or imported. No chapter prose was publicly
-committed.
+At 2026-10-26 19:23 UTC, its Chat finished but the purported translation ZIP
+link did not open or download; the relay marked the job `needs_review`. A
+separate browser click likewise caused no UI change and the rendered link had
+no `href`. The exact result file was never saved or imported. No resend was
+attempted, and no chapter prose was publicly committed.
 
-A separate 30-minute app heartbeat, **Finish Classics translation pilot**, is
-ACTIVE for the bounded implementation follow-up. It checks only these two
-already authorized relay trials without resubmitting either package or changing
-the relay queue. The existing import heartbeat may import the guide; the new
-heartbeat may import the exact chapter result once the relay records completion,
-then verify the draft and continue compatible ZIP/recovery work in a PR. It
-does not authorize any further model job, public Git distribution, catalogue
-change or literary release. Timed executions have been observed. After the
-guide's download failure, the active prompt was updated to leave that attempt
-held and continue the chapter/ZIP work independently; it does not treat the
-guide's Chat response as an imported result. Its configured instructions are
-recorded in `prompts/translation-pilot-follow-up.md`.
+The separate 30-minute app heartbeat **Finish Classics translation pilot**
+was deleted after both bounded trials reached `needs_review`; neither can
+progress through unattended import without an exact downloaded ZIP. Its final
+configured instructions remain in `prompts/translation-pilot-follow-up.md`
+for audit. The existing general guide-preparation/import heartbeat remains
+ACTIVE but does not resume review holds or submit model jobs. Neither heartbeat
+authorizes public Git distribution, a catalogue change or literary release.
 
 Offline verification: 186 Python tests passed, including committed-material
 privacy, exact-input and interrupted-import recovery checks. Nineteen JavaScript
@@ -74,10 +72,10 @@ reordered and removed public materials, and confirmed that the prepared v2
 Issue URL pinned the selected order and hashes. Private uncommitted guides were
 absent from the public list; no Issue was submitted. A reload cleared the local
 selection. See [browser verification](verification/materials-browser-2026-10-27.md).
-No real translated-node result has been verified. The remaining work is to
-recover the exact standalone-guide ZIP or obtain separate authorization for a
-fresh attempt, finish one short chapter through the real relay, evaluate unified
-ZIP formats, and exercise remaining recovery paths. See
+No real translated-node result has been verified. Both exact result ZIPs must
+be recovered, or fresh attempts separately authorized, before their respective
+live protocols can be verified. Unified ZIP formats and remaining recovery
+tests follow a real translated-node import. See
 [automation roadmap](docs/automation-roadmap.md).
 
 The direct ZIP importer also has a guarded `relay-recover ATTEMPT` command and

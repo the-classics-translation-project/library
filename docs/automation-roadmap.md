@@ -147,8 +147,8 @@ Four scopes (general, target language, work, work+target), instruction/reference
 
 The legacy combined Wells guide and independent Frankenstein work-analysis guide
 have completed actual relay-to-local-import paths. Standalone target-guide and
-translated-node round trips, restart/failure behavior of the new heartbeat and
-format consolidation still require work. No output format was retired or changed.
+translated-node round trips, restart/failure behavior and format consolidation
+still require work. No output format was retired or changed.
 The standalone target-guide trial is held in `needs_review` after its Chat
 finished without a downloadable result. Independently, a bounded Wells Japanese
 chapter II (`n0005`) direct
@@ -156,18 +156,21 @@ translation package was prepared with chapter I as context and both existing
 private Wells guide versions, then placed in the relay's watched input with
 exact hash-bound owner authorization. Its attempt is
 `ctp-b6b987c229d8405aa6744e9fafebbb88`; the relay registered it as job 26
-and submitted it at 2026-10-26 18:21 UTC. The external relay submits at most
-one new ZIP per run; submission is not a returned result.
+and submitted it at 2026-10-26 18:21 UTC. At 19:23 UTC the relay marked it
+`needs_review`: its Chat claimed completion but the purported ZIP link opened
+no viewer and produced no download. A separate browser check confirmed the
+link had no `href` and clicking left the UI unchanged. No result was saved,
+imported or resent. The external relay submits at most one new ZIP per run;
+submission and a Chat completion claim are not verified results.
 No translated prose has been imported or publicly distributed.
-The app registered a separate 30-minute **Finish Classics translation pilot**
-heartbeat for this bounded follow-up. Its exact instructions are recorded in
-`prompts/translation-pilot-follow-up.md`. It watches the two already-authorized
-trials, does not resubmit either, and may import the exact direct chapter result
-once the relay records completion. It can continue the compatible ZIP/recovery
-work after real results are verified. It grants no new model submission or Git
-publication authority. Timed runs have been observed; sleep/restart behavior
-remains unverified. The prompt now keeps the failed guide trial held while
-continuing the separately authorized chapter and ZIP work.
+The separate 30-minute **Finish Classics translation pilot** heartbeat was
+deleted when both trials became held; continued polling could not import
+either without an exact result ZIP. Its last prompt is retained in
+`prompts/translation-pilot-follow-up.md`. Timed runs were observed, but
+sleep/restart behavior remains unverified. The general guide-preparation/import
+heartbeat remains active and does not resume held jobs. Recovering an exact
+result could permit reviewed import; a fresh model submission requires new
+owner authorization. Neither trial grants public Git publication authority.
 The direct adapter's old-edition rename gap now has an explicit guarded recovery
 command and an interruption/concurrent-edit fixture. Relay heartbeat restart
 behavior remains unverified in the live app.

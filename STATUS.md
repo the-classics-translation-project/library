@@ -47,6 +47,17 @@ Its expected return is `ctp-b6b987c229d8405aa6744e9fafebbb88-result.zip`.
 At this observation it has not been registered by the relay scanner, submitted
 to ChatGPT, returned or imported. No chapter prose was publicly committed.
 
+A separate 30-minute app heartbeat, **Finish Classics translation pilot**, is
+ACTIVE for the bounded implementation follow-up. It checks only these two
+already authorized relay trials without resubmitting either package or changing
+the relay queue. The existing import heartbeat may import the guide; the new
+heartbeat may import the exact chapter result once the relay records completion,
+then verify the draft and continue compatible ZIP/recovery work in a PR. It
+does not authorize any further model job, public Git distribution, catalogue
+change or literary release. The app confirmed registration; no timed execution
+of this new heartbeat has yet been observed. Its configured instructions are
+recorded in `prompts/translation-pilot-follow-up.md`.
+
 Offline verification: 186 Python tests passed, including committed-material
 privacy, exact-input and interrupted-import recovery checks. Nineteen JavaScript
 core checks and `node --check site/translation-admin.js` passed. `./ctp validate`

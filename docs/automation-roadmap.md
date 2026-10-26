@@ -150,6 +150,14 @@ exact hash-bound owner authorization. Its attempt is
 later relay processing. The external relay submits at most one new ZIP per run,
 so neither trial's completion is inferred from placement in watched input.
 No translated prose has been imported or publicly distributed.
+The app registered a separate 30-minute **Finish Classics translation pilot**
+heartbeat for this bounded follow-up. Its exact instructions are recorded in
+`prompts/translation-pilot-follow-up.md`. It watches the two already-authorized
+trials, does not resubmit either, and may import the exact direct chapter result
+once the relay records completion. It can continue the compatible ZIP/recovery
+work after real results are verified. It grants no new model submission or Git
+publication authority. Registration is confirmed; its first timed run and
+sleep/restart behavior are unverified.
 The direct adapter's old-edition rename gap now has an explicit guarded recovery
 command and an interruption/concurrent-edit fixture. Relay heartbeat restart
 behavior remains unverified in the live app.

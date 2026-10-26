@@ -24,11 +24,14 @@ distribution or reader release.
 
 Three previously generated local guides and their provenance/pointers were
 hash-checked and copied to a private backup on 2026-10-27. A separately
-authorized standalone Frankenstein English target-guide package is queued in
-the existing relay as attempt `attempt-40f5d35474a14e6b8f495a581f8ffc04`.
-The relay registered it as job 25; another job is ahead of it, and the relay
-submits at most one new ZIP per hourly run. No returned guide or translated chapter
-has been imported. The existing 30-minute app heartbeat was updated in place to
+authorized standalone Frankenstein English target-guide package was delivered
+to the existing relay as attempt `attempt-40f5d35474a14e6b8f495a581f8ffc04`.
+The relay registered it as job 25. At 2026-10-26 18:20 UTC, after the Chat
+finished, the relay marked it `needs_review`: its purported result ZIP link did
+not open or download, and no exact filename could be verified. A separate
+browser recheck clicked the displayed link once and observed no UI change; the
+rendered link had no `href`. No result was saved, imported or resent. The
+existing 30-minute app heartbeat was updated in place to
 run `sync` before `reconcile --import-ready`; the app confirmed it remains ACTIVE.
 Its first updated timed execution reported no new preparations, imports or
 failures while the Frankenstein guide remained queued; it stayed quiet as
@@ -44,8 +47,9 @@ assembled-input preview matched the ZIP and manifest hash; requested fields are
 only the chapter's label and body. The 47,102-byte ZIP was atomically placed in
 the existing relay input with a private, hash-bound owner authorization record.
 Its expected return is `ctp-b6b987c229d8405aa6744e9fafebbb88-result.zip`.
-At this observation it has not been registered by the relay scanner, submitted
-to ChatGPT, returned or imported. No chapter prose was publicly committed.
+The relay registered it as job 26 and submitted it at 2026-10-26 18:21 UTC.
+No chapter result has been returned or imported. No chapter prose was publicly
+committed.
 
 A separate 30-minute app heartbeat, **Finish Classics translation pilot**, is
 ACTIVE for the bounded implementation follow-up. It checks only these two
@@ -54,8 +58,10 @@ the relay queue. The existing import heartbeat may import the guide; the new
 heartbeat may import the exact chapter result once the relay records completion,
 then verify the draft and continue compatible ZIP/recovery work in a PR. It
 does not authorize any further model job, public Git distribution, catalogue
-change or literary release. The app confirmed registration; no timed execution
-of this new heartbeat has yet been observed. Its configured instructions are
+change or literary release. Timed executions have been observed. After the
+guide's download failure, the active prompt was updated to leave that attempt
+held and continue the chapter/ZIP work independently; it does not treat the
+guide's Chat response as an imported result. Its configured instructions are
 recorded in `prompts/translation-pilot-follow-up.md`.
 
 Offline verification: 186 Python tests passed, including committed-material
@@ -68,8 +74,9 @@ reordered and removed public materials, and confirmed that the prepared v2
 Issue URL pinned the selected order and hashes. Private uncommitted guides were
 absent from the public list; no Issue was submitted. A reload cleared the local
 selection. See [browser verification](verification/materials-browser-2026-10-27.md).
-No real translated-node result has been verified. The remaining work is to confirm the standalone
-guide result, run one short chapter through the real relay, evaluate unified
+No real translated-node result has been verified. The remaining work is to
+recover the exact standalone-guide ZIP or obtain separate authorization for a
+fresh attempt, finish one short chapter through the real relay, evaluate unified
 ZIP formats, and exercise remaining recovery paths. See
 [automation roadmap](docs/automation-roadmap.md).
 

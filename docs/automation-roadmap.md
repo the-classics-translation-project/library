@@ -25,7 +25,10 @@ Repeated syncs reuse active attempts; stopped attempts remain held for deliberat
 retry. It never delivers a ZIP or authorizes model submission. The independent
 Frankenstein English target-guide package was separately prepared and explicitly
 delivered for one owner-authorized live trial; the relay registered it as
-queued job 25, with another job ahead and no imported result. The three
+job 25. At 2026-10-26 18:20 UTC its Chat had finished, but the displayed
+result ZIP link did not open or download. The relay and coordinator marked the
+attempt `needs_review`; a separate browser click also left the page unchanged,
+with no verified result file. No resend or queue mutation was attempted. The three
 previously imported guides have a private hash-checked local snapshot, with no
 Git distribution approval. The existing 30-minute heartbeat now runs `sync`
 before reconciled import; the app confirmed ACTIVE status. Its first updated
@@ -38,10 +41,10 @@ and reported zero model calls/submissions; project validation passed.
 
 **Implemented offline in this milestone:** `./ctp guide-task-export` / `guide-task-import` provide **separate** `work_analysis` and `target_guide` ZIP contracts, saved and rendered versioned prompts, requested default model `6 Extra High`, SHA-pinned source/reference context, strict return ZIP validation, atomic immutable-guide/pointer updates, local import lock, per-job provenance and stale/duplicate rejection. The accepted legacy Issue #12 combined-guide importer remains unchanged. See [independent guide ZIP usage](independent-guide-zip.md) and `tests/test_independent_guide_jobs.py`. A real independent Frankenstein work-analysis result was imported locally on 2026-10-25. The standalone target-guide round trip remains unverified; Wells used its legacy combined contract.
 
-**Next:** verify the live standalone target-guide return. Each newly prepared
-attempt still needs separate owner submission authorization; the already
-delivered trial does not authorize future ones. Do not require a target guide
-for every translation.
+**Next:** recover and verify the exact standalone target-guide ZIP, if the saved
+Chat makes it available. A fresh attempt would need separate owner submission
+authorization; the held trial does not authorize a resend. Do not require a
+target guide for every translation.
 
 **Acceptance:** one work with two target languages yields one work reference and two target guides; repeat checks submit nothing; existing references are never overwritten without a versioned regeneration; old requests keep working.
 
@@ -146,14 +149,15 @@ The legacy combined Wells guide and independent Frankenstein work-analysis guide
 have completed actual relay-to-local-import paths. Standalone target-guide and
 translated-node round trips, restart/failure behavior of the new heartbeat and
 format consolidation still require work. No output format was retired or changed.
-The standalone target-guide trial is queued in the external relay, not yet
-completed. Independently, a bounded Wells Japanese chapter II (`n0005`) direct
+The standalone target-guide trial is held in `needs_review` after its Chat
+finished without a downloadable result. Independently, a bounded Wells Japanese
+chapter II (`n0005`) direct
 translation package was prepared with chapter I as context and both existing
 private Wells guide versions, then placed in the relay's watched input with
 exact hash-bound owner authorization. Its attempt is
-`ctp-b6b987c229d8405aa6744e9fafebbb88`; it awaits scanner registration and
-later relay processing. The external relay submits at most one new ZIP per run,
-so neither trial's completion is inferred from placement in watched input.
+`ctp-b6b987c229d8405aa6744e9fafebbb88`; the relay registered it as job 26
+and submitted it at 2026-10-26 18:21 UTC. The external relay submits at most
+one new ZIP per run; submission is not a returned result.
 No translated prose has been imported or publicly distributed.
 The app registered a separate 30-minute **Finish Classics translation pilot**
 heartbeat for this bounded follow-up. Its exact instructions are recorded in
@@ -161,8 +165,9 @@ heartbeat for this bounded follow-up. Its exact instructions are recorded in
 trials, does not resubmit either, and may import the exact direct chapter result
 once the relay records completion. It can continue the compatible ZIP/recovery
 work after real results are verified. It grants no new model submission or Git
-publication authority. Registration is confirmed; its first timed run and
-sleep/restart behavior are unverified.
+publication authority. Timed runs have been observed; sleep/restart behavior
+remains unverified. The prompt now keeps the failed guide trial held while
+continuing the separately authorized chapter and ZIP work.
 The direct adapter's old-edition rename gap now has an explicit guarded recovery
 command and an interruption/concurrent-edit fixture. Relay heartbeat restart
 behavior remains unverified in the live app.

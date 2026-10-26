@@ -1,9 +1,8 @@
 # Completed relay result follow-up
 
-This records the intended app heartbeat prompt for the owner-authorized local
-guide preparation and result-import check. Apply it to the app automation after
-the corresponding code reaches the local checkout. It grants no new submission
-or publication authority.
+This records the configured app heartbeat prompt for the owner-authorized local
+guide preparation and result-import check. It was applied after PR #19 reached
+the local checkout. It grants no new submission or publication authority.
 
 ## Configured prompt
 

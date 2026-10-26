@@ -1,12 +1,16 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-27** (implementation branch and private local relay
-state; live deployment is not claimed). This file describes observed state, not a roadmap or a
+Last updated: **2026-10-27** (merged implementation and private local relay
+state; deployment is reported separately below). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
 
-## Ordered materials and guide task preparation — 2026-10-27 branch
+## Ordered materials and guide task preparation — 2026-10-27
 
-Implementation branch: [PR #19](https://github.com/the-classics-translation-project/library/pull/19).
+Implementation merged through [PR #19](https://github.com/the-classics-translation-project/library/pull/19)
+as `4cc4922`. The Documents checkout was fast-forwarded to that commit without
+adding its private generated guides. A live `relay-coordinator sync` reused the
+already queued attempt, prepared no duplicate, and reported zero model calls or
+relay submissions. `./ctp validate` passed in that checkout.
 
 The current implementation branch adds idempotent local guide task preparation
 from accepted work/language requests. Submission stays per-package and requires
@@ -24,9 +28,11 @@ authorized standalone Frankenstein English target-guide package is queued in
 the existing relay as attempt `attempt-40f5d35474a14e6b8f495a581f8ffc04`.
 The relay registered it as job 25; another job is ahead of it, and the relay
 submits at most one new ZIP per hourly run. No returned guide or translated chapter
-has been imported. The app heartbeat is still configured only to reconcile and
-import completed attempts, not to prepare new ones. Neither a new model
-submission schedule nor Git publication is enabled by this branch.
+has been imported. The existing 30-minute app heartbeat was updated in place to
+run `sync` before `reconcile --import-ready`; the app confirmed it remains ACTIVE.
+Its updated timed execution has not yet been observed. It prepares guide ZIPs
+locally and imports already authorized completed results; it never submits a
+new model job or publishes generated text. No generated text was committed.
 
 Offline verification: 186 Python tests passed, including committed-material
 privacy, exact-input and interrupted-import recovery checks. Nineteen JavaScript

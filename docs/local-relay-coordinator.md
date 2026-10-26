@@ -155,18 +155,19 @@ translation trials still pending.
 ## Automatic completed-result follow-up (owner enabled on 2026-10-25)
 
 The app heartbeat **Import completed Classics relay results** checks this local
-workspace every 30 minutes using `reconcile --import-ready`. The owner requested
-this after both real guide outputs were downloaded. Existing per-package
-submission authorization remains required. It imports valid completed results as
-local drafts and reports a newly imported result or a new actionable failure;
-unchanged checks stay quiet. It does not prepare/submit new jobs, automatically
-resume `needs_review`, alter the relay schedule/queue, commit/push output or
-approve release. Review holds still require an explicit reviewed `resume`.
+workspace every 30 minutes. After PR #19 reached the local checkout, its prompt
+was updated in place to run `sync` and then `reconcile --import-ready`. Existing
+per-package submission authorization remains required. It prepares eligible
+guide ZIPs locally and imports valid completed results as drafts; a new prepared
+attempt is reported for owner authorization. Unchanged checks stay quiet. It
+does not submit jobs, automatically resume `needs_review`, alter the relay
+schedule/queue, commit/push output or approve release. Review holds still
+require an explicit reviewed `resume`.
 
 The two existing guide attempts were imported immediately, including an explicit
 resume of the recovered Wells result, and a repeated local poll was a no-op.
-The app confirmed the heartbeat is active; its first timed execution and recovery
-after sleep/restart remain unverified. The local Mac and desktop app need to be
+The app confirmed the heartbeat is active; its first timed execution with the
+updated prompt and recovery after sleep/restart remain unverified. The local Mac and desktop app need to be
 available. No new LaunchAgent was installed. The exact heartbeat instructions are
 recorded in [the prompt](../prompts/relay-result-import.md); view or manage the
 heartbeat through the app's automation controls. Repo code itself installs no

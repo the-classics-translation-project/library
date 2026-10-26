@@ -12,7 +12,7 @@ adding its private generated guides. A live `relay-coordinator sync` reused the
 already queued attempt, prepared no duplicate, and reported zero model calls or
 relay submissions. `./ctp validate` passed in that checkout.
 
-The current implementation branch adds idempotent local guide task preparation
+The merged implementation adds idempotent local guide task preparation
 from accepted work/language requests. Submission stays per-package and requires
 the owner's explicit authorization. It also adds a four-scope material library,
 safe committed Admin metadata, ordered two-pool selection, v2 translation
@@ -134,19 +134,19 @@ The existing source worker reports 317 runs and latest exit code 0, with repeate
 idle no-model logs; sleep/restart and headless model execution remain unverified.
 See [browser/runtime verification](verification/relay-browser-2026-10-25.md).
 
-## Independent guide ZIP export/import — implemented offline, unverified live
+## Independent guide ZIP export/import — initial offline milestone (historical)
 
-New `./ctp guide-task-export` and `./ctp guide-task-import` commands independently package/import `work_analysis` and `target_guide` tasks, using versioned Markdown prompts and **requested model default `6 Extra High`**. One guide is returned as `result.json` plus `guide.md`. Packaging pins exact source, work-reference version, prompt, notes, target and previous-guide pointer. Import enforces strict ZIP/job/field identities, source and guide-baseline staleness, immutable SHA-named guide text, serializes local imports, records requested vs observed model and full rendered editorial instructions, and preserves old guide versions. See [independent guide ZIP usage](docs/independent-guide-zip.md). This is a manual/offline ZIP exchange, **not** an automatically submitted or completed relay task. No live model/relay run was performed in this implementation. Accepted legacy combined-guide Issue #12 and existing translation ZIP formats remain unchanged. The independent guide task queue/Issue intake and two-pool Admin interface remain future work; the opt-in local coordinator and result-import heartbeat are described above.
+At this milestone, new `./ctp guide-task-export` and `./ctp guide-task-import` commands independently packaged/imported `work_analysis` and `target_guide` tasks, using versioned Markdown prompts and **requested model default `6 Extra High`**. One guide is returned as `result.json` plus `guide.md`. Packaging pins exact source, work-reference version, prompt, notes, target and previous-guide pointer. Import enforces strict ZIP/job/field identities, source and guide-baseline staleness, immutable SHA-named guide text, serializes local imports, records requested vs observed model and full rendered editorial instructions, and preserves old guide versions. See [independent guide ZIP usage](docs/independent-guide-zip.md). No live model/relay run was performed during that initial implementation. Later real guide imports and the current coordinator/Admin state are recorded above.
 
-## Automation roadmap and bounded guide planner — implemented read-only
+## Automation roadmap and bounded guide planner — initial read-only milestone (historical)
 
 The owner-facing end-to-end goal, milestones, compatibility constraints, and mandatory cross-session handoff are tracked in [docs/automation-roadmap.md](docs/automation-roadmap.md). The repository includes a read-only `tools/guide_task_planner.py` and offline tests. It proposes missing work/target guides from `queue.json`, existing content-hashed guide pointers and compatible outstanding legacy Issue requests. It makes **no relay, network, model or file-write actions**. Independent guide ZIP exporters/importers are now available manually, but no new independent guide Issue queue or ordered-material UI is implemented. The coordinator and live guide imports are recorded above.
 
-## Three ChatGPT task types — independent guide ZIPs implemented, no auto-execution
+## Three ChatGPT task types — initial ZIP milestone (historical)
 
 The proposed project-owned task types are `work_analysis`, `target_guide` and `translation`; `chatgpt-relay` remains a ZIP submission/download transport. See [task model](docs/relay-task-model.md) and separate versioned `prompts/work-analysis.md` / `prompts/target-language-guide.md`. The existing combined guide ZIP operation, accepted Issue #12, and both current translation adapters remain unchanged. Read-only task discovery and independent local guide ZIP handlers now exist; there is no automatic enqueue/submission scheduler or registered new independent guide Issue intake. Real relay round-trip verification remains necessary.
 
-## Ordered translation materials — planned, not implemented
+## Ordered translation materials — initial design before PR #19 (historical)
 
 The current design direction is an **ordered transfer-list (dual-listbox) UI**
 for composing translation requests from versioned Markdown/text materials.

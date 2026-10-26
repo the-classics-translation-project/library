@@ -38,10 +38,10 @@ and reported zero model calls/submissions; project validation passed.
 
 **Implemented offline in this milestone:** `./ctp guide-task-export` / `guide-task-import` provide **separate** `work_analysis` and `target_guide` ZIP contracts, saved and rendered versioned prompts, requested default model `6 Extra High`, SHA-pinned source/reference context, strict return ZIP validation, atomic immutable-guide/pointer updates, local import lock, per-job provenance and stale/duplicate rejection. The accepted legacy Issue #12 combined-guide importer remains unchanged. See [independent guide ZIP usage](independent-guide-zip.md) and `tests/test_independent_guide_jobs.py`. A real independent Frankenstein work-analysis result was imported locally on 2026-10-25. The standalone target-guide round trip remains unverified; Wells used its legacy combined contract.
 
-**Next:** verify the first timed updated-heartbeat execution. Each prepared
-attempt still needs separate owner submission authorization. Verify the live
-standalone target-guide return and do not require a target guide for every
-translation.
+**Next:** verify the live standalone target-guide return. Each newly prepared
+attempt still needs separate owner submission authorization; the already
+delivered trial does not authorize future ones. Do not require a target guide
+for every translation.
 
 **Acceptance:** one work with two target languages yields one work reference and two target guides; repeat checks submit nothing; existing references are never overwritten without a versioned regeneration; old requests keep working.
 

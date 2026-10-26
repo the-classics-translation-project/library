@@ -34,6 +34,17 @@ Its updated timed execution has not yet been observed. It prepares guide ZIPs
 locally and imports already authorized completed results; it never submits a
 new model job or publishes generated text. No generated text was committed.
 
+For the bounded translation trial, *The War of the Worlds* Japanese chapter II
+(`n0005`, 7,384 source characters) was packaged locally as direct relay attempt
+`ctp-b6b987c229d8405aa6744e9fafebbb88`, with chapter I (`n0004`) as context
+and exact ordered private Wells work and Japanese guide versions. The 69,026-byte
+assembled-input preview matched the ZIP and manifest hash; requested fields are
+only the chapter's label and body. The 47,102-byte ZIP was atomically placed in
+the existing relay input with a private, hash-bound owner authorization record.
+Its expected return is `ctp-b6b987c229d8405aa6744e9fafebbb88-result.zip`.
+At this observation it has not been registered by the relay scanner, submitted
+to ChatGPT, returned or imported. No chapter prose was publicly committed.
+
 Offline verification: 186 Python tests passed, including committed-material
 privacy, exact-input and interrupted-import recovery checks. Nineteen JavaScript
 core checks and `node --check site/translation-admin.js` passed. `./ctp validate`

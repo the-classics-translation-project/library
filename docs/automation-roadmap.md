@@ -141,8 +141,15 @@ The legacy combined Wells guide and independent Frankenstein work-analysis guide
 have completed actual relay-to-local-import paths. Standalone target-guide and
 translated-node round trips, restart/failure behavior of the new heartbeat and
 format consolidation still require work. No output format was retired or changed.
-The standalone target-guide trial is queued in the external relay, not yet completed. A short
-Frankenstein chapter trial is planned only after the guide result is imported.
+The standalone target-guide trial is queued in the external relay, not yet
+completed. Independently, a bounded Wells Japanese chapter II (`n0005`) direct
+translation package was prepared with chapter I as context and both existing
+private Wells guide versions, then placed in the relay's watched input with
+exact hash-bound owner authorization. Its attempt is
+`ctp-b6b987c229d8405aa6744e9fafebbb88`; it awaits scanner registration and
+later relay processing. The external relay submits at most one new ZIP per run,
+so neither trial's completion is inferred from placement in watched input.
+No translated prose has been imported or publicly distributed.
 The direct adapter's old-edition rename gap now has an explicit guarded recovery
 command and an interruption/concurrent-edit fixture. Relay heartbeat restart
 behavior remains unverified in the live app.

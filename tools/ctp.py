@@ -350,6 +350,8 @@ def main() -> int:
     p=sub.add_parser('relay-import', help='Validate and import one returned ZIP as a draft')
     p.add_argument('attempt'); p.add_argument('result', type=Path)
     p.add_argument('--observed-model', default='unknown'); p.add_argument('--chat-url')
+    p=sub.add_parser('relay-recover', help='Restore a verified prior edition after an interrupted direct import')
+    p.add_argument('attempt')
     p=sub.add_parser('relay-coordinator', help='Opt-in local package, submit and import coordination')
     p.add_argument('--relay',type=Path,default=Path.home()/'Software/chatgpt-relay')
     modes=p.add_subparsers(dest='mode',required=True)
@@ -393,6 +395,9 @@ def main() -> int:
         elif args.command=='relay-import':
             from translation_relay import import_result
             result=import_result(ROOT,args.attempt,args.result,args.observed_model,args.chat_url)
+        elif args.command=='relay-recover':
+            from translation_relay import recover_interrupted_import
+            result=recover_interrupted_import(ROOT,args.attempt)
         elif args.command=='snapshot':
             rev,path=freeze(args.work_directory,args.edition_id); result={'revision':rev,'path':str(path),'published':False}
         elif args.command=='build': result={'built':str(build(demo=args.demo,epub=args.epub)),'deployed':False}

@@ -96,10 +96,10 @@ class TranslationZipTests(unittest.TestCase):
         (self.root/'queue.json').write_text(json.dumps({'schema_version':1,'works':[
             {'id':'gutenberg-36','targets':['ja']}]}))
         material=self.root/'materials/files/ja.md';material.parent.mkdir(parents=True)
-        material.write_text('# Japanese guide\n\nUse natural dialogue.\n')
+        material.write_text('# Japanese guide\n\nUse natural dialogue in {{target_language}}.\n')
         manifest={'schema_version':1,'entries':[{'id':'style.ja','path':'materials/files/ja.md',
             'title':'Japanese guide','description':'Draft style note','scope':'target_language',
-            'kind':'reference','work':None,'target':'ja','tags':['draft']}]}
+            'kind':'instruction','work':None,'target':'ja','tags':['draft']}]}
         (self.root/'materials/manifest.json').write_text(json.dumps(manifest))
         row=next(x for x in discover(self.root) if x['id']=='style.ja')
         request=self.request();request['schema_version']=2
@@ -113,7 +113,7 @@ class TranslationZipTests(unittest.TestCase):
         material.write_text('# Replaced later\n\nDifferent advice.\n')
         self.assertEqual(validate_queue(self.root)['requests'][0]['materials_snapshot'],pinned)
         job,metadata=prepare_job(self.root,request_entry(self.root,48))
-        self.assertIn('Use natural dialogue.',job['assembled_input'])
+        self.assertIn('Use natural dialogue in Japanese.',job['assembled_input'])
         self.assertNotIn('Different advice.',job['assembled_input'])
         self.assertEqual(job['ordered_materials'],pinned)
         out=self.root/'v2-request.zip';export_translation(self.root,48,out)

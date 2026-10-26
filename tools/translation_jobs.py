@@ -238,10 +238,11 @@ def prepare_job(root: Path, entry: dict) -> tuple[dict,dict]:
     check(bool(nodes),'No eligible fields remain in this request')
     config=read_json(root/'project.json')
     language=next(t['label'] for t in config['targets'] if t['id']==req['target'])
-    prompt=render_prompt(entry['prompt_text'],{
+    variables={
         'target_language':language,'target_language_code':req['target'],
         'source_language':work['language'],
-        'work_title':tree.get('label',req['work'])})
+        'work_title':tree.get('label',req['work'])}
+    prompt=render_prompt(entry['prompt_text'],variables)
     context={'editorial_policy':_notes(root/'docs/editorial-policy.md')}
     if req['reference']['mode'] in ('notes','text'):
         context.update(work_notes=_notes(wd/'notes.md'),
@@ -266,7 +267,8 @@ def prepare_job(root: Path, entry: dict) -> tuple[dict,dict]:
                if req['instructions'].strip() else '')
         job['ordered_materials']=materials
         job['assembled_input']=assembled_translation(
-            prompt+extra,materials,nodes,context,previous,TRANSLATION_README_V2)
+            prompt+extra,materials,nodes,context,previous,TRANSLATION_README_V2,
+            variables)
     encoded=json.dumps(job,ensure_ascii=False,sort_keys=True,
                        separators=(',',':')).encode('utf-8')
     manifest={'schema_version':1,'kind':'translation','issue':entry['issue'],

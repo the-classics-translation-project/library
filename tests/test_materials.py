@@ -32,10 +32,15 @@ class MaterialTests(unittest.TestCase):
         put('books/gutenberg-36/editions/ja/reference/current.json',
             json.dumps({'sha256':self.guide_hash}))
         put('materials/files/ja.md','# Japanese style\n\nTarget instructions.\n')
+        put('materials/files/zh-hans.md','# Simplified Chinese style\n\nTarget instructions.\n')
         put('materials/manifest.json',json.dumps({'schema_version':1,'entries':[
             {'id':'style.ja','path':'materials/files/ja.md','title':'Japanese style',
              'description':'Language guidance','scope':'target_language',
-             'kind':'instruction','work':None,'target':'ja','tags':['style']}
+             'kind':'instruction','work':None,'target':'ja','tags':['style']},
+            {'id':'style.zh-Hans','path':'materials/files/zh-hans.md',
+             'title':'Simplified Chinese style','description':'Language guidance',
+             'scope':'target_language','kind':'instruction','work':None,
+             'target':'zh-Hans','tags':['style']}
         ]}))
 
     def test_four_scopes_and_metadata_only(self):
@@ -45,9 +50,12 @@ class MaterialTests(unittest.TestCase):
         public=materials.public_metadata(self.root)
         self.assertEqual(public,[])
         self.assertTrue(all('path' not in r and 'text' not in r for r in public))
-        self.assertTrue(all(materials.applicable(r,'gutenberg-36','ja') for r in public))
+        self.assertTrue(all(materials.applicable(r,'gutenberg-36','ja')
+                            for r in rows if r['id']!='style.zh-Hans'))
         self.assertFalse(materials.applicable(next(r for r in rows if r['id']=='style.ja'),
                                               'gutenberg-36','en'))
+        self.assertTrue(materials.applicable(next(r for r in rows if r['id']=='style.zh-Hans'),
+                                             'gutenberg-36','zh-Hans'))
 
     def test_public_manifest_excludes_untracked_private_guide(self):
         subprocess.run(['git','init','-q',str(self.root)],check=True)
@@ -84,6 +92,11 @@ class MaterialTests(unittest.TestCase):
         self.assertLess(preview.index('Japanese style'),preview.index('## Material 2'))
         self.assertLess(preview.index('## Material 2'),preview.index('Selected source fields'))
         self.assertIn('Fixed return contract\nZIP contract',preview)
+        got[0]['text']='For {{target_language}}, retain the setting.'
+        expanded=materials.assembled_translation('Base',got,[],{}, {},'ZIP contract',{
+            'target_language':'Japanese','target_language_code':'ja',
+            'source_language':'en','work_title':'Fixture'})
+        self.assertIn('For Japanese, retain the setting.',expanded)
 
         old='# Older guide\n\nPrior wording.\n'
         old_hash=hashlib.sha256(old.encode()).hexdigest()
@@ -92,6 +105,19 @@ class MaterialTests(unittest.TestCase):
         prior=materials.resolve(self.root,'gutenberg-36','ja',selected)[1]
         self.assertEqual(prior['text'],old)
         self.assertEqual(prior['title'],'Older guide')
+
+    def test_generated_guide_id_preserves_mixed_case_language_tag(self):
+        self.put('queue.json',json.dumps({'schema_version':1,'works':[
+            {'id':'gutenberg-36','targets':['ja','zh-Hans']}]}))
+        text='# Chinese guide\n\nNames and register.\n'
+        sha=hashlib.sha256(text.encode()).hexdigest()
+        base='books/gutenberg-36/editions/zh-Hans/reference/'
+        self.put(base+sha+'.md',text)
+        self.put(base+'current.json',json.dumps({'sha256':sha}))
+        ident='guide.target.gutenberg-36.zh-Hans'
+        row=next(x for x in materials.discover(self.root) if x['id']==ident)
+        self.assertEqual(row['scope'],'work_target')
+        self.assertTrue(materials.applicable(row,'gutenberg-36','zh-Hans'))
 
     def test_stale_duplicate_and_wrong_target_are_rejected(self):
         rows={r['id']:r for r in materials.discover(self.root)}

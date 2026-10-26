@@ -166,8 +166,16 @@ def package(root, work_id, edition_id, nodes, model, language=None, direction='l
             context['selected neighboring source'] = json.dumps(
                 [item for item in source if item['role'] == 'context'],
                 ensure_ascii=False, indent=2)
+            config=c.read_json(root/'project.json')
+            language_name=next((item['label'] for item in config['targets']
+                                if item['id']==ed['language']),ed['language'])
+            variables={'target_language':language_name,
+                       'target_language_code':ed['language'],
+                       'source_language':work['language'],
+                       'work_title':tree.get('label',work_id)}
             assembled = assembled_translation(files.get('translate.md', b'').decode('utf-8'),
-                                               resolved, source_fields, context, {}, template)
+                                               resolved, source_fields, context, {}, template,
+                                               variables)
             files['assembled-input.md'] = assembled.encode('utf-8')
             manifest['materials'] = refs
             manifest['assembled_input_sha256'] = c.digest(files['assembled-input.md'])
@@ -308,3 +316,28 @@ def import_result(root, attempt, result_path, observed_model='unknown', chat_url
                 raise
         return {'edition': str(base), 'run': run['id'], 'status': 'draft',
                 'missing': c.missing_fields(tree, ed), 'published': False}
+
+
+def recover_interrupted_import(root, attempt):
+    """Restore a verified old edition left in the private backup after a crash."""
+    root = root.resolve()
+    c.ident(attempt)
+    with locked(root) as jobs:
+        folder = jobs/attempt
+        job = c.read_json(folder/'job.json')
+        manifest = job['manifest']
+        c.check(manifest['attempt'] == attempt, 'Attempt identity mismatch')
+        wd, _, _ = ready(root, manifest['work'])
+        c.ident(manifest['edition'])
+        base = wd/'editions'/manifest['edition']
+        c.check(base.resolve().is_relative_to(wd.resolve()), 'Unsafe edition path')
+        backup = folder/'edition-before'
+        c.check(manifest['edition_before'] is not None and backup.is_dir() and
+                not backup.is_symlink(), 'No interrupted prior edition backup')
+        c.check(inventory(backup) == manifest['edition_before'],
+                'Prior edition backup differs from the prepared baseline')
+        c.check(not base.exists() and not base.is_symlink(),
+                'Edition path exists; inspect it before recovery')
+        os.rename(backup, base)
+        return {'attempt': attempt, 'restored': str(base), 'submitted': False,
+                'published': False}

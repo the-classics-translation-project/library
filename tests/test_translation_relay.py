@@ -1,6 +1,7 @@
 """Offline relay contract tests: no browser, queue or model calls."""
 import copy
 import json
+import os
 from pathlib import Path
 import shutil
 import sys
@@ -27,6 +28,7 @@ class RelayTests(unittest.TestCase):
             shutil.rmtree(self.wd/name,ignore_errors=True)
         shutil.copytree(c.ROOT/'prompts', self.root/'prompts')
         shutil.copy2(c.ROOT/'queue.json', self.root/'queue.json')
+        shutil.copy2(c.ROOT/'project.json', self.root/'project.json')
         (self.root/'docs').mkdir()
         shutil.copy2(c.ROOT/'docs/editorial-policy.md', self.root/'docs/editorial-policy.md')
         self.base = self.wd/'editions/ja'
@@ -86,6 +88,8 @@ class RelayTests(unittest.TestCase):
         c.load_work(self.wd,'ja')
 
     def test_ordered_materials_make_exact_private_preview_without_changing_return_zip(self):
+        (self.root/'docs/editorial-policy.md').write_text(
+            '# Editorial policy\n\nTranslate into {{target_language}}.\n')
         folder=self.wd/'reference';folder.mkdir(parents=True)
         first=b'# Synthetic work reference\n\nWork context.\n'
         sha=c.digest(first);(folder/(sha+'.md')).write_bytes(first)
@@ -102,6 +106,7 @@ class RelayTests(unittest.TestCase):
                              [{'id':ident,'sha256':items[ident]['sha256']} for ident in ids])
             self.assertEqual(manifest['assembled_input_sha256'],c.digest(preview))
             self.assertIn('Synthetic work reference',preview.decode())
+            self.assertIn('Translate into Japanese.',preview.decode())
             self.assertLess(preview.index(b'Synthetic work reference'),
                             preview.index(b'Editorial policy'))
         self.assertEqual(Path(job['preview']).read_bytes(),preview)
@@ -158,6 +163,32 @@ class RelayTests(unittest.TestCase):
         backup = self.root/'private/relay'/second['attempt']/'edition-before'
         self.assertEqual(r.inventory(backup), before)
         self.assertEqual(len(c.read_json(self.base/'edition.json')['production']['runs']), 2)
+
+    def test_interrupted_direct_import_restores_only_verified_prior_edition(self):
+        self.accept(self.package())
+        before=r.inventory(self.base)
+        second=self.package()
+        backup=self.root/'private/relay'/second['attempt']/'edition-before'
+        os.rename(self.base,backup)
+        restored=r.recover_interrupted_import(self.root,second['attempt'])
+        self.assertEqual(restored['restored'],str(self.base.resolve()))
+        self.assertEqual(r.inventory(self.base),before)
+        self.assertFalse(backup.exists())
+
+        third=self.package()
+        backup=self.root/'private/relay'/third['attempt']/'edition-before'
+        os.rename(self.base,backup)
+        self.base.mkdir()
+        (self.base/'notes.md').write_text('Intervening human edit')
+        with self.assertRaisesRegex(c.ProjectError,'Edition path exists'):
+            r.recover_interrupted_import(self.root,third['attempt'])
+        self.assertEqual((self.base/'notes.md').read_text(),'Intervening human edit')
+        self.assertEqual(r.inventory(backup),before)
+        shutil.rmtree(self.base)
+        (backup/'notes.md').write_text('Corrupted backup')
+        with self.assertRaisesRegex(c.ProjectError,'backup differs'):
+            r.recover_interrupted_import(self.root,third['attempt'])
+        self.assertFalse(self.base.exists())
 
     def test_rejects_stale_edition(self):
         self.accept(self.package())

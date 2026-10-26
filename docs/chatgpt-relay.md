@@ -185,9 +185,12 @@ precede the run-ID bookkeeping update, as with ordinary `record-run`.
 
 Imports are serialized by a local lock. Ordinary errors during final installation
 restore the prior edition. A process/machine crash between the two directory
-renames may leave the prior edition in `private/relay/<attempt>/edition-before/`;
-inspect that backup and the edition path before recovery. Do not blindly resubmit
-or delete evidence. Retrying an already imported attempt is rejected.
+renames may leave the prior edition in `private/relay/<attempt>/edition-before/`.
+Inspect the edition path and then run `./ctp relay-recover ATTEMPT` only for that
+interrupted direct attempt. It restores the old edition only when its backup
+matches the prepared baseline and the edition path is absent; a concurrent edit
+is never overwritten. Keep the request/result ZIPs for a deliberate import retry.
+Retrying an already imported attempt is rejected.
 
 ## Glossary and editorial notes
 

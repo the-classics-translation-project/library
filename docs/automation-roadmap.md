@@ -24,17 +24,22 @@ accepted `queue.json` work/target requests into immutable local ZIP attempts.
 Repeated syncs reuse active attempts; stopped attempts remain held for deliberate
 retry. It never delivers a ZIP or authorizes model submission. The independent
 Frankenstein English target-guide package was separately prepared and explicitly
-delivered for one owner-authorized live trial; at last observation it was
-`delivered`, with no imported result. The initial preservation of the three
+delivered for one owner-authorized live trial; the relay registered it as
+queued job 25, with another job ahead and no imported result. The initial preservation of the three
 previously imported guides is a private hash-checked local snapshot, with no
 Git distribution approval. The app result-import heartbeat still needs an
 explicit configuration update to call `sync` on each run.
+Implementation and tests are in [PR #19](https://github.com/the-classics-translation-project/library/pull/19).
 
 **Done on main:** read-only deterministic planner `python3 tools/guide_task_planner.py`; legacy combined-guide Issue coverage; SHA-256 verification of existing guide pointers; unit tests. The planner returns `proposed`, `awaiting_work_analysis`, `covered_by_legacy_issue`, `completed`, and `blocked`. It currently derives requests from `queue.json` and the current guide Issue queue; it does **not** persist a new task queue, submit ZIPs, or mutate Git files. It uses the current canonical source fingerprint.
 
 **Implemented offline in this milestone:** `./ctp guide-task-export` / `guide-task-import` provide **separate** `work_analysis` and `target_guide` ZIP contracts, saved and rendered versioned prompts, requested default model `6 Extra High`, SHA-pinned source/reference context, strict return ZIP validation, atomic immutable-guide/pointer updates, local import lock, per-job provenance and stale/duplicate rejection. The accepted legacy Issue #12 combined-guide importer remains unchanged. See [independent guide ZIP usage](independent-guide-zip.md) and `tests/test_independent_guide_jobs.py`. A real independent Frankenstein work-analysis result was imported locally on 2026-10-25. The standalone target-guide round trip remains unverified; Wells used its legacy combined contract.
 
-**Next:** decide how automatic proposals become persistent **authorized** independent requests. The coordinator already has a local job/attempt ledger and opt-in transport delivery; the new heartbeat only imports previously authorized results and does not authorize proposals. The planner itself still makes no model call. Do not require a target guide for every translation.
+**Next:** after the code reaches the canonical local checkout, update the
+existing heartbeat to call `sync` before result reconciliation. Each prepared
+attempt still needs separate owner submission authorization. Verify the live
+standalone target-guide return and do not require a target guide for every
+translation.
 
 **Acceptance:** one work with two target languages yields one work reference and two target guides; repeat checks submit nothing; existing references are never overwritten without a versioned regeneration; old requests keep working.
 
@@ -119,9 +124,9 @@ preview. Legacy request/response contracts remain available. The public Admin
 cannot select uncommitted private guides; using them locally requires the direct
 adapter until the owner approves their Git distribution. A real translated-node
 round trip and genuine deployed browser check are still pending. Offline
-verification passed: 184 Python tests, 19 JavaScript core checks, Admin syntax
+verification passed: 186 Python tests, 19 JavaScript core checks, Admin syntax
 check, `./ctp validate`, and `./ctp build --demo --epub`. The committed-material
-privacy fixture passed again after the final guard change. These checks do not
+privacy fixture passed after the final guard change. These checks do not
 establish browser behavior or literary fidelity.
 
 Four scopes (general, target language, work, work+target), instruction/reference type, optional tags, ordered/removable Applied list, defaults that can be removed, material versions pinned at Issue acceptance. One deterministic assembler produces exact preview and ZIP contents. Full private-source preview must happen at an authorized local step, not through public Pages. Existing translation requests retain backwards compatibility.
@@ -134,8 +139,11 @@ The legacy combined Wells guide and independent Frankenstein work-analysis guide
 have completed actual relay-to-local-import paths. Standalone target-guide and
 translated-node round trips, restart/failure behavior of the new heartbeat and
 format consolidation still require work. No output format was retired or changed.
-The standalone target-guide trial is delivered, not yet completed. A short
+The standalone target-guide trial is queued in the external relay, not yet completed. A short
 Frankenstein chapter trial is planned only after the guide result is imported.
+The direct adapter's old-edition rename gap now has an explicit guarded recovery
+command and an interruption/concurrent-edit fixture. Relay heartbeat restart
+behavior remains unverified in the live app.
 
 
 Run actual whole-work guide, target-guide and translation round trips. Evaluate output size/context coverage, malformed ZIP handling, retries/restarts, snapshot/report preservation and Pages safety. Only after that select a unified long-prose output format (likely JSON metadata plus Markdown body files) and retain compatibility adapters for historical formats.

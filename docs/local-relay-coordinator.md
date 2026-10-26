@@ -167,7 +167,8 @@ require an explicit reviewed `resume`.
 The two existing guide attempts were imported immediately, including an explicit
 resume of the recovered Wells result, and a repeated local poll was a no-op.
 The app confirmed the heartbeat is active; its first timed execution with the
-updated prompt and recovery after sleep/restart remain unverified. The local Mac and desktop app need to be
+updated prompt found no new work and stayed quiet. Recovery after sleep/restart
+remains unverified. The local Mac and desktop app need to be
 available. No new LaunchAgent was installed. The exact heartbeat instructions are
 recorded in [the prompt](../prompts/relay-result-import.md); view or manage the
 heartbeat through the app's automation controls. Repo code itself installs no

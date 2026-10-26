@@ -30,7 +30,9 @@ The relay registered it as job 25; another job is ahead of it, and the relay
 submits at most one new ZIP per hourly run. No returned guide or translated chapter
 has been imported. The existing 30-minute app heartbeat was updated in place to
 run `sync` before `reconcile --import-ready`; the app confirmed it remains ACTIVE.
-Its updated timed execution has not yet been observed. It prepares guide ZIPs
+Its first updated timed execution reported no new preparations, imports or
+failures while the Frankenstein guide remained queued; it stayed quiet as
+configured. It prepares guide ZIPs
 locally and imports already authorized completed results; it never submits a
 new model job or publishes generated text. No generated text was committed.
 

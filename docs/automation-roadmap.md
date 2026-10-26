@@ -28,8 +28,8 @@ delivered for one owner-authorized live trial; the relay registered it as
 queued job 25, with another job ahead and no imported result. The three
 previously imported guides have a private hash-checked local snapshot, with no
 Git distribution approval. The existing 30-minute heartbeat now runs `sync`
-before reconciled import; the app confirmed ACTIVE status. Its first timed run
-with the updated prompt remains unobserved. Implementation and tests merged in
+before reconciled import; the app confirmed ACTIVE status. Its first updated
+timed run found no new preparation/import/failure and stayed quiet. Implementation and tests merged in
 [PR #19](https://github.com/the-classics-translation-project/library/pull/19)
 as `4cc4922`. A live no-op sync on the updated Documents checkout reused job 25
 and reported zero model calls/submissions; project validation passed.

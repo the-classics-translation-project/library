@@ -15,6 +15,24 @@ In public Admin select *The War of the Worlds* and requested target languages (c
 - External `chatgpt-relay`: ZIP submission and retrieval transport, **not** the source of truth for editorial tasks.
 - Source preparation worker and launchd installation: separate, already implemented; do not piggyback a model submission on its idle check.
 
+## Next verified priorities — code audit 2026-10-28
+
+The [independent code/documentation audit](../verification/code-documentation-audit-2026-10-28.md)
+was performed against public `main` at `3456b612`, not uncommitted Mac files.
+**First**, diagnose the two held real relay return-ZIP links and recover exact
+archives where possible, with **no automatic resend**; a separate minimal
+attachment test needs its own authorization. **Second**, reconcile the v2
+Applied-material semantics with older implicitly included editorial references:
+make optional documents truly removable, pin all execution context, and preserve
+an explicitly empty v2 Applied stack while retaining historical v1 behavior.
+**Third**, select a privacy-safe way for locally generated, uncommitted guides to
+be discoverable in the translation UI; decide whether work-target enrollment is
+mandatory or can be expanded by a translation Issue. **Fourth**, complete one
+real v2 Issue-based translation import and standalone target-guide import.
+Only then consolidate return ZIP protocols and extend separately authorized
+automatic submission. The latest GitHub CI/Pages success does not verify
+external browser ZIP delivery or the Mac's uncommitted work.
+
 ## Milestones (ordered)
 
 ### M1. Guide task planning and independent guide operations — LOCAL PREPARATION IMPLEMENTED; SUBMISSION REMAINS EXPLICIT

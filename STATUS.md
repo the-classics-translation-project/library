@@ -1,10 +1,35 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-28** (standing draft-distribution implementation is
-being prepared; activation and live push remain unverified). This file describes
+Last updated: **2026-10-28** (standing draft distribution activated and its
+first public Git push verified). This file describes
 observed state, not a claim that the software or literary workflows are finished.
 
-## Automatic public-Git draft distribution — implementation in progress, 2026-10-28
+## Automatic public-Git draft distribution — active, 2026-10-28
+
+[PR #25](https://github.com/the-classics-translation-project/library/pull/25)
+merged the standing-policy publisher as `157a648`. The owner's Documents
+checkout fast-forwarded, passed `./ctp validate`, and ran `./ctp draft-publish`.
+It pushed [commit `0b2e62c`](https://github.com/the-classics-translation-project/library/commit/0b2e62ca1134c3ebc631a6a4fe38f9362376a07a)
+containing exactly nine guide, pointer and receipt/provenance files from the two
+previously imported attempts. The commit changed no `catalog.json` entry and
+made no model call. GitHub [validation for that commit](https://github.com/the-classics-translation-project/library/actions/runs/40545278652)
+and its [Pages deployment](https://github.com/the-classics-translation-project/library/actions/runs/40545278692)
+both passed.
+
+The existing 30-minute **Import completed Classics relay results** app heartbeat
+was updated in place and confirmed ACTIVE. Its saved prompt now runs draft
+publication after guide preparation and authorized result import. A manual
+no-op pass prepared zero jobs, kept the missing target-guide result at
+`needs_review`, validated the project and found no files left to push. The
+held direct Wells chapter result remains without an exact ZIP. A local
+demo/EPUB build passed and included all three committed guide entries in Admin
+metadata. In a real Chrome visit to the deployed Admin, all three guides
+appeared in Available materials; the Wells work guide moved into Applied with
+its matching hash prefix. No Issue was submitted. An actual timed run of the
+updated heartbeat and sleep/restart behavior are still unverified. See
+[rollout verification](verification/draft-distribution-rollout-2026-10-28.md).
+
+## Implementation and pre-activation rehearsal — 2026-10-28
 
 The owner authorized a standing policy for automatic public Git commits of
 validated imported **guide and translation drafts** derived from admitted

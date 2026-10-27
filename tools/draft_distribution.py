@@ -170,6 +170,7 @@ def publish_ready(root, push=True):
     if not items:
         return {'published': [], 'commit': None, 'pushed': False, 'model_called': False}
     changes = {}
+    baselines = {}
     for item in items:
         admitted(root, item['work'])
         c.check(isinstance(item['outputs'], dict) and item['outputs'],
@@ -186,15 +187,17 @@ def publish_ready(root, push=True):
                 c.check(changes[name]['after'] == hashes['before'],
                         'Overlapping imported drafts have a broken version chain: '+name)
                 changes[name]['after'] = hashes['after']
+                baselines[name].add(hashes['after'])
             else:
                 changes[name] = dict(hashes)
+                baselines[name] = {hashes['before'], hashes['after']}
     for name, hashes in changes.items():
         path = _safe_name(root, name)
         c.check(c.digest(path.read_bytes()) == hashes['after'],
                 'Draft output changed after import: '+name)
         prior = git_bytes(root, 'show', 'HEAD:'+name)
         prior_hash = c.digest(prior) if prior is not None else None
-        c.check(prior_hash == hashes['before'] or prior_hash == hashes['after'],
+        c.check(prior_hash in baselines[name],
                 'Git baseline differs from imported draft: '+name)
     c.check(tracked_dirty <= set(changes),
             'Unrelated tracked changes require review before draft distribution')

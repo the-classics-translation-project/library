@@ -27,7 +27,7 @@ change is merged and the local checkout is updated. See
 [automation roadmap](docs/automation-roadmap.md).
 
 Offline checks on this branch passed: the full Python suite (191 tests at that
-run), six focused draft-distribution fixtures after the final policy-state
+run), seven focused draft-distribution fixtures after the final policy-state
 adjustment, `./ctp validate`, `./ctp build --demo --epub`, Admin JavaScript
 syntax and `git diff --check`. These do not establish a live GitHub push,
 a real translated-node result or literary quality.

@@ -14,7 +14,7 @@ relay attempts, change `catalog.json` or approve a literary release. A direct
 `relay-import` result gets a private publication manifest only after successful
 installation. Existing coordinator imports already have exact output ledgers.
 Offline verification passed on the branch: 191 Python tests in the full suite,
-six focused draft-distribution fixtures after the final policy-state adjustment,
+seven focused draft-distribution fixtures after the final policy-state adjustment,
 project validation, demo/EPUB build, Admin JavaScript syntax and diff check.
 The push retry fixture uses a local bare Git remote; no live GitHub push or
 new model job occurred during these tests.

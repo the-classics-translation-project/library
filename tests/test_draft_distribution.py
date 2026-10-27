@@ -85,6 +85,31 @@ class DraftDistributionTests(unittest.TestCase):
         with self.assertRaises(c.ProjectError):
             d.publish_ready(self.root, False)
 
+    def test_later_guide_revision_updates_tracked_pointer(self):
+        first = self.imported(guide_issue=12)
+        d.publish_ready(self.root, False)
+        queue_path = self.root/'guide-requests.json'
+        queue = c.read_json(queue_path)
+        second = dict(queue['requests'][0])
+        second['issue'] = 13
+        second['body_sha256'] = c.digest(b'Second authorized fixture Issue')
+        queue['requests'].append(second)
+        c.write_json(queue_path, queue)
+        git(self.root, 'add', 'guide-requests.json')
+        git(self.root, 'commit', '-m', 'Accept second fixture request')
+        row = self.fixture.prepare(guide_issue=13)
+        self.fixture.submit(row)
+        self.fixture.response(row, lambda value: value.update(
+            work_guide='# Second synthetic work guide',
+            target_guide='# Second synthetic target guide'))
+        coordinator.reconcile(self.root, True)
+        self.assertEqual(coordinator.load(self.root, row['id'])['state'], 'imported')
+        result = d.publish_ready(self.root, False)
+        self.assertEqual(set(result['published']), {first['id'], row['id']})
+        changed = set(git(self.root, 'diff-tree', '--no-commit-id', '--name-only',
+                          '-r', result['commit']).splitlines())
+        self.assertIn('books/gutenberg-36/reference/current.json', changed)
+
     def test_failed_push_retries_same_commit_without_duplicate(self):
         with tempfile.TemporaryDirectory() as directory:
             remote = Path(directory)/'remote.git'

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "issue": 12,
+  "work": "gutenberg-36",
+  "target": "ja",
+  "job_sha256": "6b7607e35dac3ad8d3cbd5479f4e8ed479e84b4999b9ad6e0c2c9025c1ece84a",
+  "response_sha256": "4033eb7fa65c9a2701104d81221dce7af5f8ed413ec804a52b624764d7741662",
+  "files": {
+    "work_guide": "books/gutenberg-36/reference/62c909253fcad3b07d3fa390b95aff0503b348f72e6ae9e48e92bb4fccaf34c7.md",
+    "target_guide": "books/gutenberg-36/editions/ja/reference/b3bd8330e626d9b0de88c6f1fb765886fc9e7fdcae3c7a2c4af390f2e7279bbb.md"
+  },
+  "run_record": "books/gutenberg-36/reference/guide-run-6b7607e35dac3ad8-4033eb7fa65c9a27.json"
+}

@@ -64,8 +64,9 @@ The worker completed a bounded live run for Gutenberg #41445, pushed its
 validated tree, and reconciled successful CI and Pages runs. The live Admin
 manifest serves both current Gutenberg trees. The owner-authorized local
 LaunchAgent is installed from a dedicated checkout under Application Support;
-its first `RunAtLoad` tick exited successfully without a model call. Real browser
-tree interaction and sleep/restart behavior remain unverified.
+its first `RunAtLoad` tick exited successfully without a model call. Admin tree and ordered-material interactions were verified in real Chrome checks on
+2026-10-25 and 2026-10-27 (see verification/). Physical Safari/iPad checks,
+sleep/restart recovery and headless source-model execution remain unverified.
 The associated runtime agent instructions are in
 [prompts/source-preparation.md](prompts/source-preparation.md).
 Do not report the pipeline as running merely because its code exists.

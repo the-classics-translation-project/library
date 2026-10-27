@@ -11,7 +11,7 @@ The initial source admission remains a bounded evidentiary check, not a legal
 guarantee for unrelated third-party material later inserted into a task.
 
 Run `./ctp draft-publish` from the trusted local `main` checkout after result
-imports. After activation, the existing 30-minute app heartbeat runs it after
+imports. The existing 30-minute app heartbeat runs it after
 its authorized guide sync and completed-result import. The command reads only imported
 coordinator attempts and direct `relay-import` publication manifests. It checks
 their exact request and result archives, recorded output hashes, source admission,

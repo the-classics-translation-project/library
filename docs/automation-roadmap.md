@@ -2,7 +2,32 @@
 
 **Repository source of truth:** This document, [STATUS.md](../STATUS.md), [AGENTS.md](../AGENTS.md), and the implementation linked below. Update these in the **same PR as each meaningful automation change**. A chat transcript is not a progress ledger. Prefer verified observations and commit/PR links over impressions.
 
-## Standing draft-distribution implementation — 2026-10-28
+## Draft-distribution rollout observed — 2026-10-28
+
+[PR #25](https://github.com/the-classics-translation-project/library/pull/25)
+merged as `157a648`. In the owner's Documents checkout, `./ctp draft-publish`
+verified the two previously imported guide attempts and pushed the exact
+nine-file [draft commit `0b2e62c`](https://github.com/the-classics-translation-project/library/commit/0b2e62ca1134c3ebc631a6a4fe38f9362376a07a).
+No held ZIP, unrelated file, catalogue change or model call entered that step.
+[GitHub validation](https://github.com/the-classics-translation-project/library/actions/runs/40545278652)
+and [Pages deployment](https://github.com/the-classics-translation-project/library/actions/runs/40545278692)
+both passed. A local build lists all three guides as public Admin material
+metadata. A real Chrome visit to the deployed Admin showed the three guides
+in Available materials and moved the Wells work guide into Applied with the
+recorded hash prefix. No Issue was submitted. See the
+[rollout verification](../verification/draft-distribution-rollout-2026-10-28.md).
+
+The existing 30-minute app heartbeat was updated in place and confirmed
+ACTIVE with the saved `prompts/relay-result-import.md` instructions. A manual
+pass of its exact commands produced no new preparation or import, kept the
+Frankenstein target-guide attempt held, passed validation and made no new
+publication commit. The direct Wells chapter trial also remains held without
+its exact return ZIP. Next: observe a real timed heartbeat and sleep/restart
+behavior, recover/diagnose the two missing ZIPs without resubmitting,
+then fix v2 material semantics and complete a real translated-node import.
+Reader release and `catalog.json` remain separate editorial decisions.
+
+## Standing draft-distribution implementation and rehearsal — 2026-10-28
 
 The owner authorized automatic public Git distribution of validated imported
 guide and translation **drafts** whose admitted source has passed the saved
@@ -23,12 +48,11 @@ records and nine local output files passed validation and made an exact nine-fil
 local commit with `--no-push`; no held result or catalogue file was included.
 The temporary clone was removed. Live GitHub publication remains to be observed.
 
-**Activation sequence:** merge this implementation, fast-forward the owner's
-Documents checkout, run the publisher once for the two verified imported guide
-attempts, then update the existing 30-minute app heartbeat to run it after
-reconciled import. Verify actual Git push and CI/Pages separately; neither is
-established by the offline fixture tests. The two attempts without downloadable
-return ZIPs remain held. The next technical work remains ZIP recovery, v2
+**Historical activation plan (completed as recorded above):** merge this
+implementation, fast-forward the owner's Documents checkout, publish the two
+verified imported guide attempts, and update the existing app heartbeat.
+The two attempts without downloadable return ZIPs remain held. The next
+technical work remains ZIP recovery, v2
 material semantics and a real translated-node import; reader catalogue release
 still needs its own editorial decision.
 

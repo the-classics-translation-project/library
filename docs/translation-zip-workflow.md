@@ -11,6 +11,17 @@ The task model separates language-independent `work_analysis` and target-specifi
 
 ## Ordered material selection
 
+**Current v2 limitation (audit 2026-10-28):** The new Applied pool coexists
+with the older `reference` dropdown. `editorial_policy` is always included
+as project context, and `notes`/`text` reference mode also includes notes
+and current work/target guides outside the Applied list. These are visible in
+the local assembled preview but are not themselves pinned as ordered Applied
+materials at Issue acceptance. When Applied is empty, Admin currently emits v1.
+Before relying on removal to exclude an editorial document, inspect the **full
+local preview**. See [the audit](../verification/code-documentation-audit-2026-10-28.md)
+for the planned reconciliation; existing v1 requests remain unchanged.
+
+
 The Issue-based form retains its recipe and previous-reference settings and now
 offers **Available** and ordered **Applied** material pools. Optional selected
 materials produce a v2 Issue payload pinning each ID, SHA-256 and order. The

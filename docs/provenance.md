@@ -143,7 +143,9 @@ observations and target-language terms as content-hashed Markdown files.
 The exact prior prose is included only when explicitly selected. The
 source fingerprint and frozen revision identify their origin. This records
 provenance but not hidden instructions, literary quality or reproducibility.
-Always inspect the return ZIP from the external relay before committing.
+Automatic draft Git distribution checks imported ZIP identity, hashes and
+project structure. These checks do not establish literary fidelity; inspect
+the prose before any reader-facing release.
 
 ## Work and target guide provenance
 

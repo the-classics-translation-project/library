@@ -2,6 +2,36 @@
 
 **Repository source of truth:** This document, [STATUS.md](../STATUS.md), [AGENTS.md](../AGENTS.md), and the implementation linked below. Update these in the **same PR as each meaningful automation change**. A chat transcript is not a progress ledger. Prefer verified observations and commit/PR links over impressions.
 
+## Standing draft-distribution implementation — 2026-10-28
+
+The owner authorized automatic public Git distribution of validated imported
+guide and translation **drafts** whose admitted source has passed the saved
+US/Japan policy. `draft-distribution.json` records the standing scope; the
+[publisher](automatic-draft-distribution.md) validates exact import archives,
+output hashes, source admission, path scope, Git baseline and project state
+before committing only those outputs. It does not submit model jobs, resume held
+relay attempts, change `catalog.json` or approve a literary release. A direct
+`relay-import` result gets a private publication manifest only after successful
+installation. Existing coordinator imports already have exact output ledgers.
+Offline verification passed on the branch: 191 Python tests in the full suite,
+six focused draft-distribution fixtures after the final policy-state adjustment,
+project validation, demo/EPUB build, Admin JavaScript syntax and diff check.
+The push retry fixture uses a local bare Git remote; no live GitHub push or
+new model job occurred during these tests.
+An isolated rehearsal with copies of the owner's two real imported attempt
+records and nine local output files passed validation and made an exact nine-file
+local commit with `--no-push`; no held result or catalogue file was included.
+The temporary clone was removed. Live GitHub publication remains to be observed.
+
+**Activation sequence:** merge this implementation, fast-forward the owner's
+Documents checkout, run the publisher once for the two verified imported guide
+attempts, then update the existing 30-minute app heartbeat to run it after
+reconciled import. Verify actual Git push and CI/Pages separately; neither is
+established by the offline fixture tests. The two attempts without downloadable
+return ZIPs remain held. The next technical work remains ZIP recovery, v2
+material semantics and a real translated-node import; reader catalogue release
+still needs its own editorial decision.
+
 ## Owner's intended experience
 
 In public Admin select *The War of the Worlds* and requested target languages (currently only Japanese is actually requested; Korean is an illustrative future selection), submit an authorized GitHub Issue, and let the local computer generate **one language-independent work guide** and **one target-language terminology guide per requested language** through the existing ChatGPT ZIP relay. Later, select source nodes and an ordered, removable set of applicable reference/prompt materials, create another authorized Issue, and have the local relay process and import draft translations without manually copying ZIPs or running commands. No material is approved for reader distribution merely because its task succeeds.

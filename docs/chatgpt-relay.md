@@ -210,10 +210,11 @@ interactive translation sessions should also read it when present.
 After import, run `./ctp validate`, read the translation and glossary, and optionally
 freeze with `./ctp snapshot books/<work> <edition>`. A snapshot may require the
 translated root title; select that node explicitly when preparing an initial draft.
-The import does not freeze, edit `catalog.json`, commit, push or approve distribution.
-Public Git commits also distribute the archived request/result prose, even if no
-catalogue entry exists; obtain the appropriate approval before committing literary
-material. Keep failed attempts and private experiments local.
+The import does not freeze, edit `catalog.json`, commit, push or approve a reader
+release. The separate [standing-policy publisher](automatic-draft-distribution.md)
+may commit and push its hash-verified draft files after successful import.
+Public Git commits also distribute archived request/result prose even without a
+catalogue entry. Keep failed attempts and private experiments local.
 
 ## Verification boundary
 

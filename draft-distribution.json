@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "enabled": true,
+  "authorized_by": "hiroshi-manabe",
+  "authorized_on": "2026-10-28",
+  "repository": "the-classics-translation-project/library",
+  "classes": ["guide", "translation"],
+  "audience": "public-git-draft"
+}

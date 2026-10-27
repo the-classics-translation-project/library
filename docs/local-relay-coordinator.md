@@ -124,8 +124,8 @@ Successful import leaves files local. Read AI-generated guides as draft referenc
 not adopted editorial decisions or exhaustive analysis. Structural validation
 establishes neither fidelity nor human review.
 
-Optional Git publication requires a **separate** explicit approval for public
-repository distribution:
+The historical per-attempt manual Git command still requires explicit public
+repository distribution approval:
 
 ```sh
 ./ctp relay-coordinator publish ATTEMPT --approve-git-distribution
@@ -135,9 +135,12 @@ repository distribution:
 This validates the project, requires an empty index and no unrelated working-tree
 changes, checks every imported output hash, and stages only that attempt's exact
 file list. A push uses the existing branch without force; remote conflicts stop
-rather than being silently merged. Publishing code or an approved older draft
-is not permission to publish newly generated guide/translation text. Even without
-Pages listings, public Git commits distribute their contents. No command selects
+rather than being silently merged. The owner's newer standing policy in
+[automatic draft distribution](automatic-draft-distribution.md) also permits
+`./ctp draft-publish` to commit and push hash-verified imported guides and
+translations after US/Japan source admission. It does not authorize relay
+submissions or results outside the policy. Even without Pages listings,
+public Git commits distribute their contents. No command selects
 a license, approves a reader/review release, or submits to KDP.
 
 ## Verification boundaries
@@ -161,7 +164,9 @@ per-package submission authorization remains required. It prepares eligible
 guide ZIPs locally and imports valid completed results as drafts; a new prepared
 attempt is reported for owner authorization. Unchanged checks stay quiet. It
 does not submit jobs, automatically resume `needs_review`, alter the relay
-schedule/queue, commit/push output or approve release. Review holds still
+schedule/queue or approve release. After the 2026-10-28 standing authorization,
+its separate `draft-publish` step may commit and push validated imported drafts.
+Review holds still
 require an explicit reviewed `resume`.
 
 The two existing guide attempts were imported immediately, including an explicit
@@ -172,5 +177,6 @@ remains unverified. The local Mac and desktop app need to be
 available. No new LaunchAgent was installed. The exact heartbeat instructions are
 recorded in [the prompt](../prompts/relay-result-import.md); view or manage the
 heartbeat through the app's automation controls. Repo code itself installs no
-scheduler. Generated guide files remain local until separately approved for Git
-distribution, regardless of whether they were imported manually or by heartbeat.
+scheduler. The earlier observations above predate the standing authorization.
+Held attempts remain local; successfully imported drafts become eligible for
+the separate publisher.

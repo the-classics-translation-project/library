@@ -13,8 +13,10 @@ Before any task-automation or translation-workflow change, read and maintain [th
 Read [coordinator usage](docs/local-relay-coordinator.md) for explicit per-package
 prepare/adopt/submit and reconciled import. The coordinator never mutates relay
 queue state, invokes a model directly or installs a scheduler. Keep request,
-attempt and transport identities separate; public Git distribution requires its
-own approval. Source preparation remains a separate worker.
+attempt and transport identities separate. The owner's standing public-Git
+approval for validated imported **draft guides and translations** is recorded in
+`draft-distribution.json` and [automatic draft distribution](docs/automatic-draft-distribution.md);
+anything outside that scope needs separate approval. Source preparation remains a separate worker.
 
 ## Read before working
 
@@ -53,7 +55,9 @@ Preserve the two guides as readable, reasonably organized Markdown;
 The repository has strict Issue intake, selectable versioned prompt recipes,
 node-level Admin request controls and ZIP export/import commands. The owner's
 existing external ZIP-to-ChatGPT relay performs the AI processing; this repo
-does not launch an unattended translation model or publish new text implicitly.
+does not launch an unattended translation model. The separate standing-policy
+publisher may commit and push validated imported drafts; it never changes the
+reader catalogue implicitly.
 For a separate proposed **local CLI translation launcher**, see
 [translation runner design](docs/translation-runner.md); it is still optional.
 For local source automation, read the

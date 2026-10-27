@@ -374,9 +374,14 @@ def main() -> int:
     q=modes.add_parser('publish',help='Approve exact imported files for public Git distribution')
     q.add_argument('attempt'); q.add_argument('--approve-git-distribution',action='store_true')
     q.add_argument('--push',action='store_true')
+    q=sub.add_parser('draft-publish',help='Publish imported draft guides and translations under standing policy')
+    q.add_argument('--no-push',action='store_true',help='Commit locally without pushing (offline verification)')
     args=parser.parse_args()
     try:
         if args.command=='validate': result=validate_project()
+        elif args.command=='draft-publish':
+            from draft_distribution import publish_ready
+            result=publish_ready(ROOT,not args.no_push)
         elif args.command=='relay-coordinator':
             import relay_coordinator as coordinator
             if args.mode=='status':result=coordinator.status(ROOT)

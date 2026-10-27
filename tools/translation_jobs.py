@@ -364,7 +364,7 @@ def _edition(root: Path, work: str, target: str) -> dict:
     return {'schema_version':2,'id':target,'language':target,'direction':'ltr',
             'kind':'modernization' if target==original['language'] else 'translation',
             'status':'draft','description':'Partial literary translation draft',
-            'rights_note':'Not approved for distribution',
+            'rights_note':'Source admitted for US/Japan; draft has no reader-release approval',
             'production':{'ai_use':'ChatGPT ZIP exchange; see generation runs',
                           'human_review':'Not performed','runs':[]},
             'nodes':{}}

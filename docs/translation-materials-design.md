@@ -17,10 +17,12 @@ order and versions; acceptance copies their complete text into the local queue.
 `translation-preview ISSUE` writes the exact assembled text used in the ZIP.
 The direct `relay-package` adapter accepts ordered `--material ID@SHA-256`
 arguments and stores its assembled input both privately and in the ZIP.
-Existing v1 requests and both return ZIP protocols remain readable. Private
-uncommitted guides do not appear in public Admin until separately approved for
-public Git distribution; a local direct package can select them without that
-distribution. A browser preview of private full text is not offered by Pages.
+Existing v1 requests and both return ZIP protocols remain readable. The owner's
+2026-10-28 [standing draft-distribution policy](automatic-draft-distribution.md)
+allows validated imported guides to be committed and pushed automatically.
+Until an actual push and site rebuild, uncommitted guides remain absent from
+public Admin; a local direct package can select them. A browser preview of
+private full text is not offered by Pages.
 
 The complementary [three-type task model](relay-task-model.md) distinguishes original-work analysis, target-language guide generation and translation. The shared material selector is to serve all three, with operation-specific mandatory output contracts; the existing combined guide operation stays available for historical compatibility.
 

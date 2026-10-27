@@ -1,8 +1,41 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-28** (remote main code/documentation audit; latest local
-relay execution remains the separately recorded 2026-10-27 state). This file describes observed state, not a roadmap or a
-claim that the software and literary workflows are finished.
+Last updated: **2026-10-28** (standing draft-distribution implementation is
+being prepared; activation and live push remain unverified). This file describes
+observed state, not a claim that the software or literary workflows are finished.
+
+## Automatic public-Git draft distribution — implementation in progress, 2026-10-28
+
+The owner authorized a standing policy for automatic public Git commits of
+validated imported **guide and translation drafts** derived from admitted
+US/Japan sources. This is separate from authorization to submit a model job and
+from reader/review release. The versioned policy is `draft-distribution.json`;
+`./ctp draft-publish` stages only imported, hash-verified output paths, checks
+the source admission and Git baseline, validates the project, and pushes to
+canonical `main` without force. The direct `relay-import` adapter now writes a
+private exact-output manifest after successful installation. A held result has
+no publication path. `catalog.json` remains untouched.
+
+At the time this implementation was prepared, the Documents checkout held two
+imported coordinator attempts: six Wells guide/receipt files and three
+Frankenstein work-guide/provenance files. Their archived requests and results
+and US/Japan source admission were rechecked read-only; neither has been pushed
+by this branch yet. The missing standalone target-guide and chapter ZIPs remain
+held. The existing app heartbeat still has its older no-push prompt until this
+change is merged and the local checkout is updated. See
+[automatic draft distribution](docs/automatic-draft-distribution.md) and the
+[automation roadmap](docs/automation-roadmap.md).
+
+Offline checks on this branch passed: the full Python suite (191 tests at that
+run), seven focused draft-distribution fixtures after the final policy-state
+adjustment, `./ctp validate`, `./ctp build --demo --epub`, Admin JavaScript
+syntax and `git diff --check`. These do not establish a live GitHub push,
+a real translated-node result or literary quality.
+An isolated rehearsal copied the nine actual local guide/receipt files and
+their private attempt ledgers into a temporary clone. `./ctp validate` passed;
+`./ctp draft-publish --no-push` made one local commit containing exactly those
+nine files from the two imported attempts and no catalogue change. The temporary
+clone was removed. This still is not a live GitHub push.
 
 ## Independent code/documentation audit — 2026-10-28
 

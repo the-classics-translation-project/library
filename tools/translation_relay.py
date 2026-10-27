@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
+from datetime import datetime, timezone
 import copy
 import fcntl
 import json
@@ -109,7 +110,8 @@ def package(root, work_id, edition_id, nodes, model, language=None, direction='l
             c.check(language is not None, 'New editions require --language')
             ed = {'schema_version': 2, 'id': edition_id, 'language': language,
                   'direction': direction, 'kind': kind, 'status': 'draft',
-                  'description': f'{language} {kind} draft', 'rights_note': 'Not cleared for distribution',
+                  'description': f'{language} {kind} draft',
+                  'rights_note': 'Source admitted for US/Japan; draft has no reader-release approval',
                   'production': {'ai_use': 'ChatGPT relay draft', 'human_review': 'Not performed', 'runs': []},
                   'nodes': {}}
             c.validate_tree_edition(tree, ed)
@@ -300,6 +302,15 @@ def import_result(root, attempt, result_path, observed_model='unknown', chat_url
             c.write_json(run_path, run)
             c.write_json(archive/'receipt.json', run['relay'])
             c.load_work(stage_work, m['edition']); c.validate_run(run)
+            old_files = inventory(base) or {}
+            new_files = inventory(stage_base) or {}
+            c.check(set(old_files) <= set(new_files), 'Import removed existing edition files')
+            output_changes = {
+                (base/path).relative_to(root).as_posix():
+                    {'before': old_files.get(path), 'after': sha}
+                for path, sha in new_files.items() if old_files.get(path) != sha
+            }
+            c.check(output_changes, 'Result made no edition changes')
             # Recheck immediately before installation; the lock serializes adapters.
             c.check(inventory(base) == m['edition_before'], 'Edition changed during import')
             c.check(c.source_fingerprint(wd) == m['source_fingerprint'], 'Source changed during import')
@@ -314,6 +325,21 @@ def import_result(root, attempt, result_path, observed_model='unknown', chat_url
                 if backup.exists():
                     os.rename(backup, base)
                 raise
+            publication = {'schema_version': 1, 'attempt': attempt,
+                           'work': m['work'], 'edition': m['edition'],
+                           'state': 'imported',
+                           'imported_at': datetime.now(timezone.utc).isoformat(),
+                           'request_sha256': job['package_sha256'],
+                           'result_sha256': c.digest(result_bytes),
+                           'outputs': output_changes}
+            marker = folder/'publication.json'
+            temporary = folder/('.publication-'+uuid4().hex)
+            try:
+                with temporary.open('xb') as out:
+                    out.write(json_bytes(publication));out.flush();os.fsync(out.fileno())
+                os.replace(temporary, marker)
+            finally:
+                temporary.unlink(missing_ok=True)
         return {'edition': str(base), 'run': run['id'], 'status': 'draft',
                 'missing': c.missing_fields(tree, ed), 'published': False}
 

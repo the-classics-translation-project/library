@@ -174,4 +174,9 @@ remain separate, and older v1 requests retain their contract.
 Use `./ctp relay-coordinator status`, `sync`, `prepare`, `submit` and `reconcile` to manage
 explicitly authorized legacy guide Issues, translation Issues and independent guide
 jobs locally. See [coordinator usage](local-relay-coordinator.md). Preparation does
-not submit. No new scheduler is installed; publication is separately approved.
+not submit. No new scheduler is installed. The owner now has a
+[standing public-Git draft policy](automatic-draft-distribution.md): after a
+successful import, `./ctp draft-publish` commits and pushes only verified guide
+or translation draft outputs from admitted US/Japan sources. The 30-minute app
+heartbeat invokes it after reconciled import once activated. This does not edit
+`catalog.json` or approve a reader release.

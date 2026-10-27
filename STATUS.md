@@ -1,8 +1,31 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-27** (merged implementation and private local relay
-state; deployment is reported separately below). This file describes observed state, not a roadmap or a
+Last updated: **2026-10-28** (remote main code/documentation audit; latest local
+relay execution remains the separately recorded 2026-10-27 state). This file describes observed state, not a roadmap or a
 claim that the software and literary workflows are finished.
+
+## Independent code/documentation audit — 2026-10-28
+
+A review of public `main` at `3456b612` confirmed that the ordered material
+selector, v2 accepted material snapshots, local exact preview, coordinator and
+historical ZIP adapters match their broad documentation; latest validation and
+Pages deployment passed. The audit identified **transitional differences**:
+`editorial_policy` and optionally notes/guides are still injected from older
+context paths even when absent from the removable Applied stack; those older
+context values are not pinned at v2 Issue acceptance; and clearing Applied causes
+a new Admin request to revert to v1. Private local guides intentionally remain
+invisible in public Admin without explicit Git-distribution approval or a
+private/metadata-only discovery alternative. The work-language target enrollment
+policy is also undecided. These are static code-level observations, **not new
+live-model failures or test results**. See
+[dated audit and prioritized corrective tests](verification/code-documentation-audit-2026-10-28.md).
+
+The two most recent real trials remain held because exact downloadable ZIPs were
+not obtained (Frankenstein target guide, Wells Japanese chapter II). The latest
+GitHub main commit and CI do not prove any newer uncommitted Mac state. Next:
+recover or diagnose actual file attachment delivery without unauthorized resend,
+then fix v2 prompt/context semantics and decide private guide visibility before
+additional automatic translation orchestration.
 
 ## Ordered materials and guide task preparation — 2026-10-27
 

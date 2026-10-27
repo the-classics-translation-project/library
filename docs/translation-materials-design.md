@@ -245,10 +245,12 @@ Do **not** implement a template programming language, automatic prompt
 conflict resolution, automatic AI invocation, direct public editing of private
 drafts, or mandatory PR workflow merely to implement material selection.
 
-## Still-open design choices
+## Still-open design choices (after initial implementation)
 
-- Exact paths/metadata mechanism for the library, including human-edited
-  successors and alternate guide forks.
+- The initial path and metadata mechanism is now implemented via
+  `materials/manifest.json` and `materials/files/`, plus discovery of existing
+  recipes/notes/guide pointers. **Still open:** richer lifecycle/version identity
+  for human-edited successors, regenerated guides and deliberate forks.
 - Whether applied material stacks have named reusable presets.
 - Whether the fixed output-contract row is always visible or only in preview.
 - Final canonical output file layout and transition from the two live

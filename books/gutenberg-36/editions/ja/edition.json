@@ -11,13 +11,18 @@
     "ai_use": "ChatGPT relay; see generation records",
     "human_review": "Not performed for this imported draft",
     "runs": [
-      "run-836c73b26e2349d79225b542b2f04ad5"
+      "run-836c73b26e2349d79225b542b2f04ad5",
+      "run-f10e25d1778442218c8f1647bcb6e01a"
     ]
   },
   "nodes": {
     "n0005": {
       "label": "第2章　落ちてきた星",
       "text": "text/n0005.md"
+    },
+    "n0006": {
+      "label": "第3章　ホーセル・コモンで",
+      "text": "text/n0006.md"
     }
   }
 }

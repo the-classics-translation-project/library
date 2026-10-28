@@ -1,10 +1,39 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-28** (standing draft distribution activated and its
-first public Git push verified). This file describes
+Last updated: **2026-10-28** (both completed relay results imported and draft
+distribution verified). This file describes
 observed state, not a claim that the software or literary workflows are finished.
 
-## Completed relay returns and automatic import work — 2026-10-28
+## Completed relay import and draft publication — 2026-10-28
+
+[PR #27](https://github.com/the-classics-translation-project/library/pull/27)
+merged the exact-result recovery and direct observer as `492a4f7`. In the
+owner's Documents checkout, the already authorized relay jobs 25 and 26 were
+matched to their archived request hashes and exact completed return ZIPs.
+The previously held Frankenstein English target guide was imported with its
+transport review history preserved; Wells Japanese chapter II was imported as
+a draft. Both record the observed model as `unknown`. The returned prose was
+inspected as draft data, without a human literary-quality finding.
+
+`./ctp validate` and a local demo/EPUB build passed. The standing-policy
+publisher pushed [commit `4d5dc7a`](https://github.com/the-classics-translation-project/library/commit/4d5dc7ac2ab93a860bebd4c5e7ed8319ea306ddc)
+with exactly 20 imported draft/provenance/archive files and no `catalog.json`
+change. [GitHub validation](https://github.com/the-classics-translation-project/library/actions/runs/40709341108)
+and [Pages deployment](https://github.com/the-classics-translation-project/library/actions/runs/40709341239)
+both passed. A real Chrome visit to deployed Admin showed the new Frankenstein
+English guide in Available materials and Wells at 2/60 drafted fields. The
+existing 30-minute app heartbeat was updated in place, confirmed
+ACTIVE, and a manual repeat of its exact commands prepared/imported/pushed
+nothing; project validation passed. It made no model call or relay submission.
+See [the live rollout record](verification/completed-relay-rollout-2026-10-28.md).
+
+Next: observe a timed heartbeat and sleep/restart recovery; resolve the v2
+Applied-material/context inconsistencies; verify a real v2 Issue translation;
+then consolidate the separate ZIP protocols and add remaining recovery tests.
+The external relay source checkout remains a separate local project without a
+Git remote. Reader release and `catalog.json` remain separate owner decisions.
+
+## Completed relay returns and automatic import work — pre-rollout record, 2026-10-28
 
 A fresh read-only inspection of the separate relay found **both** previously
 missing exact return ZIPs in `output/`. Relay jobs 25 (Frankenstein English
@@ -89,7 +118,7 @@ their private attempt ledgers into a temporary clone. `./ctp validate` passed;
 nine files from the two imported attempts and no catalogue change. The temporary
 clone was removed. This still is not a live GitHub push.
 
-## Independent code/documentation audit — 2026-10-28
+## Independent code/documentation audit — historical snapshot, 2026-10-28
 
 A review of public `main` at `3456b612` confirmed that the ordered material
 selector, v2 accepted material snapshots, local exact preview, coordinator and
@@ -105,12 +134,9 @@ policy is also undecided. These are static code-level observations, **not new
 live-model failures or test results**. See
 [dated audit and prioritized corrective tests](verification/code-documentation-audit-2026-10-28.md).
 
-The two most recent real trials remain held because exact downloadable ZIPs were
-not obtained (Frankenstein target guide, Wells Japanese chapter II). The latest
-GitHub main commit and CI do not prove any newer uncommitted Mac state. Next:
-recover or diagnose actual file attachment delivery without unauthorized resend,
-then fix v2 prompt/context semantics and decide private guide visibility before
-additional automatic translation orchestration.
+At that audit time, the two real trials were held because exact downloadable
+ZIPs had not been found. Their exact returns were later recovered and imported;
+see the live rollout above. The v2 prompt/context findings remain open.
 
 ## Ordered materials and guide task preparation — 2026-10-27
 

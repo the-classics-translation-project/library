@@ -46,7 +46,8 @@ expose unapproved drafts in public Pages.
 
 For the proposed three relay task types (work analysis, target-language guide and translation), read [the relay task model](docs/relay-task-model.md). Independent offline guide ZIP packaging/import is documented in [independent guide ZIP usage](docs/independent-guide-zip.md); use its standalone versioned prompts, preserve accepted combined-guide Issue requests, and require explicit owner authorization before relay submission.
 For local ChatGPT relay packaging/import, read [relay usage](docs/chatgpt-relay.md).
-The adapter is implemented with offline tests; live translation remains unverified.
+The adapter has offline tests and a verified live direct chapter import;
+v2 Issue-based translation remains unverified.
 Read the edition Markdown glossary when present.
 
 For local ZIP-based translation and whole-work guide exchange, read

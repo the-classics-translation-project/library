@@ -1,7 +1,7 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-29** (next draft-production stage implemented offline,
-submission disabled). This file describes
+Last updated: **2026-10-29** (draft preparation active; one exact pilot ZIP
+delivered, standing submission disabled). This file describes
 observed state, not a claim that the software or literary workflows are finished.
 
 ## Bounded draft-production automation — merged and preparation active, 2026-10-29
@@ -49,12 +49,17 @@ policy, work reference and Japanese guide. GitHub intake accepted it as commit
 `6950b9894337441ad9f2c3dca60380f0929ddb818fed9a2cddc46ecd418cb696`
 and expected return `ctp-translation-issue-30-28bea917e40f-result.zip`.
 The package requests `6 Extra High`, contains both the chapter label and body,
-and has no submission authorization or relay input file. The Issue intake's
-own site job [failed](https://github.com/the-classics-translation-project/library/actions/runs/40720821029)
+and was initially held without submission. The Issue intake's
+site job [failed](https://github.com/the-classics-translation-project/library/actions/runs/40720821029)
 because a dispatcher fixture assumed the live translation queue was empty;
-the isolated fixture fix and full 210-test suite passed locally in the
-follow-up PR. The accepted
-request and package are intact. No v2 model return exists yet. See
+the isolated fixture fix merged in [PR #31](https://github.com/the-classics-translation-project/library/pull/31)
+as `572c36e`. Its [validation](https://github.com/the-classics-translation-project/library/actions/runs/40722434726)
+and [Pages deployment](https://github.com/the-classics-translation-project/library/actions/runs/40722434723)
+passed with Issue #30 present. The owner then explicitly authorized this
+exact package for one model submission. The archived and relay-input ZIP hashes
+matched; the coordinator recorded the authorization and state `delivered` at
+2026-10-28 16:08 UTC. Relay registration, model execution and a v2 result
+remain unverified. The standing submission policy stays disabled. See
 [rollout verification](verification/draft-pipeline-rollout-2026-10-29.md).
 
 ## Completed relay import and draft publication — 2026-10-28

@@ -40,20 +40,37 @@ The requested model is `6 Extra High`, the sole output fields are `n0006` label
 and text, and the expected return is
 `ctp-translation-issue-30-28bea917e40f-result.zip`. The assembled input is
 49,919 UTF-8 bytes. The archived request was validated against the current
-source. The attempt remains `prepared`, `authorization: null`; its filename
-is absent from relay input. No model has received it and no result exists.
+source. It was initially `prepared`, `authorization: null`, and absent from
+relay input. Those were pre-authorization observations, not a completed job.
 
 The Issue intake's own [site job](https://github.com/the-classics-translation-project/library/actions/runs/40720821029)
 failed in the new dispatcher fixture: it expected only synthetic Issue #62 in
 the copied request queue, but the real accepted Issue #30 was also present.
 The intake itself and request commit succeeded. The follow-up change clears
 the copied queue inside that fixture; the focused test and full 210-test suite
-passed locally. CI must pass before calling this regression resolved.
+passed locally. [PR #31](https://github.com/the-classics-translation-project/library/pull/31)
+merged as `572c36e`; its main [validation](https://github.com/the-classics-translation-project/library/actions/runs/40722434726)
+and [Pages deployment](https://github.com/the-classics-translation-project/library/actions/runs/40722434723)
+passed with Issue #30 in the queue.
+
+## One exact authorized delivery
+
+The owner explicitly authorized one submission of this exact Issue #30 ZIP
+in the chat on 2026-10-29. Immediately before delivery, the archive was still
+`prepared`, `authorization: null`, and validated against current source;
+its SHA-256 matched the proposed
+`6950b9894337441ad9f2c3dca60380f0929ddb818fed9a2cddc46ecd418cb696`.
+`./ctp relay-coordinator submit` recorded the bound authorization and copied
+the ZIP once into the existing relay's watched `input/` folder. The input file
+hash was rechecked and matched exactly; local main stayed clean. The attempt
+state is `delivered` as of 2026-10-28 16:08 UTC. No relay job ID, model receipt,
+result ZIP or import has been verified yet. The repository's standing
+`model-submission-policy.json` remains disabled with zero authorized automatic
+submissions; this individual authorization does not enable future jobs.
 
 ## Remaining decisions and checks
 
-Submit the exact prepared package only after the owner explicitly authorizes
-that individual model job. Then verify the relay's actual model label, exact
+Verify relay registration and its actual model label, exact
 request/result identity, unified return ZIP, draft provenance and import. A
 standing automatic-submission policy is still disabled and needs a separate
 bounded owner decision after the live pilot. Translation quality and reader

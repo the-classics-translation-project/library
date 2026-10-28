@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "attempt": "ctp-b6b987c229d8405aa6744e9fafebbb88",
+  "work": "gutenberg-36",
+  "edition": "ja",
+  "language": "ja",
+  "model_requested": "6 Extra High",
+  "output_filename": "ctp-b6b987c229d8405aa6744e9fafebbb88-result.zip",
+  "source_fingerprint": "47e2a9f6fa89d6d0c6719f7cc84b6b6f074fd25737348291503db993bd116ab5",
+  "fields": {
+    "n0005": [
+      "label",
+      "text"
+    ]
+  },
+  "context_nodes": [
+    "n0004"
+  ],
+  "edition_before": {
+    "reference/b3bd8330e626d9b0de88c6f1fb765886fc9e7fdcae3c7a2c4af390f2e7279bbb.md": "b3bd8330e626d9b0de88c6f1fb765886fc9e7fdcae3c7a2c4af390f2e7279bbb",
+    "reference/current.json": "6ad452279f7a7ccbdd9f04c92f8e160f120822e3c5a1bd42bcb20d1eb5e05a4e"
+  },
+  "edition_seed": {
+    "schema_version": 2,
+    "id": "ja",
+    "language": "ja",
+    "direction": "ltr",
+    "kind": "translation",
+    "status": "draft",
+    "description": "ja translation draft",
+    "rights_note": "Not cleared for distribution",
+    "production": {
+      "ai_use": "ChatGPT relay draft",
+      "human_review": "Not performed",
+      "runs": []
+    },
+    "nodes": {}
+  },
+  "materials": [
+    {
+      "id": "guide.work.gutenberg-36",
+      "sha256": "62c909253fcad3b07d3fa390b95aff0503b348f72e6ae9e48e92bb4fccaf34c7"
+    },
+    {
+      "id": "guide.target.gutenberg-36.ja",
+      "sha256": "b3bd8330e626d9b0de88c6f1fb765886fc9e7fdcae3c7a2c4af390f2e7279bbb"
+    }
+  ],
+  "assembled_input_sha256": "6dd60116cb0fe94060773eb0b040b59589c1baed446334e1bfeaf5f6b2d889cc"
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 2,
+  "id": "ja",
+  "language": "ja",
+  "direction": "ltr",
+  "kind": "translation",
+  "status": "draft",
+  "description": "ja translation draft",
+  "rights_note": "Not cleared for distribution",
+  "production": {
+    "ai_use": "ChatGPT relay; see generation records",
+    "human_review": "Not performed for this imported draft",
+    "runs": [
+      "run-836c73b26e2349d79225b542b2f04ad5"
+    ]
+  },
+  "nodes": {
+    "n0005": {
+      "label": "第2章　落ちてきた星",
+      "text": "text/n0005.md"
+    }
+  }
+}

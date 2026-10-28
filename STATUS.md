@@ -1,8 +1,38 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-28** (both completed relay results imported and draft
-distribution verified). This file describes
+Last updated: **2026-10-29** (next draft-production stage implemented offline,
+submission disabled). This file describes
 observed state, not a claim that the software or literary workflows are finished.
+
+## Bounded draft-production automation — implementation in review, 2026-10-29
+
+New Admin translation requests stay v2 even with an empty Applied list. New
+acceptance pins the recipe, ordered material texts, execution variables,
+source-field coverage and fixed output contract. Optional notes and guides are
+no longer injected outside Applied; historical accepted requests keep their
+earlier meaning. A shared version 2 translation return ZIP accepts separate
+Markdown label/body files through both the Issue and opt-in direct adapters;
+their earlier ZIP formats remain accepted. No version 2 return has yet been
+tested with a live ChatGPT run.
+
+`./ctp relay-dispatch` prepares accepted guide and translation Issue tasks and
+can deliver bounded new jobs only under a committed owner-approved policy on a
+clean, current `main`. `model-submission-policy.json` is **disabled** with zero
+authorized submissions. The existing result-import heartbeat has not yet been
+updated to call it. Offline checks passed: 210 Python tests, including bounded
+policy and unified ZIP fixtures. A real v2 Issue pilot, timed follow-up of the
+new dispatcher, sleep/restart behavior and a separately approved standing
+submission scope remain open. Draft import/public Git distribution continues
+under its existing policy; no reader release is implied. See the
+[submission policy](docs/model-submission-policy.md),
+[unified ZIP contract](docs/unified-translation-zip.md) and
+[automation roadmap](docs/automation-roadmap.md).
+
+The local demo/EPUB build, project validation and Admin JavaScript syntax check
+also passed. A real Chrome interaction with the local Admin expanded the Wells
+source tree, selected chapter III (`n0006`), and verified the prepared Issue URL
+contains a v2 request with exactly that node and `materials: []`. No Issue or
+model job was submitted by that browser check.
 
 ## Completed relay import and draft publication — 2026-10-28
 

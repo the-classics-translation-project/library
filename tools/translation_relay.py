@@ -93,7 +93,7 @@ def read_zip(path):
 
 
 def package(root, work_id, edition_id, nodes, model, language=None, direction='ltr',
-            kind='translation', context_nodes=(), materials=()):
+            kind='translation', context_nodes=(), materials=(), unified=False):
     root = root.resolve()
     c.ident(edition_id)
     c.check(isinstance(model, str) and model.strip() and '\n' not in model and '\r' not in model,
@@ -150,7 +150,8 @@ def package(root, work_id, edition_id, nodes, model, language=None, direction='l
                     'source_fingerprint': c.source_fingerprint(wd), 'fields': fields,
                     'context_nodes': list(context_nodes), 'edition_before': before, 'edition_seed': ed}
         files['manifest.json'] = json_bytes(manifest)
-        template = (root/'prompts/relay-translation.md').read_text(encoding='utf-8')
+        template = (root/('prompts/relay-translation-unified.md' if unified else
+                          'prompts/relay-translation.md')).read_text(encoding='utf-8')
         files['README.md'] = (f'---\nmodel: {model}\noutput_filename: {output}\n---\n\n' + template).encode()
         if materials:
             from materials import resolve, assembled_translation
@@ -184,6 +185,10 @@ def package(root, work_id, edition_id, nodes, model, language=None, direction='l
             files['manifest.json'] = json_bytes(manifest)
             files['README.md'] += ("\n\nFor this package, use assembled-input.md as the "
                                    "complete pinned literary input and output contract.\n").encode()
+        if unified:
+            manifest['schema_version'] = 2
+            manifest['job_sha256'] = c.object_hash(manifest)
+            files['manifest.json'] = json_bytes(manifest)
         c.check(sum(map(len, files.values())) <= MAX_BYTES, 'Package exceeds size limit; select fewer nodes')
         for data in files.values():
             data.decode('utf-8')
@@ -199,6 +204,7 @@ def package(root, work_id, edition_id, nodes, model, language=None, direction='l
         c.write_json(folder/'job.json', {'package_sha256': c.digest(path.read_bytes()),
                                        'manifest': manifest})
         return {'attempt': attempt, 'package': str(path), 'output_filename': output,
+                'return_contract': 'unified-v2' if unified else 'direct-v1',
                 'preview': str(preview) if materials else None,
                 'submitted': False, 'model_called': False}
 
@@ -220,6 +226,11 @@ def import_result(root, attempt, result_path, observed_model='unknown', chat_url
         c.check(c.digest(package_bytes) == job['package_sha256'], 'Submitted package changed')
         inputs = read_zip(package_bytes)
         c.check(decode_json(inputs['manifest.json']) == m, 'Package manifest mismatch')
+        c.check(m.get('schema_version') in (1,2), 'Unknown direct request schema')
+        if m['schema_version'] == 2:
+            c.check(m.get('job_sha256') == c.object_hash({k:v for k,v in m.items()
+                                                        if k != 'job_sha256'}),
+                    'Direct request job hash changed')
         wd, work, tree = ready(root, m['work'])
         base = wd/'editions'/m['edition']
         c.ident(m['edition'])
@@ -232,6 +243,29 @@ def import_result(root, attempt, result_path, observed_model='unknown', chat_url
         files = read_zip(result_bytes)
         c.check('result.json' in files, 'Missing result.json')
         result = decode_json(files['result.json'])
+        if m['schema_version'] == 2:
+            from unified_translation_zip import validate
+            values,extras,_ = validate(files,result,adapter='direct',
+                request_id=attempt,input_sha256=m['job_sha256'],
+                fields=m['fields'],
+                auxiliary={'glossary':'glossary.md','notes':'notes.md'})
+            original_result=files['result.json']
+            files={'result.json':original_result,'glossary.md':extras['glossary'],
+                   'notes.md':extras['notes']}
+            converted={}
+            for nid,fields in values.items():
+                converted[nid]={}
+                for field,value in fields.items():
+                    if field == 'text':
+                        name=f'text/{nid}.md';files[name]=value.encode('utf-8')
+                        converted[nid][field]=name
+                    else:converted[nid][field]=value
+            result={'schema_version':1,'attempt':attempt,'work':m['work'],
+                    'edition':m['edition'],'language':m['language'],
+                    'status':'complete','nodes':converted}
+        else:
+            c.check(result.get('schema_version') == 1,
+                    'Legacy direct package requires legacy result')
         c.check(isinstance(result, dict) and set(result) == {'schema_version', 'attempt', 'work', 'edition', 'language', 'status', 'nodes'},
                 'Unexpected result fields')
         c.check(result['schema_version'] == 1, 'Unknown result schema')

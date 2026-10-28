@@ -116,9 +116,9 @@ def info(request):
         match=re.match(r'---\nmodel: ([^\n]+)\noutput_filename: ([^\n]+)\n---\n',text)
         c.check(match is not None,'Legacy request needs explicit relay model and filename metadata')
         model,output=match.groups()
-        from translation_jobs import relay_readme,GUIDE_README,TRANSLATION_README,TRANSLATION_README_V2
+        from translation_jobs import relay_readme,GUIDE_README,TRANSLATION_README,TRANSLATION_README_V2_LEGACY
         body=(GUIDE_README if adapter=='legacy_guide' else
-              TRANSLATION_README_V2 if job.get('request',{}).get('schema_version')==2 else
+              job.get('output_contract',TRANSLATION_README_V2_LEGACY) if job.get('request',{}).get('schema_version')==2 else
               TRANSLATION_README)
         c.check(text==relay_readme(body,request,model),'Legacy relay instructions differ from exporter')
         work,target=manifest['work'],manifest['target']
@@ -252,7 +252,7 @@ def _deliver(root,row):
     return row
 
 
-def submit(root,attempt,authorization):
+def submit(root,attempt,authorization,policy_id=None):
     root=root.resolve()
     c.check(isinstance(authorization,str) and authorization.strip(),'Explicit owner authorization note is required')
     with locked(root):
@@ -261,7 +261,11 @@ def submit(root,attempt,authorization):
         if row['authorization'] is None:
             row['authorization']={'note':authorization,'request_sha256':row['request_sha256'],
                                   'relay':row['relay'],'recorded_at':now()}
+            if policy_id is not None:row['authorization']['policy_id']=policy_id
             save(root,row)
+        elif policy_id is not None:
+            c.check(row['authorization'].get('policy_id')==policy_id,
+                    'Existing attempt has different submission authorization')
         return _deliver(root,row)
 
 
@@ -337,7 +341,7 @@ def _import(root,row,response):
             outcome=import_guide(stage,retained)
         else:
             from translation_jobs import import_translation
-            outcome=import_translation(stage,retained)
+            outcome=import_translation(stage,retained,observed_model='unknown')
         def portable(value):
             if isinstance(value,str) and value.startswith(str(stage)+'/'):return str(root)+value[len(str(stage)):]
             if isinstance(value,dict):return {k:portable(v) for k,v in value.items()}

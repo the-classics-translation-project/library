@@ -13,7 +13,9 @@ Before any task-automation or translation-workflow change, read and maintain [th
 Read [coordinator usage](docs/local-relay-coordinator.md) for explicit per-package
 prepare/adopt/submit and reconciled import. The coordinator never mutates relay
 queue state, invokes a model directly or installs a scheduler. Keep request,
-attempt and transport identities separate. The owner's standing public-Git
+attempt and transport identities separate. The disabled bounded submission
+policy is described in [model submission policy](docs/model-submission-policy.md);
+its existence is not execution authorization. The owner's standing public-Git
 approval for validated imported **draft guides and translations** is recorded in
 `draft-distribution.json` and [automatic draft distribution](docs/automatic-draft-distribution.md);
 anything outside that scope needs separate approval. Safe completed-result
@@ -40,8 +42,9 @@ changing Admin prompt selection, guide discovery or ZIP formats. It describes
 four applicability scopes; a removable, reorderable dual-listbox material stack;
 a full assembled-input preview; and a recommended protocol-owned final output
 contract. The initial library, Admin selector, and local exact-input preview are
-implemented; unified ZIP handling remains a design proposal. Today's two ZIP
-protocols and their storage remain separate. Keep historical requests replayable and do not silently
+implemented; a compatible version 2 unified translation return ZIP has offline
+tests but no live return. The historical ZIP protocols and their storage remain
+separate. Keep historical requests replayable and do not silently
 expose unapproved drafts in public Pages.
 
 For the proposed three relay task types (work analysis, target-language guide and translation), read [the relay task model](docs/relay-task-model.md). Independent offline guide ZIP packaging/import is documented in [independent guide ZIP usage](docs/independent-guide-zip.md); use its standalone versioned prompts, preserve accepted combined-guide Issue requests, and require explicit owner authorization before relay submission.

@@ -345,6 +345,7 @@ def main() -> int:
     p.add_argument('work'); p.add_argument('edition'); p.add_argument('--node', action='append', required=True)
     p.add_argument('--context-node', action='append', default=[]); p.add_argument('--model', default='6 Extra High')
     p.add_argument('--material', action='append', default=[], help='Ordered material ID@SHA-256; repeat to add')
+    p.add_argument('--unified-return',action='store_true',help='Request the shared version 2 return ZIP')
     p.add_argument('--language'); p.add_argument('--direction', choices=['ltr','rtl'], default='ltr')
     p.add_argument('--kind', choices=['translation','modernization'], default='translation')
     p=sub.add_parser('relay-import', help='Validate and import one returned ZIP as a draft')
@@ -353,6 +354,8 @@ def main() -> int:
     p=sub.add_parser('relay-recover', help='Restore a verified prior edition after an interrupted direct import')
     p.add_argument('attempt')
     p=sub.add_parser('relay-direct-reconcile', help='Import exact completed, authorized direct relay results')
+    p.add_argument('--relay',type=Path,default=Path.home()/'Software/chatgpt-relay')
+    p=sub.add_parser('relay-dispatch',help='Prepare accepted jobs and deliver only under an enabled owner policy')
     p.add_argument('--relay',type=Path,default=Path.home()/'Software/chatgpt-relay')
     p=sub.add_parser('relay-coordinator', help='Opt-in local package, submit and import coordination')
     p.add_argument('--relay',type=Path,default=Path.home()/'Software/chatgpt-relay')
@@ -403,7 +406,7 @@ def main() -> int:
             else:result=coordinator.publish(ROOT,args.attempt,args.approve_git_distribution,args.push)
         elif args.command=='relay-package':
             from translation_relay import package
-            result=package(ROOT,args.work,args.edition,args.node,args.model,args.language,args.direction,args.kind,args.context_node,args.material)
+            result=package(ROOT,args.work,args.edition,args.node,args.model,args.language,args.direction,args.kind,args.context_node,args.material,args.unified_return)
         elif args.command=='relay-import':
             from translation_relay import import_result
             result=import_result(ROOT,args.attempt,args.result,args.observed_model,args.chat_url)
@@ -413,6 +416,9 @@ def main() -> int:
         elif args.command=='relay-direct-reconcile':
             from relay_completed import import_direct_completed
             result=import_direct_completed(ROOT,args.relay)
+        elif args.command=='relay-dispatch':
+            from relay_dispatch import dispatch
+            result=dispatch(ROOT,args.relay)
         elif args.command=='snapshot':
             rev,path=freeze(args.work_directory,args.edition_id); result={'revision':rev,'path':str(path),'published':False}
         elif args.command=='build': result={'built':str(build(demo=args.demo,epub=args.epub)),'deployed':False}

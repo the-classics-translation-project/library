@@ -2,6 +2,29 @@
 
 **Repository source of truth:** This document, [STATUS.md](../STATUS.md), [AGENTS.md](../AGENTS.md), and the implementation linked below. Update these in the **same PR as each meaningful automation change**. A chat transcript is not a progress ledger. Prefer verified observations and commit/PR links over impressions.
 
+## Next draft-production stage — implemented offline, 2026-10-29
+
+New Admin requests always use v2, including an empty Applied stack. Their
+accepted queue pins all optional materials, template variables, source-field
+coverage and output contract; no unselected notes or guides enter the new
+assembled input. Old accepted v1/v2 requests replay under their prior rules.
+The compatible [unified translation return ZIP](unified-translation-zip.md)
+works with both new Issue requests and opt-in direct packages in offline tests;
+the historical protocols stay readable. A real version 2 return is still needed.
+
+The new [bounded dispatcher](model-submission-policy.md) prepares accepted
+guide and translation tasks and can deliver to the existing relay only from a
+clean, current, committed `main` under a versioned owner policy. The checked-in
+policy is disabled and authorizes zero jobs. Offline verification passed 210
+Python tests, project validation, the demo/EPUB build and Admin syntax check.
+A real local Chrome interaction selected Wells chapter III (`n0006`) and showed
+a v2 Issue URL with `materials: []`; no Issue was submitted. Live submission, a
+v2 Issue return and the updated app heartbeat remain unverified. Next: merge
+implementation; activate preparation in the existing heartbeat; prepare one exact v2 Issue
+pilot for an individual owner submission decision. After its real return and
+recovery checks, review a bounded standing authorization for automatic model
+submission. Reader release remains a separate decision.
+
 ## Live completed-result rollout — 2026-10-28
 
 [PR #27](https://github.com/the-classics-translation-project/library/pull/27)
@@ -305,9 +328,9 @@ Run actual whole-work guide, target-guide and translation round trips. Evaluate 
 
 - `queue.json`: Wells `gutenberg-36` has **Japanese only**. Do not claim Korean is selected.
 - `guide-requests.json`: accepted Issue **#12** asks for both Wells work guide and Japanese guide through the **legacy combined** output contract. A pending legacy request must suppress duplicate proposals for both of these products for the same source fingerprint.
-- Both Wells and Frankenstein have canonical source trees, but neither has a recorded translated edition.
+- Both Wells and Frankenstein have canonical source trees. Wells Japanese now has a chapter II draft; the remaining source fields are largely untranslated.
 - The two existing translation ZIP protocols differ and must not be silently conflated.
-- Offline tests remain distinct from real execution: the two guide relay/import paths above are observed; translation and standalone target-guide paths remain unverified.
+- Offline tests remain distinct from real execution: the historical direct translation and standalone target-guide paths have real imported returns; a v2 Issue translation and unified return ZIP have not yet had a live model round trip.
 - Reader/review publication requires separate explicit approval; public Git commits themselves distribute content.
 
 ## Maintaining a trustworthy handoff (mandatory for future work)

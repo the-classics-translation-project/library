@@ -33,6 +33,8 @@ class CoordinatorTests(unittest.TestCase):
         shutil.copy2(c.ROOT/'docs/editorial-policy.md',self.root/'docs/editorial-policy.md')
         for name in ('project.json','queue.json','guide-requests.json','translation-requests.json','catalog.json'):
             shutil.copy2(c.ROOT/name,self.root/name)
+        shutil.copy2(c.ROOT/'model-submission-policy.json',
+                     self.root/'model-submission-policy.json')
         self.relay=Path(self.temp.name)/'relay';(self.relay/'input').mkdir(parents=True);(self.relay/'output').mkdir()
         with closing(sqlite3.connect(self.relay/'relay.sqlite3')) as db:
             db.execute('CREATE TABLE jobs(id INTEGER PRIMARY KEY,input_name TEXT UNIQUE,sha256 TEXT,model TEXT,output_filename TEXT,status TEXT,chat_url TEXT,review_reason TEXT)')
@@ -87,6 +89,80 @@ class CoordinatorTests(unittest.TestCase):
         self.assertEqual(result['attempts'],[])
         self.assertEqual((self.relay/'relay.sqlite3').read_bytes(),before)
         self.assertEqual(list((self.relay/'input').iterdir()),[])
+
+    def test_dispatch_prepares_but_requires_committed_bounded_policy_to_submit(self):
+        from relay_dispatch import dispatch
+        first=dispatch(self.root,self.relay)
+        self.assertFalse(first['policy_enabled'])
+        self.assertFalse(first['submitted'])
+        self.assertFalse(list((self.relay/'input').iterdir()))
+        policy=c.read_json(self.root/'model-submission-policy.json')
+        policy.update(enabled=True,authorized_by='hiroshi-manabe',
+                      authorization_note='Fixture authorization for one work analysis',
+                      works=['gutenberg-41445'],targets=['en'],
+                      task_types=['work_analysis'],max_submissions_total=1,
+                      max_submissions_per_run=1,max_in_flight=1)
+        c.write_json(self.root/'model-submission-policy.json',policy)
+        with self.assertRaisesRegex(c.ProjectError,'clean, current origin/main'):
+            dispatch(self.root,self.relay)
+        self.assertFalse(list((self.relay/'input').iterdir()))
+        subprocess.run(['git','init','-b','main',str(self.root)],check=True,
+                       capture_output=True)
+        shutil.copy2(c.ROOT/'.gitignore',self.root/'.gitignore')
+        subprocess.run(['git','-C',str(self.root),'add','-A'],
+                       check=True,capture_output=True)
+        subprocess.run(['git','-C',str(self.root),'-c','user.name=Fixture',
+                        '-c','user.email=fixture@example.test','commit','-m','Authorize fixture'],
+                       check=True,capture_output=True)
+        bare=Path(self.temp.name)/'origin.git'
+        subprocess.run(['git','init','--bare',str(bare)],check=True,capture_output=True)
+        subprocess.run(['git','-C',str(self.root),'remote','add','origin',str(bare)],
+                       check=True,capture_output=True)
+        subprocess.run(['git','-C',str(self.root),'push','-u','origin','main'],
+                       check=True,capture_output=True)
+        second=dispatch(self.root,self.relay)
+        self.assertEqual(len(second['submitted']),1)
+        self.assertEqual(len(list((self.relay/'input').glob('*.zip'))),1)
+        submitted=r.load(self.root,second['submitted'][0]['attempt'])
+        self.assertEqual(submitted['authorization']['policy_id'],policy['policy_id'])
+        again=dispatch(self.root,self.relay)
+        self.assertEqual(again['submitted'],[])
+        self.assertEqual(len(list((self.relay/'input').glob('*.zip'))),1)
+
+    def test_dispatch_prepares_accepted_translation_issue_without_submission(self):
+        from relay_dispatch import dispatch
+        from translation_jobs import intake,prompt_catalogue,MARKER_V2
+        prompt=prompt_catalogue(self.root)[0]
+        request={'schema_version':2,'work':'gutenberg-36','target':'ja',
+                 'nodes':['n0005'],'source_fingerprint':c.source_fingerprint(
+                     self.root/'books/gutenberg-36'),
+                 'scope':'all','prompt':{'id':prompt['id'],'sha256':prompt['sha256']},
+                 'reference':{'mode':'none','revision':None},
+                 'instructions':'','materials':[]}
+        fence=chr(96)*3
+        issue={'number':62,'state':'open','user':{'login':'hiroshi-manabe'},
+               'body':MARKER_V2+'\n'+fence+'json\n'+json.dumps(request)+'\n'+fence}
+        self.assertEqual(intake(self.root,[issue])['accepted'],[62])
+        first=dispatch(self.root,self.relay)
+        self.assertEqual([r['issue'] for r in first['issue_prepared'] if
+                          r['adapter']=='translation'],[62])
+        self.assertFalse(first['submitted'])
+        self.assertFalse(list((self.relay/'input').iterdir()))
+        again=dispatch(self.root,self.relay)
+        self.assertEqual(again['issue_prepared'],[])
+        self.assertTrue(any(r['issue']==62 for r in again['issue_existing']))
+
+        target_attempt=next(item['attempt'] for item in first['issue_prepared']
+                            if item['adapter']=='translation' and item['issue']==62)
+        row=r.load(self.root,target_attempt)
+        row['state']='needs_review';row['reason']='Synthetic transport hold'
+        r.save(self.root,row)
+        held=dispatch(self.root,self.relay)
+        self.assertEqual(held['issue_prepared'],[])
+        self.assertTrue(any(item.get('issue')==62 for item in held['held']),held)
+        self.assertEqual(len([record for record in r.records(self.root)
+                              if record['adapter']=='translation' and record['issue']==62]),1)
+        self.assertFalse(list((self.relay/'input').iterdir()))
 
     def test_prepare_deduplicates_and_submit_needs_exact_authorization(self):
         row=self.prepare();again=self.prepare()

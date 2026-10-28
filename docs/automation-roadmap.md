@@ -2,22 +2,46 @@
 
 **Repository source of truth:** This document, [STATUS.md](../STATUS.md), [AGENTS.md](../AGENTS.md), and the implementation linked below. Update these in the **same PR as each meaningful automation change**. A chat transcript is not a progress ledger. Prefer verified observations and commit/PR links over impressions.
 
-## Authorization wording for review — 2026-10-29
+## Conditional standing submission — proposed, 2026-10-29
+
+The next bounded stage prepares a still-disabled policy for accepted Wells
+Japanese translation Issues using `6 Extra High`, with three submissions total,
+one per run and one in flight. The separately authorized Issue #30 pilot is
+outside that cap. The dispatcher must verify the pilot's exact authorized
+attempt, imported receipt, archived request and response hashes, and unified
+version 2 ZIP before any policy-authorized delivery. Missing, held, altered or
+legacy-format results block without a resend. A policy-authorized attempt that
+later needs review blocks subsequent delivery. The clean/current `main` and
+committed-policy checks still apply. Accepted tasks can still be prepared while
+this condition is unmet.
+
+At this inspection Issue #30 remains `delivered` with no verified result. The
+policy stays disabled and has no owner authorization record. The next steps are
+to observe/import the real pilot, review its draft and provenance, then obtain
+the owner's approval of the **specific enabled policy revision** before any
+automatic delivery. After activation, observe one real scheduled dispatch and
+its import, stopping or lowering the cap if the relay has a new failure. A
+manual exact-package route remains available. The focused gate/dispatcher
+test, 211 Python tests, `./ctp validate` and `git diff --check` passed locally;
+the later policy-hold assertion was rechecked in the focused test. No new model job or
+reader release occurred in this proposal.
+
+## Authorization wording — merged, 2026-10-29
 
 The owner's informal, interactive workflow and its bounded automation can use
 either exact-package authorization or one explicit standing authorization for
-a narrow policy revision. The proposed `AGENTS.md` wording says an active,
+a narrow policy revision. Merged [PR #33](https://github.com/the-classics-translation-project/library/pull/33)
+clarifies that an active,
 owner-approved policy authorizes in-scope submissions up to its limits without
 asking again for each job. Task intake remains distinct from model submission;
-stopped attempts are not resent automatically. This is a rule clarification,
-not activation: `model-submission-policy.json` remains disabled. After the
-single Issue #30 pilot has a verified result, decide the exact works, targets,
-task types, model and caps for any standing authorization. Maintainers may
+stopped attempts are not resent automatically. This was a rule clarification,
+not activation: `model-submission-policy.json` remains disabled. The bounded
+Wells/Japanese scope above is prepared for later owner review. Maintainers may
 continue using individual package approvals.
-This proposal changed no dispatcher code or policy JSON; `./ctp validate`, the
-focused bounded-dispatcher test and `git diff --check` passed locally. Next:
-owner review of the wording, then a separately scoped activation decision after
-the pilot result. No additional model job was submitted by this change.
+That wording change touched no dispatcher code or policy JSON; `./ctp validate`, the
+focused bounded-dispatcher test and `git diff --check` passed locally. The
+pilot result and a separately scoped activation decision remain. No additional
+model job was submitted by that wording change.
 
 ## Next draft-production stage — merged; preparation active, 2026-10-29
 

@@ -4,22 +4,47 @@ Last updated: **2026-10-29** (draft preparation active; one exact pilot ZIP
 delivered, standing submission disabled). This file describes
 observed state, not a claim that the software or literary workflows are finished.
 
-## Submission authority wording — proposal for owner review, 2026-10-29
+## Conditional Wells Japanese submission proposal — 2026-10-29
 
-This branch clarifies in `AGENTS.md` that the owner may authorize either one
+This branch prepares a specific, still-disabled standing policy for accepted
+Wells Japanese translation Issues: requested model `6 Extra High`, at most three
+new policy-authorized submissions, one per run and one in flight. No task is
+automatically submitted under this proposal. The dispatcher now checks that
+the separately authorized Issue #30 pilot's exact unified version 2 return was
+imported, with matching private attempt, receipt, archived hashes and ZIP
+contract, before any later in-scope delivery. A missing, held or changed pilot
+remains blocked without a resend. A later policy-authorized attempt needing
+review also stops subsequent deliveries. The existing clean/current `main` and
+committed-policy checks still apply.
+
+The Issue #30 coordinator attempt remains `delivered`, with no relay job ID or
+verified return in the owner checkout at this inspection. The owner still needs
+to approve the **specific enabled policy revision** after the pilot import;
+the prepared `model-submission-policy.json` retains `enabled: false` and no
+authorization identity. The focused offline gate/dispatcher test, 211 Python
+tests, `./ctp validate` and `git diff --check` passed locally. The later
+policy-hold assertion was rechecked in the focused test after the full run.
+No model call, policy activation, draft publication or reader release was
+performed by this proposal.
+
+## Submission authority wording — merged, 2026-10-29
+
+The merged [PR #33](https://github.com/the-classics-translation-project/library/pull/33)
+clarified in `AGENTS.md` that the owner may authorize either one
 exact relay package or an explicitly approved bounded standing policy. Once an
 approved policy is enabled, eligible submissions within its works, targets,
 task types, model and remaining caps need no separate per-package approval.
 Issue acceptance, a prepared ZIP and a code merge are not execution
 authorization. Stopped or uncertain attempts still require deliberate handling.
-This wording proposal does not change dispatcher code or enable
+That wording change did not change dispatcher code or enable
 `model-submission-policy.json`; its checked-in policy remains disabled. The
 separately authorized Issue #30 pilot is still `delivered` without a relay job
-ID or verified result as of this inspection. The remaining decision is whether
-to adopt this wording and, later, which exact standing scope to authorize.
+ID or verified result as of that inspection. The wording is adopted; the
+remaining decision is whether to authorize the specific standing policy after
+the pilot import.
 Project validation, the focused bounded-dispatcher test and the diff check
 passed locally. No model submission, policy activation or draft publication
-was performed by this proposal.
+was performed by that wording change.
 
 ## Bounded draft-production automation — merged and preparation active, 2026-10-29
 
@@ -39,8 +64,8 @@ tested with a live ChatGPT run.
 
 `./ctp relay-dispatch` prepares accepted guide and translation Issue tasks and
 can deliver bounded new jobs only under a committed owner-approved policy on a
-clean, current `main`. `model-submission-policy.json` is **disabled** with zero
-authorized submissions. The existing 30-minute result-import heartbeat was
+clean, current `main`. At that rollout, `model-submission-policy.json` was
+**disabled** with zero authorized submissions. The existing 30-minute result-import heartbeat was
 updated in place and remains ACTIVE. A manual pass of its exact sequence
 prepared, submitted, imported and pushed nothing, and project validation passed.
 Offline checks passed: 210 Python tests, including bounded

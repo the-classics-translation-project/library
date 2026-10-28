@@ -42,8 +42,23 @@ workflow. Only admitted US/Japan source works may be packaged or delivered.
 remain held; the dispatcher does not resend a stopped attempt. The relay's own
 queue and browser execution remain the separate transport's responsibility.
 
-The current first activation proposal is one Wells Japanese chapter task with
-one submission total and one in flight, after a real v2 Issue-based return ZIP
-has been verified. This is a proposal, not an active authorization. The exact
-request and owner-approved policy revision should be reviewed together. Reader
-release and `catalog.json` remain outside this policy.
+The prepared first activation scope is Wells (`gutenberg-36`) Japanese
+`translation` Issues, model `6 Extra High`, at most three policy-authorized
+submissions in total, one per dispatch run and one in flight. The existing
+Issue #30 pilot was separately authorized and does not consume this three-job
+cap. The checked-in policy stays `enabled: false`, with no authorization
+identity or note. These proposed fields are not execution authorization.
+
+This first policy has an additional `requires_import` condition pinned to the
+exact Issue #30 attempt, request and job hashes, and expected return filename.
+Even after a separately approved policy revision enables it, dispatch waits
+until that attempt has an authorized `imported` record, matching import receipt
+and archived request/response bytes, and a valid unified version 2 return ZIP.
+A missing, held, altered or legacy-format pilot blocks delivery; it does not
+resend the pilot. A policy-authorized attempt that later enters `needs_review`
+or `stale` also blocks further deliveries until the owner resolves it. The
+private coordinator archive must remain available in the
+active checkout. The dispatcher reports `activation_blocked` for this state
+while still preparing accepted work. A later approval or limit increase needs
+a new committed revision and owner decision. Reader release and `catalog.json`
+remain outside this policy.

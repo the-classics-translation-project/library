@@ -216,6 +216,20 @@ may commit and push its hash-verified draft files after successful import.
 Public Git commits also distribute archived request/result prose even without a
 catalogue entry. Keep failed attempts and private experiments local.
 
+For a **previously authorized** direct package, `./ctp relay-direct-reconcile`
+can perform this import during the existing local result-follow-up heartbeat.
+It reads the relay SQLite ledger without changing its queue and requires a
+private `authorization.json` in the attempt directory that pins the exact
+request hash, model, work, target and selected nodes. It checks the archived
+request, completed relay row and exact expected output filename, then keeps a
+private copy of the result before invoking the same strict `relay-import`
+implementation with observed model `unknown`; the relay ledger does not expose
+an independently verified Chat UI model label.
+Missing authorization, a changed result, invalid ZIP, stale edition or a
+recovery gap remains held and is reported. Repeated successful polls are no-ops.
+This command neither prepares nor submits a new model job. Direct packages
+without that per-attempt authorization record retain their manual import path.
+
 ## Verification boundary
 
 The adapter has offline fixture tests for packaging, import, provenance, stale

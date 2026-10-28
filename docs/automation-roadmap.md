@@ -2,6 +2,39 @@
 
 **Repository source of truth:** This document, [STATUS.md](../STATUS.md), [AGENTS.md](../AGENTS.md), and the implementation linked below. Update these in the **same PR as each meaningful automation change**. A chat transcript is not a progress ledger. Prefer verified observations and commit/PR links over impressions.
 
+## Completed-result recovery and direct import — 2026-10-28
+
+The relay's exact return files for job 25 (Frankenstein English target guide)
+and job 26 (Wells Japanese chapter II) now exist. Its read-only ledger says
+`complete` for both with the original request SHA-256 values and expected
+filenames; both ZIPs passed archive integrity checks. The project has not yet
+imported them. The target-guide coordinator row is held because its earlier
+transport status was `needs_review`; the direct package is not scanned by the
+existing 30-minute heartbeat.
+
+This implementation adds `relay-coordinator reconcile --import-ready
+--recover-completed`, which reopens only an authorized prior **transport** hold
+when its exact completed relay result appears, and `relay-direct-reconcile`,
+which imports only direct jobs with a matching private submission-authorization
+record, exact relay request identity and completed output. Both use the existing
+strict ZIP importers and leave other holds untouched. No relay queue transition,
+model submission, `catalog.json` change or reader approval is added. The saved
+heartbeat prompt in this PR includes both steps before validation and the
+standing-policy publisher. An isolated rehearsal imported the two real ZIPs,
+validated the project and produced a 20-file local no-push draft commit; this
+does not prove live activation or literary fidelity. See the
+[exact rehearsal record](../verification/completed-relay-import-rehearsal-2026-10-28.md).
+The full offline Python suite passed (204 tests), 11 focused tests passed after
+the final Chat URL guard, project validation passed,
+and the final real-ZIP rehearsal left the relay database byte-for-byte unchanged.
+
+**Next after merge:** fast-forward the owner's Documents checkout, update the
+existing heartbeat in place, run a bounded real follow-up, inspect provenance
+and draft prose, then record exact imported/pushed files and CI/Pages outcomes.
+Keep the original ZIPs and attempts for recovery. The relay tool's own source
+checkout remains a separate local project with no Git remote; this change does
+not publish that tool.
+
 ## Draft-distribution rollout observed — 2026-10-28
 
 [PR #25](https://github.com/the-classics-translation-project/library/pull/25)

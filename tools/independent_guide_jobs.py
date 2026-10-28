@@ -265,19 +265,21 @@ def _atomic_pointer(path: Path, sha: str) -> None:
             os.unlink(temporary)
 
 
-def import_result(root: Path, request_zip: Path, response_zip: Path) -> dict:
+def import_result(root: Path, request_zip: Path, response_zip: Path,
+                  observed_model: str | None = None) -> dict:
     # Serialize imports across guide types to avoid lost pointer updates.
     lock_file = root / "private" / "guide-task-import.lock"
     lock_file.parent.mkdir(parents=True, exist_ok=True)
     with lock_file.open("a+b") as lock:
         fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
         try:
-            return _import_result_locked(root, request_zip, response_zip)
+            return _import_result_locked(root, request_zip, response_zip, observed_model)
         finally:
             fcntl.flock(lock.fileno(), fcntl.LOCK_UN)
 
 
-def _import_result_locked(root: Path, request_zip: Path, response_zip: Path) -> dict:
+def _import_result_locked(root: Path, request_zip: Path, response_zip: Path,
+                          observed_model: str | None = None) -> dict:
     packaged = _members(request_zip, PACKAGE_FILES)
     job = _json_bytes(packaged["input/job.json"])
     manifest = _json_bytes(packaged["input/manifest.json"])
@@ -347,9 +349,12 @@ def _import_result_locked(root: Path, request_zip: Path, response_zip: Path) -> 
           response["guide_file"] == "guide.md" and
           response["status"] == "complete",
           "Incomplete or incorrect guide result")
-    model = response["model_label"]
-    check(isinstance(model, str) and 0 < len(model.strip()) <= 160,
+    declared_model = response["model_label"]
+    check(isinstance(declared_model, str) and 0 < len(declared_model.strip()) <= 160,
           "Actual model label missing (unknown is allowed)")
+    model = declared_model if observed_model is None else observed_model
+    check(isinstance(model, str) and 0 < len(model.strip()) <= 160,
+          "Observed model label missing (unknown is allowed)")
     markdown = returned["guide.md"]
     check(0 < len(markdown) <= 2000000, "Guide Markdown missing or too large")
     try:

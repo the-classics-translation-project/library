@@ -16,7 +16,12 @@ queue state, invokes a model directly or installs a scheduler. Keep request,
 attempt and transport identities separate. The owner's standing public-Git
 approval for validated imported **draft guides and translations** is recorded in
 `draft-distribution.json` and [automatic draft distribution](docs/automatic-draft-distribution.md);
-anything outside that scope needs separate approval. Source preparation remains a separate worker.
+anything outside that scope needs separate approval. Safe completed-result
+reconciliation may recover a prior transport hold only when the same authorized
+request and exact relay output are verified; import failures and uncertain
+results remain held. Direct relay result follow-up requires a matching private
+per-attempt authorization record. Neither path submits or resends a model job.
+Source preparation remains a separate worker.
 
 ## Read before working
 

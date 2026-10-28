@@ -352,6 +352,8 @@ def main() -> int:
     p.add_argument('--observed-model', default='unknown'); p.add_argument('--chat-url')
     p=sub.add_parser('relay-recover', help='Restore a verified prior edition after an interrupted direct import')
     p.add_argument('attempt')
+    p=sub.add_parser('relay-direct-reconcile', help='Import exact completed, authorized direct relay results')
+    p.add_argument('--relay',type=Path,default=Path.home()/'Software/chatgpt-relay')
     p=sub.add_parser('relay-coordinator', help='Opt-in local package, submit and import coordination')
     p.add_argument('--relay',type=Path,default=Path.home()/'Software/chatgpt-relay')
     modes=p.add_subparsers(dest='mode',required=True)
@@ -369,6 +371,8 @@ def main() -> int:
     q.add_argument('attempt'); q.add_argument('--authorization',required=True)
     q=modes.add_parser('reconcile',help='Observe relay status; optionally import valid returned files')
     q.add_argument('--import-ready',action='store_true')
+    q.add_argument('--recover-completed',action='store_true',
+                   help='Recheck earlier transport holds only when their exact relay result is complete')
     q=modes.add_parser('resume',help='Retry observation/import after review; never resend')
     q.add_argument('attempt')
     q=modes.add_parser('publish',help='Approve exact imported files for public Git distribution')
@@ -391,7 +395,10 @@ def main() -> int:
                     args.task_type,args.work,args.target,args.model,args.retry_of)
             elif args.mode=='adopt':result=coordinator.adopt(ROOT,args.request_zip,args.relay)
             elif args.mode=='submit':result=coordinator.submit(ROOT,args.attempt,args.authorization)
-            elif args.mode=='reconcile':result=coordinator.reconcile(ROOT,args.import_ready)
+            elif args.mode=='reconcile':
+                check(not args.recover_completed or args.import_ready,
+                      '--recover-completed requires --import-ready')
+                result=coordinator.reconcile(ROOT,args.import_ready,args.recover_completed)
             elif args.mode=='resume':result=coordinator.resume(ROOT,args.attempt)
             else:result=coordinator.publish(ROOT,args.attempt,args.approve_git_distribution,args.push)
         elif args.command=='relay-package':
@@ -403,6 +410,9 @@ def main() -> int:
         elif args.command=='relay-recover':
             from translation_relay import recover_interrupted_import
             result=recover_interrupted_import(ROOT,args.attempt)
+        elif args.command=='relay-direct-reconcile':
+            from relay_completed import import_direct_completed
+            result=import_direct_completed(ROOT,args.relay)
         elif args.command=='snapshot':
             rev,path=freeze(args.work_directory,args.edition_id); result={'revision':rev,'path':str(path),'published':False}
         elif args.command=='build': result={'built':str(build(demo=args.demo,epub=args.epub)),'deployed':False}

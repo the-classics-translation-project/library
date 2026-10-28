@@ -134,7 +134,7 @@ valid. A selection may span paragraphs within one field; crossing fields needs
 separate notes or a whole-field observation. `./ctp check-review` verifies identity,
 quotes and positions. It never applies the comment or judges its literary merits.
 
-## Local relay packages (schema 1)
+## Local relay packages (direct request schemas 1 and 2)
 
 The offline package/import adapter stores private attempt records under
 `private/relay/`, with a source fingerprint and full edition-file baseline. Its
@@ -143,26 +143,33 @@ Successful imports retain per-attempt evidence under the edition's `relay/`
 directory and append an ordinary schema-1 generation record. `glossary.md` is
 plain Markdown with no required machine-readable schema. No queue, catalogue,
 source-tree or frozen-revision schema changes are introduced.
+An opt-in `relay-package --unified-return` uses direct manifest schema 2 and
+the [shared translation return ZIP](unified-translation-zip.md); historical
+direct packages keep their original result format.
 
 ## Independent guide task ZIPs (offline schema 1)
 
 For direct manual guide jobs, `guide-task-export` writes `README.md`, `input/job.json`, `input/manifest.json`. The job includes `task_type=work_analysis|target_guide`, source-node fields, source fingerprint, target (null for work analysis), accepted target-language check, requested model default `6 Extra High`, template/version hash and fully expanded instructions, work/target notes, optional pinned work-reference Markdown/hash, and the current saved-guide baseline pointer. The manifest binds these bytes through `job_sha256` and specifies the exact expected response filename. The response ZIP contains only `result.json` (strict job identity, status, observed model) and free-form `guide.md`. Import requires the original request ZIP; it checks safe members, source staleness, guide baseline, complete status, and idempotent result identity. Imported guides use existing SHA-256 Markdown and `reference/current.json` pointers, plus `reference/guide-task-runs/JOB_SHA256.json` provenance records. This is an **additional compatible format**, not a migration of accepted legacy guide Issue responses. No independent guide GitHub Issue schema or scheduling is introduced. See [usage](independent-guide-zip.md).
 
-## Translation request and ZIP exchange (schema 1)
+## Translation request and ZIP exchange (request schemas 1 and 2)
 
 `translation-requests.json` is the immutable, maintainer-authorized Issue
 queue. Each accepted entry preserves the exact versioned recipe text and
 request body hash. The request contains work ID, target language, selected
 source node IDs (a parent includes its entire subtree), exact source fingerprint,
 prompt ID/sha256, translation scope (`all` or `missing`),
-reference setting (`none`, `notes`, or `text` with a frozen revision),
-and bounded optional instructions.
+reference setting and bounded optional instructions. New v2 requests retain an
+ordered, possibly empty Applied-material list. Intake pins the recipe, exact
+material text, execution variables, source fields and output contract. Optional
+policy, notes and guides enter new v2 jobs only through Applied; historical
+accepted v1/v2 requests keep their earlier context rules.
 
 `translation-export` produces a README, `input/job.json` with exact source
 fields and fully expanded prompt/context, and `input/manifest.json` with a
 SHA-256 job identity and expected translated fields. The relay must return a
-ZIP containing only `response.json` with the matching job hash, displayed
-model label and exactly those translated node fields. The importer validates,
+ZIP containing the matching job hash and exactly those translated node fields.
+Historical requests use one `response.json`; new v2 requests use
+[`result.json` plus Markdown field files](unified-translation-zip.md). The importer validates,
 records a provenance run and creates an immutable edition snapshot. Each
 `translation-results/issue-N.json` prevents conflicting re-imports.
 Guide jobs similarly exchange one `response.json` and retain content-addressed
@@ -193,20 +200,14 @@ and target; it does not embed glossary prose. Ordinary translations may
 include these Markdown guides as contextual notes, never as mechanically
 enforced substitutions.
 
-## Ordered translation-materials contract (proposed only)
+## Ordered translation-materials contract
 
-The [ordered materials design](translation-materials-design.md) proposes an
-additional *logical* document library over existing Markdown/text files
-and current content-addressed guides. Each material would have a stable
-logical identity, type (`instruction` or `reference`), one of four
-applicability scopes (general, target, work, work+target), optional tags,
-and an immutable version/content fingerprint. Selection data is an
-**ordered array of pinned material references**, not a set or mutable
-default list. At acceptance, preserve the exact content and assembly order;
-record the fully resolved input and output-contract version at execution.
-
-This is **not a new current schema**. No paths, manifest layout, migration,
-new Issue fields or canonical ZIP output files are finalized. Existing
-`translation-requests.json`, direct relay ZIPs, content-hashed guides and
-`record-run` records retain their actual formats until a compatible
-implementation is validated.
+The [ordered materials design](translation-materials-design.md) describes the
+implemented logical library over Markdown/text files and content-addressed
+guides. Each material has a stable ID, instruction/reference type, one of four
+applicability scopes, and an immutable content fingerprint. Selection is an
+**ordered array of pinned references**, including an empty array. Accepted v2
+requests snapshot the exact text and order, then assemble a local preview and
+versioned output contract. Existing requests, direct ZIPs, content-hashed
+guides and generation records remain compatible. The shared v2 return format
+has offline tests, but no live model return yet.

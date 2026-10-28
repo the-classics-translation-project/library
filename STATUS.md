@@ -4,7 +4,12 @@ Last updated: **2026-10-29** (next draft-production stage implemented offline,
 submission disabled). This file describes
 observed state, not a claim that the software or literary workflows are finished.
 
-## Bounded draft-production automation — implementation in review, 2026-10-29
+## Bounded draft-production automation — merged and preparation active, 2026-10-29
+
+[PR #29](https://github.com/the-classics-translation-project/library/pull/29)
+merged as `ac5d9a5`; its [validation](https://github.com/the-classics-translation-project/library/actions/runs/40720456789)
+and [Pages deployment](https://github.com/the-classics-translation-project/library/actions/runs/40720457146)
+passed. The owner's clean Documents checkout fast-forwarded to this commit.
 
 New Admin translation requests stay v2 even with an empty Applied list. New
 acceptance pins the recipe, ordered material texts, execution variables,
@@ -18,9 +23,11 @@ tested with a live ChatGPT run.
 `./ctp relay-dispatch` prepares accepted guide and translation Issue tasks and
 can deliver bounded new jobs only under a committed owner-approved policy on a
 clean, current `main`. `model-submission-policy.json` is **disabled** with zero
-authorized submissions. The existing result-import heartbeat has not yet been
-updated to call it. Offline checks passed: 210 Python tests, including bounded
-policy and unified ZIP fixtures. A real v2 Issue pilot, timed follow-up of the
+authorized submissions. The existing 30-minute result-import heartbeat was
+updated in place and remains ACTIVE. A manual pass of its exact sequence
+prepared, submitted, imported and pushed nothing, and project validation passed.
+Offline checks passed: 210 Python tests, including bounded
+policy and unified ZIP fixtures. A real v2 model return, timed follow-up of the
 new dispatcher, sleep/restart behavior and a separately approved standing
 submission scope remain open. Draft import/public Git distribution continues
 under its existing policy; no reader release is implied. See the
@@ -33,6 +40,22 @@ also passed. A real Chrome interaction with the local Admin expanded the Wells
 source tree, selected chapter III (`n0006`), and verified the prepared Issue URL
 contains a v2 request with exactly that node and `materials: []`. No Issue or
 model job was submitted by that browser check.
+
+The owner-account [Issue #30](https://github.com/the-classics-translation-project/library/issues/30)
+then requested Wells Japanese chapter III (`n0006`) with ordered editorial
+policy, work reference and Japanese guide. GitHub intake accepted it as commit
+`1515581`; the local dispatcher prepared private attempt
+`attempt-7195ba9ade6345339ac6dc167b4b44a8` with request SHA-256
+`6950b9894337441ad9f2c3dca60380f0929ddb818fed9a2cddc46ecd418cb696`
+and expected return `ctp-translation-issue-30-28bea917e40f-result.zip`.
+The package requests `6 Extra High`, contains both the chapter label and body,
+and has no submission authorization or relay input file. The Issue intake's
+own site job [failed](https://github.com/the-classics-translation-project/library/actions/runs/40720821029)
+because a dispatcher fixture assumed the live translation queue was empty;
+the isolated fixture fix and full 210-test suite passed locally in the
+follow-up PR. The accepted
+request and package are intact. No v2 model return exists yet. See
+[rollout verification](verification/draft-pipeline-rollout-2026-10-29.md).
 
 ## Completed relay import and draft publication — 2026-10-28
 

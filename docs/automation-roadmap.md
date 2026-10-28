@@ -2,7 +2,10 @@
 
 **Repository source of truth:** This document, [STATUS.md](../STATUS.md), [AGENTS.md](../AGENTS.md), and the implementation linked below. Update these in the **same PR as each meaningful automation change**. A chat transcript is not a progress ledger. Prefer verified observations and commit/PR links over impressions.
 
-## Next draft-production stage — implemented offline, 2026-10-29
+## Next draft-production stage — merged; preparation active, 2026-10-29
+
+[PR #29](https://github.com/the-classics-translation-project/library/pull/29)
+merged as `ac5d9a5`. Its main-branch validation and Pages deployment passed.
 
 New Admin requests always use v2, including an empty Applied stack. Their
 accepted queue pins all optional materials, template variables, source-field
@@ -18,10 +21,18 @@ clean, current, committed `main` under a versioned owner policy. The checked-in
 policy is disabled and authorizes zero jobs. Offline verification passed 210
 Python tests, project validation, the demo/EPUB build and Admin syntax check.
 A real local Chrome interaction selected Wells chapter III (`n0006`) and showed
-a v2 Issue URL with `materials: []`; no Issue was submitted. Live submission, a
-v2 Issue return and the updated app heartbeat remain unverified. Next: merge
-implementation; activate preparation in the existing heartbeat; prepare one exact v2 Issue
-pilot for an individual owner submission decision. After its real return and
+a v2 Issue URL with `materials: []`. The existing 30-minute heartbeat is now
+ACTIVE with the dispatcher, and a manual run prepared/submitted/imported/pushed
+nothing. Its first timed run on this prompt remains unverified.
+The owner-account [Issue #30](https://github.com/the-classics-translation-project/library/issues/30)
+then requested that chapter with three ordered materials. GitHub intake
+accepted it in `1515581`; the dispatcher prepared exact private attempt
+`attempt-7195ba9ade6345339ac6dc167b4b44a8` without relay delivery. The
+Issue intake's site job failed because a fixture assumed no real translation
+requests existed; the full 210-test suite passed locally with the isolated
+fixture fix in the follow-up PR. Next:
+pass CI with that fix and obtain an individual owner submission decision on
+the exact prepared package. After its real return and
 recovery checks, review a bounded standing authorization for automatic model
 submission. Reader release remains a separate decision.
 

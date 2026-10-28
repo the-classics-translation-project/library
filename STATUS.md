@@ -4,6 +4,23 @@ Last updated: **2026-10-29** (draft preparation active; one exact pilot ZIP
 delivered, standing submission disabled). This file describes
 observed state, not a claim that the software or literary workflows are finished.
 
+## Submission authority wording — proposal for owner review, 2026-10-29
+
+This branch clarifies in `AGENTS.md` that the owner may authorize either one
+exact relay package or an explicitly approved bounded standing policy. Once an
+approved policy is enabled, eligible submissions within its works, targets,
+task types, model and remaining caps need no separate per-package approval.
+Issue acceptance, a prepared ZIP and a code merge are not execution
+authorization. Stopped or uncertain attempts still require deliberate handling.
+This wording proposal does not change dispatcher code or enable
+`model-submission-policy.json`; its checked-in policy remains disabled. The
+separately authorized Issue #30 pilot is still `delivered` without a relay job
+ID or verified result as of this inspection. The remaining decision is whether
+to adopt this wording and, later, which exact standing scope to authorize.
+Project validation, the focused bounded-dispatcher test and the diff check
+passed locally. No model submission, policy activation or draft publication
+was performed by this proposal.
+
 ## Bounded draft-production automation — merged and preparation active, 2026-10-29
 
 [PR #29](https://github.com/the-classics-translation-project/library/pull/29)

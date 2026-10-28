@@ -2,6 +2,23 @@
 
 **Repository source of truth:** This document, [STATUS.md](../STATUS.md), [AGENTS.md](../AGENTS.md), and the implementation linked below. Update these in the **same PR as each meaningful automation change**. A chat transcript is not a progress ledger. Prefer verified observations and commit/PR links over impressions.
 
+## Authorization wording for review — 2026-10-29
+
+The owner's informal, interactive workflow and its bounded automation can use
+either exact-package authorization or one explicit standing authorization for
+a narrow policy revision. The proposed `AGENTS.md` wording says an active,
+owner-approved policy authorizes in-scope submissions up to its limits without
+asking again for each job. Task intake remains distinct from model submission;
+stopped attempts are not resent automatically. This is a rule clarification,
+not activation: `model-submission-policy.json` remains disabled. After the
+single Issue #30 pilot has a verified result, decide the exact works, targets,
+task types, model and caps for any standing authorization. Maintainers may
+continue using individual package approvals.
+This proposal changed no dispatcher code or policy JSON; `./ctp validate`, the
+focused bounded-dispatcher test and `git diff --check` passed locally. Next:
+owner review of the wording, then a separately scoped activation decision after
+the pilot result. No additional model job was submitted by this change.
+
 ## Next draft-production stage — merged; preparation active, 2026-10-29
 
 [PR #29](https://github.com/the-classics-translation-project/library/pull/29)

@@ -6,16 +6,19 @@ mandatory editing/Issue process on the owner.
 
 ## Durable automation handoff
 
-Before any task-automation or translation-workflow change, read and maintain [the automation roadmap](docs/automation-roadmap.md) alongside STATUS.md and the implementation. Update completed work, next tasks, verified test results and open risks **in the same PR**. Do not rely on chat context for state. Keep automatic model submission disabled without the owner's explicit execution authorization, and never label a proposed task as submitted or completed.
+Before any task-automation or translation-workflow change, read and maintain [the automation roadmap](docs/automation-roadmap.md) alongside STATUS.md and the implementation. Update completed work, next tasks, verified test results and open risks **in the same PR**. Do not rely on chat context for state. The owner may authorize a model submission for one exact package or explicitly activate a bounded standing policy for a defined class of tasks. An active policy authorizes each in-scope submission within its limits without asking again per package; a task request or a code change alone does not activate it. Keep automatic submission disabled until the owner approves that scope and activation. Never label a proposed task as submitted or completed.
 
 ## Opt-in local relay coordinator
 
 Read [coordinator usage](docs/local-relay-coordinator.md) for explicit per-package
 prepare/adopt/submit and reconciled import. The coordinator never mutates relay
 queue state, invokes a model directly or installs a scheduler. Keep request,
-attempt and transport identities separate. The disabled bounded submission
-policy is described in [model submission policy](docs/model-submission-policy.md);
-its existence is not execution authorization. The owner's standing public-Git
+attempt and transport identities separate. Read the current
+`model-submission-policy.json` and [model submission policy](docs/model-submission-policy.md)
+before delivery. When enabled with the owner's explicit approval, it must
+limit works, targets, task types, model and submission counts. Stopped or
+uncertain attempts require deliberate recovery, never automatic resend.
+The owner's standing public-Git
 approval for validated imported **draft guides and translations** is recorded in
 `draft-distribution.json` and [automatic draft distribution](docs/automatic-draft-distribution.md);
 anything outside that scope needs separate approval. Safe completed-result
@@ -47,7 +50,7 @@ tests but no live return. The historical ZIP protocols and their storage remain
 separate. Keep historical requests replayable and do not silently
 expose unapproved drafts in public Pages.
 
-For the proposed three relay task types (work analysis, target-language guide and translation), read [the relay task model](docs/relay-task-model.md). Independent offline guide ZIP packaging/import is documented in [independent guide ZIP usage](docs/independent-guide-zip.md); use its standalone versioned prompts, preserve accepted combined-guide Issue requests, and require explicit owner authorization before relay submission.
+For the proposed three relay task types (work analysis, target-language guide and translation), read [the relay task model](docs/relay-task-model.md). Independent offline guide ZIP packaging/import is documented in [independent guide ZIP usage](docs/independent-guide-zip.md); use its standalone versioned prompts, preserve accepted combined-guide Issue requests, and submit only under exact-package authorization or an active, applicable standing policy.
 For local ChatGPT relay packaging/import, read [relay usage](docs/chatgpt-relay.md).
 The adapter has offline tests and a verified live direct chapter import;
 v2 Issue-based translation remains unverified.
@@ -146,7 +149,9 @@ local environment. Do not push unapproved literary material.
 ## Authority and publication
 
 No credentials in frontend, tracked files, reports or chat transcripts. No model
-API call or unattended translation schedule without the owner's authorization.
+API call or unattended translation schedule without the owner's authorization;
+an explicitly approved bounded standing policy can supply that authorization
+for its defined scope.
 GitHub intake accepts strictly parsed requests from `project.json.maintainers`;
 a public Admin page is not an authorization boundary.
 

@@ -2,7 +2,37 @@
 
 **Repository source of truth:** This document, [STATUS.md](../STATUS.md), [AGENTS.md](../AGENTS.md), and the implementation linked below. Update these in the **same PR as each meaningful automation change**. A chat transcript is not a progress ledger. Prefer verified observations and commit/PR links over impressions.
 
-## Completed-result recovery and direct import — 2026-10-28
+## Live completed-result rollout — 2026-10-28
+
+[PR #27](https://github.com/the-classics-translation-project/library/pull/27)
+merged as `492a4f7`. The owner's Documents checkout then imported both exact
+returns from already authorized relay jobs: the independent Frankenstein
+English target guide (job 25) and Wells Japanese chapter II (job 26). The
+first import retained the earlier transport-review reason; both recorded
+observed model `unknown`. The direct chapter is still a draft, with the
+remaining work untranslated. The real result confirms the two existing ZIP
+contracts remain different; unified ZIP handling and related recovery tests
+are still open.
+
+Project validation and a local demo/EPUB build passed. `./ctp draft-publish`
+pushed the exact 20-file [draft commit `4d5dc7a`](https://github.com/the-classics-translation-project/library/commit/4d5dc7ac2ab93a860bebd4c5e7ed8319ea306ddc)
+without a reader-catalogue change or model call. [GitHub validation](https://github.com/the-classics-translation-project/library/actions/runs/40709341108)
+and [Pages deployment](https://github.com/the-classics-translation-project/library/actions/runs/40709341239)
+both passed. A real Chrome visit to deployed Admin showed the newly committed
+Frankenstein English guide in Available materials and Wells at 2/60 drafted
+fields. The existing 30-minute app heartbeat is ACTIVE with the updated saved
+prompt: prepare eligible guide attempts, import only exact authorized completed
+results, validate, then publish policy-approved drafts. A manual no-op pass
+repeated these commands with zero new preparation, import or publication.
+See [the live rollout record](../verification/completed-relay-rollout-2026-10-28.md).
+
+**Next:** observe a timed heartbeat and sleep/restart recovery; correct v2
+Applied-material/context semantics; verify a v2 Issue translation; consolidate
+the separate guide/translation return ZIP contracts and their recovery tests.
+The relay tool source checkout is a separate local project without a Git remote.
+Per-package model submission authorization and reader release remain separate.
+
+## Completed-result recovery and direct import — pre-rollout record, 2026-10-28
 
 The relay's exact return files for job 25 (Frankenstein English target guide)
 and job 26 (Wells Japanese chapter II) now exist. Its read-only ledger says
@@ -102,7 +132,7 @@ In public Admin select *The War of the Worlds* and requested target languages (c
 - External `chatgpt-relay`: ZIP submission and retrieval transport, **not** the source of truth for editorial tasks.
 - Source preparation worker and launchd installation: separate, already implemented; do not piggyback a model submission on its idle check.
 
-## Next verified priorities — code audit 2026-10-28
+## Historical audit priorities — code audit 2026-10-28
 
 The [independent code/documentation audit](../verification/code-documentation-audit-2026-10-28.md)
 was performed against public `main` at `3456b612`, not uncommitted Mac files.
@@ -116,9 +146,10 @@ an explicitly empty v2 Applied stack while retaining historical v1 behavior.
 be discoverable in the translation UI; decide whether work-target enrollment is
 mandatory or can be expanded by a translation Issue. **Fourth**, complete one
 real v2 Issue-based translation import and standalone target-guide import.
-Only then consolidate return ZIP protocols and extend separately authorized
-automatic submission. The latest GitHub CI/Pages success does not verify
-external browser ZIP delivery or the Mac's uncommitted work.
+The two exact ZIPs and standalone target-guide/direct-node round trips were
+subsequently recovered and verified as recorded in the live rollout above.
+The v2 material semantics, v2 Issue translation and ZIP consolidation remain
+open. Any automatic submission extension still requires separate authorization.
 
 ## Milestones (ordered)
 
@@ -231,9 +262,10 @@ IDs and hashes in a v2 Issue request. Acceptance snapshots full material text;
 the local `translation-preview` and exporter use one assembled input. The direct
 relay adapter can also include ordered pinned materials and a private exact
 preview. Legacy request/response contracts remain available. The public Admin
-cannot select uncommitted private guides; using them locally requires the direct
-adapter until the owner approves their Git distribution. A real translated-node
-round trip is still pending. The PR #19 Pages build/deployment succeeded; a real
+cannot select uncommitted private guides. The owner later approved draft Git
+distribution, and all four imported guides are now committed; the real direct
+translated-node round trip also completed. A v2 Issue-based round trip remains
+pending. The PR #19 Pages build/deployment succeeded; a real
 browser check selected Wells chapter II, added/reordered/removed two public
 materials and inspected the v2 Issue URL with exact ordered hashes. Private
 uncommitted guides were absent from the public list. The selection reset on
@@ -248,34 +280,20 @@ Four scopes (general, target language, work, work+target), instruction/reference
 
 **Acceptance:** select work/target/nodes/materials in Admin, pin exact order/versions, and import translated node-level results using their supplied guides.
 
-### M4. Real integration and ZIP contract consolidation — GUIDE ROUND TRIPS VERIFIED LOCALLY; REMAINDER OPEN
+### M4. Real integration and ZIP contract consolidation — DIRECT NODE AND GUIDE ROUND TRIPS VERIFIED; FORMAT WORK OPEN
 
-The legacy combined Wells guide and independent Frankenstein work-analysis guide
-have completed actual relay-to-local-import paths. Standalone target-guide and
-translated-node round trips, restart/failure behavior and format consolidation
-still require work. No output format was retired or changed.
-The standalone target-guide trial is held in `needs_review` after its Chat
-finished without a downloadable result. Independently, a bounded Wells Japanese
-chapter II (`n0005`) direct
-translation package was prepared with chapter I as context and both existing
-private Wells guide versions, then placed in the relay's watched input with
-exact hash-bound owner authorization. Its attempt is
-`ctp-b6b987c229d8405aa6744e9fafebbb88`; the relay registered it as job 26
-and submitted it at 2026-10-26 18:21 UTC. At 19:23 UTC the relay marked it
-`needs_review`: its Chat claimed completion but the purported ZIP link opened
-no viewer and produced no download. A separate browser check confirmed the
-link had no `href` and clicking left the UI unchanged. No result was saved,
-imported or resent. The external relay submits at most one new ZIP per run;
-submission and a Chat completion claim are not verified results.
-No translated prose has been imported or publicly distributed.
-The separate 30-minute **Finish Classics translation pilot** heartbeat was
-deleted when both trials became held; continued polling could not import
-either without an exact result ZIP. Its last prompt is retained in
-`prompts/translation-pilot-follow-up.md`. Timed runs were observed, but
-sleep/restart behavior remains unverified. The general guide-preparation/import
-heartbeat remains active and does not resume held jobs. Recovering an exact
-result could permit reviewed import; a fresh model submission requires new
-owner authorization. Neither trial grants public Git publication authority.
+The legacy combined Wells guide, independent Frankenstein work-analysis guide,
+standalone Frankenstein English target guide and direct Wells Japanese chapter
+II (`n0005`) translation have completed exact relay-to-local-import paths. The
+last two were initially held after Chat links failed to download, then
+recovered from the relay's completed exact ZIPs without resubmission. Their
+drafts were pushed under the owner's later standing Git-distribution policy.
+No output format was retired or changed. The separate 30-minute **Finish
+Classics translation pilot** heartbeat was deleted while both trials were held;
+its historical prompt remains at `prompts/translation-pilot-follow-up.md`.
+The general import/publish heartbeat is ACTIVE. Timed execution of its latest
+prompt and sleep/restart behavior remain unverified. A real v2 Issue-based
+translation, unified ZIP contract and related recovery tests remain open.
 The direct adapter's old-edition rename gap now has an explicit guarded recovery
 command and an interruption/concurrent-edit fixture. Relay heartbeat restart
 behavior remains unverified in the live app.

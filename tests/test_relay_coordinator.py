@@ -132,6 +132,8 @@ class CoordinatorTests(unittest.TestCase):
     def test_dispatch_prepares_accepted_translation_issue_without_submission(self):
         from relay_dispatch import dispatch
         from translation_jobs import intake,prompt_catalogue,MARKER_V2
+        c.write_json(self.root/'translation-requests.json',
+                     {'schema_version':1,'requests':[]})
         prompt=prompt_catalogue(self.root)[0]
         request={'schema_version':2,'work':'gutenberg-36','target':'ja',
                  'nodes':['n0005'],'source_fingerprint':c.source_fingerprint(

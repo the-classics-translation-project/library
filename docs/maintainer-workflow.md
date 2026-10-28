@@ -101,7 +101,8 @@ Use `./ctp relay-package` and `./ctp relay-import` for explicitly requested boun
 translation jobs through the existing local browser relay. See
 [relay usage](chatgpt-relay.md) for package selection, submission, Markdown
 glossaries, result validation and provenance. Packaging alone does not submit.
-The adapter has offline tests; a real translation trial remains unverified.
+The Wells Japanese chapter II direct trial has been imported as a draft.
+New unified-return packages and v2 Issue translation still need a live return.
 For already authorized direct jobs with exact local authorization records,
 `./ctp relay-direct-reconcile` can import a completed relay result without a
 manual command per ZIP. The separate coordinator's
@@ -137,10 +138,17 @@ Source preparation and translation are separate. The static Admin page now
 offers node selection, target language, a Git-versioned translation prompt,
 a missing-only/retranslation scope and optional previous-version reference.
 It prepares the Issue; the authorized intake workflow pins its exact prompt.
+New Admin requests use v2 even with no Applied materials, and optional notes
+and guides must be selected there.
 Local `./ctp translation-pending`, `translation-export`, and
 `translation-import` commands form and validate packages for the owner's
 existing ZIP-to-ChatGPT relay. They do not invoke a model. Whole-work context
 and terminology guides use `guide-export` / `guide-import`.
+`./ctp relay-dispatch` prepares accepted Issue tasks and eligible guide tasks;
+it delivers only under a separately approved, committed and bounded
+[model-submission policy](model-submission-policy.md). The current policy is
+disabled. The existing 30-minute app heartbeat runs preparation, exact-result
+import and standing-policy draft publication; it does not approve reader release.
 
 Read [the detailed exchange guide](translation-zip-workflow.md) before using
 the return ZIP importer. Frozen snapshots preserve previous translations;
@@ -173,8 +181,9 @@ removable and reorderable, and an accepted v2 Issue pins their exact versions
 and text. `translation-preview ISSUE` writes its complete assembled input
 locally. `relay-package` can select private local guides through ordered
 `--material ID@SHA-256` options and returns a private preview path. Public
-Admin exposes only committed material metadata. The two return ZIP formats
-remain separate, and older v1 requests retain their contract.
+Admin exposes only committed material metadata. New v2 Issue requests and
+opt-in direct packages can use the [shared return ZIP](unified-translation-zip.md);
+their historical ZIP formats remain supported.
 
 ## Opt-in local relay coordination
 

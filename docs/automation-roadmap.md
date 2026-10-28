@@ -27,12 +27,15 @@ nothing. Its first timed run on this prompt remains unverified.
 The owner-account [Issue #30](https://github.com/the-classics-translation-project/library/issues/30)
 then requested that chapter with three ordered materials. GitHub intake
 accepted it in `1515581`; the dispatcher prepared exact private attempt
-`attempt-7195ba9ade6345339ac6dc167b4b44a8` without relay delivery. The
+`attempt-7195ba9ade6345339ac6dc167b4b44a8`. The
 Issue intake's site job failed because a fixture assumed no real translation
-requests existed; the full 210-test suite passed locally with the isolated
-fixture fix in the follow-up PR. Next:
-pass CI with that fix and obtain an individual owner submission decision on
-the exact prepared package. After its real return and
+requests existed. [PR #31](https://github.com/the-classics-translation-project/library/pull/31)
+isolated that fixture and merged as `572c36e`; main validation and Pages
+deployment passed. The owner explicitly authorized one submission of the
+exact Issue #30 package, whose archived and relay-input SHA-256 both equal
+`6950b9894337441ad9f2c3dca60380f0929ddb818fed9a2cddc46ecd418cb696`.
+The coordinator says `delivered`; relay registration and model execution are
+not yet verified. The standing submission policy remains disabled. After its real return and
 recovery checks, review a bounded standing authorization for automatic model
 submission. Reader release remains a separate decision.
 

@@ -102,6 +102,13 @@ translation jobs through the existing local browser relay. See
 [relay usage](chatgpt-relay.md) for package selection, submission, Markdown
 glossaries, result validation and provenance. Packaging alone does not submit.
 The adapter has offline tests; a real translation trial remains unverified.
+For already authorized direct jobs with exact local authorization records,
+`./ctp relay-direct-reconcile` can import a completed relay result without a
+manual command per ZIP. The separate coordinator's
+`reconcile --import-ready --recover-completed` handles a previously held guide
+only after exact relay completion and transport identity checks. Neither
+submits another Chat job; read [relay usage](chatgpt-relay.md) and
+[coordinator usage](local-relay-coordinator.md) for the hold boundaries.
 
 ## Local CLI translation launcher (planned, not available yet)
 

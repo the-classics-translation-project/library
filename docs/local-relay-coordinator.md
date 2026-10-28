@@ -120,6 +120,15 @@ new transport filenames and retains its link to the original. It is never an
 automatic resend. Changed source or guide baselines require a newly prepared job;
 existing guide regeneration still uses the explicit standalone guide workflow.
 
+For an authorized attempt held at the **transport** review boundary,
+`reconcile --import-ready --recover-completed` can recover automatically once
+the relay's read-only ledger changes to `complete` and the exact output exists.
+It rechecks the archived request, authorization, request hash, requested model,
+expected filename, source baseline and result size before the normal strict
+importer. A prior import failure, captured malformed result, interrupted
+transaction or unrelated review hold is not automatically resumed. The relay
+queue and input ZIP remain untouched.
+
 Successful import leaves files local. Read AI-generated guides as draft references,
 not adopted editorial decisions or exhaustive analysis. Structural validation
 establishes neither fidelity nor human review.
@@ -159,15 +168,17 @@ translation trials still pending.
 
 The app heartbeat **Import completed Classics relay results** checks this local
 workspace every 30 minutes. After PR #19 reached the local checkout, its prompt
-was updated in place to run `sync` and then `reconcile --import-ready`. Existing
+was updated in place to run `sync` and then `reconcile --import-ready`. The
+new completed-transport recovery and direct-result steps are prepared in the
+current implementation branch; update the live heartbeat after merge. Existing
 per-package submission authorization remains required. It prepares eligible
 guide ZIPs locally and imports valid completed results as drafts; a new prepared
 attempt is reported for owner authorization. Unchanged checks stay quiet. It
-does not submit jobs, automatically resume `needs_review`, alter the relay
-schedule/queue or approve release. After the 2026-10-28 standing authorization,
+does not submit jobs, resume arbitrary `needs_review` states, alter the relay
+schedule/queue or approve release. The narrow completed-transport recovery above
+is the only automatic hold exception. After the 2026-10-28 standing authorization,
 its separate `draft-publish` step may commit and push validated imported drafts.
-Review holds still
-require an explicit reviewed `resume`.
+Other review holds still require an explicit reviewed `resume`.
 
 The two existing guide attempts were imported immediately, including an explicit
 resume of the recovered Wells result, and a repeated local poll was a no-op.

@@ -330,7 +330,8 @@ def _import(root,row,response):
         retained=stage/'response.zip';retained.write_bytes(raw)
         if row['adapter']=='independent_guide':
             from independent_guide_jobs import import_result
-            outcome=import_result(stage,path,retained)
+            # A model-generated result.json cannot establish the visible Chat UI.
+            outcome=import_result(stage,path,retained,observed_model=row.get('observed_model','unknown'))
         elif row['adapter']=='legacy_guide':
             from translation_jobs import import_guide
             outcome=import_guide(stage,retained)
@@ -346,11 +347,57 @@ def _import(root,row,response):
         install(root,row,stage,before)
 
 
-def reconcile(root,import_ready=False):
+def _recover_completed_transport_hold(root,row):
+    """Reopen only a prior transport review that now has its exact result."""
+    if (row['state']!='needs_review' or row.get('transport_status')!='needs_review' or
+            row.get('response_sha256') is not None or
+            (archive(root,row)/'transaction').exists()):
+        return False
+    authorization=row.get('authorization')
+    if (not isinstance(authorization,dict) or
+            authorization.get('request_sha256')!=row['request_sha256'] or
+            authorization.get('relay')!=row['relay'] or
+            not isinstance(authorization.get('note'),str) or
+            not authorization['note'].strip()):
+        return False
+    path=request_path(root,row)
+    _,job=info(path)
+    validate_current(root,row,job)
+    found=matching_transport(row,transport_rows(Path(row['relay'])))
+    if found is None or found['status']!='complete':return False
+    c.check(isinstance(found['chat_url'],str) and
+            re.fullmatch(r'https://chatgpt\.com/c/[A-Za-z0-9-]+',found['chat_url']),
+            'Completed relay record has no valid Chat URL')
+    c.check(row.get('relay_id') in (None,found['id']) and
+            row.get('chat_url') in (None,found['chat_url']),
+            'Completed relay record differs from the reviewed transport')
+    response=Path(row['relay'])/'output'/row['output_filename']
+    if not response.is_file():return False
+    c.check(not response.is_symlink(),'Completed relay result is a symbolic link')
+    c.check(response.stat().st_size<=32*1024*1024,'Result ZIP too large')
+    row.setdefault('review_history',[]).append({
+        'reason':row.pop('reason',None), 'resumed_at':now(),
+        'recovery':'exact completed relay result'})
+    row['state']='delivered';save(root,row)
+    return True
+
+
+def reconcile(root,import_ready=False,recover_completed=False):
     root=root.resolve()
     with locked(root):
         for row in records(root):
-            if row['state'] in {'prepared','imported','needs_review','stale'}:continue
+            if row['state'] in {'prepared','imported','stale'}:continue
+            if row['state']=='needs_review':
+                if not (import_ready and recover_completed):continue
+                try:
+                    if not _recover_completed_transport_hold(root,row):continue
+                except (c.ProjectError,OSError,ValueError,KeyError,TypeError,sqlite3.Error) as exc:
+                    reason='Completed-result recovery blocked: '+str(exc)
+                    if row.get('reason')!=reason:
+                        row.setdefault('review_history',[]).append({
+                            'reason':row.get('reason'),'recovery_blocked_at':now()})
+                        row['reason']=reason;save(root,row)
+                    continue
             try:
                 if row['state']=='importing':
                     tx=archive(root,row)/'transaction'

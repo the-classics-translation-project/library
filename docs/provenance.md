@@ -68,6 +68,11 @@ creation time and output paths/hashes. It appends its run ID to the edition. The
 `model_snapshot` field is null unless reliable exposed information is recorded;
 a product label is not a promise of an immutable backend model. API parameters can
 be recorded as additional explicit data if an API is later introduced.
+The new independent-guide recovery and direct result follow-up record the
+observed model as `unknown` when the relay ledger does not independently expose
+a verified UI label. A model's own
+`result.json` claim remains in the returned ZIP but is not observation of
+the Chat interface.
 
 The command updates `edition.json` to attach its run, so that file's recorded hash
 identifies the generated metadata **before that bookkeeping update**. It is not a

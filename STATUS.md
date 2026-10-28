@@ -4,6 +4,33 @@ Last updated: **2026-10-28** (standing draft distribution activated and its
 first public Git push verified). This file describes
 observed state, not a claim that the software or literary workflows are finished.
 
+## Completed relay returns and automatic import work — 2026-10-28
+
+A fresh read-only inspection of the separate relay found **both** previously
+missing exact return ZIPs in `output/`. Relay jobs 25 (Frankenstein English
+target guide) and 26 (Wells Japanese chapter II) report `complete` with their
+original request hashes and expected filenames. Both ZIPs pass archive integrity
+checks. The project checkout still has not imported either result: the guide
+coordinator attempt retains its earlier `needs_review` transport hold, and the
+direct chapter is outside the existing coordinator heartbeat. The earlier
+"missing ZIP" observations below describe their earlier inspection times.
+
+This branch adds narrow completed-transport hold recovery and a read-only
+relay-ledger observer for **already authorized** direct attempts. It never
+submits or resends a job, changes the relay queue, or accepts a malformed ZIP.
+An isolated rehearsal with copies of the owner's private attempts imported both
+real results, recorded the automatic guide model as `unknown`, passed
+`./ctp validate`, and made a 20-file local draft-publication commit with
+`--no-push` and no `catalog.json` change. The temporary copy was removed.
+The full offline Python suite passed (204 tests); 11 focused tests passed after
+the final Chat URL guard. `./ctp validate` and `git diff --check` also passed.
+A final real-ZIP rehearsal confirmed the relay database
+bytes stayed unchanged. These checks did not call a model.
+Live import, public Git publication and literary quality are not established by
+that rehearsal. The activation sequence is to merge the implementation, update
+the owner's Documents checkout and heartbeat, then run one bounded follow-up.
+See [the exact rehearsal record](verification/completed-relay-import-rehearsal-2026-10-28.md).
+
 ## Automatic public-Git draft distribution — active, 2026-10-28
 
 [PR #25](https://github.com/the-classics-translation-project/library/pull/25)

@@ -49,7 +49,10 @@ class CoordinatorTests(unittest.TestCase):
                 'status':state,'chat_url':'https://chatgpt.com/c/synthetic-test','review_reason':None}
         record.update(overrides)
         with closing(sqlite3.connect(self.relay/'relay.sqlite3')) as db:
-            db.execute('INSERT OR REPLACE INTO jobs('+','.join(record)+') VALUES('+','.join('?' for _ in record)+')',list(record.values()))
+            db.execute('INSERT INTO jobs('+','.join(record)+') VALUES('+','.join('?' for _ in record)+') '
+                       'ON CONFLICT(input_name) DO UPDATE SET '+
+                       ','.join(name+'=excluded.'+name for name in record if name!='input_name'),
+                       list(record.values()))
             db.commit()
 
     def response(self,row,edit=None):
@@ -213,6 +216,54 @@ class CoordinatorTests(unittest.TestCase):
         self.assertEqual(self.latest(row)['state'],'imported')
         self.assertEqual(len(list((self.relay/'input').glob('*.zip'))),1)
         self.assertTrue(self.latest(row)['review_history'])
+
+    def test_completed_transport_recovers_prior_review_hold_without_resubmission(self):
+        work=self.prepare(task_type='work_analysis',work='gutenberg-41445')
+        self.submit(work);self.response(work);r.reconcile(self.root,True)
+        row=self.prepare(task_type='target_guide',work='gutenberg-41445',target='en')
+        self.submit(row)
+        self.register(row,'needs_review',review_reason='Result link was unavailable')
+        r.reconcile(self.root,True)
+        self.assertEqual(self.latest(row)['state'],'needs_review')
+        input_files=list((self.relay/'input').iterdir())
+        self.response(row)
+        db=(self.relay/'relay.sqlite3').read_bytes()
+        result=r.reconcile(self.root,True,recover_completed=True)
+        current=self.latest(row)
+        self.assertEqual(current['state'],'imported',current.get('reason'))
+        self.assertEqual(current['import_result']['observed_model'],'unknown')
+        self.assertEqual(current['review_history'][-1]['recovery'],'exact completed relay result')
+        self.assertEqual(list((self.relay/'input').iterdir()),input_files)
+        self.assertEqual((self.relay/'relay.sqlite3').read_bytes(),db)
+        self.assertFalse(result['model_invoked_directly'])
+        before=r.inventory(self.root)
+        r.reconcile(self.root,True,recover_completed=True)
+        self.assertEqual(r.inventory(self.root),before)
+
+    def test_completed_transport_does_not_recover_import_failure(self):
+        row=self.prepare();self.submit(row)
+        self.register(row,'needs_review',review_reason='Result link was unavailable')
+        r.reconcile(self.root,True)
+        self.response(row,lambda x:x.update(job_sha256='0'*64))
+        r.reconcile(self.root,True,recover_completed=True)
+        held=self.latest(row)
+        self.assertEqual(held['state'],'needs_review')
+        self.assertIsNotNone(held.get('response_sha256'))
+        before=r.inventory(self.root)
+        r.reconcile(self.root,True,recover_completed=True)
+        self.assertEqual(r.inventory(self.root),before)
+        self.assertEqual(self.latest(row)['updated_at'],held['updated_at'])
+
+    def test_completed_transport_with_different_chat_stays_held(self):
+        row=self.prepare();self.submit(row)
+        self.register(row,'needs_review',review_reason='Result link unavailable')
+        r.reconcile(self.root,True)
+        self.response(row)
+        self.register(row,'complete',chat_url='https://chatgpt.com/c/other-chat')
+        r.reconcile(self.root,True,recover_completed=True)
+        self.assertEqual(self.latest(row)['state'],'needs_review')
+        self.assertIn('differs from the reviewed transport',self.latest(row)['reason'])
+        self.assertFalse((self.root/'guide-results').exists())
 
     def test_changed_source_blocks_delivery(self):
         row=self.prepare()

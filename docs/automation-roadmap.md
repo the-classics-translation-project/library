@@ -4,7 +4,8 @@
 
 ## Conditional standing submission — proposed, 2026-10-29
 
-The next bounded stage prepares a still-disabled policy for accepted Wells
+[PR #34](https://github.com/the-classics-translation-project/library/pull/34)
+prepares a still-disabled policy for accepted Wells
 Japanese translation Issues using `6 Extra High`, with three submissions total,
 one per run and one in flight. The separately authorized Issue #30 pilot is
 outside that cap. The dispatcher must verify the pilot's exact authorized

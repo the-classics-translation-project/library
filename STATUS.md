@@ -6,7 +6,8 @@ observed state, not a claim that the software or literary workflows are finished
 
 ## Conditional Wells Japanese submission proposal — 2026-10-29
 
-This branch prepares a specific, still-disabled standing policy for accepted
+[PR #34](https://github.com/the-classics-translation-project/library/pull/34)
+prepares a specific, still-disabled standing policy for accepted
 Wells Japanese translation Issues: requested model `6 Extra High`, at most three
 new policy-authorized submissions, one per run and one in flight. No task is
 automatically submitted under this proposal. The dispatcher now checks that

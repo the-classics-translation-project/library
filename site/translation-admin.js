@@ -38,9 +38,8 @@
       {value:'all',label:'Translate all selected content (including existing)'},
       {value:'missing',label:'Translate missing content only'}
     ]);
-    const reference=labeledSelect(panel,'Earlier material',[
-      {value:'none',label:'No previous translation or notes'},
-      {value:'notes',label:'Editorial notes and terminology guides'},
+    const reference=labeledSelect(panel,'Earlier translation',[
+      {value:'none',label:'No earlier translated text'},
       {value:'text',label:'Include exact earlier translated text'}
     ]);
     const revision=labeledSelect(panel,'Reference version',[]);
@@ -222,17 +221,14 @@
         status.textContent=selected.length?'Select a valid recipe and reference version.':'Check one or more source nodes.';
         return;
       }
-      const request={schema_version:1,work:work.work,target:target.value,
+      const request={schema_version:2,work:work.work,target:target.value,
         nodes:selected,source_fingerprint:work.source_fingerprint,scope:scope.value,
         prompt:{id:p.id,sha256:p.sha256},
-        reference:{mode:ref,revision:old},instructions:instructions.value};
-      if(selectedMaterials.length){
-        request.schema_version=2;
-        request.materials=selectedMaterials.map(id=>{
+        reference:{mode:ref,revision:old},instructions:instructions.value,
+        materials:selectedMaterials.map(id=>{
           const m=materialRows.find(x=>x.id===id);
           return {id:m.id,sha256:m.sha256};
-        });
-      }
+        })};
       const fence=String.fromCharCode(96).repeat(3);
       const body='Translation request: '+work.work+' to '+target.value+
           '\n\n<!-- ctp:translation-request:v'+request.schema_version+' -->\n\n'+fence+'json\n'+

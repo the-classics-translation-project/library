@@ -132,6 +132,84 @@ class TranslationZipTests(unittest.TestCase):
         self.assertEqual(preview.read_text(),job['assembled_input'])
         self.assertFalse(json.loads(screen.getvalue())['submitted'])
 
+    def test_new_v2_empty_applied_stack_pins_context_without_implicit_notes(self):
+        from translation_jobs import MARKER_V2,prepare_job,request_entry
+        request=self.request();request['schema_version']=2;request['materials']=[]
+        fence=chr(96)*3
+        issue=self.issue(49,request)
+        issue['body']=MARKER_V2+'\n'+fence+'json\n'+json.dumps(request)+'\n'+fence
+        self.assertEqual(intake(self.root,[issue])['accepted'],[49])
+        entry=request_entry(self.root,49)
+        self.assertEqual(entry['materials_snapshot'],[])
+        self.assertEqual(entry['execution_context']['variables']['target_language'],'Japanese')
+        job,manifest=prepare_job(self.root,entry)
+        self.assertEqual(job['context'],{})
+        self.assertEqual(job['ordered_materials'],[])
+        self.assertNotIn('Existing project context',job['assembled_input'])
+        (self.root/'docs/editorial-policy.md').write_text('# Changed policy\n')
+        project=ctp.read_json(self.root/'project.json')
+        next(t for t in project['targets'] if t['id']=='ja')['label']='Renamed Japanese'
+        ctp.write_json(self.root/'project.json',project)
+        replay,replayed_manifest=prepare_job(self.root,request_entry(self.root,49))
+        self.assertEqual(replayed_manifest['job_sha256'],manifest['job_sha256'])
+        self.assertEqual(replay['assembled_input'],job['assembled_input'])
+
+    def test_new_v2_rejects_implicit_notes_but_old_accepted_v2_replays(self):
+        from translation_jobs import MARKER_V2,prepare_job,request_entry
+        request=self.request(reference={'mode':'notes','revision':None})
+        request['schema_version']=2;request['materials']=[]
+        fence=chr(96)*3
+        issue=self.issue(50,request)
+        issue['body']=MARKER_V2+'\n'+fence+'json\n'+json.dumps(request)+'\n'+fence
+        self.assertEqual(intake(self.root,[issue])['accepted'],[])
+        self.assertIn('Applied materials',intake(self.root,[issue])['rejected'][0]['reason'])
+        old={'issue':50,'author':'hiroshi-manabe','body_sha256':digest(issue['body'].encode()),
+             'request':request,'prompt_text':
+             (self.root/'prompts/translation/contemporary.md').read_text(),
+             'materials_snapshot':[]}
+        ctp.write_json(self.root/'translation-requests.json',
+                       {'schema_version':1,'requests':[old]})
+        job,_=prepare_job(self.root,request_entry(self.root,50))
+        self.assertIn('editorial_policy',job['context'])
+
+    def test_unified_issue_return_imports_markdown_fields_and_rejects_wrong_hash(self):
+        from translation_jobs import MARKER_V2,prepare_job,request_entry,zip_files
+        request=self.request();request['schema_version']=2;request['materials']=[]
+        fence=chr(96)*3
+        issue=self.issue(51,request)
+        issue['body']=MARKER_V2+'\n'+fence+'json\n'+json.dumps(request)+'\n'+fence
+        self.assertEqual(intake(self.root,[issue])['accepted'],[51])
+        _,manifest=prepare_job(self.root,request_entry(self.root,51))
+        nodes={};files={}
+        for nid,fields in manifest['requested_fields'].items():
+            nodes[nid]={}
+            for field in fields:
+                name='text/'+nid+('.label.md' if field=='label' else '.md')
+                nodes[nid][field]=name
+                files[name]='Synthetic title' if field=='label' else 'Synthetic chapter prose.\n'
+        result={'schema_version':2,'kind':'translation','adapter':'issue',
+                'request_id':'51','input_sha256':'a'*64,'status':'complete',
+                'model_label':'unknown','nodes':nodes,'auxiliary':{}}
+        bad=self.root/'bad-unified.zip';zip_files(bad,{'result.json':result,**files})
+        with self.assertRaisesRegex(ProjectError,'another request'):
+            import_translation(self.root,bad)
+        self.assertFalse((self.work/'editions/ja/edition.json').exists())
+        result['input_sha256']=manifest['job_sha256']
+        good=self.root/'good-unified.zip';zip_files(good,{'result.json':result,**files})
+        extra=self.root/'extra-unified.zip'
+        zip_files(extra,{'result.json':result,**files,'extra.md':'unrequested'})
+        with self.assertRaisesRegex(ProjectError,'Unexpected unified ZIP members'):
+            import_translation(self.root,extra)
+        self.assertFalse((self.work/'editions/ja/edition.json').exists())
+        outcome=import_translation(self.root,good,observed_model='unknown')
+        self.assertFalse(outcome['published'])
+        self.assertEqual(import_translation(self.root,good)['already_imported'],True)
+        for nid,fields in nodes.items():
+            if 'text' in fields:
+                self.assertEqual((self.work/'editions/ja/text'/f'{nid}.md').read_text(),
+                                 'Synthetic chapter prose.\n')
+        validate_results(self.root)
+
     def test_zip_export_import_retranslation_and_history(self):
         self.assertEqual(intake(self.root,[self.issue(42)])['accepted'],[42])
         out=self.root/'request.zip'

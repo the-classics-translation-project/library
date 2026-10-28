@@ -1,5 +1,14 @@
 # Translation and whole-work guide ZIP exchange
 
+Newly accepted v2 translation Issues retain the ordered Applied list even when
+it is empty. Optional notes and guides enter only through that list. Acceptance
+pins the recipe, material text, execution variables, source-field coverage and
+output contract. New v2 returns use the compatible
+[unified translation ZIP](unified-translation-zip.md). Historical v1/v2 Issue
+requests and their `response.json` returns remain replayable. A direct local
+`relay-package --unified-return` can use the same version 2 output format; its
+original direct format remains available.
+
 **Status:** Repository-side deterministic implementation. This workflow does
 **not** call a model or install a translation scheduler. The owner processes
 exported ZIP files using their existing local ChatGPT relay, then imports
@@ -11,15 +20,11 @@ The task model separates language-independent `work_analysis` and target-specifi
 
 ## Ordered material selection
 
-**Current v2 limitation (audit 2026-10-28):** The new Applied pool coexists
-with the older `reference` dropdown. `editorial_policy` is always included
-as project context, and `notes`/`text` reference mode also includes notes
-and current work/target guides outside the Applied list. These are visible in
-the local assembled preview but are not themselves pinned as ordered Applied
-materials at Issue acceptance. When Applied is empty, Admin currently emits v1.
-Before relying on removal to exclude an editorial document, inspect the **full
-local preview**. See [the audit](../verification/code-documentation-audit-2026-10-28.md)
-for the planned reconciliation; existing v1 requests remain unchanged.
+**Historical audit, 2026-10-28:** v2 used to add policy, notes and guides
+outside Applied, and an empty list fell back to v1. New accepted v2 requests
+now pin the empty or ordered stack and include only those optional materials.
+The previous behavior remains for historical accepted requests. See
+[the audit](../verification/code-documentation-audit-2026-10-28.md).
 
 
 The Issue-based form retains its recipe and previous-reference settings and now

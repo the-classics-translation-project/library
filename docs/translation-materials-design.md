@@ -1,7 +1,9 @@
 # Ordered translation materials — library, selection UI and assembly design
 
-**Status (2026-10-27): initial library, two-pool Admin selector and local
-assembler implemented in this change; unified ZIP design remains open.** This records the owner's current direction after discussion of
+**Status (2026-10-29): initial library and two-pool Admin selector are implemented;
+new v2 requests pin the empty or ordered Applied stack, with no implicit optional
+notes/guides. A compatible unified translation return ZIP is implemented offline;
+its live round trip remains open.** This records the owner's current direction after discussion of
 reusable prompts, whole-work guides, language-specific conventions, independent
 retranslation and ZIP-based ChatGPT processing. It is intentionally a design
 baseline, not a claim that the exact interface or output format has been finalized.
@@ -181,17 +183,16 @@ as a locked final row, but reordering/removing literary documents cannot break
 the ZIP importer. Whether that row is always shown or only expanded in the
 preview is a presentation detail still open.
 
-The **canonical future return format is not yet decided**. There are currently
-two distinct, incompatible contracts:
+The original implementation had two distinct return contracts:
 
 - Issue-based `translation-export` / `translation-import` expects a ZIP with
   `response.json` containing translated text strings mapped by source node/field.
 - Direct `relay-package` / `relay-import` expects `result.json` plus separate
   `text/NODE-ID.md` files and editorial `glossary.md` / `notes.md`.
 
-For long translated prose, a JSON **manifest/metadata file** with separate
-Markdown body files looks promising: text need not be escaped into giant JSON
-strings. But this is a **proposal to test**, not a new implemented format.
+The compatible [version 2 unified return ZIP](unified-translation-zip.md) now
+uses a JSON identity/coverage manifest and separate Markdown label/body files
+for both adapters. It has offline tests; a live return remains to be verified.
 Record model attribution, stable IDs, expected fields and output hashes; reject
 missing/extra fields and unsafe ZIP members. Keep adapters or a defined
 migration path for already accepted Issues and previously exported ZIPs.

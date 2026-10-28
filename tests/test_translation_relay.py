@@ -75,6 +75,42 @@ class RelayTests(unittest.TestCase):
             self.assertIn('model: test-model', z.read('README.md').decode())
         self.assertNotEqual(job['attempt'], self.package()['attempt'])
 
+    def test_unified_direct_return_imports_and_wrong_input_is_held(self):
+        job=self.package(unified=True)
+        with zipfile.ZipFile(job['package']) as z:
+            manifest=json.loads(z.read('manifest.json'))
+            self.assertEqual(manifest['schema_version'],2)
+            self.assertEqual(manifest['job_sha256'],
+                c.object_hash({k:v for k,v in manifest.items() if k!='job_sha256'}))
+        nodes={};files={'glossary.md':'# Glossary\n\nSynthetic.',
+                        'notes.md':'# Observations\n\nSynthetic.'}
+        for nid,fields in manifest['fields'].items():
+            nodes[nid]={}
+            for field in fields:
+                name='text/'+nid+('.label.md' if field=='label' else '.md')
+                nodes[nid][field]=name
+                files[name]='Synthetic label' if field=='label' else 'Synthetic prose.\n'
+        result={'schema_version':2,'kind':'translation','adapter':'direct',
+                'request_id':job['attempt'],'input_sha256':'0'*64,
+                'status':'complete','model_label':'unknown','nodes':nodes,
+                'auxiliary':{'glossary':'glossary.md','notes':'notes.md'}}
+        path=self.root/'unified-result.zip'
+        def write():
+            with zipfile.ZipFile(path,'w') as z:
+                z.writestr('result.json',json.dumps(result))
+                for name,body in files.items():z.writestr(name,body)
+        write()
+        with self.assertRaisesRegex(c.ProjectError,'another request'):
+            r.import_result(self.root,job['attempt'],path)
+        self.assertFalse(self.base.exists())
+        result['input_sha256']=manifest['job_sha256'];write()
+        outcome=r.import_result(self.root,job['attempt'],path,observed_model='unknown')
+        self.assertEqual(outcome['status'],'draft')
+        self.assertEqual((self.base/'text/n0004.md').read_text(),'Synthetic prose.\n')
+        self.assertEqual((self.base/'glossary.md').read_text(),'# Glossary\n\nSynthetic.')
+        self.assertEqual(c.read_json(self.base/'runs'/(outcome['run']+'.json'))['model_label'],
+                         'unknown')
+
     def test_first_translation_preserves_preexisting_guide_directory(self):
         body=b'# Synthetic terminology guide\n'
         folder=self.base/'reference';folder.mkdir(parents=True)

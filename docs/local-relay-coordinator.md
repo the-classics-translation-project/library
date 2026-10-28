@@ -5,6 +5,14 @@ installed ChatGPT relay. It creates no scheduler, calls no model API, performs n
 browser actions and never writes the relay SQLite queue. The source-preparation
 LaunchAgent is separate. A direct interactive session remains supported.
 
+`./ctp relay-dispatch` adds deterministic preparation for accepted translation
+and combined-guide Issues to the existing independent-guide planning. It can
+deliver prepared attempts only under the committed, bounded
+[model-submission policy](model-submission-policy.md). The checked-in policy is
+disabled, so the command currently prepares jobs without a model submission.
+An explicit per-attempt `relay-coordinator submit` remains available for a live
+pilot. No held or stale attempt is automatically resent.
+
 ## Exact authorization and durable state
 
 Use `./ctp relay-coordinator status` for read-only task proposals and local attempt

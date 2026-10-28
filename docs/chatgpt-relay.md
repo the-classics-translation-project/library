@@ -1,5 +1,13 @@
 # Translation through the local ChatGPT relay
 
+New v2 translation Issues may return the
+[unified version 2 ZIP](unified-translation-zip.md). A direct local package can
+request the same format with `relay-package --unified-return`; older exact
+packages retain their original response formats. The opt-in `relay-dispatch`
+prepares accepted jobs and delivers only when the owner enables a
+[bounded submission policy](model-submission-policy.md) on current main. Its
+checked-in policy is disabled.
+
 The project can prepare a bounded translation ZIP and import a returned ZIP as a
 local draft. These commands make no model calls and do not submit, publish or
 schedule anything. The separate relay at `/Users/manabe/Software/chatgpt-relay`
@@ -13,8 +21,9 @@ The project task types are `work_analysis`, `target_guide`, and `translation`.
 Separate guide ZIP exporters/importers use versioned prompts, while the legacy
 combined Issue contract remains. `relay-coordinator sync` prepares eligible
 guide tasks from accepted work/language requests without submitting them.
-The existing external relay handles each explicitly authorized ZIP; standalone
-target-guide and translation live results remain to be verified. See
+The existing external relay handles each authorized ZIP; standalone
+target-guide and direct translation imports have completed live round trips.
+The unified version 2 return has only offline verification. See
 [independent guide ZIP usage](independent-guide-zip.md) and
 [task model](relay-task-model.md). The default requested model is `6 Extra High`;
 record the actually observed model separately.

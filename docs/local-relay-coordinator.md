@@ -25,9 +25,11 @@ merely to make it disappear from status.
 `./ctp relay-coordinator sync` turns eligible accepted work/language requests
 into prepared, immutable independent guide attempts. It is idempotent for an
 active job and leaves stopped attempts held for explicit review/retry. It does
-not deliver ZIPs, call a model, or authorize submission. Use `status` to inspect
-the attempt IDs, then `submit` with authorization for each exact ZIP. Repository
-code alone does not update the app heartbeat.
+not deliver ZIPs, call a model, or authorize submission. For an individual
+authorization, inspect the attempt with `status`, then `submit` its exact ZIP.
+For a class of accepted tasks, `relay-dispatch` may deliver under a separately
+owner-approved, enabled and bounded policy without another question per ZIP.
+Repository code alone does not update the app heartbeat.
 
 Prepare one accepted guide or translation Issue:
 
@@ -166,27 +168,26 @@ Offline tests use admitted source fixtures and a synthetic SQLite transport,
 including no-op polling, same-job deduplication, explicit authorization, result
 identity checks, legacy/independent/translation import, rollback, process locking,
 retry boundaries and exact-file Git distribution. Actual model/browser/relay
-outcomes are recorded separately in STATUS and the automation roadmap. Nothing
-in this implementation enables automatic scheduled project submissions. Guide
-tasks can be prepared from accepted work/language requests without a new Issue
-type; the initial ordered-material UI is implemented, with live browser and
-translation trials still pending.
+outcomes are recorded separately in STATUS and the automation roadmap. The
+bounded dispatcher can deliver accepted tasks through the existing heartbeat
+only when its owner-approved policy is enabled; the checked-in policy is still
+disabled. Guide tasks can be prepared from accepted work/language requests
+without a new Issue type. The ordered-material UI and a direct chapter import
+have live checks; a unified v2 return remains unverified.
 
 ## Automatic completed-result follow-up (owner enabled on 2026-10-25)
 
 The app heartbeat **Import completed Classics relay results** checks this local
-workspace every 30 minutes. After PR #19 reached the local checkout, its prompt
-was updated in place to run `sync` and then `reconcile --import-ready`. The
-new completed-transport recovery and direct-result steps are prepared in the
-current implementation branch; update the live heartbeat after merge. Existing
-per-package submission authorization remains required. It prepares eligible
-guide ZIPs locally and imports valid completed results as drafts; a new prepared
-attempt is reported for owner authorization. Unchanged checks stay quiet. It
-does not submit jobs, resume arbitrary `needs_review` states, alter the relay
+workspace every 30 minutes. It now invokes `relay-dispatch`, exact-result
+reconciliation, validation and `draft-publish`. The checked-in model-submission
+policy is disabled, so the dispatcher currently prepares tasks without delivering
+them. An explicitly approved bounded standing policy would let that same
+heartbeat deliver in-scope tasks; individual `submit` remains available. The
+heartbeat does not resume arbitrary `needs_review` states, alter the relay
 schedule/queue or approve release. The narrow completed-transport recovery above
-is the only automatic hold exception. After the 2026-10-28 standing authorization,
-its separate `draft-publish` step may commit and push validated imported drafts.
-Other review holds still require an explicit reviewed `resume`.
+is the only automatic hold exception. The separate standing draft-distribution
+policy permits validated imported drafts to be committed and pushed. Other
+review holds still require an explicit reviewed `resume`.
 
 The two existing guide attempts were imported immediately, including an explicit
 resume of the recovered Wells result, and a repeated local poll was a no-op.

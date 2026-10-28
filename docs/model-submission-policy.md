@@ -24,6 +24,15 @@ authorized under that policy ID, including interrupted delivery. The in-flight
 limit includes manually authorized coordinator attempts. Changing the scope or
 raising a limit needs another explicit owner decision and committed revision.
 
+The owner's explicit approval of the **specific policy revision** is the
+execution authorization. The `authorized_by` field records that approval; an
+Issue, prepared attempt, code merge or populated JSON field alone does not
+grant it. Once that approved policy is enabled, each accepted task within its
+scope and remaining limits may be delivered without a new per-package question.
+The owner can still authorize a single exact package separately. Out-of-scope
+tasks and exhausted limits remain unsent; stopped attempts remain held until
+a new decision.
+
 Eligible task types are `work_analysis`, `target_guide`, `translation` and
 `legacy_combined_guide`. Accepted translation Issues still specify their exact
 source nodes, target, recipe and ordered materials; this policy does not invent

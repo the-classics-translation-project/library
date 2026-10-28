@@ -1,6 +1,6 @@
 # Three task types for ChatGPT ZIP exchange
 
-**Status:** three-type design with implemented offline independent guide package/import commands. There is **no shared persistent queue, independent guide Issue intake, or automatic model execution**. Old combined guide Issue requests and both historical translation ZIP contracts remain authoritative for those tasks; see [independent guide ZIP usage](independent-guide-zip.md).
+**Status:** three-type design with independent guide package/import commands, accepted Issue translation tasks and a bounded relay dispatcher. Its checked-in model-submission policy is disabled. There is no independent guide Issue intake or direct model API. Old combined guide Issue requests and both historical translation ZIP contracts remain authoritative for those tasks; see [independent guide ZIP usage](independent-guide-zip.md).
 
 ## Boundary
 

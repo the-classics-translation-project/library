@@ -36,6 +36,10 @@ class CoordinatorTests(unittest.TestCase):
             shutil.copy2(c.ROOT/name,self.root/name)
         shutil.copy2(c.ROOT/'model-submission-policy.json',
                      self.root/'model-submission-policy.json')
+        # Fixture setup must never inherit a live submission authorization.
+        fixture_policy=c.read_json(self.root/'model-submission-policy.json')
+        fixture_policy.update(enabled=False,authorized_by=None,authorization_note=None)
+        c.write_json(self.root/'model-submission-policy.json',fixture_policy)
         self.relay=Path(self.temp.name)/'relay';(self.relay/'input').mkdir(parents=True);(self.relay/'output').mkdir()
         with closing(sqlite3.connect(self.relay/'relay.sqlite3')) as db:
             db.execute('CREATE TABLE jobs(id INTEGER PRIMARY KEY,input_name TEXT UNIQUE,sha256 TEXT,model TEXT,output_filename TEXT,status TEXT,chat_url TEXT,review_reason TEXT)')

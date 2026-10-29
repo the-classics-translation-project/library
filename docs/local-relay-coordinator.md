@@ -9,7 +9,8 @@ LaunchAgent is separate. A direct interactive session remains supported.
 and combined-guide Issues to the existing independent-guide planning. It can
 deliver prepared attempts only under the committed, bounded
 [model-submission policy](model-submission-policy.md). The checked-in policy is
-disabled, so the command currently prepares jobs without a model submission.
+limited to the owner-approved Wells Japanese translation scope after the exact
+Issue #30 unified return is verified; other jobs are still only prepared.
 An explicit per-attempt `relay-coordinator submit` remains available for a live
 pilot. No held or stale attempt is automatically resent.
 
@@ -170,19 +171,19 @@ identity checks, legacy/independent/translation import, rollback, process lockin
 retry boundaries and exact-file Git distribution. Actual model/browser/relay
 outcomes are recorded separately in STATUS and the automation roadmap. The
 bounded dispatcher can deliver accepted tasks through the existing heartbeat
-only when its owner-approved policy is enabled; the checked-in policy is still
-disabled. Guide tasks can be prepared from accepted work/language requests
+only when its owner-approved policy is enabled on clean, current `main`.
+Guide tasks can be prepared from accepted work/language requests
 without a new Issue type. The ordered-material UI and a direct chapter import
-have live checks; a unified v2 return remains unverified.
+have live checks; Issue #30 supplied a verified unified v2 return.
 
 ## Automatic completed-result follow-up (owner enabled on 2026-10-25)
 
 The app heartbeat **Import completed Classics relay results** checks this local
-workspace every 30 minutes. It now invokes `relay-dispatch`, exact-result
-reconciliation, validation and `draft-publish`. The checked-in model-submission
-policy is disabled, so the dispatcher currently prepares tasks without delivering
-them. An explicitly approved bounded standing policy would let that same
-heartbeat deliver in-scope tasks; individual `submit` remains available. The
+workspace every 30 minutes. It invokes `relay-dispatch`, exact-result
+reconciliation, validation and `draft-publish`. Once the approved policy is
+merged and the app prompt updated, the same heartbeat may deliver in-scope
+Wells Japanese translation tasks within the remaining caps; individual
+`submit` remains available. The
 heartbeat does not resume arbitrary `needs_review` states, alter the relay
 schedule/queue or approve release. The narrow completed-transport recovery above
 is the only automatic hold exception. The separate standing draft-distribution

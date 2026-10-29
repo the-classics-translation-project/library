@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "enabled": false,
+  "enabled": true,
   "policy_id": "wells-ja-after-issue-30",
-  "authorized_by": null,
-  "authorization_note": null,
+  "authorized_by": "hiroshi-manabe",
+  "authorization_note": "Owner requested activation of PR #34's bounded Wells Japanese translation policy in this chat on 2026-10-29 after exact Issue #30 unified-v2 import verification. Three new submissions maximum; one per run and one in flight; no automatic retry.",
   "works": ["gutenberg-36"],
   "targets": ["ja"],
   "task_types": ["translation"],

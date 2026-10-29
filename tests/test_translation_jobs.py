@@ -131,6 +131,32 @@ class TranslationZipTests(unittest.TestCase):
             self.assertEqual(ctp.main(),0)
         self.assertEqual(preview.read_text(),job['assembled_input'])
         self.assertFalse(json.loads(screen.getvalue())['submitted'])
+        # A real import record must preserve the *same* assembled input and
+        # accepted material snapshots, not the current edited material file.
+        from translation_jobs import zip_files
+        nodes={};files={}
+        for nid,fields in metadata['requested_fields'].items():
+            nodes[nid]={}
+            for field in fields:
+                name='text/'+nid+('.label.md' if field=='label' else '.md')
+                nodes[nid][field]=name
+                files[name]='Synthetic title' if field=='label' else 'Synthetic prose.\\n'
+        reply=self.root/'v2-material-return.zip'
+        zip_files(reply,{'result.json':{
+            'schema_version':2,'kind':'translation','adapter':'issue',
+            'request_id':'48','input_sha256':metadata['job_sha256'],
+            'status':'complete','model_label':'unknown',
+            'nodes':nodes,'auxiliary':{}},**files})
+        import_translation(self.root,reply,observed_model='unknown')
+        receipt=ctp.read_json(self.root/'translation-results/issue-48.json')
+        run=ctp.read_json(self.root/receipt['run_record'])
+        self.assertEqual((self.work/'editions/ja/inputs/issue-48-assembled.md').read_text(),
+                         job['assembled_input'])
+        self.assertIn(job['assembled_input'],[p['text'] for p in run['prompts']])
+        self.assertEqual([x['path'] for x in run['inputs']],
+                         ['applied-material:style.ja'])
+        self.assertEqual(run['inputs'][0]['text'],pinned[0]['text'])
+        self.assertNotIn('Replaced later',str(run))
 
     def test_new_v2_empty_applied_stack_pins_context_without_implicit_notes(self):
         from translation_jobs import MARKER_V2,prepare_job,request_entry
@@ -203,6 +229,15 @@ class TranslationZipTests(unittest.TestCase):
         self.assertFalse((self.work/'editions/ja/edition.json').exists())
         outcome=import_translation(self.root,good,observed_model='unknown')
         self.assertFalse(outcome['published'])
+        entry=request_entry(self.root,51)
+        assembled,_=prepare_job(self.root,entry)
+        retained=self.work/'editions/ja/inputs/issue-51-assembled.md'
+        self.assertEqual(retained.read_text(),assembled['assembled_input'])
+        receipt=ctp.read_json(self.root/'translation-results/issue-51.json')
+        run=ctp.read_json(self.root/receipt['run_record'])
+        self.assertIn(assembled['assembled_input'],[p['text'] for p in run['prompts']])
+        self.assertEqual(run['inputs'],[])  # No optional materials were requested.
+        self.assertNotIn('editorial-policy.md',str(run['inputs']))
         self.assertEqual(import_translation(self.root,good)['already_imported'],True)
         for nid,fields in nodes.items():
             if 'text' in fields:

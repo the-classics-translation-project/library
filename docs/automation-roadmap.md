@@ -2,6 +2,38 @@
 
 **Repository source of truth:** This document, [STATUS.md](../STATUS.md), [AGENTS.md](../AGENTS.md), and the implementation linked below. Update these in the **same PR as each meaningful automation change**. A chat transcript is not a progress ledger. Prefer verified observations and commit/PR links over impressions.
 
+## Next bounded milestone — 2026-10-30
+
+**Verified baseline:** the new Issue-based unified v2 return has a real imported
+pilot (Issue #30, Wells Japanese chapter III); the policy for at most three
+additional Wells Japanese translation jobs is active, but the dispatcher
+had no new accepted tasks at its last observed manual check. The imported
+Wells draft covers chapter II and chapter III only.
+
+**This implementation change:** future v2 Issue imports additionally capture
+and hash the exact assembled model input in the generation run and save
+`inputs/issue-N-assembled.md`. Regression tests cover empty and nonempty
+Applied stacks and exclude unselected current notes from new v2 provenance.
+The historical Issue #30 record is deliberately not rewritten. The unified
+ZIP and prompt/workflow documentation now distinguish current and historical
+contracts correctly.
+
+**Next live acceptance:** create one narrowly scoped, authorized Wells Japanese
+Issue for an untranslated chapter (for example Book One chapter IV `n0007`)
+with explicit ordered policy/work/target guide references. Allow the already
+approved bounded policy and configured local heartbeat to handle delivery
+on a clean, current owner checkout. Confirm the GitHub Issue intake, a *timed*
+policy-authorized dispatcher submission, exact relay output ZIP, idempotent
+import, provenance including the fully assembled input, draft-only Git
+publication, and successful CI/Pages. A GitHub Issue alone does not demonstrate
+that the Mac ran; no manual new submission or resend should be claimed from
+the Issue creation. Keep original attempts and log the observed state.
+
+**Remaining:** test a real direct-adapter unified v2 return, failure/held-state
+and sleep/restart recovery, editorial quality/review of draft chapters, and
+remaining guide/translation format consolidation. No reader release or KDP
+publication is authorized.
+
 ## Conditional standing submission — enabled, 2026-10-29
 
 [PR #34](https://github.com/the-classics-translation-project/library/pull/34)

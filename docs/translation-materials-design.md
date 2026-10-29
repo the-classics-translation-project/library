@@ -2,8 +2,9 @@
 
 **Status (2026-10-29): initial library and two-pool Admin selector are implemented;
 new v2 requests pin the empty or ordered Applied stack, with no implicit optional
-notes/guides. A compatible unified translation return ZIP is implemented offline;
-its live round trip remains open.** This records the owner's current direction after discussion of
+notes/guides. A compatible unified v2 translation return ZIP is implemented and its
+Issue-based live round trip succeeded with Wells Japanese Issue #30; the direct
+v2 variant and remaining guide-format consolidation are still open.** This records the owner's current direction after discussion of
 reusable prompts, whole-work guides, language-specific conventions, independent
 retranslation and ZIP-based ChatGPT processing. It is intentionally a design
 baseline, not a claim that the exact interface or output format has been finalized.
@@ -256,8 +257,8 @@ drafts, or mandatory PR workflow merely to implement material selection.
   for human-edited successors, regenerated guides and deliberate forks.
 - Whether applied material stacks have named reusable presets.
 - Whether the fixed output-contract row is always visible or only in preview.
-- Final canonical output file layout and transition from the two live
-  ZIP contracts; do not prematurely describe either existing format as retired.
+- Full transition of historical and guide ZIP contracts to the compatible v2
+  translation format; do not retire either legacy importer until verified.
 - How best to preview complete local draft/source inputs from a public static
   Admin page without leaking unapproved text.
 

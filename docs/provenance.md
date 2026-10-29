@@ -29,8 +29,9 @@ versions it actually selected even if a glossary is regenerated or a human
 edits a Markdown file later. The accepted v2 request queue snapshots complete
 material text and the job stores exact assembled input; the direct adapter saves
 the same kind of private input in its ZIP and attempt archive. Existing
-generation records and both return ZIP contracts remain in effect; a unified
-format and reviewed literary status are not implied.
+generation records and historical return ZIP contracts remain valid. A
+compatible unified v2 return protocol now has one verified live Issue #30
+result; it is still an unreviewed literary draft.
 
 ## Reusable prompts
 
@@ -132,6 +133,22 @@ remains unknown. The result ZIP and request ZIP are retained under the edition's
 Glossaries are Markdown editorial memory; proposed returned notes do not replace
 adopted decisions. Structural import success is not human review or publication.
 
+## Complete assembled-input capture for new v2 Issue imports
+
+For **future v2 Issue imports**, `translation-import` writes the exact
+`job.assembled_input` text into
+`books/<work>/editions/<target>/inputs/issue-N-assembled.md` and supplies that
+file as an additional `record-run` prompt. The run therefore retains the full
+input text and SHA-256 rather than only the base recipe. The run's `inputs`
+list records **only** explicitly Applied material snapshots for new v2 jobs,
+not current policy/notes that the model never received. Historical accepted v2
+jobs retain their original implicit-context semantics and are captured
+accordingly. The selected source and optional frozen prior translation are
+also present in the assembled input. Older recorded runs, including Issue #30,
+are intentionally not rewritten; their accepted requests and ZIP evidence
+retain the input context. This is provenance, not a claim of exact model
+reproducibility or literary quality.
+
 ## Repository-side ZIP translation and guide exchange
 
 The repository now supports [translation ZIP exchange](translation-zip-workflow.md)
@@ -141,8 +158,8 @@ exporter expands `{{target_language}}` and other validated variables,
 packages selected node text with optional notes/guides or an exact prior
 frozen revision, and writes a job hash. The importer requires matching
 job identity and field coverage, creates a draft, records the expanded
-prompt and exposed model label through `record-run`, and snapshots
-each imported result. A guide-only ZIP task stores separate work-level
+prompt (and for new v2 imports the exact assembled input) and observed model
+label or `unknown` through `record-run`, and snapshots each imported result. A guide-only ZIP task stores separate work-level
 observations and target-language terms as content-hashed Markdown files.
 
 The exact prior prose is included only when explicitly selected. The

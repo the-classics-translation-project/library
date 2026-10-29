@@ -513,12 +513,39 @@ def import_translation(root: Path, path: Path, observed_model: str | None = None
     check(not prompt_path.exists(),'Previously imported prompt already exists')
     prompt_path.parent.mkdir(parents=True,exist_ok=True)
     prompt_path.write_text(job['expanded_prompt'],encoding='utf-8')
+    run_prompts=[prompt_path]
+    captured_inputs=None
+    if req['schema_version']==2:
+        # Record the precise assembled literary input, not just its base recipe.
+        # The accepted Issue/ZIP already pins this text; retaining it in the
+        # generation run makes its full context available with the snapshot.
+        assembled_path=eddir/'inputs'/('issue-'+str(issue)+'-assembled.md')
+        check(not assembled_path.exists(),'Previously imported assembled input exists')
+        assembled_path.write_text(job['assembled_input'],encoding='utf-8')
+        run_prompts.append(assembled_path)
+        if entry.get('execution_context') is not None:
+            # New v2: only explicitly selected Applied materials were supplied.
+            # Do not misattribute current work/edition notes as model input.
+            captured_inputs=[
+                {'path':'applied-material:'+row['id'],'text':row['text'],
+                 'sha256':digest(row['text'].encode('utf-8'))}
+                for row in job['ordered_materials']]
+        else:
+            # Historical accepted v2 requests retained implicit context.
+            captured_inputs=[
+                {'path':'legacy-context:'+name,'text':value,
+                 'sha256':digest(value.encode('utf-8'))}
+                for name,value in job['context'].items() if value]
+            captured_inputs.extend(
+                {'path':'applied-material:'+row['id'],'text':row['text'],
+                 'sha256':digest(row['text'].encode('utf-8'))}
+                for row in job['ordered_materials'])
     run=c.record_run(root,req['work'],req['target'],model,'chatgpt-zip',
            'retranslation' if previous_revision else 'translation',
-           [prompt_path],
+           run_prompts,
            'Request Issue '+str(issue)+'; input hash '+manifest['job_sha256']+
            '; original request: '+json.dumps(req,sort_keys=True,ensure_ascii=False),
-           changed+[existing])
+           changed+[existing],captured_inputs=captured_inputs)
     revision,snapshot=c.freeze(wd,req['target'],root)
     record={'schema_version':1,'issue':issue,
             'response_sha256':response_hash,'job_sha256':manifest['job_sha256'],

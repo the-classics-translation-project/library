@@ -45,15 +45,16 @@ changing Admin prompt selection, guide discovery or ZIP formats. It describes
 four applicability scopes; a removable, reorderable dual-listbox material stack;
 a full assembled-input preview; and a recommended protocol-owned final output
 contract. The initial library, Admin selector, and local exact-input preview are
-implemented; a compatible version 2 unified translation return ZIP has offline
-tests but no live return. The historical ZIP protocols and their storage remain
+implemented; a compatible unified version 2 translation return ZIP has offline tests
+and a verified live Issue #30 import. The historical ZIP protocols and their storage remain
 separate. Keep historical requests replayable and do not silently
 expose unapproved drafts in public Pages.
 
 For the proposed three relay task types (work analysis, target-language guide and translation), read [the relay task model](docs/relay-task-model.md). Independent offline guide ZIP packaging/import is documented in [independent guide ZIP usage](docs/independent-guide-zip.md); use its standalone versioned prompts, preserve accepted combined-guide Issue requests, and submit only under exact-package authorization or an active, applicable standing policy.
 For local ChatGPT relay packaging/import, read [relay usage](docs/chatgpt-relay.md).
 The adapter has offline tests and a verified live direct chapter import;
-v2 Issue-based translation remains unverified.
+the Issue #30 v2 round trip is verified; unattended policy-driven delivery
+of a subsequent Issue remains unverified.
 Read the edition Markdown glossary when present.
 
 For local ZIP-based translation and whole-work guide exchange, read

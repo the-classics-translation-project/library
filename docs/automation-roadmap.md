@@ -2,32 +2,50 @@
 
 **Repository source of truth:** This document, [STATUS.md](../STATUS.md), [AGENTS.md](../AGENTS.md), and the implementation linked below. Update these in the **same PR as each meaningful automation change**. A chat transcript is not a progress ledger. Prefer verified observations and commit/PR links over impressions.
 
-## Accepted follow-up under bounded policy — 2026-10-30
+## First timed policy delivery; return pending — 2026-10-30
 
 [Issue #37](https://github.com/the-classics-translation-project/library/issues/37)
 was created by the maintainer for Wells Japanese Book One chapter IV
 (`n0007`), as a **single** v2 `scope=missing` request. It pins the
 contemporary recipe plus ordered policy/work/Japanese-guide materials and was
 accepted into `translation-requests.json` by GitHub intake (`14343ab`).
-It is within the already enabled three-submission policy. **No live local
-submission or model result is confirmed merely by Issue acceptance.** The
-local configured heartbeat can attempt dispatch only if the checked-in policy,
-pilot proof and clean/current checkout checks pass. Do not create duplicate
-Issues or resend uncertain attempts to accelerate this trial.
+The configured heartbeat ran on its 00:29 JST schedule and delivered the
+package under the active bounded policy. The private coordinator recorded
+attempt `attempt-cfd4a233936a4dcabdbb386d3feaef21` at 00:29:20 JST,
+request SHA-256
+`dc6f334777235c7e37fc4d911f03eda7ee83bc8b1a7e1e4643f81adf464b5b29`,
+job SHA-256
+`62353c6b3fe0c44d953971743cbb903b4f8cd7fc49a970c5c017723947d739df`,
+and expected result `ctp-translation-issue-37-d190c234239c-result.zip`.
+One of three policy submissions is consumed and one is in flight. The next
+00:59 JST heartbeat delivered nothing further. At the 01:12 JST inspection,
+the attempt remained `delivered` with no relay transport ID, verified result,
+import receipt or publication. These are observations of the owner's private
+Mac state, not proof of model completion. Do not create a duplicate Issue or
+resend the watched ZIP.
 
-After the next actual local run, record the observed coordinator attempt and
-transport ID, policy-budget use, exact request/result hashes, whether it was
-a timed run, whether a v2 ZIP imported, provenance for the assembled input,
-draft publication/CI status, and any actionable review hold. Keep
-`catalog.json` unchanged without separate reader-release approval. Sleep or
-restart recovery remains an independent outstanding test.
+**This PR repairs missing-scope replay:** an imported Issue uses its recorded
+pre-import snapshot to reconstruct the original missing-field selection. An
+identical unified return is recognized by the saved result fingerprint before
+job rebuilding. Offline regression covers replay/export, duplicate import and
+conflicting-result rejection for a partly translated edition. The coordinator
+queue, model policy, `catalog.json` and generated prose are untouched. The
+accepted Issue #37 job still rebuilds to its delivered hash and `n0007`
+label/text coverage. Local verification passed: 212 Python tests, project
+validation, demo/EPUB build and the diff check. GitHub checks and a live
+Issue #37 return remain pending.
+
+**Next:** wait for the exact relay transport and return. If the relay reports
+complete, verify the request/result identities, one-time v2 import, exact
+assembled-input provenance, draft-only publication and CI/Pages. Record any
+review hold with its reason; recovery may need a separate owner decision.
+Sleep/restart recovery remains an independent test.
 
 ## Next bounded milestone — 2026-10-30
 
 **Verified baseline:** the new Issue-based unified v2 return has a real imported
-pilot (Issue #30, Wells Japanese chapter III); the policy for at most three
-additional Wells Japanese translation jobs is active, but the dispatcher
-had no new accepted tasks at its last observed manual check. The imported
+pilot (Issue #30, Wells Japanese chapter III). The first subsequent timed
+policy delivery is recorded above; its return remains pending. The imported
 Wells draft covers chapter II and chapter III only.
 
 **This implementation change:** future v2 Issue imports additionally capture
@@ -38,14 +56,10 @@ The historical Issue #30 record is deliberately not rewritten. The unified
 ZIP and prompt/workflow documentation now distinguish current and historical
 contracts correctly.
 
-**Next live acceptance (Issue now created and accepted):** observe the existing
-bounded policy and configured local heartbeat handle Issue #37's exact request
-on a clean, current owner checkout. Confirm the GitHub Issue intake, a *timed*
-policy-authorized dispatcher submission, exact relay output ZIP, idempotent
-import, provenance including the fully assembled input, draft-only Git
-publication, and successful CI/Pages. A GitHub Issue alone does not demonstrate
-that the Mac ran; no manual new submission or resend should be claimed from
-the Issue creation. Keep original attempts and log the observed state.
+**Next live acceptance:** the timed Issue #37 delivery is verified; now confirm
+the exact relay output ZIP, idempotent import, provenance including the fully
+assembled input, draft-only Git publication and successful CI/Pages. Keep
+original attempts and log the observed state without a manual resend.
 
 **Remaining:** test a real direct-adapter unified v2 return, failure/held-state
 and sleep/restart recovery, editorial quality/review of draft chapters, and

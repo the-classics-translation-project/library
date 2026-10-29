@@ -1,10 +1,10 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-30** (verification of the v2 Issue pilot and forward-looking
-provenance fix; the Mac's latest private execution state is not asserted). This file describes
+Last updated: **2026-10-30** (first timed policy delivery observed locally;
+Issue #37 return still pending, with a missing-scope replay repair). This file describes
 observed state, not a claim that the software or literary workflows are finished.
 
-## First follow-up Issue queued for bounded standing-policy trial — 2026-10-30
+## First follow-up Issue delivered under bounded policy — 2026-10-30
 
 Maintainer-authored [Issue #37](https://github.com/the-classics-translation-project/library/issues/37)
 requests only Wells Japanese Book One chapter IV (`n0007`, *The Cylinder
@@ -15,22 +15,36 @@ materials. GitHub's authorized intake added the v2 request to
 fingerprints match the existing validated source and selected references.
 The prior Issue #30 and its imported chapter III remain unchanged.
 
-Issue #37 is eligible for the owner-approved bounded
-`wells-ja-after-issue-30` model-submission policy (`6 Extra High`, maximum
-three *new* policy submissions total, one per run/in flight), **but the Issue
-and queue entry are not proof that the Mac heartbeat has executed**. No new
-policy-authorized relay submission, returned ZIP, imported translation, or
-reader release has been observed or claimed by this chat. The existing local
-dispatcher must establish its clean/current `main` and exact Issue #30
-import prerequisite before delivering, and must preserve the attempt/return
-hashes. A stalled result remains held; do not manually resend it.
+The Mac's scheduled 00:29 JST heartbeat delivered the accepted package under
+the owner-approved `wells-ja-after-issue-30` policy (`6 Extra High`, three
+submissions total, one per run/in flight). Its private coordinator recorded
+`attempt-cfd4a233936a4dcabdbb386d3feaef21` as `delivered` at
+2026-10-30 00:29:20 JST, with request SHA-256
+`dc6f334777235c7e37fc4d911f03eda7ee83bc8b1a7e1e4643f81adf464b5b29`
+and job SHA-256
+`62353c6b3fe0c44d953971743cbb903b4f8cd7fc49a970c5c017723947d739df`.
+This is the first of the three policy-authorized submissions. The 00:59 JST
+heartbeat was a no-op. At the 01:12 JST local inspection, the attempt had no
+relay transport ID, verified result ZIP, import receipt or draft publication.
+The watched package must not be resent just to speed up relay processing.
+
+This change fixes a separate recovery defect exposed by Issue #37's
+`scope=missing` request. After an import, its exact accepted job can be
+reconstructed from the receipt's pre-import snapshot; repeating the identical
+unified return ZIP is a no-op before current missing fields are recalculated.
+The differing-return guard remains. The focused offline test covers replay,
+export, duplicate import and conflict rejection against a partially translated
+edition. The full 212-test Python suite, `./ctp validate`, demo/EPUB build and
+diff check passed locally. The current Issue #37 job still rebuilds to its
+delivered hash with the same `n0007` label/text coverage. No model job or reader
+release is added by this code change.
 
 [PR #36](https://github.com/the-classics-translation-project/library/pull/36)
 merged as `b960f87`: new future v2 Issue imports capture the complete
 assembled input and only actually supplied Applied-material snapshots in the
 generation run. Both GitHub PR checks passed; the existing Issue #30 run was not
-rewritten. The current runner and exact ZIP return still need a real unattended
-post-activation trial and a recovery-after-sleep test.
+rewritten. The exact Issue #37 ZIP return, import, draft publication and
+recovery-after-sleep still need live verification.
 
 ## Exact input provenance for future v2 Issue imports — 2026-10-30
 
@@ -48,10 +62,9 @@ The October 29 live Issue #30 result already verified the unified v2 return
 contract. The previous October 28 audit's major prompt-assembly findings
 were fixed in PR #29. The current standing policy is still limited to three
 future Wells Japanese translation submissions, one per run/in flight, gated on
-the exact imported Issue #30 pilot. **No new unattended policy-driven
-submission or sleep/restart recovery has yet been observed** in the public
-status; no model job is submitted by this provenance/documentation change.
-Actual execution on the owner's Mac must be separately verified. No generated
+the exact imported Issue #30 pilot. The first unattended policy-driven delivery
+is recorded above; sleep/restart recovery has not been observed. No model job
+is submitted by this replay repair. No generated
 text has been approved for reader release; `catalog.json` remains empty.
 
 ## Conditional Wells Japanese submission activation — 2026-10-29

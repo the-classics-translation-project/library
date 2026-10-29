@@ -3,6 +3,7 @@ from pathlib import Path
 from contextlib import closing
 import fcntl
 import json
+import copy
 import shutil
 import sqlite3
 import subprocess
@@ -35,6 +36,10 @@ class CoordinatorTests(unittest.TestCase):
             shutil.copy2(c.ROOT/name,self.root/name)
         shutil.copy2(c.ROOT/'model-submission-policy.json',
                      self.root/'model-submission-policy.json')
+        # Fixture setup must never inherit a live submission authorization.
+        fixture_policy=c.read_json(self.root/'model-submission-policy.json')
+        fixture_policy.update(enabled=False,authorized_by=None,authorization_note=None)
+        c.write_json(self.root/'model-submission-policy.json',fixture_policy)
         self.relay=Path(self.temp.name)/'relay';(self.relay/'input').mkdir(parents=True);(self.relay/'output').mkdir()
         with closing(sqlite3.connect(self.relay/'relay.sqlite3')) as db:
             db.execute('CREATE TABLE jobs(id INTEGER PRIMARY KEY,input_name TEXT UNIQUE,sha256 TEXT,model TEXT,output_filename TEXT,status TEXT,chat_url TEXT,review_reason TEXT)')
@@ -97,6 +102,7 @@ class CoordinatorTests(unittest.TestCase):
         self.assertFalse(first['submitted'])
         self.assertFalse(list((self.relay/'input').iterdir()))
         policy=c.read_json(self.root/'model-submission-policy.json')
+        policy.pop('requires_import',None)
         policy.update(enabled=True,authorized_by='hiroshi-manabe',
                       authorization_note='Fixture authorization for one work analysis',
                       works=['gutenberg-41445'],targets=['en'],
@@ -127,6 +133,88 @@ class CoordinatorTests(unittest.TestCase):
         self.assertEqual(submitted['authorization']['policy_id'],policy['policy_id'])
         again=dispatch(self.root,self.relay)
         self.assertEqual(again['submitted'],[])
+        self.assertEqual(len(list((self.relay/'input').glob('*.zip'))),1)
+
+    def test_bounded_dispatch_waits_for_exact_unified_pilot_import(self):
+        from relay_dispatch import dispatch,import_prerequisite_met
+        pilot=self.prepare(translation_issue=30)
+        gate={key:pilot[source] for key,source in (
+            ('attempt','id'),('issue','issue'),('job_sha256','job_sha256'),
+            ('request_sha256','request_sha256'),('output_filename','output_filename'))}
+        policy=c.read_json(self.root/'model-submission-policy.json')
+        policy.update(enabled=True,authorized_by='hiroshi-manabe',
+                      authorization_note='Synthetic standing approval',
+                      works=['gutenberg-36'],targets=['ja'],task_types=['translation'],
+                      max_submissions_total=1,max_submissions_per_run=1,max_in_flight=1,
+                      requires_import=gate)
+        queue=c.read_json(self.root/'translation-requests.json')
+        other=copy.deepcopy(next(x for x in queue['requests'] if x['issue']==30))
+        other['issue']=31;queue['requests'].append(other)
+        c.write_json(self.root/'translation-requests.json',queue)
+        with patch('relay_dispatch.policy',return_value=policy):
+            blocked=dispatch(self.root,self.relay)
+        self.assertEqual(blocked['activation_blocked'],
+                         'Exact imported unified translation pilot is not verified')
+        self.assertFalse(blocked['submitted'])
+        self.assertFalse(list((self.relay/'input').iterdir()))
+        self.assertFalse(import_prerequisite_met(self.root,gate))
+
+        with ZipFile(r.request_path(self.root,pilot)) as z:
+            manifest=json.loads(z.read('input/manifest.json'))
+        nodes={};files={}
+        for nid,fields in manifest['requested_fields'].items():
+            nodes[nid]={}
+            for field in fields:
+                name='text/'+nid+('.label.md' if field=='label' else '.md')
+                nodes[nid][field]=name
+                files[name]='Synthetic fixture label' if field=='label' else 'Synthetic fixture prose.\n'
+        files['result.json']={
+            'schema_version':2,'kind':'translation','adapter':'issue',
+            'request_id':'30','input_sha256':pilot['job_sha256'],
+            'status':'complete','model_label':'unknown','nodes':nodes,'auxiliary':{}}
+        response=r.archive(self.root,pilot)/'response.zip'
+        zip_files(response,files)
+        receipt=self.root/'translation-results/issue-30.json'
+        receipt.parent.mkdir(parents=True,exist_ok=True)
+        c.write_json(receipt,{'schema_version':1,'issue':30,
+            'job_sha256':pilot['job_sha256'],
+            'response_sha256':c.digest(response.read_bytes()),
+            'revision':'synthetic-fixture'})
+        pilot.update(state='imported',authorization={'note':'Synthetic exact approval'},
+                     response_sha256=c.digest(response.read_bytes()),
+                     outputs={'translation-results/issue-30.json':{
+                         'before':None,'after':c.digest(receipt.read_bytes())}})
+        r.save(self.root,pilot)
+        self.assertTrue(import_prerequisite_met(self.root,gate))
+        receipt.write_text(receipt.read_text()+' ',encoding='utf-8')
+        self.assertFalse(import_prerequisite_met(self.root,gate))
+        c.write_json(receipt,{'schema_version':1,'issue':30,
+            'job_sha256':pilot['job_sha256'],
+            'response_sha256':pilot['response_sha256'],
+            'revision':'synthetic-fixture'})
+        pilot['outputs']['translation-results/issue-30.json']['after']=c.digest(receipt.read_bytes())
+        r.save(self.root,pilot)
+        self.assertTrue(import_prerequisite_met(self.root,gate))
+        with patch('relay_dispatch.policy',return_value=policy):
+            sent=dispatch(self.root,self.relay)
+        self.assertIsNone(sent['activation_blocked'])
+        self.assertEqual(len(sent['submitted']),1)
+        self.assertEqual(len(list((self.relay/'input').glob('*.zip'))),1)
+        with patch('relay_dispatch.policy',return_value=policy):
+            again=dispatch(self.root,self.relay)
+        self.assertEqual(again['submitted'],[])
+        self.assertEqual(len(list((self.relay/'input').glob('*.zip'))),1)
+        sent_row=r.load(self.root,sent['submitted'][0]['attempt'])
+        sent_row['state']='needs_review';r.save(self.root,sent_row)
+        policy['max_submissions_total']=3
+        another=copy.deepcopy(other);another['issue']=32
+        queue['requests'].append(another)
+        c.write_json(self.root/'translation-requests.json',queue)
+        with patch('relay_dispatch.policy',return_value=policy):
+            held=dispatch(self.root,self.relay)
+        self.assertEqual(held['activation_blocked'],
+                         'A policy-authorized attempt needs review')
+        self.assertFalse(held['submitted'])
         self.assertEqual(len(list((self.relay/'input').glob('*.zip'))),1)
 
     def test_dispatch_prepares_accepted_translation_issue_without_submission(self):

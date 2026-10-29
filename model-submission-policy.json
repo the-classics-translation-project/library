@@ -1,14 +1,21 @@
 {
   "schema_version": 1,
-  "enabled": false,
-  "policy_id": "draft-pipeline-initial",
-  "authorized_by": null,
-  "authorization_note": null,
-  "works": [],
-  "targets": [],
-  "task_types": [],
+  "enabled": true,
+  "policy_id": "wells-ja-after-issue-30",
+  "authorized_by": "hiroshi-manabe",
+  "authorization_note": "Owner requested activation of PR #34's bounded Wells Japanese translation policy in this chat on 2026-10-29 after exact Issue #30 unified-v2 import verification. Three new submissions maximum; one per run and one in flight; no automatic retry.",
+  "works": ["gutenberg-36"],
+  "targets": ["ja"],
+  "task_types": ["translation"],
   "model": "6 Extra High",
-  "max_submissions_total": 0,
+  "max_submissions_total": 3,
   "max_submissions_per_run": 1,
-  "max_in_flight": 1
+  "max_in_flight": 1,
+  "requires_import": {
+    "attempt": "attempt-7195ba9ade6345339ac6dc167b4b44a8",
+    "issue": 30,
+    "job_sha256": "e04c3102148ce4883d7745419fd0f3f605e1140ae2b9ed44743d048651501df3",
+    "request_sha256": "6950b9894337441ad9f2c3dca60380f0929ddb818fed9a2cddc46ecd418cb696",
+    "output_filename": "ctp-translation-issue-30-28bea917e40f-result.zip"
+  }
 }

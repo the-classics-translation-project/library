@@ -1,25 +1,64 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-29** (draft preparation active; one exact pilot ZIP
-delivered, standing submission disabled). This file describes
+Last updated: **2026-10-29** (Issue #30 imported as draft; bounded standing
+submission activation in PR #34). This file describes
 observed state, not a claim that the software or literary workflows are finished.
 
-## Submission authority wording — proposal for owner review, 2026-10-29
+## Conditional Wells Japanese submission activation — 2026-10-29
 
-This branch clarifies in `AGENTS.md` that the owner may authorize either one
+[PR #34](https://github.com/the-classics-translation-project/library/pull/34)
+contains the owner's requested standing policy for accepted
+Wells Japanese translation Issues: requested model `6 Extra High`, at most three
+new policy-authorized submissions, one per run and one in flight. The owner
+asked to proceed with this defined scope in chat after the prepared proposal.
+The dispatcher checks that
+the separately authorized Issue #30 pilot's exact unified version 2 return was
+imported, with matching private attempt, receipt, archived hashes and ZIP
+contract, before any later in-scope delivery. A missing, held or changed pilot
+remains blocked without a resend. A later policy-authorized attempt needing
+review also stops subsequent deliveries. The existing clean/current `main` and
+committed-policy checks still apply.
+
+The pilot is now imported as a draft: relay job 29 reports `complete` with the
+exact request SHA-256 `6950b9894337441ad9f2c3dca60380f0929ddb818fed9a2cddc46ecd418cb696`;
+its retained response SHA-256 is
+`ea8280f46969011ded50dccd5dbd3e762471656b1b6198654038e5cf66253751`.
+The response is a complete version 2 Issue return for the pinned job hash,
+covering the chapter III label and body. Its receipt and run record are on
+`main` in commit `86d9125`; `./ctp validate` passed in the owner checkout.
+The generated chapter was inspected as draft prose, without a human literary
+review. The import run records the observed model as `unknown`; the ZIP's own
+`model_label` is untrusted and does not establish the visible Chat UI label.
+The exact private import gate returned true in the owner checkout.
+On the rebased PR, all 211 Python tests, `./ctp validate` and
+`git diff --check` passed locally. No UI/export behavior changed, so no new
+browser or build check was needed for this policy update.
+
+The enabled policy in this PR becomes operational only when merged into a
+clean, current `main` checkout. No further accepted Wells Japanese translation
+Issue exists at this inspection, so no new model job is queued for delivery.
+The existing result-import heartbeat must use its current-policy prompt rather
+than its earlier statement that the policy is disabled. Pending verification:
+one real timed authorized dispatch and subsequent exact import, plus Mac
+sleep/restart behavior. No reader catalogue or release approval is included.
+
+## Submission authority wording — merged, 2026-10-29
+
+The merged [PR #33](https://github.com/the-classics-translation-project/library/pull/33)
+clarified in `AGENTS.md` that the owner may authorize either one
 exact relay package or an explicitly approved bounded standing policy. Once an
 approved policy is enabled, eligible submissions within its works, targets,
 task types, model and remaining caps need no separate per-package approval.
 Issue acceptance, a prepared ZIP and a code merge are not execution
 authorization. Stopped or uncertain attempts still require deliberate handling.
-This wording proposal does not change dispatcher code or enable
-`model-submission-policy.json`; its checked-in policy remains disabled. The
-separately authorized Issue #30 pilot is still `delivered` without a relay job
-ID or verified result as of this inspection. The remaining decision is whether
-to adopt this wording and, later, which exact standing scope to authorize.
+That wording change did not change dispatcher code or enable
+`model-submission-policy.json`; its checked-in policy was disabled at that time. The
+separately authorized Issue #30 pilot was still `delivered` without a relay job
+ID or verified result as of that inspection. The wording was adopted; the
+specific standing policy is addressed above.
 Project validation, the focused bounded-dispatcher test and the diff check
 passed locally. No model submission, policy activation or draft publication
-was performed by this proposal.
+was performed by that wording change.
 
 ## Bounded draft-production automation — merged and preparation active, 2026-10-29
 
@@ -34,19 +73,19 @@ source-field coverage and fixed output contract. Optional notes and guides are
 no longer injected outside Applied; historical accepted requests keep their
 earlier meaning. A shared version 2 translation return ZIP accepts separate
 Markdown label/body files through both the Issue and opt-in direct adapters;
-their earlier ZIP formats remain accepted. No version 2 return has yet been
-tested with a live ChatGPT run.
+their earlier ZIP formats remain accepted. At that rollout, no version 2 return
+had yet been tested with a live ChatGPT run; Issue #30 later verified it above.
 
 `./ctp relay-dispatch` prepares accepted guide and translation Issue tasks and
 can deliver bounded new jobs only under a committed owner-approved policy on a
-clean, current `main`. `model-submission-policy.json` is **disabled** with zero
-authorized submissions. The existing 30-minute result-import heartbeat was
+clean, current `main`. At that rollout, `model-submission-policy.json` was
+**disabled** with zero authorized submissions. The existing 30-minute result-import heartbeat was
 updated in place and remains ACTIVE. A manual pass of its exact sequence
 prepared, submitted, imported and pushed nothing, and project validation passed.
 Offline checks passed: 210 Python tests, including bounded
-policy and unified ZIP fixtures. A real v2 model return, timed follow-up of the
-new dispatcher, sleep/restart behavior and a separately approved standing
-submission scope remain open. Draft import/public Git distribution continues
+policy and unified ZIP fixtures. At that rollout, a real v2 model return, timed
+follow-up, sleep/restart behavior and standing submission authorization were
+open; the pilot and authorization are addressed above. Draft import/public Git distribution continues
 under its existing policy; no reader release is implied. See the
 [submission policy](docs/model-submission-policy.md),
 [unified ZIP contract](docs/unified-translation-zip.md) and
@@ -76,7 +115,7 @@ passed with Issue #30 present. The owner then explicitly authorized this
 exact package for one model submission. The archived and relay-input ZIP hashes
 matched; the coordinator recorded the authorization and state `delivered` at
 2026-10-28 16:08 UTC. Relay registration, model execution and a v2 result
-remain unverified. The standing submission policy stays disabled. See
+were unverified then; the verified import is recorded above. See
 [rollout verification](verification/draft-pipeline-rollout-2026-10-29.md).
 
 ## Completed relay import and draft publication — 2026-10-28

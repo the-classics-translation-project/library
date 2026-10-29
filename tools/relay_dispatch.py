@@ -27,10 +27,11 @@ def dispatch_lock(root: Path):
 
 def policy(root: Path) -> dict:
     data = c.read_json(root/POLICY)
-    c.check(isinstance(data,dict) and set(data)=={
+    required={
         'schema_version','enabled','policy_id','authorized_by','authorization_note',
         'works','targets','task_types','model','max_submissions_total',
-        'max_submissions_per_run','max_in_flight'} and
+        'max_submissions_per_run','max_in_flight'}
+    c.check(isinstance(data,dict) and required<=set(data)<=required|{'requires_import'} and
         data['schema_version']==1 and type(data['enabled']) is bool and
         isinstance(data['policy_id'],str) and
         re.fullmatch(r'[a-z0-9][a-z0-9-]{2,79}',data['policy_id']) and
@@ -46,6 +47,18 @@ def policy(root: Path) -> dict:
             for x in data['targets']) and
         all(x in TASK_TYPES for x in data['task_types']),
         'Invalid model-submission policy')
+    if 'requires_import' in data:
+        gate=data['requires_import']
+        c.check(isinstance(gate,dict) and set(gate)=={
+            'attempt','issue','job_sha256','request_sha256','output_filename'} and
+            isinstance(gate['attempt'],str) and
+            re.fullmatch(r'attempt-[0-9a-f]{32}',gate['attempt']) and
+            type(gate['issue']) is int and gate['issue']>0 and
+            all(isinstance(gate[key],str) and re.fullmatch(r'[0-9a-f]{64}',gate[key])
+                for key in ('job_sha256','request_sha256')) and
+            isinstance(gate['output_filename'],str) and
+            re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*\.zip',gate['output_filename']),
+            'Invalid model-submission import prerequisite')
     if data['enabled']:
         maintainers=c.read_json(root/'project.json')['maintainers']
         c.check(data['authorized_by'] in maintainers and
@@ -70,6 +83,44 @@ def policy(root: Path) -> dict:
                 not dirty.stdout.strip(),
                 'Enabled model-submission policy requires a clean, current origin/main')
     return data
+
+
+def import_prerequisite_met(root: Path, gate: dict) -> bool:
+    """Require the exact authorized pilot's imported unified ZIP and receipt."""
+    try:
+        row=coordinator.load(root,gate['attempt'])
+        if not (row['adapter']=='translation' and row['issue']==gate['issue'] and
+                row['state']=='imported' and isinstance(row.get('authorization'),dict) and
+                row['job_sha256']==gate['job_sha256'] and
+                row['request_sha256']==gate['request_sha256'] and
+                row['output_filename']==gate['output_filename'] and
+                isinstance(row.get('response_sha256'),str) and
+                re.fullmatch(r'[0-9a-f]{64}',row['response_sha256'])):
+            return False
+        name='translation-results/issue-'+str(gate['issue'])+'.json'
+        if name not in row.get('outputs',{}):return False
+        coordinator.request_path(root,row)
+        receipt=root/name
+        response=coordinator.archive(root,row)/'response.zip'
+        if not (receipt.is_file() and not receipt.is_symlink() and
+                response.is_file() and not response.is_symlink()):return False
+        record=c.read_json(receipt)
+        if not (record.get('issue')==gate['issue'] and
+                record.get('job_sha256')==gate['job_sha256'] and
+                record.get('response_sha256')==row['response_sha256'] and
+                c.digest(receipt.read_bytes())==row['outputs'][name]['after'] and
+                c.digest(response.read_bytes())==row['response_sha256']):return False
+        from translation_jobs import prepare_job,request_entry
+        from unified_translation_zip import open_result,validate
+        _,manifest=prepare_job(root,request_entry(root,gate['issue']))
+        if manifest['job_sha256']!=gate['job_sha256']:return False
+        files,result=open_result(response)
+        validate(files,result,adapter='issue',request_id=str(gate['issue']),
+                 input_sha256=gate['job_sha256'],
+                 fields=manifest['requested_fields'],auxiliary={})
+        return True
+    except (c.ProjectError,OSError,ValueError,KeyError,TypeError):
+        return False
 
 
 def _task_type(row: dict) -> str:
@@ -118,7 +169,16 @@ def dispatch(root: Path, relay: Path = coordinator.DEFAULT_RELAY) -> dict:
         guides=coordinator.sync_proposals(root,relay,model=data['model'])
         prepared,existing,held=_prepare_issue_requests(root,relay,data['model'])
         submitted=[];skipped=[]
-        if data['enabled']:
+        activation_blocked=None
+        if data['enabled'] and 'requires_import' in data and not import_prerequisite_met(root,data['requires_import']):
+            activation_blocked='Exact imported unified translation pilot is not verified'
+        if data['enabled'] and activation_blocked is None and any(
+                row['state'] in {'needs_review','stale'} and
+                isinstance(row.get('authorization'),dict) and
+                row['authorization'].get('policy_id')==data['policy_id']
+                for row in coordinator.records(root)):
+            activation_blocked='A policy-authorized attempt needs review'
+        if data['enabled'] and activation_blocked is None:
             rows=coordinator.records(root)
             authorized=[row for row in rows if isinstance(row.get('authorization'),dict)
                         and row['authorization'].get('policy_id')==data['policy_id']]
@@ -144,5 +204,6 @@ def dispatch(root: Path, relay: Path = coordinator.DEFAULT_RELAY) -> dict:
         return {'guide_preparation':guides,'issue_prepared':prepared,
                 'issue_existing':existing,'held':held,'submitted':submitted,
                 'submission_blocked':skipped,'policy_enabled':data['enabled'],
+                'activation_blocked':activation_blocked,
                 'model_called_directly':False,
                 'relay_submitted':bool(submitted)}

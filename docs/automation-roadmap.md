@@ -2,22 +2,55 @@
 
 **Repository source of truth:** This document, [STATUS.md](../STATUS.md), [AGENTS.md](../AGENTS.md), and the implementation linked below. Update these in the **same PR as each meaningful automation change**. A chat transcript is not a progress ledger. Prefer verified observations and commit/PR links over impressions.
 
-## Authorization wording for review — 2026-10-29
+## Conditional standing submission — activation in PR #34, 2026-10-29
+
+[PR #34](https://github.com/the-classics-translation-project/library/pull/34)
+contains the owner-requested enabled policy for accepted Wells
+Japanese translation Issues using `6 Extra High`, with three submissions total,
+one per run and one in flight. The separately authorized Issue #30 pilot is
+outside that cap. The dispatcher must verify the pilot's exact authorized
+attempt, imported receipt, archived request and response hashes, and unified
+version 2 ZIP before any policy-authorized delivery. Missing, held, altered or
+legacy-format results block without a resend. A policy-authorized attempt that
+later needs review blocks subsequent delivery. The clean/current `main` and
+committed-policy checks still apply. Accepted tasks can still be prepared while
+this condition is unmet.
+
+Issue #30's original coordinator attempt is now `imported`: relay job 29
+reported `complete`, the exact archived ZIP and import receipt match, and the
+version 2 return contains the requested chapter III label and body. The
+imported draft and provenance are on `main` in `86d9125`; owner-checkout
+validation passed. The returned text was inspected as draft data, without a
+human literary review or independently observed model label. The gate returned
+true against the owner's private attempt and the committed receipt. The owner
+then asked to proceed with the prepared bounded scope in chat.
+On the rebased PR, 211 Python tests, project validation and the diff check
+passed locally. No UI/export change was made in this activation update.
+
+The enabled policy becomes operational only after PR #34 merges into the clean,
+current `main` checkout. No further accepted Wells Japanese translation Issue
+exists at this inspection. Update the live result-import heartbeat prompt to
+read the current committed policy, then observe one real scheduled dispatch
+and exact import; a policy-attempt hold must stop later submissions. Sleep and
+restart recovery remain unverified. A manual exact-package route remains
+available. Reader release and `catalog.json` are separate decisions.
+
+## Authorization wording — merged, 2026-10-29
 
 The owner's informal, interactive workflow and its bounded automation can use
 either exact-package authorization or one explicit standing authorization for
-a narrow policy revision. The proposed `AGENTS.md` wording says an active,
+a narrow policy revision. Merged [PR #33](https://github.com/the-classics-translation-project/library/pull/33)
+clarifies that an active,
 owner-approved policy authorizes in-scope submissions up to its limits without
 asking again for each job. Task intake remains distinct from model submission;
-stopped attempts are not resent automatically. This is a rule clarification,
-not activation: `model-submission-policy.json` remains disabled. After the
-single Issue #30 pilot has a verified result, decide the exact works, targets,
-task types, model and caps for any standing authorization. Maintainers may
+stopped attempts are not resent automatically. This was a rule clarification,
+not activation: `model-submission-policy.json` remained disabled at that time. The bounded
+Wells/Japanese activation is addressed above. Maintainers may
 continue using individual package approvals.
-This proposal changed no dispatcher code or policy JSON; `./ctp validate`, the
-focused bounded-dispatcher test and `git diff --check` passed locally. Next:
-owner review of the wording, then a separately scoped activation decision after
-the pilot result. No additional model job was submitted by this change.
+That wording change touched no dispatcher code or policy JSON; `./ctp validate`, the
+focused bounded-dispatcher test and `git diff --check` passed locally. The
+pilot result and separately scoped activation followed. No additional
+model job was submitted by that wording change.
 
 ## Next draft-production stage — merged; preparation active, 2026-10-29
 
@@ -30,12 +63,13 @@ coverage and output contract; no unselected notes or guides enter the new
 assembled input. Old accepted v1/v2 requests replay under their prior rules.
 The compatible [unified translation return ZIP](unified-translation-zip.md)
 works with both new Issue requests and opt-in direct packages in offline tests;
-the historical protocols stay readable. A real version 2 return is still needed.
+the historical protocols stay readable. At that rollout a real version 2 return
+was still needed; Issue #30 later supplied it.
 
 The new [bounded dispatcher](model-submission-policy.md) prepares accepted
 guide and translation tasks and can deliver to the existing relay only from a
-clean, current, committed `main` under a versioned owner policy. The checked-in
-policy is disabled and authorizes zero jobs. Offline verification passed 210
+clean, current, committed `main` under a versioned owner policy. At that rollout
+the checked-in policy was disabled and authorized zero jobs. Offline verification passed 210
 Python tests, project validation, the demo/EPUB build and Admin syntax check.
 A real local Chrome interaction selected Wells chapter III (`n0006`) and showed
 a v2 Issue URL with `materials: []`. The existing 30-minute heartbeat is now
@@ -51,9 +85,9 @@ isolated that fixture and merged as `572c36e`; main validation and Pages
 deployment passed. The owner explicitly authorized one submission of the
 exact Issue #30 package, whose archived and relay-input SHA-256 both equal
 `6950b9894337441ad9f2c3dca60380f0929ddb818fed9a2cddc46ecd418cb696`.
-The coordinator says `delivered`; relay registration and model execution are
-not yet verified. The standing submission policy remains disabled. After its real return and
-recovery checks, review a bounded standing authorization for automatic model
+The coordinator said `delivered`; relay registration and model execution were
+not yet verified then. The actual import and bounded activation are recorded
+above. At that time the next step was to review standing authorization for automatic model
 submission. Reader release remains a separate decision.
 
 ## Live completed-result rollout — 2026-10-28

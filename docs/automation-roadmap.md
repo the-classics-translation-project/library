@@ -2,6 +2,26 @@
 
 **Repository source of truth:** This document, [STATUS.md](../STATUS.md), [AGENTS.md](../AGENTS.md), and the implementation linked below. Update these in the **same PR as each meaningful automation change**. A chat transcript is not a progress ledger. Prefer verified observations and commit/PR links over impressions.
 
+## Accepted follow-up under bounded policy — 2026-10-30
+
+[Issue #37](https://github.com/the-classics-translation-project/library/issues/37)
+was created by the maintainer for Wells Japanese Book One chapter IV
+(`n0007`), as a **single** v2 `scope=missing` request. It pins the
+contemporary recipe plus ordered policy/work/Japanese-guide materials and was
+accepted into `translation-requests.json` by GitHub intake (`14343ab`).
+It is within the already enabled three-submission policy. **No live local
+submission or model result is confirmed merely by Issue acceptance.** The
+local configured heartbeat can attempt dispatch only if the checked-in policy,
+pilot proof and clean/current checkout checks pass. Do not create duplicate
+Issues or resend uncertain attempts to accelerate this trial.
+
+After the next actual local run, record the observed coordinator attempt and
+transport ID, policy-budget use, exact request/result hashes, whether it was
+a timed run, whether a v2 ZIP imported, provenance for the assembled input,
+draft publication/CI status, and any actionable review hold. Keep
+`catalog.json` unchanged without separate reader-release approval. Sleep or
+restart recovery remains an independent outstanding test.
+
 ## Next bounded milestone — 2026-10-30
 
 **Verified baseline:** the new Issue-based unified v2 return has a real imported
@@ -18,10 +38,8 @@ The historical Issue #30 record is deliberately not rewritten. The unified
 ZIP and prompt/workflow documentation now distinguish current and historical
 contracts correctly.
 
-**Next live acceptance:** create one narrowly scoped, authorized Wells Japanese
-Issue for an untranslated chapter (for example Book One chapter IV `n0007`)
-with explicit ordered policy/work/target guide references. Allow the already
-approved bounded policy and configured local heartbeat to handle delivery
+**Next live acceptance (Issue now created and accepted):** observe the existing
+bounded policy and configured local heartbeat handle Issue #37's exact request
 on a clean, current owner checkout. Confirm the GitHub Issue intake, a *timed*
 policy-authorized dispatcher submission, exact relay output ZIP, idempotent
 import, provenance including the fully assembled input, draft-only Git

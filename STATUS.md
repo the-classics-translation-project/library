@@ -4,6 +4,34 @@ Last updated: **2026-10-30** (verification of the v2 Issue pilot and forward-loo
 provenance fix; the Mac's latest private execution state is not asserted). This file describes
 observed state, not a claim that the software or literary workflows are finished.
 
+## First follow-up Issue queued for bounded standing-policy trial — 2026-10-30
+
+Maintainer-authored [Issue #37](https://github.com/the-classics-translation-project/library/issues/37)
+requests only Wells Japanese Book One chapter IV (`n0007`, *The Cylinder
+Opens*), with `scope=missing`, the contemporary literary recipe, and the
+ordered editorial-policy, language-neutral Wells guide and Japanese guide
+materials. GitHub's authorized intake added the v2 request to
+`translation-requests.json` in commit `14343ab`; the source/prompt/guide
+fingerprints match the existing validated source and selected references.
+The prior Issue #30 and its imported chapter III remain unchanged.
+
+Issue #37 is eligible for the owner-approved bounded
+`wells-ja-after-issue-30` model-submission policy (`6 Extra High`, maximum
+three *new* policy submissions total, one per run/in flight), **but the Issue
+and queue entry are not proof that the Mac heartbeat has executed**. No new
+policy-authorized relay submission, returned ZIP, imported translation, or
+reader release has been observed or claimed by this chat. The existing local
+dispatcher must establish its clean/current `main` and exact Issue #30
+import prerequisite before delivering, and must preserve the attempt/return
+hashes. A stalled result remains held; do not manually resend it.
+
+[PR #36](https://github.com/the-classics-translation-project/library/pull/36)
+merged as `b960f87`: new future v2 Issue imports capture the complete
+assembled input and only actually supplied Applied-material snapshots in the
+generation run. Both GitHub PR checks passed; the existing Issue #30 run was not
+rewritten. The current runner and exact ZIP return still need a real unattended
+post-activation trial and a recovery-after-sleep test.
+
 ## Exact input provenance for future v2 Issue imports — 2026-10-30
 
 This change improves **future** accepted v2 Issue translation imports: the

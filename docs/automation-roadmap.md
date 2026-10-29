@@ -2,10 +2,10 @@
 
 **Repository source of truth:** This document, [STATUS.md](../STATUS.md), [AGENTS.md](../AGENTS.md), and the implementation linked below. Update these in the **same PR as each meaningful automation change**. A chat transcript is not a progress ledger. Prefer verified observations and commit/PR links over impressions.
 
-## Conditional standing submission — activation in PR #34, 2026-10-29
+## Conditional standing submission — enabled, 2026-10-29
 
 [PR #34](https://github.com/the-classics-translation-project/library/pull/34)
-contains the owner-requested enabled policy for accepted Wells
+merged as `163c24b` with the owner-requested enabled policy for accepted Wells
 Japanese translation Issues using `6 Extra High`, with three submissions total,
 one per run and one in flight. The separately authorized Issue #30 pilot is
 outside that cap. The dispatcher must verify the pilot's exact authorized
@@ -27,13 +27,17 @@ then asked to proceed with the prepared bounded scope in chat.
 On the rebased PR, 211 Python tests, project validation and the diff check
 passed locally. No UI/export change was made in this activation update.
 
-The enabled policy becomes operational only after PR #34 merges into the clean,
-current `main` checkout. No further accepted Wells Japanese translation Issue
-exists at this inspection. Update the live result-import heartbeat prompt to
-read the current committed policy, then observe one real scheduled dispatch
-and exact import; a policy-attempt hold must stop later submissions. Sleep and
-restart recovery remain unverified. A manual exact-package route remains
-available. Reader release and `catalog.json` are separate decisions.
+The owner checkout fast-forwarded to `163c24b`, and project validation passed.
+The existing 30-minute **Import completed Classics relay results** heartbeat
+remained ACTIVE and its saved prompt was updated in place to read the current
+committed policy and prerequisite. A manual dispatcher run on clean current
+`main` reported an enabled policy, verified import gate, zero submissions and
+zero direct model calls; the watched relay input remained at nine ZIPs. The
+accepted translation queue contains only already-imported Issue #30. Next:
+observe a timed in-scope delivery and exact import when a new accepted Issue
+exists. A policy-attempt review hold must stop later submissions. Sleep/restart
+recovery remains unverified. A manual exact-package route remains available.
+Reader release and `catalog.json` are separate decisions.
 
 ## Authorization wording — merged, 2026-10-29
 

@@ -3,8 +3,12 @@
 New v2 Issue requests ask for this contract. A direct `relay-package` can opt
 in with `--unified-return`. The same strict result reader serves both adapters;
 earlier Issue `response.json` and direct `result.json` version 1 archives remain
-importable for their original packages. This format has offline tests but no
-live ChatGPT return yet.
+importable for their original packages. This format has offline tests **and a live Issue-based ChatGPT return**:
+Wells Japanese Issue #30 was imported as a draft on 2026-10-28, with the exact
+v2 request/result hashes, translation receipt and run record recorded in
+`translation-results/issue-30.json`. Its actual displayed model remains
+`unknown`, and the result has not undergone human literary review. The direct
+`--unified-return` variant remains unverified in a live ChatGPT job.
 
 The ZIP contains `result.json` and exactly the files named by its `nodes` and
 `auxiliary` entries. The JSON has exactly these fields:

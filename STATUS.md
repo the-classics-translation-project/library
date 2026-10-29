@@ -1,13 +1,13 @@
 # Status — version 0.1.0
 
 Last updated: **2026-10-29** (Issue #30 imported as draft; bounded standing
-submission activation in PR #34). This file describes
+submission enabled and no-op dispatch verified). This file describes
 observed state, not a claim that the software or literary workflows are finished.
 
 ## Conditional Wells Japanese submission activation — 2026-10-29
 
 [PR #34](https://github.com/the-classics-translation-project/library/pull/34)
-contains the owner's requested standing policy for accepted
+merged as `163c24b` with the owner's requested standing policy for accepted
 Wells Japanese translation Issues: requested model `6 Extra High`, at most three
 new policy-authorized submissions, one per run and one in flight. The owner
 asked to proceed with this defined scope in chat after the prepared proposal.
@@ -34,13 +34,17 @@ On the rebased PR, all 211 Python tests, `./ctp validate` and
 `git diff --check` passed locally. No UI/export behavior changed, so no new
 browser or build check was needed for this policy update.
 
-The enabled policy in this PR becomes operational only when merged into a
-clean, current `main` checkout. No further accepted Wells Japanese translation
-Issue exists at this inspection, so no new model job is queued for delivery.
-The existing result-import heartbeat must use its current-policy prompt rather
-than its earlier statement that the policy is disabled. Pending verification:
-one real timed authorized dispatch and subsequent exact import, plus Mac
-sleep/restart behavior. No reader catalogue or release approval is included.
+The owner's clean Documents checkout fast-forwarded to `163c24b` and
+`./ctp validate` passed. The existing 30-minute **Import completed Classics
+relay results** heartbeat remained ACTIVE; its saved prompt was updated in
+place to read the current committed policy and pinned import prerequisite.
+A manual `./ctp relay-dispatch` on clean current `main` reported
+`policy_enabled: true`, `activation_blocked: null`, `submitted: []`, and zero
+direct model calls. The relay's watched input stayed at nine ZIPs. The accepted
+translation queue contains only already-imported Issue #30, so there is no
+pending in-scope job to deliver. A real timed authorized dispatch and subsequent
+exact import remain unverified, as does Mac sleep/restart behavior. No
+`catalog.json` change or reader release approval is included.
 
 ## Submission authority wording — merged, 2026-10-29
 

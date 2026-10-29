@@ -1,8 +1,30 @@
 # Status — version 0.1.0
 
-Last updated: **2026-10-29** (Issue #30 imported as draft; bounded standing
-submission enabled and no-op dispatch verified). This file describes
+Last updated: **2026-10-30** (verification of the v2 Issue pilot and forward-looking
+provenance fix; the Mac's latest private execution state is not asserted). This file describes
 observed state, not a claim that the software or literary workflows are finished.
+
+## Exact input provenance for future v2 Issue imports — 2026-10-30
+
+This change improves **future** accepted v2 Issue translation imports: the
+importer preserves the exact `assembled_input` as
+`books/<work>/editions/<target>/inputs/issue-N-assembled.md`, captures its
+full text and fingerprint in the generation run, and records only the
+editorial materials actually supplied, rather than recapturing unrelated
+current notes. The existing Issue #30 accepted material snapshot, return ZIP,
+run record, frozen revision and imported draft remain unchanged; historical
+v1/v2 jobs still use their accepted contracts. Regression fixtures cover both
+an explicitly empty Applied stack and a modified-after-intake material.
+
+The October 29 live Issue #30 result already verified the unified v2 return
+contract. The previous October 28 audit's major prompt-assembly findings
+were fixed in PR #29. The current standing policy is still limited to three
+future Wells Japanese translation submissions, one per run/in flight, gated on
+the exact imported Issue #30 pilot. **No new unattended policy-driven
+submission or sleep/restart recovery has yet been observed** in the public
+status; no model job is submitted by this provenance/documentation change.
+Actual execution on the owner's Mac must be separately verified. No generated
+text has been approved for reader release; `catalog.json` remains empty.
 
 ## Conditional Wells Japanese submission activation — 2026-10-29
 

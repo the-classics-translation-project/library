@@ -33,7 +33,10 @@ materials produce a v2 Issue payload pinning each ID, SHA-256 and order. The
 accepted local queue snapshots complete text, so subsequent material edits do
 not rewrite an accepted task. `./ctp translation-preview ISSUE` writes the
 exact assembled input used by `translation-export`; complete text stays local.
-The importer continues to require its existing `response.json` contract.
+For **new** v2 requests, the importer accepts the shared `result.json` plus
+separate Markdown fields contract described in [unified translation ZIP](unified-translation-zip.md).
+Older accepted v1/v2 Issue requests continue to use their historical
+single-`response.json` output contract.
 
 The full proposal, including reconciliation with the currently different
 `relay-package` / `relay-import` ZIP return contract, is in
@@ -70,9 +73,11 @@ use the local direct adapter for private-guide experiments.
    existing local ZIP-to-ChatGPT relay. The package includes exact source fields,
    the expanded prompt, selected notes/guides, and optionally a frozen prior
    translation. No hidden conversation or separately billed API is required.
-5. Have ChatGPT return a ZIP containing **only** `response.json`, following the
-   README in the request ZIP. Its `job_sha256` must match the input manifest and
-   its `translations` must supply exactly the requested node/field set.
+5. Have ChatGPT return the **exact ZIP contract specified in the exported
+   README**. A newly accepted v2 Issue returns `result.json` and one Markdown
+   file for each requested label/body field, with the pinned job hash, Issue ID
+   and exact field coverage. Older accepted Issue jobs return only
+   `response.json`. Never infer the protocol solely from the Issue number.
 6. Import locally, inspect the result, and commit as appropriate:
 
    ```sh
@@ -85,6 +90,9 @@ use the local direct adapter for private-guide experiments.
    preceding draft when present, captures the displayed model name and fully
    expanded instructions through `record-run`, freezes the resulting draft,
    and records an idempotent result under `translation-results/issue-123.json`.
+   Future newly imported v2 runs also save the exact assembled input as an
+   edition `inputs/issue-N-assembled.md` artifact and capture its text in the
+   generation run; pre-existing records are not retroactively modified.
    Reusing the same return ZIP is a no-op; different results for the same Issue
    are rejected. **Nothing is added to `catalog.json` automatically.**
 
@@ -115,8 +123,8 @@ exact source text so later changes cannot silently alter a pending request.
 
 ## Request format
 
-The Admin page emits a machine-readable payload following
-`<!-- ctp:translation-request:v1 -->`:
+**Historical v1 only:** earlier Admin requests used the machine-readable
+`<!-- ctp:translation-request:v1 -->` marker, for example:
 
 ```json
 {
@@ -132,9 +140,9 @@ The Admin page emits a machine-readable payload following
 }
 ```
 
-With one or more Applied materials it emits
-`<!-- ctp:translation-request:v2 -->`, changes `schema_version` to `2`, and
-adds an ordered `"materials"` array such as
+**Current Admin:** every new request uses
+`<!-- ctp:translation-request:v2 -->`, `schema_version: 2`, and an
+ordered `"materials"` array (which may explicitly be empty), such as
 `[{"id":"policy.editorial","sha256":"<64-digit SHA-256>"}]`. The other
 fields keep their v1 meanings. A new Issue must be submitted by a configured
 maintainer; preparing its link does not accept or submit a task to the relay.
@@ -144,7 +152,9 @@ fingerprint. Accepted requests are immutable; correcting a request requires
 a new Issue. `scope=all` allows an independent retranslation even if a field
 already exists. `scope=missing` excludes already present fields. Reference
 `mode=text` requires a real frozen same-source/same-language revision;
-`mode=notes` supplies work, target and glossary guidance without old prose.
+For **new** v2 requests, notes and guides must be explicitly included in the
+Applied stack; `mode=notes` is rejected. Legacy requests keep their accepted
+reference semantics.
 A single source node may have a label and body text, so both are tracked
 independently. No forced sentence alignment is introduced.
 

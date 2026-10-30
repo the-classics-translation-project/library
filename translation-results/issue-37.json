@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "issue": 37,
+  "response_sha256": "f8a566c3db0af3760babe229abe532bd4ef797c3f942623e977da323200be882",
+  "job_sha256": "62353c6b3fe0c44d953971743cbb903b4f8cd7fc49a970c5c017723947d739df",
+  "previous_revision": "100065433f7258c0a5fd7c5a3547f3dc005031b98e01f5ea80c3532017193d42",
+  "revision": "a4402f877406f79c92a2c4857cce156173a66ce991d1f7966391a4f38c8527f7",
+  "run_record": "books/gutenberg-36/editions/ja/runs/run-665171ba8402491b959ec2d92a4898f7.json"
+}

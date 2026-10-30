@@ -12,7 +12,8 @@
     "human_review": "Not performed for this imported draft",
     "runs": [
       "run-836c73b26e2349d79225b542b2f04ad5",
-      "run-f10e25d1778442218c8f1647bcb6e01a"
+      "run-f10e25d1778442218c8f1647bcb6e01a",
+      "run-665171ba8402491b959ec2d92a4898f7"
     ]
   },
   "nodes": {
@@ -23,6 +24,10 @@
     "n0006": {
       "label": "第3章　ホーセル・コモンで",
       "text": "text/n0006.md"
+    },
+    "n0007": {
+      "label": "第4章　円筒が開く",
+      "text": "text/n0007.md"
     }
   }
 }

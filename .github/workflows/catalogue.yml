@@ -22,7 +22,7 @@ jobs:
     outputs:
       changed: ${{ steps.save.outputs.changed }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: main
       - uses: actions/setup-python@v7

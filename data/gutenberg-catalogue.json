@@ -2,8 +2,8 @@
   "schema_version": 1,
   "kind": "full-csv",
   "source": "https://www.gutenberg.org/cache/epub/feeds/pg_catalog.csv",
-  "retrieved_at": "2026-10-26T09:07:20.884203+00:00",
-  "source_sha256": "3cece81ad3a9261f1b2fbfd2db1e1819cf0c4d3bcffc02ef74ccb8865b46895c",
+  "retrieved_at": "2026-11-02T11:25:49.673126+00:00",
+  "source_sha256": "6bf36a85e7c8d9d65dd2496c458ff47186639aa2e3bcb0a7d9f63907e138ab2d",
   "records": [
     {
       "id": 1,
@@ -32431,7 +32431,7 @@
     },
     {
       "id": 4673,
-      "title": "Notes By the Way in a Sailor's Life",
+      "title": "Notes by the way in a sailor's life",
       "authors": "Knights, Arthur E.",
       "languages": "en",
       "type": "Text"
@@ -76664,7 +76664,7 @@
     },
     {
       "id": 11022,
-      "title": "Sowing and Reaping: A Temperance Story",
+      "title": "Sowing and reaping",
       "authors": "Harper, Frances Ellen Watkins, 1825-1911; Foster, Frances Smith [Editor]",
       "languages": "en",
       "type": "Text"
@@ -76881,7 +76881,7 @@
     },
     {
       "id": 11053,
-      "title": "Minnie's Sacrifice",
+      "title": "Minnie's sacrifice",
       "authors": "Harper, Frances Ellen Watkins, 1825-1911; Foster, Frances Smith [Editor]",
       "languages": "en",
       "type": "Text"
@@ -76902,7 +76902,7 @@
     },
     {
       "id": 11056,
-      "title": "Trial and Triumph",
+      "title": "Trial and triumph",
       "authors": "Harper, Frances Ellen Watkins, 1825-1911; Foster, Frances Smith [Editor]",
       "languages": "en",
       "type": "Text"
@@ -102684,7 +102684,7 @@
     {
       "id": 14739,
       "title": "The Altar Steps",
-      "authors": "MacKenzie, Compton, 1883-1972",
+      "authors": "Mackenzie, Compton, 1883-1972",
       "languages": "en",
       "type": "Text"
     },
@@ -140260,7 +140260,7 @@
     {
       "id": 20107,
       "title": "Denmark",
-      "authors": "Thomson, M. Pearson",
+      "authors": "Thomson, M. Pearson; Hyldahl, Ingeborg, 1880-1955 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -151278,7 +151278,7 @@
     {
       "id": 21681,
       "title": "A Little Traitor to the South\r\nA War Time Comedy with a Tragic Interlude",
-      "authors": "Brady, Cyrus Townsend, 1861-1920; Hooper, C. E. [Illustrator]; Rahn, A. D. [Illustrator]",
+      "authors": "Brady, Cyrus Townsend, 1861-1920; Hooper, C. E. [Illustrator]; Rahn, A. D., 1871-1962 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -152986,7 +152986,7 @@
     {
       "id": 21925,
       "title": "In Portugal\nDe Aarde en haar Volken, 1908",
-      "authors": "Beauregard, Gerard de, 1865-; Fouchier, Louis Charles Eugène Joseph de, 1869-",
+      "authors": "Beauregard, Gerard de, 1865-; Fouchier, Louis de, 1869-1962",
       "languages": "nl",
       "type": "Text"
     },
@@ -158537,7 +158537,7 @@
     {
       "id": 22718,
       "title": "Cathedrals and Cloisters of the South of France, Volume 1",
-      "authors": "Rose, Elise Whitlock; Frances, Vida Hunt [Illustrator]",
+      "authors": "Rose, Elise Whitlock, 1875-1961; Francis, Vida Hunt, 1870-1957 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -162841,7 +162841,7 @@
     },
     {
       "id": 23333,
-      "title": "Ein Mann\nDes Seefahrers und aufrechten Bürgers Joachim Nettelbeck wundersame Lebensgeschichte von ihm selbst erzählt",
+      "title": "Ein Mann",
       "authors": "Nettelbeck, Joachim, 1738-1824",
       "languages": "de",
       "type": "Text"
@@ -166503,7 +166503,7 @@
     {
       "id": 23856,
       "title": "The Heart of Arethusa",
-      "authors": "Fox, Frances Barton, 1887-; Read, F. W. (Frederick William), 1863- [Illustrator]",
+      "authors": "Fox, Frances Barton, 1887-1967; Read, F. W. (Frederick William), 1863- [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -167938,7 +167938,7 @@
     {
       "id": 24061,
       "title": "Jimmy Crow",
-      "authors": "Foster, Edith Francis",
+      "authors": "Foster, Edith Francis, 1863-1951",
       "languages": "en",
       "type": "Text"
     },
@@ -186999,7 +186999,7 @@
     {
       "id": 26784,
       "title": "Ιφιγένεια εν Αυλίδι",
-      "authors": "Euripides, 481? BCE-407 BCE; Fragkias, Ioannis [Translator]",
+      "authors": "Euripides, 481? BCE-407 BCE; Fragkias, Ioannis, 1851-1929 [Translator]",
       "languages": "el",
       "type": "Text"
     },
@@ -190561,8 +190561,8 @@
     },
     {
       "id": 27293,
-      "title": "A sketch of the life and services of Gen. Otho Holland Williams\r\nRead before the Maryland historical society, on Thursday\r\nevening, March 6, 1851",
-      "authors": "Tiffany, Osmond, 1823-",
+      "title": "A sketch of the life and services of Gen. Otho Holland Williams",
+      "authors": "Tiffany, Osmond, 1823-1895",
       "languages": "en",
       "type": "Text"
     },
@@ -191779,8 +191779,8 @@
     },
     {
       "id": 27467,
-      "title": "Stories to Read or Tell from Fairy Tales and Folklore",
-      "authors": "Foucher, Laure Claire [Editor]; Budell, Ada, 1873-1961 [Illustrator]",
+      "title": "Stories to read or tell from fairy tales and folklore",
+      "authors": "Foucher, Laure Claire, 1876-1944 [Editor]; Budell, Ada, 1873-1961 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -204793,7 +204793,7 @@
     {
       "id": 29327,
       "title": "Student und Alkohol\nVortrag gehalten am 21. Februar 1910",
-      "authors": "Loewenfeld, Leopold, 1847-1924",
+      "authors": "Löwenfeld, L. (Leopold), 1847-1924",
       "languages": "de",
       "type": "Text"
     },
@@ -210330,7 +210330,7 @@
     {
       "id": 30118,
       "title": "Masonic Monitor of the Degrees of Entered Apprentice, Fellow Craft and Master Mason\r\ntogether with the Ceremony of Installation, Laying Corner Stones, Dedications, Masonic Burial, Etc.",
-      "authors": "Thornburgh, George",
+      "authors": "Thornburgh, George, 1847-1923",
       "languages": "en",
       "type": "Text"
     },
@@ -211751,7 +211751,7 @@
     {
       "id": 30321,
       "title": "The Adductor Muscles of the Jaw In Some Primitive Reptiles",
-      "authors": "Fox, Richard C.",
+      "authors": "Fox, Richard C., 1933-2022",
       "languages": "en",
       "type": "Text"
     },
@@ -213837,7 +213837,7 @@
     {
       "id": 30620,
       "title": "Two New Pelycosaurs from the Lower Permian of Oklahoma",
-      "authors": "Fox, Richard C.",
+      "authors": "Fox, Richard C., 1933-2022",
       "languages": "en",
       "type": "Text"
     },
@@ -214298,8 +214298,8 @@
     },
     {
       "id": 30686,
-      "title": "Little Tales of The Desert",
-      "authors": "Foster, Ethel Twycross; Villa, Hernando G. [Illustrator]",
+      "title": "Little tales of the desert",
+      "authors": "Foster, Ethel Twycross, 1881-1963; Villa, Hernando G., 1881-1952 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -220906,8 +220906,8 @@
     },
     {
       "id": 31630,
-      "title": "Hand-Loom Weaving: A Manual for School and Home",
-      "authors": "Todd, Mattie Phipps",
+      "title": "Hand-loom weaving",
+      "authors": "Todd, Mattie Phipps, 1854-1930; Cooley, Alice Woodworth, 1859-1910 [Author of introduction, etc.]",
       "languages": "en",
       "type": "Text"
     },
@@ -221081,7 +221081,7 @@
     },
     {
       "id": 31655,
-      "title": "A Daughter of the Forest",
+      "title": "A daughter of the forest",
       "authors": "Raymond, Evelyn, 1843-1910; Waugh, Ida, 1846-1919 [Illustrator]",
       "languages": "en",
       "type": "Text"
@@ -230581,7 +230581,7 @@
     {
       "id": 33012,
       "title": "Carnival",
-      "authors": "MacKenzie, Compton, 1883-1972",
+      "authors": "Mackenzie, Compton, 1883-1972",
       "languages": "en",
       "type": "Text"
     },
@@ -230706,8 +230706,8 @@
     },
     {
       "id": 33030,
-      "title": "Chiquita, an American Novel: The Romance of a Ute Chief's Daughter",
-      "authors": "Tileston, Merrill",
+      "title": "Chiquita, an American novel",
+      "authors": "Tileston, Merrill (Henry Merrill), 1854-1912",
       "languages": "en",
       "type": "Text"
     },
@@ -231939,7 +231939,7 @@
     {
       "id": 33206,
       "title": "Plashers Mead: A Novel",
-      "authors": "MacKenzie, Compton, 1883-1972; Dewey, Alfred James, 1874-1958 [Illustrator]",
+      "authors": "Mackenzie, Compton, 1883-1972; Dewey, Alfred James, 1874-1958 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -236076,14 +236076,14 @@
     {
       "id": 33797,
       "title": "Sinister Street, vol. 1",
-      "authors": "MacKenzie, Compton, 1883-1972",
+      "authors": "Mackenzie, Compton, 1883-1972",
       "languages": "en",
       "type": "Text"
     },
     {
       "id": 33798,
       "title": "Sinister Street, vol. 2",
-      "authors": "MacKenzie, Compton, 1883-1972",
+      "authors": "Mackenzie, Compton, 1883-1972",
       "languages": "en",
       "type": "Text"
     },
@@ -241724,8 +241724,8 @@
     },
     {
       "id": 34604,
-      "title": "Middle American Frogs of the Hyla microcephala Group",
-      "authors": "Duellman, William Edward, 1930-2022; Fouquette, M. J.",
+      "title": "Middle American frogs of the Hyla microcephala group",
+      "authors": "Duellman, William Edward, 1930-2022; Fouquette, M. J., 1930-2014",
       "languages": "en",
       "type": "Text"
     },
@@ -251755,8 +251755,8 @@
     },
     {
       "id": 36037,
-      "title": "Medical experts: Investigation of Insanity by Juries",
-      "authors": "Thorne, W. S.",
+      "title": "Medical experts",
+      "authors": "Thorne, W. S. (Walter Scott), 1840-1913",
       "languages": "en",
       "type": "Text"
     },
@@ -258420,7 +258420,7 @@
     {
       "id": 36990,
       "title": "La letra escarlata\nnovela escrita en inglés",
-      "authors": "Hawthorne, Nathaniel, 1804-1864; Francisco, Sellén [Translator]",
+      "authors": "Hawthorne, Nathaniel, 1804-1864; Sellén, Francisco, 1838-1907 [Translator]",
       "languages": "es",
       "type": "Text"
     },
@@ -261598,7 +261598,7 @@
     {
       "id": 37444,
       "title": "Cookery for Little Girls",
-      "authors": "Foster, Olive Hyde",
+      "authors": "Foster, Olive Hyde, 1868?-1943",
       "languages": "en",
       "type": "Text"
     },
@@ -266729,7 +266729,7 @@
     {
       "id": 38177,
       "title": "The Passionate Elopement",
-      "authors": "MacKenzie, Compton, 1883-1972",
+      "authors": "Mackenzie, Compton, 1883-1972",
       "languages": "en",
       "type": "Text"
     },
@@ -271195,7 +271195,7 @@
     {
       "id": 38816,
       "title": "Poor relations",
-      "authors": "MacKenzie, Compton, 1883-1972",
+      "authors": "Mackenzie, Compton, 1883-1972",
       "languages": "en",
       "type": "Text"
     },
@@ -273379,7 +273379,7 @@
     {
       "id": 39128,
       "title": "Kensington Rhymes",
-      "authors": "MacKenzie, Compton, 1883-1972; Monsell, J. R. [Illustrator]",
+      "authors": "Mackenzie, Compton, 1883-1972; Monsell, J. R. [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -275031,7 +275031,7 @@
     {
       "id": 39364,
       "title": "Rich Relatives",
-      "authors": "MacKenzie, Compton, 1883-1972",
+      "authors": "Mackenzie, Compton, 1883-1972",
       "languages": "en",
       "type": "Text"
     },
@@ -275437,7 +275437,7 @@
     {
       "id": 39422,
       "title": "The Vanity Girl",
-      "authors": "MacKenzie, Compton, 1883-1972",
+      "authors": "Mackenzie, Compton, 1883-1972",
       "languages": "en",
       "type": "Text"
     },
@@ -276172,7 +276172,7 @@
     {
       "id": 39527,
       "title": "The Early Life and Adventures of Sylvia Scarlett",
-      "authors": "MacKenzie, Compton, 1883-1972",
+      "authors": "Mackenzie, Compton, 1883-1972",
       "languages": "en",
       "type": "Text"
     },
@@ -276375,7 +276375,7 @@
     {
       "id": 39556,
       "title": "Guy and Pauline",
-      "authors": "MacKenzie, Compton, 1883-1972",
+      "authors": "Mackenzie, Compton, 1883-1972",
       "languages": "en",
       "type": "Text"
     },
@@ -277103,7 +277103,7 @@
     {
       "id": 39660,
       "title": "Sylvia & Michael: The later adventures of Sylvia Scarlett",
-      "authors": "MacKenzie, Compton, 1883-1972",
+      "authors": "Mackenzie, Compton, 1883-1972",
       "languages": "en",
       "type": "Text"
     },
@@ -277802,8 +277802,8 @@
     },
     {
       "id": 39760,
-      "title": "Saddle and Mocassin",
-      "authors": "Francis, Francis",
+      "title": "Saddle and mocassin",
+      "authors": "Francis, Francis, 1853-1928",
       "languages": "en",
       "type": "Text"
     },
@@ -279434,7 +279434,7 @@
     {
       "id": 39993,
       "title": "Gardening for Little Girls",
-      "authors": "Foster, Olive Hyde",
+      "authors": "Foster, Olive Hyde, 1868?-1943",
       "languages": "en",
       "type": "Text"
     },
@@ -304500,7 +304500,7 @@
     },
     {
       "id": 43574,
-      "title": "Carpentry and Woodwork",
+      "title": "Carpentry and woodwork",
       "authors": "Foster, Edwin W.",
       "languages": "en",
       "type": "Text"
@@ -306139,7 +306139,7 @@
     {
       "id": 43808,
       "title": "Mary's Little Lamb: A Picture Guessing Story for Little Children",
-      "authors": "Foster, Edith Francis",
+      "authors": "Foster, Edith Francis, 1863-1951",
       "languages": "en",
       "type": "Text"
     },
@@ -339556,7 +339556,7 @@
     },
     {
       "id": 48582,
-      "title": "My Life at Sea\r\nbeing a \"yarn\" loosely spun for the purpose of holding together certain reminiscences of the transition period from sail to steam in the British mercantile marine (1863-1894)",
+      "title": "My life at sea",
       "authors": "Crutchley, William Caius, 1848-1923",
       "languages": "en",
       "type": "Text"
@@ -342132,7 +342132,7 @@
     },
     {
       "id": 48950,
-      "title": "English Translations from the Greek: A Bibliographical Survey",
+      "title": "English translations from the Greek, a bibliographical survey",
       "authors": "Foster, Finley Melville Kendall, 1892-1953",
       "languages": "en",
       "type": "Text"
@@ -383496,7 +383496,7 @@
     {
       "id": 54859,
       "title": "Organization: How Armies are Formed for War",
-      "authors": "Foster, Hubert, 1855-",
+      "authors": "Foster, Hubert, 1855-1919",
       "languages": "en",
       "type": "Text"
     },
@@ -391524,7 +391524,7 @@
     },
     {
       "id": 56006,
-      "title": "One Thousand Ways to Make Money",
+      "title": "One thousand ways to make money",
       "authors": "Fox, Page",
       "languages": "en",
       "type": "Text"
@@ -408731,7 +408731,7 @@
     {
       "id": 58467,
       "title": "Les évangiles des quenouilles",
-      "authors": "Fouquart, de Cambray, maistre; Duval, Antoine; Jean, d'Arras, active 14th century; Mansion, Colard, active 15th century [Editor]",
+      "authors": "Fouquart de Cambray; Duval, Antoine; Jean, d'Arras, active 14th century; Mansion, Colard, active 15th century [Editor]",
       "languages": "fr",
       "type": "Text"
     },
@@ -432881,7 +432881,7 @@
     {
       "id": 61920,
       "title": "Les amours du chevalier de Faublas, tome 1/5",
-      "authors": "Louvet de Couvray, Jean-Baptiste, 1760-1797; Fournier, Hippolyte [Author of introduction, etc.]; Avril, Paul, 1849-1928 [Illustrator]",
+      "authors": "Louvet de Couvray, Jean-Baptiste, 1760-1797; Fournier, Hippolyte, 1831- [Author of introduction, etc.]; Avril, Paul, 1849-1928 [Illustrator]",
       "languages": "fr",
       "type": "Text"
     },
@@ -452844,7 +452844,7 @@
     },
     {
       "id": 64773,
-      "title": "The history of the London Burkers\r\nContaining a faithful and authentic account of the horrid acts of the noted Resurrectionists, Bishop, Williams, May, etc., etc., and their trial and condemnation at the Old Bailey for the wilful murder of Carlo Ferrari, with the criminals' confessions after trial. Including also the life, character, and behaviour of the atrocious Eliza Ross, the murderer of Mrs. Walsh, etc., etc.",
+      "title": "The history of the London Burkers",
       "authors": "Anonymous",
       "languages": "en",
       "type": "Text"
@@ -454419,7 +454419,7 @@
     },
     {
       "id": 64998,
-      "title": "Practical Phrenology Simplified",
+      "title": "Practical phrenology simplified",
       "authors": "Foster, Theodore",
       "languages": "en",
       "type": "Text"
@@ -457647,7 +457647,7 @@
     {
       "id": 65459,
       "title": "The Dark Road: further adventures of Chéri-Bibi",
-      "authors": "Leroux, Gaston, 1868-1927",
+      "authors": "Leroux, Gaston, 1868-1927; Bennett, Hannaford, 1867-1946 [Translator]",
       "languages": "en",
       "type": "Text"
     },
@@ -461818,7 +461818,7 @@
     },
     {
       "id": 66056,
-      "title": "The Great Harry Thaw Case; Or, A Woman's Sacrifice",
+      "title": "The great Harry Thaw case",
       "authors": "Atwell, Benjamin H.",
       "languages": "en",
       "type": "Text"
@@ -461924,7 +461924,7 @@
     {
       "id": 66071,
       "title": "The Seven Ages of Woman",
-      "authors": "MacKenzie, Compton, 1883-1972",
+      "authors": "Mackenzie, Compton, 1883-1972",
       "languages": "en",
       "type": "Text"
     },
@@ -471338,7 +471338,7 @@
     },
     {
       "id": 67416,
-      "title": "West Port Murders\r\nOr an Authentic Account of the Atrocious Murders Committed by Burke and His Associates; Containing a Full Account of All the Extraordinary Circumstances Connected With Them. Also, a Report of the Trial of Burke and M'Dougal. With a Description of the Execution of Burke, His Confessions, and Memoirs of His Accomplices, Including the Proceedings Against Hare, &c.",
+      "title": "West Port Murders",
       "authors": "Anonymous",
       "languages": "en",
       "type": "Text"
@@ -501691,7 +501691,7 @@
     {
       "id": 71848,
       "title": "Rogues and vagabonds",
-      "authors": "MacKenzie, Compton, 1883-1972",
+      "authors": "Mackenzie, Compton, 1883-1972",
       "languages": "en",
       "type": "Text"
     },
@@ -503679,7 +503679,7 @@
     {
       "id": 72132,
       "title": "Daddy Joe's fiddle",
-      "authors": "Bickford, Faith, 1882-1964; Foster, Edith Francis [Illustrator]",
+      "authors": "Bickford, Faith, 1882-1964; Foster, Edith Francis, 1863-1951 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -512793,7 +512793,7 @@
     {
       "id": 73435,
       "title": "The Fighting Scrub",
-      "authors": "Barbour, Ralph Henry, 1870-1944; Rahn, A. D. [Illustrator]",
+      "authors": "Barbour, Ralph Henry, 1870-1944; Rahn, A. D., 1871-1962 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -543935,7 +543935,7 @@
     },
     {
       "id": 77889,
-      "title": "Gesammelte Schriften von Marie von Ebner-Eschenbach (1/10)",
+      "title": "Gesammelte Schriften von Marie von Ebner-Eschenbach (01/10)",
       "authors": "Ebner-Eschenbach, Marie von, 1830-1916",
       "languages": "de",
       "type": "Text"
@@ -548128,7 +548128,7 @@
     },
     {
       "id": 78490,
-      "title": "Gesammelte Schriften von Marie von Ebner-Eschenbach (3/10)",
+      "title": "Gesammelte Schriften von Marie von Ebner-Eschenbach (03/10)",
       "authors": "Ebner-Eschenbach, Marie von, 1830-1916",
       "languages": "de",
       "type": "Text"
@@ -548354,7 +548354,7 @@
       "id": 78522,
       "title": "Samhain, Issue 1, October 1901",
       "authors": "Yeats, W. B. (William Butler), 1865-1939 [Editor]; Hyde, Douglas, 1860-1949 [Contributor]; Martyn, Edward, 1859-1923 [Contributor]; Moore, George, 1852-1933 [Contributor]; Gregory, Lady, 1852-1932 [Translator]",
-      "languages": "en",
+      "languages": "en; ga",
       "type": "Text"
     },
     {
@@ -554051,7 +554051,7 @@
     {
       "id": 79337,
       "title": "Number three Joy Street",
-      "authors": "De la Mare, Walter, 1873-1956 [Contributor]; Armfield, Maxwell, 1881-1972 [Contributor]; Belloc, Hilaire, 1870-1953 [Contributor]; Chesterman, Hugh, 1884-1941 [Contributor]; Chesterton, G. K. (Gilbert Keith), 1874-1936 [Contributor]; Farjeon, Eleanor, 1881-1965 [Contributor]; Fyleman, Rose, 1877-1957 [Contributor]; Housman, Laurence, 1865-1959 [Contributor]; Karrik, Valerian Viliamovich, 1869-1942 [Contributor]; MacKenzie, Compton, 1883-1972 [Contributor]; Marlowe, Mabel, 1884-1954 [Contributor]; Meldrum, Roy, 1884-1955 [Contributor]; Milne, A. A. (Alan Alexander), 1882-1956 [Contributor]; Nightingale, M. (Madeleine), 1879-1972 [Contributor]; Tynan, Katharine, 1861-1931 [Contributor]",
+      "authors": "De la Mare, Walter, 1873-1956 [Contributor]; Armfield, Maxwell, 1881-1972 [Contributor]; Belloc, Hilaire, 1870-1953 [Contributor]; Chesterman, Hugh, 1884-1941 [Contributor]; Chesterton, G. K. (Gilbert Keith), 1874-1936 [Contributor]; Farjeon, Eleanor, 1881-1965 [Contributor]; Fyleman, Rose, 1877-1957 [Contributor]; Housman, Laurence, 1865-1959 [Contributor]; Karrik, Valerian Viliamovich, 1869-1942 [Contributor]; Mackenzie, Compton, 1883-1972 [Contributor]; Marlowe, Mabel, 1884-1954 [Contributor]; Meldrum, Roy, 1884-1955 [Contributor]; Milne, A. A. (Alan Alexander), 1882-1956 [Contributor]; Nightingale, M. (Madeleine), 1879-1972 [Contributor]; Tynan, Katharine, 1861-1931 [Contributor]",
       "languages": "en",
       "type": "Text"
     },
@@ -556934,7 +556934,7 @@
     },
     {
       "id": 79749,
-      "title": "Gesammelte Schriften von Marie von Ebner-Eschenbach (2/10)",
+      "title": "Gesammelte Schriften von Marie von Ebner-Eschenbach (02/10)",
       "authors": "Ebner-Eschenbach, Marie von, 1830-1916",
       "languages": "de",
       "type": "Text"
@@ -557069,7 +557069,7 @@
       "id": 79768,
       "title": "Samhain, issue 2, October 1902",
       "authors": "Yeats, W. B. (William Butler), 1865-1939 [Editor]; Hyde, Douglas, 1860-1949 [Contributor]; Russell, George William, 1867-1935 [Contributor]; Gregory, Lady, 1852-1932 [Translator]",
-      "languages": "en",
+      "languages": "en; ga",
       "type": "Text"
     },
     {
@@ -557083,7 +557083,7 @@
       "id": 79770,
       "title": "Samhain, issue 3, October 1903",
       "authors": "Yeats, W. B. (William Butler), 1865-1939 [Editor]; Gregory, Lady, 1852-1932 [Contributor]; Hyde, Douglas, 1860-1949 [Contributor]; Synge, J. M. (John Millington), 1871-1909 [Contributor]",
-      "languages": "en",
+      "languages": "en; ga",
       "type": "Text"
     },
     {
@@ -557677,14 +557677,14 @@
     {
       "id": 79855,
       "title": "Wolves of the sea",
-      "authors": "Leroux, Gaston, 1868-1927; Peck, H. J. (Henry Jarvis), 1880-1964 [Illustrator]",
+      "authors": "Leroux, Gaston, 1868-1927; Peck, H. J. (Henry Jarvis), 1880-1964 [Illustrator]; Bennett, Hannaford, 1867-1946 [Translator]",
       "languages": "en",
       "type": "Text"
     },
     {
       "id": 79856,
       "title": "Collected papers, Volume I",
-      "authors": "Freud, Sigmund, 1856-1939; Löwenfeld, Leopold; Jones, Ernest, 1879-1958 [Editor]; Riviere, Joan, 1883-1962 [Translator]",
+      "authors": "Freud, Sigmund, 1856-1939; Jones, Ernest, 1879-1958 [Editor]; Riviere, Joan, 1883-1962 [Translator]",
       "languages": "en",
       "type": "Text"
     },
@@ -557705,14 +557705,14 @@
     {
       "id": 79859,
       "title": "Het labyrint der wereld en het paradijs des harten",
-      "authors": "Comenius, Jan Amos; Oosterhuis, Rutger Adolph Benthem [Translator]",
+      "authors": "Comenius, Johann Amos, 1592-1670; Oosterhuis, R. A. Benthem, 1884-1980 [Translator]",
       "languages": "nl",
       "type": "Text"
     },
     {
       "id": 79860,
       "title": "Less than a bird",
-      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Schmidt, Oscar Frederick [Illustrator]",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Schmidt, Oscar Frederick, 1892-1957 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -557720,6 +557720,272 @@
       "id": 79861,
       "title": "The crew of the Dolphin",
       "authors": "Stretton, Hesba, 1832-1911",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79862,
+      "title": "An introduction to the history of history",
+      "authors": "Shotwell, James T., 1874-1965",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79863,
+      "title": "Memoirs of Charles Campbell, at present prisoner in the jail of Glasgow",
+      "authors": "Campbell, Charles, 1793-",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79864,
+      "title": "Ferdinand de Soto and the invasion of Florida",
+      "authors": "Ober, Frederick A. (Frederick Albion), 1849-1913",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79865,
+      "title": "A selection from the verses of John B. Tabb, made by Alice Meynell",
+      "authors": "Tabb, John B. (John Banister), 1845-1909; Meynell, Alice, 1847-1922 [Compiler]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79866,
+      "title": "Tales of Muscovy and the Ukraine",
+      "authors": "Bishop, G. B. H. (George Bernard Hamilton), 1884-1918",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79867,
+      "title": "The double thirteen",
+      "authors": "Wilson, R. McNair (Robert McNair), 1882-1963",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79868,
+      "title": "The Sun people",
+      "authors": "Hamilton, Edmond, 1904-1977; Senf, C. C. (Curtis Charles), 1873-1949 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79869,
+      "title": "Marriage inside out",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Johnston, Alfred Cheney, 1885-1971 [Photographer]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79870,
+      "title": "Während des Krieges in Deutsch-Ostafrika und Südafrika",
+      "authors": "Gürich, Georg, 1859-1938",
+      "languages": "de",
+      "type": "Text"
+    },
+    {
+      "id": 79871,
+      "title": "Round the globe through Greater Britain",
+      "authors": "Procter, W. C. [Editor]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79872,
+      "title": "Collected papers, Volume II",
+      "authors": "Freud, Sigmund, 1856-1939; Jones, Ernest, 1879-1958 [Editor]; Riviere, Joan, 1883-1962 [Translator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79873,
+      "title": "The darkness on Fifth Avenue",
+      "authors": "Leinster, Murray, 1896-1975; Birmingham, Lloyd, 1924-2010 [Illustrator]; Finlay, Virgil, 1914-1971 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79874,
+      "title": "Overstuffed",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Preston, James M., 1873-1962 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79875,
+      "title": "Riders of the wind",
+      "authors": "Thane, Elswyth, 1900-1984",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79876,
+      "title": "The single track",
+      "authors": "Ostrander, Isabel, 1883-1924; Duer, Douglas, 1887-1964 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79877,
+      "title": "Seven pillars of wisdom",
+      "authors": "Lawrence, T. E. (Thomas Edward), 1888-1935; Lawrence, A. W. (Arnold Walter), 1900-1991 [Author of introduction, etc.]; Carline, Sydney W., 1888-1929 [Illustrator]; Dobson, Frank, 1886-1963 [Illustrator]; Gill, Colin, 1892-1940 [Illustrator]; John, Augustus, 1878-1961 [Illustrator]; Kennington, Eric, 1888-1960 [Illustrator]; Lamb, Henry, 1883-1960 [Illustrator]; McIntosh, E. O. [Illustrator]; Meštrović, Ivan, 1883-1962 [Illustrator]; Nicholson, William, 1872-1949 [Illustrator]; Roberts, William, 1895-1980 [Illustrator]; Rothenstein, William, 1872-1945 [Illustrator]; Sargent, John Singer, 1856-1925 [Illustrator]; Spencer, Gilbert, 1892-1979 [Illustrator]; Young, R. M. [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79878,
+      "title": "Fencing foil class work illustrated",
+      "authors": "Manrique, Ricardo Enrique, 1865-",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79879,
+      "title": "Dirt cheap",
+      "authors": "Clausen, Carl, 1895?-1954; Brown, Howard V., 1878-1945 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79880,
+      "title": "In a matter of nuisances",
+      "authors": "Spears, Raymond S. (Raymond Smiley), 1876-1950; Eggenhofer, Nicholas, 1897-1985 [Illustrator]; Witton, Frederick, 1897-1985 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79881,
+      "title": "Beschrijvinge van het machtigh koninckrijcke Japan",
+      "authors": "Caron, François, 1600-1673; Campen, Léonard, -1623 [Contributor]; Gijsbertsz, Reyer [Contributor]; Hagenaar, Hendrik [Contributor]; Krammer, Coenraet, 1600-1674 [Contributor]",
+      "languages": "nl",
+      "type": "Text"
+    },
+    {
+      "id": 79882,
+      "title": "Gallipoli memories",
+      "authors": "Mackenzie, Compton, 1883-1972",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79883,
+      "title": "Lady Bell, volume 3 (of 3)",
+      "authors": "Tytler, Sarah, 1827-1914",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79884,
+      "title": "Coxswain of the Eight",
+      "authors": "Barbour, Ralph Henry, 1870-1944; Rahn, A. D., 1871-1962 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79885,
+      "title": "Lord Lister No. 0354: Montague en Capuletti",
+      "authors": "Matull, Kurt, 1872-1920; Blankensee, Theo von, 1881-1928; Hageman, Felix (Leonard Felix), 1877-1966",
+      "languages": "nl",
+      "type": "Text"
+    },
+    {
+      "id": 79886,
+      "title": "A vision of Venus",
+      "authors": "Kline, Otis Adelbert, 1891-1946",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79887,
+      "title": "Moon-calf",
+      "authors": "Dell, Floyd, 1887-1969",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79888,
+      "title": "Lying Lips",
+      "authors": "Le Queux, William, 1864-1927",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79889,
+      "title": "The Century illustrated monthly magazine",
+      "authors": "Various",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79890,
+      "title": "The art of being ruled",
+      "authors": "Lewis, Wyndham, 1882-1957",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79891,
+      "title": "Scenes in the life of Saint Paul",
+      "authors": "Anonymous",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79892,
+      "title": "The bracelet",
+      "authors": "Josselyn, Talbert; Olinick, G. O. (George Ochterlony), 1888-1957 [Illustrator]; Stevenson, E. M. [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79893,
+      "title": "Collected papers, Volume III",
+      "authors": "Freud, Sigmund, 1856-1939; Jones, Ernest, 1879-1958 [Editor]; Strachey, Alix, 1892-1973 [Translator]; Strachey, James, 1887-1967 [Translator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79894,
+      "title": "Summer storms",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Barnes, W. L. [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79895,
+      "title": "Gateway to Yamara",
+      "authors": "Evans, E. Everett (Edward Everett), 1893-1958; Belarski, Rudolph, 1900-1983 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79896,
+      "title": "The journey of Alvar Nuñez Cabeza de Vaca and his companions",
+      "authors": "Vaca, Alvar Nuñez Cabeza de; Bandelier, Ad. F. [Editor]; Bandelier, Fanny [Translator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79897,
+      "title": "Ahkeruus ja rehellisyys",
+      "authors": "Schmid, Chr. von",
+      "languages": "fi",
+      "type": "Text"
+    },
+    {
+      "id": 79898,
+      "title": "Jumalten ja ihmisten suosikit",
+      "authors": "Soini, Elsa, 1893-1952",
+      "languages": "fi",
+      "type": "Text"
+    },
+    {
+      "id": 79899,
+      "title": "Geographical studies",
+      "authors": "Ritter, Carl, 1779-1859; Bögekamp, Heinrich [Contributor]; Gage, William Leonard, 1832-1889 [Translator]",
       "languages": "en",
       "type": "Text"
     }

@@ -94,7 +94,10 @@ use the local direct adapter for private-guide experiments.
    edition `inputs/issue-N-assembled.md` artifact and capture its text in the
    generation run; pre-existing records are not retroactively modified.
    Reusing the same return ZIP is a no-op; different results for the same Issue
-   are rejected. **Nothing is added to `catalog.json` automatically.**
+   are rejected. For an imported `scope=missing` request, replay reconstructs
+   the original field selection from the receipt's frozen pre-import edition,
+   even though those fields are now translated. **Nothing is added to
+   `catalog.json` automatically.**
 
 ## Relay transport settings
 

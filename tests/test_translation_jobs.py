@@ -245,6 +245,47 @@ class TranslationZipTests(unittest.TestCase):
                                  'Synthetic chapter prose.\n')
         validate_results(self.root)
 
+    def test_missing_scope_unified_return_replays_after_import(self):
+        from translation_jobs import MARKER_V2,prepare_job,request_entry,zip_files,_edition
+        # The accepted request asks only for the still-missing text field.
+        # Its label exists before import and must stay excluded on replay.
+        eddir=self.work/'editions/ja'
+        eddir.mkdir(parents=True)
+        edition=_edition(self.root,'gutenberg-36','ja')
+        edition['nodes']['n0004']={'label':'Existing Japanese title'}
+        ctp.write_json(eddir/'edition.json',edition)
+        request=self.request(scope='missing');request['schema_version']=2;request['materials']=[]
+        fence=chr(96)*3
+        issue=self.issue(52,request)
+        issue['body']=MARKER_V2+'\n'+fence+'json\n'+json.dumps(request)+'\n'+fence
+        self.assertEqual(intake(self.root,[issue])['accepted'],[52])
+        original,manifest=prepare_job(self.root,request_entry(self.root,52))
+        self.assertEqual(manifest['requested_fields'],{'n0004':['text']})
+        result={'schema_version':2,'kind':'translation','adapter':'issue',
+                'request_id':'52','input_sha256':manifest['job_sha256'],
+                'status':'complete','model_label':'unknown',
+                'nodes':{'n0004':{'text':'text/n0004.md'}},'auxiliary':{}}
+        answer=self.root/'missing-result.zip'
+        zip_files(answer,{'result.json':result,'text/n0004.md':'New chapter prose.\n'})
+        imported=import_translation(self.root,answer,observed_model='unknown')
+        self.assertIsNotNone(imported['previous_revision'])
+        replay,replayed_manifest=prepare_job(self.root,request_entry(self.root,52))
+        self.assertEqual(replayed_manifest,manifest)
+        self.assertEqual(replay,original)
+        exported=self.root/'replayed-request.zip'
+        self.assertEqual(export_translation(self.root,52,exported)['job_sha256'],
+                         manifest['job_sha256'])
+        with ZipFile(exported) as archive:
+            self.assertEqual(json.loads(archive.read('input/job.json')),original)
+        before=(eddir/'edition.json').read_bytes()
+        self.assertTrue(import_translation(self.root,answer)['already_imported'])
+        self.assertEqual((eddir/'edition.json').read_bytes(),before)
+        changed=self.root/'changed-result.zip'
+        zip_files(changed,{'result.json':result,'text/n0004.md':'Different prose.\n'})
+        with self.assertRaisesRegex(ProjectError,'different response'):
+            import_translation(self.root,changed)
+        validate_results(self.root)
+
     def test_zip_export_import_retranslation_and_history(self):
         self.assertEqual(intake(self.root,[self.issue(42)])['accepted'],[42])
         out=self.root/'request.zip'

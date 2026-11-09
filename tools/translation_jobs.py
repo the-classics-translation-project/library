@@ -261,6 +261,22 @@ def prepare_job(root: Path, entry: dict) -> tuple[dict,dict]:
     eddir=wd/'editions'/req['target']
     edition=read_json(eddir/'edition.json') if (eddir/'edition.json').exists() else {'nodes':{}}
     target_fields=edition['nodes']
+    saved_result=None
+    if req['scope']=='missing':
+        # After an import, "missing" still means missing when this exact job
+        # was prepared. The receipt's pre-import snapshot preserves that state.
+        result_path=root/'translation-results'/('issue-'+str(entry['issue'])+'.json')
+        if result_path.exists():
+            saved_result=read_json(result_path)
+            check(saved_result.get('issue')==entry['issue'], 'Imported Issue identity changed')
+            previous=saved_result.get('previous_revision')
+            if previous is None:
+                target_fields={}
+            else:
+                check(isinstance(previous,str) and HASH.fullmatch(previous),
+                      'Invalid pre-import revision')
+                snapshot=c.load_snapshot(root,req['work'],req['target'],previous)
+                target_fields=snapshot['edition']['nodes']
     nodes=[]
     for node in selected:
         fields={}
@@ -310,6 +326,9 @@ def prepare_job(root: Path, entry: dict) -> tuple[dict,dict]:
               'work':req['work'],'target':req['target'],
               'job_sha256':digest(encoded),
               'requested_fields':{n['id']:list(n['fields']) for n in nodes}}
+    if saved_result is not None:
+        check(manifest['job_sha256']==saved_result.get('job_sha256'),
+              'Imported Issue job hash changed')
     return job,manifest
 
 def zip_files(path: Path, files: dict) -> None:
@@ -437,6 +456,11 @@ def import_translation(root: Path, path: Path, observed_model: str | None = None
     if legacy:
         response,raw=read_response(path)
         response_hash=digest(raw)
+        keys={'schema_version','kind','issue','job_sha256','model_label','translations'}
+        check(isinstance(response,dict) and set(response)==keys and
+              response['schema_version']==1 and response['kind']=='translation',
+              'Unknown translation return format')
+        issue=response['issue']
     else:
         from unified_translation_zip import open_result,validate
         files,result=open_result(path)
@@ -444,25 +468,9 @@ def import_translation(root: Path, path: Path, observed_model: str | None = None
         check(result.get('adapter')=='issue' and isinstance(ident,str) and
               re.fullmatch(r'[1-9][0-9]*',ident),'Invalid unified Issue identity')
         issue=int(ident)
-        entry=request_entry(root,issue)
-        job,manifest=prepare_job(root,entry)
-        translations,_,model=validate(files,result,adapter='issue',
-            request_id=ident,input_sha256=manifest['job_sha256'],
-            fields=manifest['requested_fields'],auxiliary={})
-        response={'schema_version':1,'kind':'translation','issue':issue,
-                  'job_sha256':manifest['job_sha256'],'model_label':model,
-                  'translations':translations}
         response_hash=digest(path.read_bytes())
-    keys={'schema_version','kind','issue','job_sha256','model_label','translations'}
-    check(isinstance(response,dict) and set(response)==keys and
-          response['schema_version']==1 and response['kind']=='translation',
-          'Unknown translation return format')
-    issue=response['issue']
     check(type(issue) is int and issue>0,'Invalid Issue ID')
     entry=request_entry(root,issue)
-    model=response['model_label'] if observed_model is None else observed_model
-    check(isinstance(model,str) and 0<len(model.strip())<=160,
-          'Missing actual model label (unknown is acceptable)')
     result_path=root/'translation-results'/('issue-'+str(issue)+'.json')
     if result_path.exists():
         previous=read_json(result_path)
@@ -471,6 +479,16 @@ def import_translation(root: Path, path: Path, observed_model: str | None = None
         return {'issue':issue,'already_imported':True,
                 'revision':previous['revision']}
     job,manifest=prepare_job(root,entry)
+    if not legacy:
+        translations,_,returned_model=validate(files,result,adapter='issue',
+            request_id=ident,input_sha256=manifest['job_sha256'],
+            fields=manifest['requested_fields'],auxiliary={})
+        response={'schema_version':1,'kind':'translation','issue':issue,
+                  'job_sha256':manifest['job_sha256'],'model_label':returned_model,
+                  'translations':translations}
+    model=response['model_label'] if observed_model is None else observed_model
+    check(isinstance(model,str) and 0<len(model.strip())<=160,
+          'Missing actual model label (unknown is acceptable)')
     check(response['job_sha256']==manifest['job_sha256'],
           'Response belongs to a different source or request')
     translations=response['translations']

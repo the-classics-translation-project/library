@@ -2,8 +2,8 @@
   "schema_version": 1,
   "kind": "full-csv",
   "source": "https://www.gutenberg.org/cache/epub/feeds/pg_catalog.csv",
-  "retrieved_at": "2026-11-02T11:25:49.673126+00:00",
-  "source_sha256": "6bf36a85e7c8d9d65dd2496c458ff47186639aa2e3bcb0a7d9f63907e138ab2d",
+  "retrieved_at": "2026-11-09T11:47:55.977271+00:00",
+  "source_sha256": "8c06ec1c46751dc184b640b8a8ed5842c873ae3b621d575f8e76837f12f33eb6",
   "records": [
     {
       "id": 1,
@@ -116340,8 +116340,8 @@
     },
     {
       "id": 16690,
-      "title": "Five Months on a German Raider\nBeing the Adventures of an Englishman Captured by the 'Wolf'",
-      "authors": "Trayes, Frederic George, 1871-",
+      "title": "Five months on a German raider",
+      "authors": "Trayes, Frederic George, 1871-1922",
       "languages": "en",
       "type": "Text"
     },
@@ -125405,7 +125405,7 @@
     },
     {
       "id": 17985,
-      "title": "Tom Swift and The Visitor from Planet X",
+      "title": "Tom Swift and the visitor from Planet X",
       "authors": "Appleton, Victor, II; Kaye, Graham [Illustrator]",
       "languages": "en",
       "type": "Text"
@@ -134316,7 +134316,7 @@
     },
     {
       "id": 19258,
-      "title": "Tom Swift and the Electronic Hydrolung",
+      "title": "Tom Swift and the electronic hydrolung",
       "authors": "Appleton, Victor, II; Brey, Charles [Illustrator]",
       "languages": "en",
       "type": "Text"
@@ -140295,7 +140295,7 @@
     {
       "id": 20112,
       "title": "Lill's travels in Santa Claus Land, and other stories",
-      "authors": "Towne, Ellis; Farman, Sophie May; Pratt, Ella Farman, 1837-1907",
+      "authors": "Towne, Ellis; May, Sophie, 1833-1906; Pratt, Ella Farman, 1837-1907",
       "languages": "en",
       "type": "Text"
     },
@@ -143962,8 +143962,8 @@
     },
     {
       "id": 20636,
-      "title": "The Military Journals of Two Private Soldiers, 1758-1775\nWith Numerous Illustrative Notes",
-      "authors": "Tomlinson, Abraham",
+      "title": "The military journals of two private soldiers, 1758-1775",
+      "authors": "Tomlinson, Abraham, 1805?- [Compiler]; Hawes, Samuel, 1743-1780? [Contributor]; Lyon, Lemuel, 1729-1781 [Contributor]",
       "languages": "en",
       "type": "Text"
     },
@@ -154064,7 +154064,7 @@
     {
       "id": 22079,
       "title": "The Brighton Boys in the Radio Service",
-      "authors": "Driscoll, James R.; Chambers, Wilson V. (Wilson Vaughn), 1893-1980 [Illustrator]",
+      "authors": "Driscoll, James R.; Chambers, Wilson V., 1893-1980 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -155841,7 +155841,7 @@
     },
     {
       "id": 22333,
-      "title": "Tom Swift and the Visitor From Planet X",
+      "title": "Tom Swift and the visitor from Planet X",
       "authors": "Appleton, Victor, II",
       "languages": "en",
       "type": "Sound"
@@ -237699,8 +237699,8 @@
     },
     {
       "id": 34029,
-      "title": "Parturition without Pain or Loss of Consciousness",
-      "authors": "Townley, James",
+      "title": "Parturition without pain or loss of consciousness",
+      "authors": "Townley, James, 1808-1888",
       "languages": "en",
       "type": "Text"
     },
@@ -240499,8 +240499,8 @@
     },
     {
       "id": 34429,
-      "title": "Check-list of the Birds of Kansas",
-      "authors": "Tordoff, Harrison Bruce, 1923-",
+      "title": "Check-list of the birds of Kansas",
+      "authors": "Tordoff, Harrison Bruce, 1923-2008",
       "languages": "en",
       "type": "Text"
     },
@@ -241521,7 +241521,7 @@
     },
     {
       "id": 34575,
-      "title": "The Triumph of Virginia Dale",
+      "title": "The triumph of Virginia Dale",
       "authors": "Francis, John, 1875-; Coffin, Haskell, 1878-1941 [Illustrator]; Goss, John, 1886-1963 [Illustrator]",
       "languages": "en",
       "type": "Text"
@@ -243986,7 +243986,7 @@
     {
       "id": 34927,
       "title": "The Ranch Girls and Their Great Adventure",
-      "authors": "Vandercook, Margaret, 1876-1958; Chambers, Wilson V. (Wilson Vaughn), 1893-1980 [Illustrator]",
+      "authors": "Vandercook, Margaret, 1876-1958; Chambers, Wilson V., 1893-1980 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -260387,7 +260387,7 @@
     {
       "id": 37271,
       "title": "The Ranch Girls and Their Heart's Desire",
-      "authors": "Vandercook, Margaret, 1876-1958; Chambers, Wilson V. (Wilson Vaughn), 1893-1980 [Illustrator]",
+      "authors": "Vandercook, Margaret, 1876-1958; Chambers, Wilson V., 1893-1980 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -269787,8 +269787,8 @@
     },
     {
       "id": 38615,
-      "title": "Quantity Cookery: Menu Planning and Cooking for Large Numbers",
-      "authors": "Richards, Lenore; Treat, Nola",
+      "title": "Quantity cookery",
+      "authors": "Richards, Lenore, 1892-1971; Treat, Nola, 1885-1983",
       "languages": "en",
       "type": "Text"
     },
@@ -276577,7 +276577,7 @@
     },
     {
       "id": 39585,
-      "title": "The Journal of a Disappointed Man",
+      "title": "The journal of a disappointed man",
       "authors": "Barbellion, W. N. P., 1889-1919; Wells, H. G. (Herbert George), 1866-1946 [Author of introduction, etc.]",
       "languages": "en",
       "type": "Text"
@@ -292341,7 +292341,7 @@
     },
     {
       "id": 41837,
-      "title": "The Secret Mark\nAn Adventure Story for Girls",
+      "title": "The secret mark",
       "authors": "Snell, Roy J. (Roy Judson), 1878-1959; Price, Garrett, 1896-1979 [Illustrator]",
       "languages": "en",
       "type": "Text"
@@ -304318,8 +304318,8 @@
     },
     {
       "id": 43548,
-      "title": "The Illustrated Key to the Tarot: The Veil of Divination",
-      "authors": "De Laurence, L. W. (Lauron William), 1868-1936; Smith, Pamela Colman, 1878-1951 [Illustrator]",
+      "title": "The illustrated key to the Tarot",
+      "authors": "Waite, Arthur Edward, 1857-1942; De Laurence, L. W. (Lauron William), 1868-1936 [Dubious author]; Smith, Pamela Colman, 1878-1951 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -352143,7 +352143,7 @@
     {
       "id": 50380,
       "title": "Annals, Anecdotes and Legends: A Chronicle of Life Assurance",
-      "authors": "Francis, John, of the Bank of England",
+      "authors": "Francis, John, 1810-1886",
       "languages": "en",
       "type": "Text"
     },
@@ -366156,8 +366156,8 @@
     },
     {
       "id": 52382,
-      "title": "Studies of Birds Killed in Nocturnal Migration",
-      "authors": "Tordoff, Harrison Bruce, 1923-; Mengel, Robert Morrow, 1921-",
+      "title": "Studies of birds killed in nocturnal migration",
+      "authors": "Tordoff, Harrison Bruce, 1923-2008; Mengel, Robert Morrow, 1921-1990",
       "languages": "en",
       "type": "Text"
     },
@@ -370930,8 +370930,8 @@
     },
     {
       "id": 53064,
-      "title": "Die Casting: Dies—Machines—Methods",
-      "authors": "Lucas, Chester L.",
+      "title": "Die casting",
+      "authors": "Lucas, Chester L., 1881-1921",
       "languages": "en",
       "type": "Text"
     },
@@ -372380,7 +372380,7 @@
     {
       "id": 53271,
       "title": "The Brighton Boys at Chateau-Thierry",
-      "authors": "Driscoll, James R.; Chambers, Wilson V. (Wilson Vaughn), 1893-1980 [Illustrator]",
+      "authors": "Driscoll, James R.; Chambers, Wilson V., 1893-1980 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -384294,7 +384294,7 @@
     {
       "id": 54973,
       "title": "The Brighton Boys in Transatlantic Flight",
-      "authors": "Driscoll, James R.; Chambers, Wilson V. (Wilson Vaughn), 1893-1980 [Illustrator]",
+      "authors": "Driscoll, James R.; Chambers, Wilson V., 1893-1980 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -385385,8 +385385,8 @@
     },
     {
       "id": 55129,
-      "title": "Working my Way Around the World",
-      "authors": "Franck, Harry Alverson, 1881-1962; Franck, Lena M.",
+      "title": "Working my way around the world",
+      "authors": "Franck, Harry Alverson, 1881-1962; Franck, Lena M. (Lena Maude), 1883-1977",
       "languages": "en",
       "type": "Text"
     },
@@ -389166,7 +389166,7 @@
     {
       "id": 55669,
       "title": "The Brighton Boys at St. Mihiel",
-      "authors": "Driscoll, James R.; Chambers, Wilson V. (Wilson Vaughn), 1893-1980 [Illustrator]",
+      "authors": "Driscoll, James R.; Chambers, Wilson V., 1893-1980 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -404930,7 +404930,7 @@
     {
       "id": 57923,
       "title": "Crystal River Saga: Lore of the Colorado Rockies",
-      "authors": "Francis, Theresa V.; Francis, William Lamartine [Contributor]",
+      "authors": "Francis, Theresa V. (Theresa Viola), 1889-1969; Francis, Will L. (William Lester), 1894-1969 [Contributor]",
       "languages": "en",
       "type": "Text"
     },
@@ -407106,8 +407106,8 @@
     },
     {
       "id": 58235,
-      "title": "Beach Rambles in Search of Seaside Pebbles and Crystals\r\nWith Some Observations on the Origin of the Diamond and Other Precious Stones",
-      "authors": "Francis, John George",
+      "title": "Beach rambles in search of seaside pebbles and crystals",
+      "authors": "Francis, John George, 1809?-; Coleman, M. W. S. [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -409815,7 +409815,7 @@
     },
     {
       "id": 58622,
-      "title": "The Briary Bush: A Novel",
+      "title": "The briary-bush",
       "authors": "Dell, Floyd, 1887-1969",
       "languages": "en",
       "type": "Text"
@@ -462665,7 +462665,7 @@
     },
     {
       "id": 66177,
-      "title": "Half Hours With Modern Scientists: Lectures and Essays",
+      "title": "Half hours with modern scientists",
       "authors": "Huxley, Thomas Henry, 1825-1895; Barker, George F. (George Frederick), 1835-1910; Cope, E. D. (Edward Drinker), 1840-1897; Stirling, James Hutchison, 1820-1909; Tyndall, John, 1820-1893; Porter, Noah, 1811-1892 [Author of introduction, etc.]",
       "languages": "en",
       "type": "Text"
@@ -484302,7 +484302,7 @@
     },
     {
       "id": 69300,
-      "title": "Korea and her neighbors\r\nA narrative of travel, with an account of the recent vicissitudes and present position of the country",
+      "title": "Korea and her neighbors",
       "authors": "Bird, Isabella L. (Isabella Lucy), 1831-1904; Hillier, Walter, Sir, 1849-1927 [Author of introduction, etc.]",
       "languages": "en",
       "type": "Text"
@@ -489700,7 +489700,7 @@
     {
       "id": 70116,
       "title": "The Safety First Club fights fire",
-      "authors": "Nichols, William Theophilus, 1863-; Chambers, Wilson V. (Wilson Vaughn), 1893-1980 [Illustrator]",
+      "authors": "Nichols, William Theophilus, 1863-; Chambers, Wilson V., 1893-1980 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -493347,7 +493347,7 @@
     {
       "id": 70656,
       "title": "Chronicles and characters of the stock exchange",
-      "authors": "Francis, John, of the Bank of England; Defoe, Daniel, 1661?-1731 [Contributor]",
+      "authors": "Francis, John, 1810-1886; Defoe, Daniel, 1661?-1731 [Contributor]",
       "languages": "en",
       "type": "Text"
     },
@@ -557894,7 +557894,7 @@
     {
       "id": 79886,
       "title": "A vision of Venus",
-      "authors": "Kline, Otis Adelbert, 1891-1946",
+      "authors": "Kline, Otis Adelbert, 1891-1946; Morey, Leo, 1889-1965 [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -557907,7 +557907,7 @@
     },
     {
       "id": 79888,
-      "title": "Lying Lips",
+      "title": "Lying lips",
       "authors": "Le Queux, William, 1864-1927",
       "languages": "en",
       "type": "Text"
@@ -557928,7 +557928,7 @@
     },
     {
       "id": 79891,
-      "title": "Scenes in the life of Saint Paul",
+      "title": "Scenes in the life of Saint Paul, in easy verse.",
       "authors": "Anonymous",
       "languages": "en",
       "type": "Text"
@@ -557936,7 +557936,7 @@
     {
       "id": 79892,
       "title": "The bracelet",
-      "authors": "Josselyn, Talbert; Olinick, G. O. (George Ochterlony), 1888-1957 [Illustrator]; Stevenson, E. M. [Illustrator]",
+      "authors": "Josselyn, Talbert, 1886-1961; Olinick, G. O. (George Ochterlony), 1888-1957 [Illustrator]; Stevenson, E. M. [Illustrator]",
       "languages": "en",
       "type": "Text"
     },
@@ -557964,14 +557964,14 @@
     {
       "id": 79896,
       "title": "The journey of Alvar Nuñez Cabeza de Vaca and his companions",
-      "authors": "Vaca, Alvar Nuñez Cabeza de; Bandelier, Ad. F. [Editor]; Bandelier, Fanny [Translator]",
+      "authors": "Núñez Cabeza de Vaca, Alvar, active 16th century; Marco, da Nizza, 1495?-1558 [Contributor]; Mendoza, Antonio de, 1492?-1552 [Contributor]; Bandelier, Adolph Francis Alphonse, 1840-1914 [Editor]; Bandelier, Fanny, 1869-1936 [Translator]",
       "languages": "en",
       "type": "Text"
     },
     {
       "id": 79897,
       "title": "Ahkeruus ja rehellisyys",
-      "authors": "Schmid, Chr. von",
+      "authors": "Schmid, Christoph von, 1768-1854",
       "languages": "fi",
       "type": "Text"
     },
@@ -557985,8 +557985,407 @@
     {
       "id": 79899,
       "title": "Geographical studies",
-      "authors": "Ritter, Carl, 1779-1859; Bögekamp, Heinrich [Contributor]; Gage, William Leonard, 1832-1889 [Translator]",
+      "authors": "Ritter, Carl, 1779-1859; Bögekamp, Heinrich, 1823-1870 [Contributor]; Gage, William Leonard, 1832-1889 [Translator]",
       "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79900,
+      "title": "Syntipukki",
+      "authors": "Soini, Yrjö, 1896-1975",
+      "languages": "fi",
+      "type": "Text"
+    },
+    {
+      "id": 79901,
+      "title": "The monster-god of Mamurth",
+      "authors": "Hamilton, Edmond, 1904-1977; Olinick, G. O. (George Ochterlony), 1888-1957 [Illustrator]; Petrie, C. Barker, Jr. (Charles Barker), 1898-1956 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79902,
+      "title": "Tag",
+      "authors": "Abernathy, Robert, 1924-1990; Conrad, Rupert, 1907-1979 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79903,
+      "title": "William Thornton and negro colonization",
+      "authors": "Hunt, Gaillard, 1862-1924",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79904,
+      "title": "Account closed",
+      "authors": "Mason, David, 1924-1974",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79905,
+      "title": "Somebody outside",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Allen, Courtney, 1896-1969 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79906,
+      "title": "By Allah who made tigers",
+      "authors": "Mundy, Talbot, 1879-1940; Stahr, Paul, 1883-1953 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79907,
+      "title": "Books and reading",
+      "authors": "Porter, Noah, 1811-1892",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79908,
+      "title": "The sign of evil",
+      "authors": "Wilson, R. McNair (Robert McNair), 1882-1963",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79909,
+      "title": "At the sign of the Blue Boar",
+      "authors": "Leslie, Emma, 1838-1909; Tennant, C. Dudley (Charles Dudley), 1866-1952 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79910,
+      "title": "The vengeance of Sa'ik",
+      "authors": "Kline, Otis Adelbert, 1891-1946; Von Gelb, Donald [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79911,
+      "title": "Bannion's cave",
+      "authors": "St. Clair, Margaret, 1911-1995; Finlay, Virgil, 1914-1971 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79912,
+      "title": "The reports of the committees of the House of Representatives, made during the first session Thirty-ninth Congress, 1865-'66. Volume 3",
+      "authors": "United States. Congress",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79913,
+      "title": "The next corner",
+      "authors": "Jordan, Kate, 1862-1926; Chambers, Wilson V., 1893-1980 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79914,
+      "title": "Seasoned traveler",
+      "authors": "Wallace, F. L. (Floyd L.), 1915-2004; Hunter, Mel, 1927-2004 [Illustrator]; Smith, Malcolm, 1910-1966 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79915,
+      "title": "Sin club",
+      "authors": "Elliott, Don, 1935-; McCauley, Harold W. (Harold William), 1913-1977 [Artist]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79916,
+      "title": "Last night of summer",
+      "authors": "Coppel, Alfred, 1921-2004; Faragasso, Jack, 1929- [Illustrator]; Valigursky, Ed, 1926-2009 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79917,
+      "title": "The gates of pearl",
+      "authors": "Mason, David, 1924-1974",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79918,
+      "title": "Release",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79919,
+      "title": "Il Pentamerone; ossia, La fiaba delle fiabe, vol. 1/2",
+      "authors": "Basile, Giambattista, 1575?-1632; Croce, Benedetto, 1866-1952 [Translator]",
+      "languages": "it",
+      "type": "Text"
+    },
+    {
+      "id": 79920,
+      "title": "Il Pentamerone; ossia, La fiaba delle fiabe, vol. 2/2",
+      "authors": "Basile, Giambattista, 1575?-1632; Croce, Benedetto, 1866-1952 [Translator]",
+      "languages": "it",
+      "type": "Text"
+    },
+    {
+      "id": 79921,
+      "title": "No more the stars",
+      "authors": "Cox, Irving E., Jr., 1917-2001; Valigursky, Ed, 1926-2009 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79922,
+      "title": "Enough is enough",
+      "authors": "Ferlaine, J. Anthony (John Anthony), 1921-2011; Emshwiller, Ed, 1925-1990 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79923,
+      "title": "The debt",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Riley, Nicholas F., 1900-1944 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79924,
+      "title": "A last diary",
+      "authors": "Barbellion, W. N. P., 1889-1919; Cummings, A. J. (Arthur John), 1882-1957 [Author of introduction, etc.]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79925,
+      "title": "The Ship of Ishtar",
+      "authors": "Merritt, Abraham, 1884-1943; Finlay, Virgil, 1914-1971 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79926,
+      "title": "The Orneks and the Gogos",
+      "authors": "Fritch, Charles E., 1927-2012",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79927,
+      "title": "Narratives of the rites and laws of the Yncas",
+      "authors": "Markham, Clements R. (Clements Robert), Sir, 1830-1916 [Translator]; Avila, Francisco de, 1573?-1647; Molina, Cristóbal de, 1529?-1585; Polo de Ondegardo, -1575; Santa Cruz Pachacuti Yamqui Salcamayhua, Juan de",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79928,
+      "title": "En route",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Hicks, Cornelius, 1898-1930 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79929,
+      "title": "Mei",
+      "authors": "Gorter, Herman, 1864-1927",
+      "languages": "nl",
+      "type": "Text"
+    },
+    {
+      "id": 79930,
+      "title": "Riding the whirlwind",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Price, Garrett, 1896-1979 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79931,
+      "title": "It all begins again",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Robinson, David, 1886?-1974? [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79932,
+      "title": "Prince of peril",
+      "authors": "Kline, Otis Adelbert, 1891-1946; Krenkel, Roy G., 1918-1983 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79933,
+      "title": "The big tick",
+      "authors": "Rocklynne, Ross, 1913-1988",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79934,
+      "title": "The radio man returns",
+      "authors": "Farley, Ralph Milne, 1887-1963; Juhre, William, 1903-1976 [Illustrator]; Krupa, Julian S., 1913-1989 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79935,
+      "title": "The Scientific American handbook of travel",
+      "authors": "Hopkins, Albert A. (Albert Allis), 1869-1939 [Editor]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79936,
+      "title": "A history of Japanese colour-prints",
+      "authors": "Seidlitz, Woldemar von, 1850-1922",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79937,
+      "title": "Miss Lavender's boy",
+      "authors": "Le Feuvre, Amy, 1861-1929",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79938,
+      "title": "The soul-maker",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Hanna, T. K. [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79939,
+      "title": "My fair lady",
+      "authors": "Hémon, Louis, 1880-1913; Bradley, William Aspenwall, 1878-1939 [Translator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79940,
+      "title": "Dies and die making",
+      "authors": "Lucas, James Lewis, 1855-1944",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79941,
+      "title": "Building the pacific railway",
+      "authors": "Sabin, Edwin L. (Edwin Legrand), 1870-1952",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79942,
+      "title": "The Fearsome Island",
+      "authors": "Kinross, Albert",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79943,
+      "title": "Scenes in the lives of St. Matthew, St. Jude, and Saint Simon",
+      "authors": "Anonymous",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79944,
+      "title": "A man's right",
+      "authors": "Hull, Helen R. (Helen Rose), 1888-1971; Giles, Howard, 1876-1955 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79945,
+      "title": "Pictures of bird life in pen and pencil",
+      "authors": "Watkins, M. G. (Morgan George), 1835-; Giacomelli, Hector, 1822-1904 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79946,
+      "title": "Decision final",
+      "authors": "Randall, Robert; Rognan, Lloyd, 1923-2005 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79947,
+      "title": "Sixty-four, ninety-four!",
+      "authors": "Mottram, R. H. (Ralph Hale), 1883-1971",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79948,
+      "title": "Suomalaisen talonpojan elämänvaiheet",
+      "authors": "talonpoika, Suomalainen",
+      "languages": "fi",
+      "type": "Text"
+    },
+    {
+      "id": 79949,
+      "title": "Lumimyrskyssä",
+      "authors": "Schmitthenner, Adolf, 1854-1907",
+      "languages": "fi",
+      "type": "Text"
+    },
+    {
+      "id": 79950,
+      "title": "Scenes in the lives of Saint Stephen, Timothy, Saint Mark, and Saint Luke",
+      "authors": "Anonymous",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79951,
+      "title": "First lessons in Geometry",
+      "authors": "Hill, Thomas George, 1876-1954",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79952,
+      "title": "The Complete Poetical Works of Geoffrey Chaucer, Now First Put Into Modern English",
+      "authors": "Chaucer, Geoffrey, 1343?-1400; MacKaye, Percy, 1875-1956 [Editor]; Tatlock, John S. P. [Editor]; Goble, Warwick, 1862-1943 [Illustrator]",
+      "languages": "en",
+      "type": "Text"
+    },
+    {
+      "id": 79953,
+      "title": "Rocambole (1/3)",
+      "authors": "Terrail, Ponson du",
+      "languages": "fi",
+      "type": "Text"
+    },
+    {
+      "id": 79954,
+      "title": "Rocambole (2/3)",
+      "authors": "Terrail, Ponson du",
+      "languages": "fi",
+      "type": "Text"
+    },
+    {
+      "id": 79955,
+      "title": "Rocambole (3/3)",
+      "authors": "Terrail, Ponson du",
+      "languages": "fi",
+      "type": "Text"
+    },
+    {
+      "id": 79956,
+      "title": "Setä Samulin ylioppilaana",
+      "authors": "Borg, Margit",
+      "languages": "fi",
       "type": "Text"
     }
   ]
